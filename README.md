@@ -1,2 +1,2 @@
-# Number Theory algorithms
-This app provides a comprehensive set of essential number theory algorithms, designed for quick and accurate calculations. It's an ideal companion for students studying number theory and enthusiasts seeking a reliable tool for exploring mathematical problems.
+# Number Theory Algorithms
+Android app offering a set of basic number theory algorithms, designed for quick and easy calculations. Useful for students studying number theory and for enthusiasts looking for a tool to explore mathematical problems on the go.
