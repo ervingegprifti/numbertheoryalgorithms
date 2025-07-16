@@ -34,6 +34,4 @@ We may modify these Terms at any time. Updated versions will be published on our
 
 ## Contact Us
 
-If you have any questions about these Terms, please contact us at:
-
-📧 gegprifti.ervin@gmail.com
+If you have any questions about these Terms, please get in touch with us at: gegprifti.ervin@gmail.com
