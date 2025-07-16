@@ -1,3 +1,9 @@
+---
+layout: page
+title: Terms and Conditions
+permalink: /terms_and_conditions/
+---
+
 # Terms and Conditions
 
 **Effective Date:** July 16, 2025 (as of version 3.0.7.0)
