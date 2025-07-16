@@ -37,6 +37,4 @@ We may update this Privacy Policy occasionally. You are advised to check the lat
 
 ## Contact Us
 
-If you have any questions or concerns about this Privacy Policy, please contact us at:
-
-📧 gegprifti.ervin@gmail.com
+If you have any questions or concerns about this Privacy Policy, please get in touch with us at: gegprifti.ervin@gmail.com
