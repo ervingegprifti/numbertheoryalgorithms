@@ -21,8 +21,7 @@ You may use this App for personal or educational purposes. You agree not to use 
 
 ## Open Source License
 
-This App is open source and made available under the **Apache License 2.0**. You may view the source code at:  
-[Number Theory Algorithms GitHub Repository](https://github.com/ervingegprifti/numbertheoryalgorithms)
+This App is open source and made available under the **Apache License 2.0**. You may view the source code at: [Number Theory Algorithms GitHub Repository](https://github.com/ervingegprifti/numbertheoryalgorithms)
 
 By using the app, you agree to the terms of the Apache License 2.0, including restrictions and obligations around distribution and modification.
 
