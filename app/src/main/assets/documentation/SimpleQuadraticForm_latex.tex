@@ -1,0 +1,116 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+%https://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+% [linesnumbered, ruled, vlined]
+
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}	
+%\nopagecolor % Transparent if the rendering machine supports it.
+
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Simple Quadratic Form module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Simple Quadratic Form}
+\begin{equation} \label{eq:SQF}
+	bxy+dx+ey=f
+\end{equation}	
+The equation \eqref{eq:SQF} is a simpler case of the more generic Quadratic Form $ax^2+bxy+cy^2+dx+ey=f$ where $a=c=0$. The algorithm make use of the factoring technique known as (Simon's Favorite Factoring Trick SFFT) in order to find solutions to \eqref{eq:SQF} if any. The implementation of this algorithm is based on (\cite{yan2002number} pg. 56). \\
+
+
+
+
+\begin{algorithm}[H]
+	\caption{Simple Quadratic Form Algorithm}
+	\DontPrintSemicolon
+	\SetAlgoLined
+	\KwIn{$b, d,e,f,x,y \in \mathbb{Z}$ and $b \neq 0$}
+	\KwOut{$x,y$ solutions if any}
+	
+	\BlankLine
+
+	Multiply both sides with $b$ then $b^2xy+bdx+bey=bf$ \\
+	Add $de$ to both sides then $b^2xy+bdx+bey+de=bf+de$ \\
+	The LHS can be written as $(bx+e)(by+d)$ \\
+	Let $n=bf+de$ then we must solve $(bx+e)(by+d)=n$ \\
+	Factor $n$ into $pq$ pairs \\
+	\lIf{there are no $pq$ factors of $n$}{\Return{there is no solution other than the trivial}}
+	$solutions$ $\leftarrow$ empty \\
+	\For {each $pq$ pair factor of $n$} {
+		\eIf{$b \mid (p-e)$ {\bf and} $b \mid (q-d)$}
+		{	
+			$x=(p-e)/b$ \\ 
+			$y=(q-d)/b$ \\
+			solutions $\leftarrow$ x,y
+		}
+		{
+			% This is a comment.
+			\tcp{there is no integer solution for this pair}
+		}
+	}
+
+	\Return{solutions}
+\end{algorithm}
+
+
+
+
+\begin{thebibliography}{}
+	\bibitem{yan2002number}
+	Yan, Song Y.
+	\newblock {\em Number theory for computing.}
+	\newblock {Springer Science \& Business Media}, 2002.
+	%\newblock
+	%\href{http://...}{Web source...}
+\end{thebibliography}
+% Source tutorial: https://www.youtube.com/watch?v=NRXvqthfDG0
+% Use this link: https://scholar.google.com to find cites for references
+% After using \cite command or adding new entry into the bib file. 
+% Refer to (\cite{XXX} pg. XX)
+% 1. Run pdflatex (F6)
+% 2. Run BibTex (F11)
+% 3. Run pdflatex (F6)
+% 4. Run pdflatex (F6)
+%\bibliographystyle{plain} % unsrt % 
+%\bibliography{Bibliography}
+% Display all bibliography cites even if there are no cites. Or just the cpecific ones
+%\nocite{*} 
+
+
+
+\end{document}

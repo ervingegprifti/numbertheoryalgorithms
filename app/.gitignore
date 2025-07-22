@@ -1,0 +1,6 @@
+/build
+
+# APK outputs
+*.apk
+*.ap_
+*.aab

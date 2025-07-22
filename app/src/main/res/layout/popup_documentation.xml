@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorGeneralBg"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/PDFViewDocumentation"
+        android:layout_alignParentTop="true"
+        android:visibility="visible"
+        android:background="@color/colorGeneralBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!--android:background="@color/colorGeneralBg"-->
+    <!--android:layout_below="@+id/TextViewDocumentationDismiss"-->
+
+    <TextView
+        android:id="@+id/TextViewDocumentationDismiss"
+        android:background="@drawable/dismiss_button_bg"
+        android:fontFamily="@font/fa_solid_900"
+        android:text="@string/fa_close"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textAllCaps="false"
+        android:layout_margin="15dp"
+        android:paddingLeft="13dp"
+        android:paddingTop="10dp"
+        android:paddingRight="13dp"
+        android:paddingBottom="10dp"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/colorDocumentation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--android:layout_alignParentBottom="true"-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/TextViewDocumentationPdfProblem"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:layout_margin="50dp"
+            android:layout_marginTop="15dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/documentation_problem" />
+    </LinearLayout>
+
+</RelativeLayout>

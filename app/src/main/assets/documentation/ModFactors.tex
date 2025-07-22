@@ -1,0 +1,76 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+
+%https://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+% [linesnumbered, ruled, vlined]
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}
+% \nopagecolor % Transparent if the rendering machine supports it.
+	
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Mod Factors module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Mod Factors}	
+Any number $n$ can be written as $(ax+c)(ay+b)=n$. Distributing we have	$a(axy+bx+cy) + bc=n$. Given any $a$ we can find $b,c$ such as $n \equiv bc \pmod{a}$. \\
+
+
+
+
+\begin{algorithm}[H]
+	\caption{Mod Factors}
+	\DontPrintSemicolon
+	\SetAlgoLined
+	\KwIn{$n,a \in \mathbb{N}$}
+	\KwOut{$b,c$ such as $n \equiv bc \pmod{a}$}
+	
+	\BlankLine
+	
+	Let $n \pmod{a} = r$ \\
+	For every $b,c$ combination where $b,c \in \left\{0, \dots, a-1\right\}$ \\
+	\lIf{$bc \pmod{a} = r$} { Display and count. }
+	
+	\Return{$b,c$ such as $n \equiv bc \pmod{a}$}
+\end{algorithm}
+
+
+
+
+\end{document}

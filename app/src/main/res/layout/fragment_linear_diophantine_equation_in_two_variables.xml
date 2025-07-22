@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:padding="0dp"
+	android:background="@color/colorGeneralBg"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<RelativeLayout
+		android:paddingLeft="20dp"
+		android:paddingTop="10dp"
+		android:paddingRight="20dp"
+		android:paddingBottom="10dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms" style="@style/TextViewBack" />
+		<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesTitle" style="@style/TextViewFragmentTitle" android:text="@string/linear_diophantine_equation_in_two_variables_title" />
+		<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesDocumentationFile" style="@style/TextViewDocumentationFile" />
+	</RelativeLayout>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<LinearLayout
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+			android:paddingTop="10dp"
+			android:paddingBottom="20dp"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<!--Create this in order the clearFocus() on edittext to work-->
+			<LinearLayout
+				android:focusable="true"
+				android:focusableInTouchMode="true"
+				android:layout_width="0px"
+				android:layout_height="0px"
+				tools:ignore="UselessLeaf" />
+
+			<!--Big integer a:-->
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelA" android:text="@string/label_a" style="@style/TextViewLabelStyle" android:labelFor="@+id/EditTextLinearDiophantineEquationInTwoVariablesA" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticA" style="@style/TextViewLabelStyle.TextViewLabelElasticStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyA" style="@style/ClipboardButtonCopyStyle"/>
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesPasteA" style="@style/ClipboardButtonPasteStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearA" style="@style/ClipboardButtonClearStyle" />
+			</LinearLayout>
+			<EditText android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesA" style="@style/EditTextNumberInput" android:autofillHints="" />
+
+			<!--Big integer b:-->
+			<LinearLayout
+				android:layout_marginTop="15dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelB" android:text="@string/label_b" style="@style/TextViewLabelStyle" android:labelFor="@+id/EditTextLinearDiophantineEquationInTwoVariablesB" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticB" style="@style/TextViewLabelStyle.TextViewLabelElasticStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyB" style="@style/ClipboardButtonCopyStyle"/>
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesPasteB" style="@style/ClipboardButtonPasteStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearB"  style="@style/ClipboardButtonClearStyle" />
+			</LinearLayout>
+			<EditText android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesB" style="@style/EditTextNumberInput" android:autofillHints="" />
+
+			<!--Big integer c:-->
+			<LinearLayout
+				android:layout_marginTop="15dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelC" android:text="@string/label_c" style="@style/TextViewLabelStyle" android:labelFor="@+id/EditTextLinearDiophantineEquationInTwoVariablesC" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticC" style="@style/TextViewLabelStyle.TextViewLabelElasticStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyC" style="@style/ClipboardButtonCopyStyle"/>
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesPasteC" style="@style/ClipboardButtonPasteStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearC" style="@style/ClipboardButtonClearStyle" />
+			</LinearLayout>
+			<EditText android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesC" style="@style/EditTextNumberInput" android:autofillHints="" />
+
+			<!--Buttons run-->
+			<LinearLayout
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<Button android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRun" android:text="@string/linear_diophantine_equation_in_two_variables_run_short" style="@style/ButtonRunStyle" />
+				<Button android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRunExample1" android:text="@string/run_example_1" style="@style/ButtonExampleBaseStyle.DifferentKindInOneLine" />
+				<Button android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRunExample2" android:text="@string/run_example_2" style="@style/ButtonExampleBaseStyle.DifferentKindInOneLine" />
+				<Button android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRunExample3" android:text="@string/run_example_3" style="@style/ButtonExampleBaseStyle.DifferentKindInOneLine" />
+			</LinearLayout>
+
+			<!--Result-->
+			<LinearLayout
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelResult" style="@style/TextViewLabelResultStyle" android:text="@string/result" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticResult" style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesExpandResult" style="@style/ClipboardButtonBase.ExpandResult" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyResult" style="@style/ClipboardButtonCopyStyle" />
+				<TextView android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearResult" style="@style/ClipboardButtonClearStyle" />
+			</LinearLayout>
+			<LinearLayout style="@style/ResultContainer">
+				<HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+					<EditText android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesResult" style="@style/EditTextResult" android:autofillHints="" />
+				</HorizontalScrollView>
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>

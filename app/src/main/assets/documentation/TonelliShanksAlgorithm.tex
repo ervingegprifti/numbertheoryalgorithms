@@ -1,0 +1,135 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+\usepackage[ruled]{algorithm2e}
+% [linesnumbered, ruled, vlined]
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}
+% \nopagecolor % Transparent if the rendering machine supports it.
+
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Tonelli-Shanks Algorithm module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Tonelli-Shanks Algorithm}	
+ The implementation of this algorithm is based on \cite{brown1999square}.
+
+
+
+
+\begin{thebibliography}{}
+	
+	\bibitem{brown1999square}
+	Brown, Ezra.
+	\newblock {"Square roots from 1; 24, 51, 10 to Dan Shanks."}
+	\newblock {\em The College Mathematics Journal}
+	\newblock {30.2 (1999): 82.}
+	\newblock \href{http://www.math.vt.edu/people/brown/doc/sqrts.pdf}{\text{http://www.math.vt.edu/people/brown/doc/sqrts.pdf}}
+\end{thebibliography}
+%\section*{References}
+%\newpage
+% Source tutorial: https://www.youtube.com/watch?v=NRXvqthfDG0
+% Use this link: https://scholar.google.com to find cites for references
+% After using \cite command or adding new entry into the bib file. 
+% Refer to (\cite{brown1999TonelliShanks} pg. 91)
+% 1. Run pdflatex (F6)
+% 2. Run BibTex (F11)
+% 3. Run pdflatex (F6)
+% 4. Run pdflatex (F6)
+\bibliographystyle{plain} % unsrt % 
+\bibliography{Bibliography}
+% Display all bibliography cites even if there are no cites. Or just the cpecific ones
+%\nocite{*} 
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+@book{yan2002number,
+title={Number theory for computing},
+author={Yan, Song Y},
+year={2002},
+publisher={Springer Science \& Business Media}
+}
+\end{comment}
+
+
+
+\begin{comment}
+\noindent
+\begin{minipage}[t]{\minipageWidth\linewidth} % \linewidth, \textwidth, \hsize, \columnwidth
+Column 1
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\minipageSpaceCenter
+\begin{minipage}[t]{\minipageWidth\linewidth}
+Column 2
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\end{comment}
+
+
+
+
+
+
+\begin{comment}
+
+$\boxbslash$
+$\boxslash$
+
+
+\begin{center}
+\renewcommand\arraystretch{1.6}
+\begin

@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    // Min one year old. Requirement from Google. https://developer.android.com/studio/releases/platforms
+    compileSdkVersion 36
+
+    defaultConfig {
+        applicationId "com.gegprifti.android.numbertheoryalgorithms"
+        minSdkVersion 23
+        // Min one year old. Requirement from Google. https://developer.android.com/studio/releases/platforms
+        targetSdk 36
+        versionCode 3070
+        versionName '3.0.7.0'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    namespace 'com.gegprifti.android.numbertheoryalgorithms'
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    // PDF Viewer
+    implementation 'com.github.mhiew:android-pdf-viewer:3.2.0-beta.3'
+    // Local unit tests (run on JVM)
+    testImplementation 'junit:junit:4.13.2'
+    // Instrumented tests (run on Android device/emulator)
+    androidTestImplementation 'androidx.test:core:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    // Investigate memory leaks
+    // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
+}

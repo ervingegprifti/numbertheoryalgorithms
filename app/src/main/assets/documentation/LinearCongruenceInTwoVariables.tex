@@ -1,0 +1,103 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+
+%https://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+% [linesnumbered, ruled, vlined]
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}
+% \nopagecolor % Transparent if the rendering machine supports it.
+
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Linear Congruence In Two Variables module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Linear Congruence In Two Variables}	
+The Linear Congruence In Two Variable $ax+by \equiv c \pmod{m}$ is equivalent to the Linear Diophantine Equation In Three Variables $ax+by+mz=c$. If $GCD(a,b,m) \nmid c$ there is no solution modulo $m$ and if $GCD(a,b,m) \mid c$ there are solutions modulo $m$. \\
+
+
+
+
+
+\begin{algorithm}[H]
+	\caption{Linear Congruence In Two Variablea}
+	\DontPrintSemicolon
+	\SetAlgoLined
+	\KwIn{$a,b,c,x,y \in \mathbb{Z}$, $m \in \mathbb{N}$}
+	\KwOut{$x,y$ general solution if any}
+	
+	\BlankLine
+	
+	Let $g=GCD(a,b,m)$ \\
+	\lIf{$g \nmid c$} { there is no solution modulo $m$. Stop. }
+	\lIf{$g \mid c$} { there are solutions modulo $m$. Continue... }
+	The Congruence $ax+by \equiv c \pmod{m} \Longleftrightarrow x+by=mz+c \Longleftrightarrow x+by+mz=c$ \\
+	Let $h=GCD(a,b)$, $d=a/h$, $e=b/h$ \\
+	Factoring out $ax+by$ we get $h(dx+ey)+mz=c$ \\
+	Note that $GCD(d,e)$ is always $1$, since $d=a/h$ and $e=b/h$ \\
+	Let $dx+ey=w$ \\
+	Rewriting we must solve $hw+mz=c$ \\
+	Simplify $hw+mz=c$ by dividing both sides with $i=GCD(h,m,c)$ to get $jw+nz=f$ \\
+	%Check $jw+nz=f$ solubility \\
+	Let $k=GCD(j,n)$ \\
+	\lIf{$k \nmid f$} { there is no integer solution. Stop. }
+	\lIf{$k \mid f$} { there are infinitely many integer solutions. Continue... }
+	Use EEA to find $w_{ee}$ and $z_{ee}$ from $|j|w + |n|z = GCD(|j|, |n|) = k$ \\
+	A particular first initial solution is $w_0 = w_{ee}(f/k)$ and $z_0 = z_{ee}(f/k)$ \\
+	For $r \in \mathbb{Z}$, the general solution to $jw+nz=f$ is $w = w_0 + (n/k)r$ and $z = z_0 - (j/k)r$ \\
+	Let $p=(n/k)$ and $q=(j/k)$, hence the general solution is $w = w_0 + pr$ and $z = z_0 - qr$ \\
+	Substituting for $w$, then we have  $dx+ey = w_0+pr$ \\
+	Since $GCD(d,e)$ is always $1$, then we find $x_0$ and $y_0$ by solving $dx+ey=1$ \\
+	Use EEA to find $x_{ee}$ and $y_{ee}$ from $|d|x + |e|y = GCD(|d|, |e|) = 1$, hence $dx_{ee}+ey_{ee} = 1$ \\
+	Multiplying both sides with $w_0+pr = w$ we have $dx_{ee}(w_0+pr)+ey_{ee}(w_0+pr) = w$ \\
+	Hence $x_0 = x_{ee}(w_0+pr) = x_{ee}w_0+x_{ee}pr$ and $y_0 = y_{ee}(w_0+pr) = y_{ee}w_0+y_{ee}pr$ \\
+	The general $x,y$ solution is $x = x_{ee}w_0+x_{ee}pr + et$ and $y = y_{ee}w_0+y_{ee}pr - dt$ \\
+	The congruence $ax+by \equiv c \pmod{m}$ can be written as $a(x_{ee}w_0 + x_{ee}pr + et) + b(y_{ee}w_0 + y_{ee}pr - dt) \equiv c \pmod{m}$ \\
+	
+	\Return{$x,y$ general solution}
+\end{algorithm}
+
+
+
+
+
+
+
+
+\end{document}

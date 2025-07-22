@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:padding="0dp"
+	android:layout_margin="0dp"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content" >
+
+	<RelativeLayout
+		android:paddingLeft="20dp"
+		android:paddingTop="10dp"
+		android:paddingRight="20dp"
+		android:paddingBottom="10dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<TextView android:id="@+id/TextViewPrimesListBackToAlgorithms" style="@style/TextViewBack" />
+		<TextView android:id="@+id/TextViewPrimesListTitle" android:text="@string/primes_list_title" style="@style/TextViewFragmentTitle" />
+		<TextView android:id="@+id/TextViewPrimesListDocumentationFile" style="@style/TextViewDocumentationFile" />
+	</RelativeLayout>
+
+		<LinearLayout
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+			android:paddingTop="10dp"
+			android:paddingBottom="0dp"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+            <!--Create this in order the clearFocus() on edittext to work-->
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"
+				tools:ignore="UselessLeaf" />
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView
+					android:id="@+id/TextViewPrimesListLabelColumns"
+					android:gravity="center_horizontal"
+					android:layout_marginLeft="0dp"
+					android:text="@string/primes_list_columns"
+					style="@style/TextViewLabelNoBgStyle"
+					android:labelFor="@+id/EditTextPrimesListColumns"
+					tools:ignore="RtlHardcoded" />
+				<TextView
+					android:id="@+id/TextViewPrimesListLabelNumbers"
+					android:gravity="center_horizontal"
+					android:layout_marginLeft="0dp"
+					android:text="@string/primes_list_numbers"
+					style="@style/TextViewLabelNoBgStyle"
+					android:labelFor="@+id/ButtonPrimesListRun"
+					tools:ignore="RtlHardcoded" />
+			</LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+				<Button
+					android:id="@+id/ButtonPrimesListColumnsMinus"
+					style="@style/ButtonPillLeftStyle"
+					android:text="@string/primes_list_no_of_columns_minus"/>
+				<EditText
+					android:id="@+id/EditTextPrimesListColumns"
+					style="@style/EditTextPillPositiveNumberInput"
+					android:text="@string/primes_list_columns_6"
+					android:enabled="false"
+					android:autofillHints="" />
+				<Button
+					android:id="@+id/ButtonPrimesListColumnsPlus"
+					style="@style/ButtonPillRightStyle"
+					android:text="@string/primes_list_no_of_columns_plus"
+					android:layout_marginRight="5dp"
+					tools:ignore="RtlHardcoded" />
+				<Button
+					android:id="@+id/ButtonPrimesListNumbersMinus"
+					style="@style/ButtonPillLeftStyle"
+					android:text="@string/primes_list_numbers_minus"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="1px"
+					tools:ignore="RtlHardcoded" />
+				<Button
+					android:id="@+id/ButtonPrimesListRun"
+					android:text="@string/primes_list_numbers_100"
+					style="@style/ButtonPillStyle" />
+				<Button
+					android:id="@+id/ButtonPrimesListNumbersPlus"
+					style="@style/ButtonPillRightStyle"
+					android:text="@string/primes_list_numbers_plus"
+					android:layout_marginLeft="1px"
+					tools:ignore="RtlHardcoded" />
+			</LinearLayout>
+
+			<!--Result-->
+			<LinearLayout
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView android:id="@+id/TextViewPrimesListLabelResult" android:text="@string/result" style="@style/TextViewLabelResultStyle" />
+				<TextView android:id="@+id/TextViewPrimesListLabelElasticResult" style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle" />
+				<TextView android:id="@+id/TextViewPrimesListExpandResult" style="@style/ClipboardButtonBase.ExpandResult" />
+				<TextView android:id="@+id/TextViewPrimesListClearResult" style="@style/ClipboardButtonClearStyle" />
+			</LinearLayout>
+
+			<LinearLayout style="@style/ResultContainer">
+				<HorizontalScrollView
+					android:scrollbarStyle="outsideInset"
+					android:scrollbarSize="3dp"
+					android:paddingBottom="0dp"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="vertical">
+						<LinearLayout
+							android:id="@+id/LinearLayoutPrimesListStaticColumnHeader"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal"/>
+						<ListView
+							android:id="@+id/ListViewPrimesListResult"
+							android:divider="@android:color/transparent"
+							android:listSelector="@android:color/transparent"
+							android:cacheColorHint="@android:color/transparent"
+							android:scrollbarStyle="insideInset"
+							android:scrollbarSize="3dp"
+							android:smoothScrollbar="true"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent">
+						</ListView>
+					</LinearLayout>
+				</HorizontalScrollView>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+</LinearLayout>

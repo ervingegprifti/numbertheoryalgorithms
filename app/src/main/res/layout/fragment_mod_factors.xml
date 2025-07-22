@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="0dp"
+	android:layout_margin="0dp"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content" >
+
+	<RelativeLayout
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+		<TextView android:id="@+id/TextViewModFactorsBackToAlgorithms" style="@style/TextViewBack" />
+		<TextView android:id="@+id/TextViewModFactorsTitle" android:text="@string/mod_factors_title" style="@style/TextViewFragmentTitle" />
+        <TextView android:id="@+id/TextViewModFactorsDocumentationFile" style="@style/TextViewDocumentationFile" />
+	</RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Create this in order the clearFocus() on edittext to work-->
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            tools:ignore="UselessLeaf" />
+
+            <!--Big integer n:-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView android:id="@+id/TextViewModFactorsLabelN" android:text="@string/label_n" style="@style/TextViewLabelStyle" android:labelFor="@+id/EditTextModFactorsN" />
+                <TextView android:id="@+id/TextViewModFactorsLabelElasticN" style="@style/TextViewLabelStyle.TextViewLabelElasticStyle" />
+                <TextView android:id="@+id/TextViewModFactorsCopyN" style="@style/ClipboardButtonCopyStyle"/>
+                <TextView android:id="@+id/TextViewModFactorsPasteN" style="@style/ClipboardButtonPasteStyle" />
+                <TextView android:id="@+id/TextViewModFactorsClearN" style="@style/ClipboardButtonClearStyle" />
+            </LinearLayout>
+            <EditText android:id="@+id/EditTextModFactorsN" style="@style/EditTextPositiveNumberInput" android:autofillHints="" />
+
+            <!--Big integer a:-->
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView android:id="@+id/TextViewModFactorsLabelA" android:text="@string/label_a" style="@style/TextViewLabelStyle" android:labelFor="@+id/EditTextModFactorsA" />
+                <TextView android:id="@+id/TextViewModFactorsLabelElasticA" style="@style/TextViewLabelStyle.TextViewLabelElasticStyle" />
+                <TextView android:id="@+id/TextViewModFactorsCopyA" style="@style/ClipboardButtonCopyStyle"/>
+                <TextView android:id="@+id/TextViewModFactorsPasteA" style="@style/ClipboardButtonPasteStyle" />
+                <TextView android:id="@+id/TextViewModFactorsClearA" style="@style/ClipboardButtonClearStyle" />
+            </LinearLayout>
+            <EditText android:id="@+id/EditTextModFactorsA" style="@style/EditTextPositiveNumberInput" android:layout_marginBottom="20dp" android:autofillHints="" />
+
+            <!--Examples-->
+            <LinearLayout
+                android:id="@+id/LinearLayoutModFactorsExamplesContainer"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <Button android:id="@+id/ButtonModFactorsRunExample1" android:text="@string/run_example_1" style="@style/ButtonExampleBaseStyle.SameKindInOneLine" android:layout_marginRight="10dp" tools:ignore="RtlHardcoded" />
+                <Button android:id="@+id/ButtonModFactorsRunExample2" android:text="@string/run_example_2" style="@style/ButtonExampleBaseStyle.SameKindInOneLine" android:layout_marginRight="10dp" tools:ignore="RtlHardcoded" />
+                <Button android:id="@+id/ButtonModFactorsRunExample3" android:text="@string/run_example_3" style="@style/ButtonExampleBaseStyle.SameKindInOneLine" android:layout_marginRight="10dp" tools:ignore="RtlHardcoded" />
+                <Button android:id="@+id/ButtonModFactorsRunExample4" android:text="@string/run_example_4" style="@style/ButtonExampleBaseStyle.SameKindInOneLine" android:layout_marginRight="10dp" tools:ignore="RtlHardcoded" />
+                <Button android:id="@+id/ButtonModFactorsRunExample5" android:text="@string/run_example_5" style="@style/ButtonExampleBaseStyle.SameKindInOneLine" android:layout_marginRight="10dp" tools:ignore="RtlHardcoded" />
+                <Button android:id="@+id/ButtonModFactorsRunExample6" android:text="@string/run_example_6" style="@style/ButtonExampleBaseStyle.SameKindInOneLine" android:layout_marginRight="0dp" tools:ignore="RtlHardcoded" />
+            </LinearLayout>
+
+            <!--Buttons-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <Button android:id="@+id/ButtonModFactorsRun" android:text="@string/mod_factors_run_short" style="@style/ButtonRunStyle" android:layout_marginRight="5dp" tools:ignore="RtlHardcoded" />
+                <Button android:id="@+id/ButtonModFactorsCountRun" android:text="@string/mod_factors_count_run_short" style="@style/ButtonRunStyle" android:layout_marginLeft="5dp" tools:ignore="RtlHardcoded" />
+            </LinearLayout>
+
+            <!--Result-->
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <TextView android:id="@+id/TextViewModFactorsLabelResult" android:text="@string/result" style="@style/TextViewLabelResultStyle" android:labelFor="@+id/EditTextModFactorsResult" />
+                <TextView android:id="@+id/TextViewModFactorsLabelElasticResult" style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle" />
+                <TextView android:id="@+id/TextViewModFactorsExpandResult" style="@style/ClipboardButtonBase.ExpandResult" />
+                <TextView android:id="@+id/TextViewModFactorsCopyResult" style="@style/ClipboardButtonCopyStyle"/>
+                <TextView android:id="@+id/TextViewModFactorsClearResult" style="@style/ClipboardButtonClearStyle" />
+            </LinearLayout>
+            <LinearLayout style="@style/ResultContainer">
+                <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <EditText android:id="@+id/EditTextModFactorsResult" style="@style/EditTextResult" android:autofillHints="" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

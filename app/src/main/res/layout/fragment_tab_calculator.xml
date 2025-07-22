@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorGeneralBg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Create this in order the clearFocus() on edittext to work-->
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px" />
+
+        <!--Big integer a:-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView android:id="@+id/TextViewCalculatorLabelA" android:text="@string/label_a" style="@style/TextViewLabelStyle" android:labelFor="@+id/EditTextCalculatorA" />
+            <TextView android:id="@+id/TextViewCalculatorLabelElasticA" style="@style/TextViewLabelStyle.TextViewLabelElasticStyle" />
+            <TextView android:id="@+id/TextViewCalculatorCopyA" style="@style/ClipboardButtonCopyStyle" />
+            <TextView android:id="@+id/TextViewCalculatorPasteA" style="@style/ClipboardButtonPasteStyle" />
+            <TextView android:id="@+id/TextViewCalculatorClearA" style="@style/ClipboardButtonClearStyle" />
+        </LinearLayout>
+        <EditText android:id="@+id/EditTextCalculatorA" style="@style/EditTextNumberInput" android:autofillHints="" />
+
+        <!--Big integer b:-->
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView android:id="@+id/TextViewCalculatorLabelB" android:text="@string/label_b" style="@style/TextViewLabelStyle" android:labelFor="@+id/EditTextCalculatorB" />
+            <TextView android:id="@+id/TextViewCalculatorLabelElasticB" style="@style/TextViewLabelStyle.TextViewLabelElasticStyle" />
+            <TextView android:id="@+id/TextViewCalculatorCopyB" style="@style/ClipboardButtonCopyStyle"/>
+            <TextView android:id="@+id/TextViewCalculatorPasteB" style="@style/ClipboardButtonPasteStyle" />
+            <TextView android:id="@+id/TextViewCalculatorClearB" style="@style/ClipboardButtonClearStyle" />
+        </LinearLayout>
+        <EditText android:id="@+id/EditTextCalculatorB" style="@style/EditTextNumberInput" android:autofillHints="" />
+
+        <!--Buttons first line-->
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <Button android:id="@+id/ButtonCalculatorAddition" android:text="@string/calculator_add" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorSubtraction" android:text="@string/calculator_subtract" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorMultiplication" android:text="@string/calculator_multiply" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorDivision" android:text="@string/calculator_divide" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorPower" android:text="@string/calculator_power" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+<!--            <Button android:id="@+id/ButtonCalculatorRoot" android:text="@string/calculator_root" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" />-->
+            <Button android:id="@+id/ButtonCalculatorRoot" android:text="@string/calculator_root" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" />
+        </LinearLayout>
+
+        <!--Buttons second line-->
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <Button android:id="@+id/ButtonCalculatorGcd" android:text="@string/calculator_gcd" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorLcm" android:text="@string/calculator_lcm" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorMod" android:text="@string/calculator_mod" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorModInverse" android:text="@string/calculator_mod_inverse" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" />
+        </LinearLayout>
+
+        <!--Buttons third line-->
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <Button android:id="@+id/ButtonCalculatorIsProbablePrime" android:text="@string/calculator_is_a_prime" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorEulerPhi" android:text="@string/calculator_euler_phi" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorFactorial" android:text="@string/calculator_factorial" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" />
+        </LinearLayout>
+
+        <!--Buttons forth line-->
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <Button android:id="@+id/ButtonCalculatorNextProbablePrime" android:text="@string/calculator_next_prime_to_a" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="5dp" />
+            <Button android:id="@+id/ButtonCalculatorNextProbableTwinPrime" android:text="@string/calculator_next_twin_prime_to_a" style="@style/ButtonCalculatorStyle" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" />
+        </LinearLayout>
+
+        <!--Result 1-->
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView android:id="@+id/TextViewCalculatorLabelResult1" android:text="@string/result" style="@style/TextViewLabelResultStyle" />
+            <TextView android:id="@+id/TextViewCalculatorLabelElasticResult1" style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle" />
+            <TextView android:id="@+id/TextViewCalculatorCopyResult1" style="@style/ClipboardButtonCopyStyle"/>
+            <TextView android:id="@+id/TextViewCalculatorClearResult1" style="@style/ClipboardButtonClearStyle"/>
+        </LinearLayout>
+        <LinearLayout style="@style/ResultContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText android:id="@+id/EditTextCalculatorResult1" style="@style/EditTextResult"/>
+        </LinearLayout>
+
+        <!--Result 2-->
+        <LinearLayout
+            android:id="@+id/LinearLayoutCalculatorResult2Labels"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView android:id="@+id/TextViewCalculatorLabelResult2" android:text="@string/result" style="@style/TextViewLabelResultStyle"  />
+            <TextView android:id="@+id/TextViewCalculatorLabelElasticResult2" style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle" />
+            <TextView android:id="@+id/TextViewCalculatorCopyResult2" style="@style/ClipboardButtonCopyStyle"  />
+            <TextView android:id="@+id/TextViewCalculatorClearResult2" style="@style/ClipboardButtonClearStyle"  />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/LinearLayoutCalculatorResult2"
+            android:visibility="gone"
+            style="@style/ResultContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText android:id="@+id/EditTextCalculatorResult2" style="@style/EditTextResult" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+

@@ -1,0 +1,79 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--https://fonts.google.com/icons?selected=Material+Icons&icon.platform=android-->
+
+    <PreferenceCategory app:title="@string/settings_preference_category_clipboard" app:iconSpaceReserved="false">
+        <SwitchPreferenceCompat
+            app:key="VIBRATE_ON_CLIPBOARD_BUTTON_CLICK"
+            app:title="@string/settings_vibrate_on_clipboard_button_click"
+            app:summary="Sometimes when tapping the Copy/Paste/Clear buttons you want to make sure the action really performed so, a vibration could help in those cases."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_vibration_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="NOTIFY_ON_CLIPBOARD_BUTTON_CLICK"
+            app:title="@string/settings_notify_on_clipboard_button_click"
+            app:summary="Instead/Despite of vibration you can get notified also by a message regarding Copy/Paste/Clear button taps."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_message_24"
+            app:iconSpaceReserved="true"
+            app:allowDividerBelow="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_preference_category_ui" app:iconSpaceReserved="false">
+        <SwitchPreferenceCompat
+            app:key="SMALLER_CONTROLS"
+            app:title="@string/settings_smaller_controls"
+            app:summary="If the screen space is a concern then you can try smaller controls to better see things."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_text_fields_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="SMALLER_CLIPBOARD_BUTTONS"
+            app:title="@string/settings_smaller_clipboard_buttons"
+            app:summary="If the screen space is a concern then you can try smaller Copy/Paste/Clear buttons to better see things."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_text_fields_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="SMALLER_RESULT_DISPLAY"
+            app:title="@string/settings_smaller_result_display"
+            app:summary="Applicable in Simple Quadratic Form grid representation only."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_text_fields_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="SQUARE_RESULT_DISPLAY"
+            app:title="@string/settings_square_result_display"
+            app:summary="Applicable in Simple Quadratic Form grid representation only."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_crop_square_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="SHOW_RESULT_IN_MONOSPACE"
+            app:title="@string/settings_show_result_in_monospace"
+            app:summary="To better see the results in an aligned monospace manner. Not everywhere applicable."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_space_bar_24"
+            app:iconSpaceReserved="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_preference_category_misc" app:iconSpaceReserved="false">
+        <SwitchPreferenceCompat
+            app:key="DISABLE_TAB_SWIPING"
+            app:title="@string/settings_disable_tab_swiping"
+            app:summary="Disable the ability to swipe between main tabs. Useful when the results are long enough and have their own horizontal scrollbars."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_swap_horiz_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="HIDE_EXAMPLE_BUTTONS"
+            app:title="@string/settings_hide_example_buttons"
+            app:summary="Example buttons are those named S₁ S₂... Their purpose is to be able to enter data fast and learn from different results. Hide them if you think they eat up too much of your screen space."
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_visibility_24"
+            app:iconSpaceReserved="true" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/LinearLayoutProgress"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:layout_gravity="center_horizontal|top"
+    android:background="#CC000000"
+    android:gravity="center">
+	<!--
+	android:paddingHorizontal="30dp"
+	android:paddingVertical="100dp"
+	-->
+
+
+    <ProgressBar
+        android:id="@+id/ProgressBarProgress"
+        android:indeterminate="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+        <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+        <!--style="@android:style/Widget.ProgressBar.Inverse"-->
+        <!--style="@android:style/Widget.ProgressBar.Small"-->
+        <!--style="@android:style/Widget.ProgressBar.Large"-->
+        <!--style="@android:style/Widget.Holo.ProgressBar.Horizontal"-->
+        <!--style="@android:style/Widget.DeviceDefault.ProgressBar.Large"-->
+        <!--API level 21-->
+        <!--android:progressTint="@color/colorRed"-->
+        <!--android:progressBackgroundTint="@color/colorRed"-->
+
+    <Chronometer
+        android:textColor="@color/colorGeneralBg"
+        android:textSize="24sp"
+        android:id="@+id/ChronometerProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+	
+	<TextView 
+	    android:layout_marginTop="15dp"
+		android:textSize="12sp"
+		android:textColor="@color/colorGeneralBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:text="@string/please_wait" />
+
+	<TextView
+		android:id="@+id/TextViewProgressCancel"
+		android:background="@drawable/progress_cancel_button_bg"
+		android:text="@string/progress_dialog_cancel"
+		android:paddingLeft="20dp"
+		android:paddingTop="10dp"
+		android:paddingRight="20dp"
+		android:paddingBottom="10dp"
+		android:textAllCaps="true"
+		android:layout_margin="15dp"
+		android:textSize="14sp"
+		android:textColor="@color/colorGeneralBg"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+
+</LinearLayout>

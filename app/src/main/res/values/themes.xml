@@ -1,0 +1,68 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <!-- -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Make status icons dark. -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item> <!-- Tell Android to draw the status bar background -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+    </style>
+
+
+    <!-- SplashScreen -->
+    <style name="AppTheme.SplashScreen">
+        <item name="android:windowBackground">@drawable/splash_screen_bg</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <!-- -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Make status icons dark. -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- We do it like MainAppThemeNoActionBar and not like AppTheme.NoActionBar because setTheme(R.style.AppTheme.NoActionBar) do not like the dot. -->
+    <style name="MainAppThemeNoActionBar" parent="Theme.AppCompat.Light.DarkActionBar" >
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <!-- This is custom -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Make status icons dark. -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item> <!-- Tell Android to draw the status bar background -->
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--Use this in "android.support.v7.widget.Toolbar" as "app:theme="@style/MyToolbarStyle"-->
+    <style name="MyToolbarStyle" parent="AppTheme">
+        <!--For the title-->
+        <item name="android:textColorPrimary">@color/colorGeneralBg</item>
+
+        <!--For the three dots-->
+        <item name="android:textColorSecondary">@color/colorGeneralBg</item>
+
+        <!--For the menu-->
+        <!--<item name="android:textColor">@color/colorRed</item>-->
+        <!--<item name="android:textStyle">italic</item> -->
+
+    </style>
+
+</resources>
