@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/LinearLayoutProgress"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
 	android:layout_gravity="center_horizontal|top"
-    android:background="#CC000000"
-    android:gravity="center">
+	android:background="#CC000000"
+	android:gravity="center">
 	<!--
 	android:paddingHorizontal="30dp"
 	android:paddingVertical="100dp"
@@ -15,19 +16,13 @@
 
 
     <ProgressBar
-        android:id="@+id/ProgressBarProgress"
+        android:id="@+id/ProgressBarSpin"
+		style="?android:attr/progressBarStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-        <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
-        <!--style="@android:style/Widget.ProgressBar.Inverse"-->
-        <!--style="@android:style/Widget.ProgressBar.Small"-->
-        <!--style="@android:style/Widget.ProgressBar.Large"-->
-        <!--style="@android:style/Widget.Holo.ProgressBar.Horizontal"-->
-        <!--style="@android:style/Widget.DeviceDefault.ProgressBar.Large"-->
-        <!--API level 21-->
-        <!--android:progressTint="@color/colorRed"-->
-        <!--android:progressBackgroundTint="@color/colorRed"-->
+		android:progressTint="@color/colorGeneralBg"
+		android:indeterminateTint="@color/colorGeneralBg" />
 
     <Chronometer
         android:textColor="@color/colorGeneralBg"
@@ -43,6 +38,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:text="@string/please_wait" />
+
+	<ProgressBar
+		android:id="@+id/ProgressBarPercentage"
+		style="?android:progressBarStyleHorizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="70dp"
+		android:layout_marginTop="2dp"
+		android:indeterminate="false"
+		android:progressTint="@color/colorGeneralBg"
+		android:indeterminateTint="@color/colorGeneralBg"
+		android:max="100"
+		android:minHeight="2dp"
+		android:maxHeight="2dp"
+		android:visibility="invisible"
+		tools:visibility="visible" />
 
 	<TextView
 		android:id="@+id/TextViewProgressCancel"

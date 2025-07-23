@@ -245,13 +245,13 @@ class Algorithms {
      *
      * @see <a href="https://www.britannica.com/science/factorial">factorial</a>
      */
-    static String Factorial(AlgorithmParameters algorithmParameters) {
+    static String Factorial(ProgressManager progressManager, AlgorithmParameters algorithmParameters) {
         // a! a ∊ ℤ with a ≥ 0
         // 0! = 1
         // 1! = 1
-        // 2! = 2 * 1 = 2
-        // 3! = 3 * 2 * 1 = 6
-        // 4| = 4 * 3 * 2 * 1 = 24
+        // 2! = 1 * 2 = 2
+        // 3! = 1 * 2 * 3 = 6
+        // 4| = 1 * 2 * 3 * 4 = 24
 
         // Input
         BigInteger a = algorithmParameters.getInput1();
@@ -263,9 +263,25 @@ class Algorithms {
             return "1";
         }
         BigInteger factorial = ONE;
+
+        long lastUpdateTime = 0;
+        final int UPDATE_INTERVAL_MS = 100;
+
         for(BigInteger i = ONE; i.compareTo(a) <= 0; i = i.add(ONE)) {
             factorial = factorial.multiply(i);
+
+            long currentTime = System.currentTimeMillis();
+            // Only publish progress if enough time has passed
+            if (currentTime - lastUpdateTime > UPDATE_INTERVAL_MS) {
+                // (i/a)*100
+                int percent = i.multiply(BigInteger.valueOf(100)).divide(a).intValue();
+                progressManager.publishProgress(percent);
+                // Record the time of this update
+                lastUpdateTime = currentTime;
+            }
         }
+
+        progressManager.publishProgress(100);
         return factorial.toString();
     }
     static String NextProbablePrime(ProgressDialog.Run run, AlgorithmParameters algorithmParameters) {

@@ -31,6 +31,8 @@ import java.math.BigInteger;
 public class FragmentTabCalculator extends FragmentBase implements ICallback {
     private final static String TAG = "TabCalculator";
 
+    private ProgressManager progressManager;
+
     static final BigInteger ZERO = BigInteger.ZERO;
     static final BigInteger ONE = BigInteger.ONE;
     static final BigInteger TWO = BigInteger.valueOf(2L);
@@ -464,6 +466,23 @@ public class FragmentTabCalculator extends FragmentBase implements ICallback {
         super.onResume();
         this.refreshSmallerClipboardButtons();
         this.refreshSmallerControls();
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        progressManager = new ProgressManager(requireContext());
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // To prevent leaks! Cancel any running task when the view is destroyed.
+        if (progressManager != null) {
+            progressManager.cancel();
+        }
     }
 
 
@@ -1055,7 +1074,6 @@ public class FragmentTabCalculator extends FragmentBase implements ICallback {
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_FACTORIAL, this);
             algorithmParameters.setInput1(a);
-            ProgressManager progressManager = new ProgressManager(requireContext());
             progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);

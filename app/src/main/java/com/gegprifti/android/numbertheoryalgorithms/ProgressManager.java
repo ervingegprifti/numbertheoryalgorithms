@@ -17,8 +17,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 
 /**
@@ -32,6 +30,7 @@ final class ProgressManager {
     private Future<?> runningTask;
     private ExecutorService executor;
     private final Context context;
+    private final Handler handler;
 
 
     /**
@@ -44,6 +43,7 @@ final class ProgressManager {
      */
     public ProgressManager(Context context) {
         this.context = context;
+        this.handler = new Handler(Looper.getMainLooper());
     }
 
 
@@ -62,12 +62,11 @@ final class ProgressManager {
             }
 
             executor = Executors.newSingleThreadExecutor();
-            final Handler handler = new Handler(Looper.getMainLooper());
 
             // --- Start Background Task ---
             runningTask = executor.submit(() -> {
                 try {
-                    Object result = doAlgorithmWork(algPrm);
+                    Object result = work(algPrm);
                     handler.post(() -> onPostExecute(algPrm, result));
                 } catch (Exception ex) {
                     if (ex instanceof InterruptedException) {
@@ -106,14 +105,11 @@ final class ProgressManager {
         View viewProgressDialog = layoutInflater.inflate(R.layout.popup_progress, container, false);
 
         Chronometer chronometerProgress = viewProgressDialog.findViewById(R.id.ChronometerProgress);
-        ProgressBar progressBarProgress = viewProgressDialog.findViewById(R.id.ProgressBarProgress);
         TextView textViewProgressCancel = viewProgressDialog.findViewById(R.id.TextViewProgressCancel);
 
         chronometerProgress.start();
 
-        int progressColor = ContextCompat.getColor(context, R.color.colorGeneralBg);
-        DrawableCompat.setTint(progressBarProgress.getIndeterminateDrawable(), progressColor);
-
+        // Create the PopupWindow to fill the entire screen
         popupWindow = new PopupWindow(viewProgressDialog, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
 
         textViewProgressCancel.setOnClickListener(view -> dismiss());
@@ -172,9 +168,42 @@ final class ProgressManager {
 
 
     /**
+     * Call this from the background algorithm to publish progress updates.
+     *
+     * @param progress The progress values to report.
+     */
+    public void publishProgress(Integer... progress) {
+        handler.post(() -> onProgressUpdate(progress));
+    }
+
+    /**
+     * This method runs on the UI thread and receives progress updates.
+     *
+     * @param progress The progress values.
+     */
+    private void onProgressUpdate(Integer... progress) {
+        // UI can be updated here.
+        if (popupWindow != null && popupWindow.isShowing()) {
+            ProgressBar progressBarPercentage = popupWindow.getContentView().findViewById(R.id.ProgressBarPercentage);
+            int percentage = progress[0];
+            if (percentage > 0) {
+                progressBarPercentage.setProgress(percentage);
+                if (progressBarPercentage.getVisibility() != View.VISIBLE) {
+                    progressBarPercentage.setVisibility(View.VISIBLE);
+                }
+            } else {
+                if (progressBarPercentage.getVisibility() != View.INVISIBLE) {
+                    progressBarPercentage.setVisibility(View.INVISIBLE);
+                }
+            }
+        }
+    }
+
+
+    /**
      * Executes the appropriate algorithm based on the algorithm parameters.
      */
-    private Object doAlgorithmWork(AlgorithmParameters algPrm) throws InterruptedException {
+    private Object work(AlgorithmParameters algPrm) throws InterruptedException {
         if (Thread.currentThread().isInterrupted()) {
             throw new InterruptedException();
         }
@@ -192,7 +221,7 @@ final class ProgressManager {
             // TODO. case CALCULATOR_MOD_INVERSE : return Algorithms.ModInverse(algPrm);
             // TODO. case CALCULATOR_IS_PROBABLE_PRIME : return Algorithms.IsProbablePrime(algPrm);
             // TODO. case CALCULATOR_EULER_PHI : return Algorithms.EulerPhi(algPrm);
-            case CALCULATOR_FACTORIAL : return Algorithms.Factorial(algPrm);
+            case CALCULATOR_FACTORIAL : return Algorithms.Factorial(this, algPrm);
             // TODO. case CALCULATOR_NEXT_PROBABLE_PRIME: return Algorithms.NextProbablePrime(algPrm);
             // TODO. case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR : return Algorithms.NextProbableTwinPrimePair(algPrm);
             // TODO. case QUADRATIC_FORM: return Algorithms.QuadraticFormRun(algPrm);

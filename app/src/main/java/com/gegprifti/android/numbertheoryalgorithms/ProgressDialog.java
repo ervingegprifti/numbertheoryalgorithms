@@ -57,7 +57,7 @@ final class ProgressDialog {
                 viewProgressDialog = layoutInflater.inflate(R.layout.popup_progress, container, false);
             }
             Chronometer chronometerProgress = viewProgressDialog.findViewById(R.id.ChronometerProgress);
-            ProgressBar progressBarProgress = viewProgressDialog.findViewById(R.id.ProgressBarProgress);
+            ProgressBar progressBarProgress = viewProgressDialog.findViewById(R.id.ProgressBarSpin);
             TextView textViewProgressCancel = viewProgressDialog.findViewById(R.id.TextViewProgressCancel);
 
             // Start the timer
