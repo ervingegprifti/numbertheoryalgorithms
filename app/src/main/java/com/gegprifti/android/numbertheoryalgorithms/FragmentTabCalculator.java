@@ -1055,7 +1055,8 @@ public class FragmentTabCalculator extends FragmentBase implements ICallback {
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_FACTORIAL, this);
             algorithmParameters.setInput1(a);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            ProgressManager progressManager = new ProgressManager(requireContext());
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

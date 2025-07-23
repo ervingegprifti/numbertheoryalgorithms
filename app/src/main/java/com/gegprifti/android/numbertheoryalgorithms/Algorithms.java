@@ -240,13 +240,12 @@ class Algorithms {
 
     /**
      *
-     * @param run
      * @param algorithmParameters
      * @return
      *
      * @see <a href="https://www.britannica.com/science/factorial">factorial</a>
      */
-    static String Factorial(ProgressDialog.Run run, AlgorithmParameters algorithmParameters) {
+    static String Factorial(AlgorithmParameters algorithmParameters) {
         // a! a ∊ ℤ with a ≥ 0
         // 0! = 1
         // 1! = 1
@@ -265,9 +264,6 @@ class Algorithms {
         }
         BigInteger factorial = ONE;
         for(BigInteger i = ONE; i.compareTo(a) <= 0; i = i.add(ONE)) {
-            // Check if the run is canceled
-            if (run.isCancelled()) { return null; }
-            // Calculate factorial
             factorial = factorial.multiply(i);
         }
         return factorial.toString();

@@ -159,7 +159,7 @@ final class ProgressDialog {
                         result = Algorithms.EulerPhi(this, this.algPrm);
                         break;
                     case CALCULATOR_FACTORIAL :
-                        result = Algorithms.Factorial(this, this.algPrm);
+                        // TODO. result = Algorithms.Factorial(this, this.algPrm);
                         break;
                     case CALCULATOR_NEXT_PROBABLE_PRIME:
                         result = Algorithms.NextProbablePrime(this, this.algPrm);
