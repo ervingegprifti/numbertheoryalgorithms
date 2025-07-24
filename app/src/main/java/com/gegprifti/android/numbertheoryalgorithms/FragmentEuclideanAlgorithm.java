@@ -393,7 +393,6 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
 
 
     //region Callback
-
     /**
      *
      * @param algorithmName
@@ -448,7 +447,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
             algorithmParameters.setInput3(null);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

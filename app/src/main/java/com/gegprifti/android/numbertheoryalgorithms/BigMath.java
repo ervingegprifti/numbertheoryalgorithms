@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-final class BigMath {
+public final class BigMath {
     private static final BigInteger ZERO = BigInteger.ZERO;
     private static final BigInteger ONE = BigInteger.ONE;
     private static final BigInteger TWO = BigInteger.valueOf(2L);
@@ -69,7 +69,7 @@ final class BigMath {
 
 
 
-    static boolean DoesDCompletelyDivideN(BigInteger d, BigInteger n) throws IllegalArgumentException {
+    public static boolean DoesDCompletelyDivideN(BigInteger d, BigInteger n) throws IllegalArgumentException {
 
         if(d.equals(BigInteger.ZERO))
         {
@@ -96,7 +96,7 @@ final class BigMath {
      *
      * @see <a href="https://stackoverflow.com/questions/32553108/calculating-nth-root-in-java-using-power-method">Calculating nth root in Java using power method</a>
      */
-    static BigInteger NthRootFloor(BigInteger x, int n) throws IllegalArgumentException {
+    public static BigInteger NthRootFloor(BigInteger x, int n) throws IllegalArgumentException {
         if (x.compareTo(ZERO) < 0) {
             throw new IllegalArgumentException("Negative argument.");
         }

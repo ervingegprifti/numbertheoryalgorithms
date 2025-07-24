@@ -1,8 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressManager;
 
+import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
 import java.math.BigInteger;
 
 
@@ -19,7 +18,7 @@ import java.math.BigInteger;
  *
  * @see <a href="https://www.britannica.com/science/factorial">factorial</a>
  */
-public class Factorial extends Algorithm implements StringCalculator{
+public class Factorial extends Algorithm implements StringCalculator {
     public Factorial(AlgorithmParameters algorithmParameters) {
         super(algorithmParameters);
     }

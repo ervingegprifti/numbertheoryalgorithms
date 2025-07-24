@@ -13,6 +13,10 @@ public abstract class Algorithm {
     protected static final BigInteger FOUR = BigInteger.valueOf(4L);
 
     protected final AlgorithmParameters algorithmParameters;
+    protected static final String COLOR = "#8C5900";
+    protected static final String BULLET = ""; // "•"; // TODO Useless, remove it later.
+    protected static final String TAB = ""; // "\t" // TODO Useless, remove it later.
+    protected static final String STOP = "■";
 
 
     public Algorithm(AlgorithmParameters algorithmParameters) {

@@ -165,9 +165,10 @@ public final class ProgressManager {
         handler.post(() -> {
             try {
                 // Write result to the main UI.
+                // Calling setText on EditText is a time consuming process when string to set is huge.
                 algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), result, AlgorithmStatus.FINISHED);
             } finally {
-                // Dismiss the progress popup window after the long operation is complete.
+                // Dismiss the progress popup window after the calculate + write results to UI is complete.
                 dismiss();
             }
         });
@@ -195,7 +196,8 @@ public final class ProgressManager {
             TextView textViewProgressCancel = contentView.findViewById(R.id.TextViewProgressCancel);
             if (textViewProgressCancel != null) {
                 textViewProgressCancel.setEnabled(false);
-                textViewProgressCancel.setText(R.string.writing_results);
+                textViewProgressCancel.setText(R.string.progress_dialog_writing_results);
+                textViewProgressCancel.setBackground(null);
             }
         }
     }
@@ -210,25 +212,25 @@ public final class ProgressManager {
         }
 
         switch (algPrm.getAlgorithmName()) {
-            // TODO. case CALCULATOR_ADDITION : return Algorithms.Addition(algPrm);
-            // TODO. case CALCULATOR_SUBTRACTION : return Algorithms.Subtraction(algPrm);
-            // TODO. case CALCULATOR_MULTIPLICATION : return Algorithms.Multiplication(algPrm);
-            // TODO. case CALCULATOR_DIVISION : return Algorithms.Division(algPrm);
-            // TODO. case CALCULATOR_POWER : return Algorithms.Power(algPrm);
-            // TODO. case CALCULATOR_ROOT : return Algorithms.Root(algPrm);
-            // TODO. case CALCULATOR_GCD : return Algorithms.Gcd(algPrm);
-            // TODO.  case CALCULATOR_LCM : return Algorithms.Lcm(algPrm);
-            // TODO. case CALCULATOR_MOD : return Algorithms.Mod(algPrm);
-            // TODO. case CALCULATOR_MOD_INVERSE : return Algorithms.ModInverse(algPrm);
-            // TODO. case CALCULATOR_IS_PROBABLE_PRIME : return Algorithms.IsProbablePrime(algPrm);
-            // TODO. case CALCULATOR_EULER_PHI : return Algorithms.EulerPhi(algPrm);
+            case CALCULATOR_ADDITION : return new Addition(algPrm).calculate();
+            case CALCULATOR_SUBTRACTION : return new Subtraction(algPrm).calculate();
+            case CALCULATOR_MULTIPLICATION : return new Multiplication(algPrm).calculate();
+            case CALCULATOR_DIVISION : return new Division(algPrm).calculate();
+            case CALCULATOR_POWER : return new Power(algPrm).calculate();
+            case CALCULATOR_ROOT : return new Root(algPrm).calculate();
+            case CALCULATOR_GCD : return new Gcd(algPrm).calculate();
+            case CALCULATOR_LCM : return new Lcm(algPrm).calculate();
+            case CALCULATOR_MOD : return new Mod(algPrm).calculate();
+            case CALCULATOR_MOD_INVERSE : return new ModInverse(algPrm).calculate();
+            case CALCULATOR_IS_PROBABLE_PRIME : return new IsProbablePrime(algPrm).calculate();
+            case CALCULATOR_EULER_PHI : return new EulerPhi(algPrm).calculate();
             case CALCULATOR_FACTORIAL : return new Factorial(algPrm).calculate();
-            // TODO. case CALCULATOR_NEXT_PROBABLE_PRIME: return Algorithms.NextProbablePrime(algPrm);
-            // TODO. case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR : return Algorithms.NextProbableTwinPrimePair(algPrm);
+            case CALCULATOR_NEXT_PROBABLE_PRIME: return new NextProbablePrime(algPrm).calculate();
+            case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR : return new NextProbableTwinPrimePair(algPrm).calculate();
             // TODO. case QUADRATIC_FORM: return Algorithms.QuadraticFormRun(algPrm);
             // TODO. case QUADRATIC_FORM_1: return Algorithms.QuadraticFormRun1(algPrm);
             // TODO. case QUADRATIC_FORM_2: return Algorithms.QuadraticFormRun2(algPrm);
-            // TODO. case EUCLIDEAN_ALGORITHM: return Algorithms.EuclideanAlgorithm(algPrm);
+            case EUCLIDEAN_ALGORITHM: return new EuclideanAlgorithm(algPrm).calculate();
             // TODO. case EXTENDED_EUCLIDEAN_ALGORITHM : return Algorithms.ExtendedEuclideanAlgorithm(algPrm);
             // TODO. case LINEAR_CONGRUENCE_IN_ONE_VARIABLE : return Algorithms.LinearCongruenceInOneVariable(algPrm);
             // TODO. case LINEAR_CONGRUENCE_IN_TWO_VARIABLES : return Algorithms.LinearCongruenceInTwoVariables(algPrm);

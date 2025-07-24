@@ -9,11 +9,6 @@
 	android:layout_gravity="center_horizontal|top"
 	android:background="#CC000000"
 	android:gravity="center">
-	<!--
-	android:paddingHorizontal="30dp"
-	android:paddingVertical="100dp"
-	-->
-
 
     <ProgressBar
         android:id="@+id/ProgressBarSpin"
@@ -25,13 +20,13 @@
 		android:indeterminateTint="@color/colorGeneralBg" />
 
     <Chronometer
+		android:id="@+id/ChronometerProgress"
         android:textColor="@color/colorGeneralBg"
         android:textSize="24sp"
-        android:id="@+id/ChronometerProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-	
-	<TextView 
+
+	<TextView
 	    android:layout_marginTop="15dp"
 		android:textSize="12sp"
 		android:textColor="@color/colorGeneralBg"
@@ -63,7 +58,6 @@
 		android:paddingTop="10dp"
 		android:paddingRight="20dp"
 		android:paddingBottom="10dp"
-		android:textAllCaps="true"
 		android:layout_margin="15dp"
 		android:textSize="14sp"
 		android:textColor="@color/colorGeneralBg"

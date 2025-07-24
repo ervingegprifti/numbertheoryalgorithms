@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -30,8 +31,6 @@ import java.math.BigInteger;
 
 public class FragmentTabCalculator extends FragmentBase implements Callback {
     private final static String TAG = "TabCalculator";
-
-    private ProgressManager progressManager;
 
     static final BigInteger ZERO = BigInteger.ZERO;
     static final BigInteger ONE = BigInteger.ONE;
@@ -469,23 +468,6 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        progressManager = new ProgressManager(requireActivity());
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        // To prevent leaks! Cancel any running task when the view is destroyed.
-        if (progressManager != null) {
-            progressManager.cancel();
-        }
-    }
-
-
     //region Display
     private void refreshSmallerClipboardButtons() {
         try {
@@ -633,9 +615,9 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             case CALCULATOR_IS_PROBABLE_PRIME :
                 labelResult1 = requireContext().getResources().getString(R.string.calculator_is_a_prime);
                 if(result.equals("1")) {
-                    result = requireContext().getResources().getString(R.string.calculator_a_is_probable_prime_label_result1);
+                    result = requireContext().getResources().getString(R.string.calculator_a_is_prime_yes);
                 } else {
-                    result = requireContext().getResources().getString(R.string.calculator_a_is_composite_label_result1);
+                    result = requireContext().getResources().getString(R.string.calculator_a_is_prime_no);
                 }
                 result1 = (String)result;
                 break;
@@ -648,7 +630,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 result1 = (String)result;
                 break;
             case CALCULATOR_NEXT_PROBABLE_PRIME:
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_probable_prime_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_prime_label_result1) + Helper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR :
@@ -657,10 +639,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                     twin_prime_pair = ((String)result).split("_"); // prime1_prime2
                 }
                 // Result 1
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_probable_twin_prime_label_result1) + Helper.GetNrOfDigits((String)twin_prime_pair[0]);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result1) + Helper.GetNrOfDigits((String)twin_prime_pair[0]);
                 result1 = twin_prime_pair[0];
                 // Result 2
-                labelResult2 = requireContext().getResources().getString(R.string.calculator_next_probable_twin_prime_label_result2) + Helper.GetNrOfDigits((String)twin_prime_pair[1]);
+                labelResult2 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result2) + Helper.GetNrOfDigits((String)twin_prime_pair[1]);
                 result2 = twin_prime_pair[1];
                 break;
             default:
@@ -708,11 +690,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_ADDITION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonSubtraction(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -738,11 +722,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_SUBTRACTION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonMultiplication(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -768,11 +754,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_MULTIPLICATION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonDivision(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -798,11 +786,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_DIVISION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonPower(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -828,11 +818,14 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_POWER, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
+
     private void OnButtonRoot(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -858,11 +851,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_ROOT, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonGcd(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -888,11 +883,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_GCD, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonLcm(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -923,11 +920,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_LCM, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonMod(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -953,11 +952,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_MOD, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonModInverse(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -983,11 +984,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_MOD_INVERSE, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonIsProbablePrime(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -1016,11 +1019,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_IS_PROBABLE_PRIME, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonEulerPhi(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -1041,21 +1046,15 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_EULER_PHI, this);
             algorithmParameters.setInput1(a);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonFactorial(ViewGroup container, boolean displayProgressDialog) {
         try {
-            // Source: https://www.britannica.com/science/factorial
-            // a! a ∊ ℤ with a ≥ 0
-            // 0! = 1
-            // 1! = 1
-            // 2! = 2 * 1 = 2
-            // 3! = 3 * 2 * 1 = 6
-            // 4| = 4 * 3 * 2 * 1 = 24
-
             // Check.
             if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
                 return;
@@ -1079,6 +1078,8 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void OnButtonNextProbablePrime(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
@@ -1099,19 +1100,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_NEXT_PROBABLE_PRIME, this);
             algorithmParameters.setInput1(a);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
-    /**
-     *
-     * @param container
-     * @param displayProgressDialog
-     *
-     * @see <a href="https://en.wikipedia.org/wiki/Twin_prime">Twin prime</a>
-     */
+
     private void OnButtonNextProbableTwinPrime(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Make the second result gone.
@@ -1138,7 +1133,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR, this);
             algorithmParameters.setInput1(a);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

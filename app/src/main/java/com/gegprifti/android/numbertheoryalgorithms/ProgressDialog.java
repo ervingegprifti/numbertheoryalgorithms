@@ -122,51 +122,51 @@ final class ProgressDialog {
                 this.algPrm = parameters[0];
 
                 switch (this.algPrm.getAlgorithmName()) {
-                    case CALCULATOR_ADDITION :
-                        result = Algorithms.Addition(this, this.algPrm);
-                        break;
-                    case CALCULATOR_SUBTRACTION :
-                        result = Algorithms.Subtraction(this, this.algPrm);
-                        break;
-                    case CALCULATOR_MULTIPLICATION :
-                        result = Algorithms.Multiplication(this, this.algPrm);
-                        break;
-                    case CALCULATOR_DIVISION :
-                        result = Algorithms.Division(this, this.algPrm);
-                        break;
-                    case CALCULATOR_POWER :
-                        result = Algorithms.Power(this, this.algPrm);
-                        break;
-                    case CALCULATOR_ROOT :
-                        result = Algorithms.Root(this, this.algPrm);
-                        break;
-                    case CALCULATOR_GCD :
-                        result = Algorithms.Gcd(this, this.algPrm);
-                        break;
-                    case CALCULATOR_LCM :
-                        result = Algorithms.Lcm(this, this.algPrm);
-                        break;
-                    case CALCULATOR_MOD :
-                        result = Algorithms.Mod(this, this.algPrm);
-                        break;
-                    case CALCULATOR_MOD_INVERSE :
-                        result = Algorithms.ModInverse(this, this.algPrm);
-                        break;
-                    case CALCULATOR_IS_PROBABLE_PRIME :
-                        result = Algorithms.IsProbablePrime(this, this.algPrm);
-                        break;
-                    case CALCULATOR_EULER_PHI :
-                        result = Algorithms.EulerPhi(this, this.algPrm);
-                        break;
-                    case CALCULATOR_FACTORIAL :
-                        // TODO. result = Algorithms.Factorial(this, this.algPrm);
-                        break;
-                    case CALCULATOR_NEXT_PROBABLE_PRIME:
-                        result = Algorithms.NextProbablePrime(this, this.algPrm);
-                        break;
-                    case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR :
-                        result = Algorithms.NextProbableTwinPrimePair(this, this.algPrm);
-                        break;
+                    //case CALCULATOR_ADDITION :
+                    //    result = Algorithms.Addition(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_SUBTRACTION :
+                    //    result = Algorithms.Subtraction(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_MULTIPLICATION :
+                    //    result = Algorithms.Multiplication(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_DIVISION :
+                    //    result = Algorithms.Division(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_POWER :
+                    //    result = Algorithms.Power(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_ROOT :
+                    //    result = Algorithms.Root(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_GCD :
+                    //    result = Algorithms.Gcd(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_LCM :
+                    //    result = Algorithms.Lcm(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_MOD :
+                    //    result = Algorithms.Mod(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_MOD_INVERSE :
+                    //    result = Algorithms.ModInverse(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_IS_PROBABLE_PRIME :
+                    //    result = Algorithms.IsProbablePrime(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_EULER_PHI :
+                    //    result = Algorithms.EulerPhi(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_FACTORIAL :
+                    //    result = Algorithms.Factorial(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_NEXT_PROBABLE_PRIME:
+                    //    result = Algorithms.NextProbablePrime(this, this.algPrm);
+                    //    break;
+                    //case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR :
+                    //    result = Algorithms.NextProbableTwinPrimePair(this, this.algPrm);
+                    //    break;
                     case QUADRATIC_FORM:
                         result = Algorithms.QuadraticFormRun(this, this.algPrm);
                         break;
@@ -176,9 +176,9 @@ final class ProgressDialog {
                     case QUADRATIC_FORM_2:
                         result = Algorithms.QuadraticFormRun2(this, this.algPrm);
                         break;
-                    case EUCLIDEAN_ALGORITHM:
-                        result = Algorithms.EuclideanAlgorithm(this, this.algPrm);
-                        break;
+                    //case EUCLIDEAN_ALGORITHM:
+                    //    result = Algorithms.EuclideanAlgorithm(this, this.algPrm);
+                    //    break;
                     case EXTENDED_EUCLIDEAN_ALGORITHM :
                         result = Algorithms.ExtendedEuclideanAlgorithm(this, this.algPrm);
                         break;

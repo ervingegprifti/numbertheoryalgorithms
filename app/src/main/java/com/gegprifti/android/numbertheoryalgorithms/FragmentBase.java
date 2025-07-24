@@ -15,15 +15,29 @@ import androidx.lifecycle.Lifecycle;
 
 
 public abstract class FragmentBase extends Fragment implements MenuProvider {
+    protected ProgressManager progressManager;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressManager = new ProgressManager(requireActivity());
         setupMenuProvider();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // To prevent leaks! Cancel any running task when the view is destroyed.
+        if (progressManager != null) {
+            progressManager.cancel();
+        }
     }
 
     public abstract void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater);
 
+
     public abstract boolean onMenuItemSelected(@NonNull MenuItem menuItem);
+
 
     /**
      * Essential for integrating your Fragment's menu contributions with
