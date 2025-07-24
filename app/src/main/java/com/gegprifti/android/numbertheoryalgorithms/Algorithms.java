@@ -17,11 +17,10 @@ class Algorithms {
 
     private static final BigInteger ZERO = BigInteger.ZERO;
     private static final BigInteger ONE = BigInteger.ONE;
-    private static final BigInteger MINUS_ONE = ONE.negate();
     private static final BigInteger TWO = BigInteger.valueOf(2L);
     private static final BigInteger THREE = BigInteger.valueOf(3L);
     private static final BigInteger FOUR = BigInteger.valueOf(4L);
-    private static final BigInteger FIVE = BigInteger.valueOf(5L);
+
 
     private static final String COLOR = "#8C5900";
     // https://www.htmlsymbols.xyz/unicode
@@ -238,52 +237,6 @@ class Algorithms {
         return counter.toString();
     }
 
-    /**
-     *
-     * @param algorithmParameters
-     * @return
-     *
-     * @see <a href="https://www.britannica.com/science/factorial">factorial</a>
-     */
-    static String Factorial(ProgressManager progressManager, AlgorithmParameters algorithmParameters) {
-        // a! a ∊ ℤ with a ≥ 0
-        // 0! = 1
-        // 1! = 1
-        // 2! = 1 * 2 = 2
-        // 3! = 1 * 2 * 3 = 6
-        // 4| = 1 * 2 * 3 * 4 = 24
-
-        // Input
-        BigInteger a = algorithmParameters.getInput1();
-        // Output
-        if (a.compareTo(ZERO) < 0) {
-            return "a must be greater than or equal to zero!";
-        }
-        if (a.compareTo(ZERO) == 0) {
-            return "1";
-        }
-        BigInteger factorial = ONE;
-
-        long lastUpdateTime = 0;
-        final int UPDATE_INTERVAL_MS = 100;
-
-        for(BigInteger i = ONE; i.compareTo(a) <= 0; i = i.add(ONE)) {
-            factorial = factorial.multiply(i);
-
-            long currentTime = System.currentTimeMillis();
-            // Only publish progress if enough time has passed
-            if (currentTime - lastUpdateTime > UPDATE_INTERVAL_MS) {
-                // (i/a)*100
-                int percent = i.multiply(BigInteger.valueOf(100)).divide(a).intValue();
-                progressManager.publishProgress(percent);
-                // Record the time of this update
-                lastUpdateTime = currentTime;
-            }
-        }
-
-        progressManager.publishProgress(100);
-        return factorial.toString();
-    }
     static String NextProbablePrime(ProgressDialog.Run run, AlgorithmParameters algorithmParameters) {
         // Input
         BigInteger a = algorithmParameters.getInput1();

@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms;
 
 
-import android.content.Context;
+import android.app.Activity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,39 +10,37 @@ import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import android.os.Handler;
 import android.os.Looper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.*;
+import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
 
 
 /**
  * Manages a background task with an optional progress UI.
  * This class is designed to be instantiated for each operation.
  */
-final class ProgressManager {
+public final class ProgressManager {
     private final static String TAG = "ProgressManager";
 
     private PopupWindow popupWindow;
     private Future<?> runningTask;
     private ExecutorService executor;
-    private final Context context;
+    private final Activity activity;
     private final Handler handler;
 
 
     /**
      * Constructs a new ProgressManager.
      *
-     * @param context The context, preferably an Activity or Fragment context.
-     *                Using getApplicationContext() can help prevent leaks if the operation
-     *                outlives the Activity, but UI operations need the Activity context.
-     *                Be careful to clean up the provided context.
+     * @param activity The activity
      */
-    public ProgressManager(Context context) {
-        this.context = context;
+    public ProgressManager(Activity activity) {
+        this.activity = activity;
         this.handler = new Handler(Looper.getMainLooper());
     }
 
@@ -101,7 +99,7 @@ final class ProgressManager {
      * Sets up and displays the PopupWindow.
      */
     private void setupPopupWindow(ViewGroup container, final AlgorithmParameters algPrm) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LayoutInflater layoutInflater = LayoutInflater.from(activity);
         View viewProgressDialog = layoutInflater.inflate(R.layout.popup_progress, container, false);
 
         Chronometer chronometerProgress = viewProgressDialog.findViewById(R.id.ChronometerProgress);
@@ -112,15 +110,17 @@ final class ProgressManager {
         // Create the PopupWindow to fill the entire screen
         popupWindow = new PopupWindow(viewProgressDialog, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
 
+        if (runningTask != null && !runningTask.isDone()) {
+            Helper.setFullScreenImmersive(activity);
+            popupWindow.showAtLocation(viewProgressDialog, Gravity.CENTER, 0, 0);
+        }
+
         textViewProgressCancel.setOnClickListener(view -> dismiss());
 
         popupWindow.setOnDismissListener(() -> {
             onDismiss(algPrm);
+            Helper.exitFullScreen(activity);
         });
-
-        if (runningTask != null && !runningTask.isDone()) {
-            popupWindow.showAtLocation(viewProgressDialog, Gravity.CENTER, 0, 0);
-        }
     }
 
 
@@ -152,10 +152,25 @@ final class ProgressManager {
 
 
     private void onPostExecute(AlgorithmParameters algPrm, Object result) {
-        if (algPrm != null && algPrm.getCallback() != null) {
-            algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), result, AlgorithmStatus.FINISHED);
+        if (algPrm == null || algPrm.getCallback() == null) {
+            dismiss();
+            return;
         }
-        dismiss();
+
+        // Update the progress popup window UI to show the "Writing results..." message.
+        onPostExecuteUpdateUI();
+
+        // Post the long-running UI work to the handler.
+        // This allows the progress popup window UI update to render *before* the UI thread gets blocked.
+        handler.post(() -> {
+            try {
+                // Write result to the main UI.
+                algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), result, AlgorithmStatus.FINISHED);
+            } finally {
+                // Dismiss the progress popup window after the long operation is complete.
+                dismiss();
+            }
+        });
     }
 
 
@@ -168,33 +183,19 @@ final class ProgressManager {
 
 
     /**
-     * Call this from the background algorithm to publish progress updates.
-     *
-     * @param progress The progress values to report.
+     * Updates the progress UI to indicate that the results are being processed.
      */
-    public void publishProgress(Integer... progress) {
-        handler.post(() -> onProgressUpdate(progress));
-    }
-
-    /**
-     * This method runs on the UI thread and receives progress updates.
-     *
-     * @param progress The progress values.
-     */
-    private void onProgressUpdate(Integer... progress) {
-        // UI can be updated here.
+    private void onPostExecuteUpdateUI() {
         if (popupWindow != null && popupWindow.isShowing()) {
-            ProgressBar progressBarPercentage = popupWindow.getContentView().findViewById(R.id.ProgressBarPercentage);
-            int percentage = progress[0];
-            if (percentage > 0) {
-                progressBarPercentage.setProgress(percentage);
-                if (progressBarPercentage.getVisibility() != View.VISIBLE) {
-                    progressBarPercentage.setVisibility(View.VISIBLE);
-                }
-            } else {
-                if (progressBarPercentage.getVisibility() != View.INVISIBLE) {
-                    progressBarPercentage.setVisibility(View.INVISIBLE);
-                }
+            View contentView = popupWindow.getContentView();
+            if (contentView == null) {
+                return;
+            }
+
+            TextView textViewProgressCancel = contentView.findViewById(R.id.TextViewProgressCancel);
+            if (textViewProgressCancel != null) {
+                textViewProgressCancel.setEnabled(false);
+                textViewProgressCancel.setText(R.string.writing_results);
             }
         }
     }
@@ -221,7 +222,7 @@ final class ProgressManager {
             // TODO. case CALCULATOR_MOD_INVERSE : return Algorithms.ModInverse(algPrm);
             // TODO. case CALCULATOR_IS_PROBABLE_PRIME : return Algorithms.IsProbablePrime(algPrm);
             // TODO. case CALCULATOR_EULER_PHI : return Algorithms.EulerPhi(algPrm);
-            case CALCULATOR_FACTORIAL : return Algorithms.Factorial(this, algPrm);
+            case CALCULATOR_FACTORIAL : return new Factorial(algPrm).calculate();
             // TODO. case CALCULATOR_NEXT_PROBABLE_PRIME: return Algorithms.NextProbablePrime(algPrm);
             // TODO. case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR : return Algorithms.NextProbableTwinPrimePair(algPrm);
             // TODO. case QUADRATIC_FORM: return Algorithms.QuadraticFormRun(algPrm);

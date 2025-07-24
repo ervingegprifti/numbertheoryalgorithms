@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FragmentPrimesList extends FragmentBase implements ICallback {
+public class FragmentPrimesList extends FragmentBase implements Callback {
     private final static String TAG = "FragmentPL";
     private TextView textViewPrimesListTitle;
     private TextView textViewPrimesListLabelColumns;

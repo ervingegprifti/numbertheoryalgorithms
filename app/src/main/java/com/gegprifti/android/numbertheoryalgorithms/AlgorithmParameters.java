@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 public class AlgorithmParameters {
     private final AlgorithmName algorithmName;
-    private final ICallback callback;
+    private final Callback callback;
     private BigInteger input1;
     private BigInteger input2;
     private BigInteger input3;
@@ -31,7 +31,7 @@ public class AlgorithmParameters {
     public void setIncludeOnlyNegativeSolutions(boolean includeOnlyNegativeSolutions) { this.includeOnlyNegativeSolutions = includeOnlyNegativeSolutions; }
 
     public AlgorithmName getAlgorithmName() { return this.algorithmName; }
-    public ICallback getCallback() { return this.callback; }
+    public Callback getCallback() { return this.callback; }
     public BigInteger getInput1() { return this.input1; }
     public BigInteger getInput2() { return this.input2; }
     public BigInteger getInput3() { return this.input3; }
@@ -43,7 +43,7 @@ public class AlgorithmParameters {
     public boolean getIncludeOnlyPositiveSolutions() { return  this.includeOnlyPositiveSolutions; }
     public boolean getIncludeOnlyNegativeSolutions() { return  this.includeOnlyNegativeSolutions; }
 
-    AlgorithmParameters(AlgorithmName algorithmName, ICallback callback) {
+    AlgorithmParameters(AlgorithmName algorithmName, Callback callback) {
         this.algorithmName = algorithmName;
         this.callback = callback;
     }

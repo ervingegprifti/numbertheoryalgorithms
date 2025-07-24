@@ -32,7 +32,7 @@ import java.math.BigInteger;
 /**
  * @see <a href="http://www.math.vt.edu/people/brown/doc/sqrts.pdf">sqrt</a>
  */
-public class FragmentTonelliShanksAlgorithm extends FragmentBase implements ICallback {
+public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Callback {
     // quadratic residue modulo
     private final static String TAG = "FragmentTSHA";
 

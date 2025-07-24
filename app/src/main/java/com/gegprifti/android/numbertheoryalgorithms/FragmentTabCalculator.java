@@ -28,7 +28,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 import java.math.BigInteger;
 
 
-public class FragmentTabCalculator extends FragmentBase implements ICallback {
+public class FragmentTabCalculator extends FragmentBase implements Callback {
     private final static String TAG = "TabCalculator";
 
     private ProgressManager progressManager;
@@ -472,7 +472,7 @@ public class FragmentTabCalculator extends FragmentBase implements ICallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressManager = new ProgressManager(requireContext());
+        progressManager = new ProgressManager(requireActivity());
     }
 
 

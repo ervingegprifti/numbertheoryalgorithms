@@ -29,7 +29,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 import java.math.BigInteger;
 
 
-public class FragmentLinearCongruenceInOneVariable extends FragmentBase implements ICallback {
+public class FragmentLinearCongruenceInOneVariable extends FragmentBase implements Callback {
     private final static String TAG = "FragmentLC";
 
     TextView textViewLinearCongruenceInOneVariableBackToAlgorithms;

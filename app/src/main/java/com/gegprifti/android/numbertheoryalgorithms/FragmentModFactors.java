@@ -30,7 +30,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 import java.math.BigInteger;
 
 
-public class FragmentModFactors extends FragmentBase implements ICallback {
+public class FragmentModFactors extends FragmentBase implements Callback {
     private final static String TAG = "FragmentMF";
 
     //static final BigInteger ZERO = BigInteger.ZERO;

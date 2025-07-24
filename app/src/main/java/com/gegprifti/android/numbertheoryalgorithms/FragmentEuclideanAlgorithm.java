@@ -29,7 +29,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
 import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 
 
-public class FragmentEuclideanAlgorithm extends FragmentBase implements ICallback {
+public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback {
     private final static String TAG = "FragmentEA";
 
     TextView textViewEuclideanBackToAlgorithms;

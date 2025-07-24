@@ -29,7 +29,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 import java.math.BigInteger;
 
 
-public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBase implements ICallback {
+public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBase implements Callback {
     private final static String TAG = "FragmentLDE2V";
 
     TextView textViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms;
