@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     // Min one year old. Requirement from Google. https://developer.android.com/studio/releases/platforms
     compileSdkVersion 36
+    ndkVersion "26.1.10909125"
 
     defaultConfig {
         applicationId "com.gegprifti.android.numbertheoryalgorithms"
