@@ -12,7 +12,7 @@ public class Power extends Algorithm implements StringCalculator {
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         // Input
         BigInteger a = algorithmParameters.getInput1();
         int b = algorithmParameters.getInput2().intValue(); // 0 <= b >= 2147483647
@@ -34,9 +34,13 @@ public class Power extends Algorithm implements StringCalculator {
         if (b == 1) {
             return a.toString();
         }
-        // BigInteger power = a.pow(b); // Is no way to cancel if we use this?
+
+        // This is hard to cancel.
+        // BigInteger power = a.pow(b);
+
         BigInteger power = a;
         for (int i = 2; i <= b; i++) {
+            checkIfCanceled();
             // Perform the power
             power = power.multiply(a);
         }

@@ -30,7 +30,7 @@ import java.math.BigInteger;
 
 
 public class FragmentTabCalculator extends FragmentBase implements Callback {
-    private final static String TAG = "TabCalculator";
+    private final static String TAG = FragmentTabCalculator.class.getSimpleName();
 
     static final BigInteger ZERO = BigInteger.ZERO;
     static final BigInteger ONE = BigInteger.ONE;

@@ -10,7 +10,7 @@ import java.util.Locale;
 
 
 public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
-    private final static String TAG = "EuclideanAlgorithm";
+    private final static String TAG = EuclideanAlgorithm.class.getSimpleName();
 
     public EuclideanAlgorithm(AlgorithmParameters algorithmParameters) {
         super(algorithmParameters);
@@ -18,7 +18,7 @@ public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         StringBuilder output = new StringBuilder();
         try {
             BigInteger a = algorithmParameters.getInput1();
@@ -91,6 +91,7 @@ public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
             BigInteger rn = divisionResult[1]; // rₙ = rn
             output.append(String.format("%s%s = %s · %s + %s<br>", TAB, rn_2, rn_1, qn_1, rn));
             while (rn.compareTo(BigInteger.ZERO) > 0) {
+                checkIfCanceled();
                 rn_2 = rn_1;
                 rn_1 = rn;
                 divisionResult = rn_2.divideAndRemainder(rn_1);

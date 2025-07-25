@@ -25,7 +25,7 @@ public class Factorial extends Algorithm implements StringCalculator {
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         // Get input.
         BigInteger a = algorithmParameters.getInput1();
 
@@ -40,6 +40,7 @@ public class Factorial extends Algorithm implements StringCalculator {
 
         BigInteger factorial = ONE;
         for(BigInteger i = ONE; i.compareTo(a) <= 0; i = i.add(ONE)) {
+            checkIfCanceled();
             factorial = factorial.multiply(i);
         }
 

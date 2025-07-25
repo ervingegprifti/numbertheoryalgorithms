@@ -30,7 +30,7 @@ import java.math.BigInteger;
 
 
 public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBase implements Callback {
-    private final static String TAG = "FragmentLDE2V";
+    private final static String TAG = FragmentLinearDiophantineEquationInTwoVariables.class.getSimpleName();
 
     TextView textViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms;
     TextView textViewLinearDiophantineEquationInTwoVariablesTitle;

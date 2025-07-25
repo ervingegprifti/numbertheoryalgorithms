@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 
 final class ProgressDialog {
-    private final static String TAG = "ProgressDialog";
+    private final static String TAG = ProgressDialog.class.getSimpleName();
 
     static PopupWindow popupWindow;
     private static Run run;
@@ -179,9 +179,9 @@ final class ProgressDialog {
                     //case EUCLIDEAN_ALGORITHM:
                     //    result = Algorithms.EuclideanAlgorithm(this, this.algPrm);
                     //    break;
-                    case EXTENDED_EUCLIDEAN_ALGORITHM :
-                        result = Algorithms.ExtendedEuclideanAlgorithm(this, this.algPrm);
-                        break;
+                    //case EXTENDED_EUCLIDEAN_ALGORITHM :
+                    //    result = Algorithms.ExtendedEuclideanAlgorithm(this, this.algPrm);
+                    //    break;
                     case LINEAR_CONGRUENCE_IN_ONE_VARIABLE :
                         result = Algorithms.LinearCongruenceInOneVariable(this, this.algPrm);
                         break;
@@ -191,15 +191,15 @@ final class ProgressDialog {
                     case LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES :
                         result = Algorithms.LinearDiophantineEquation(this, this.algPrm);
                         break;
-                    case TONELLI_SHANKS_ALGORITHM :
-                        result = Algorithms.TonelliShanksAlgorithm(this, this.algPrm);
-                        break;
-                    case MOD_FACTORS :
-                        result = Algorithms.ModFactors(this, this.algPrm);
-                        break;
-                    case MOD_FACTORS_COUNT :
-                        result = Algorithms.ModFactorsCount(this, this.algPrm);
-                        break;
+                    //case TONELLI_SHANKS_ALGORITHM :
+                    //    result = Algorithms.TonelliShanksAlgorithm(this, this.algPrm);
+                    //    break;
+                    //case MOD_FACTORS :
+                    //    result = Algorithms.ModFactors(this, this.algPrm);
+                    //    break;
+                    //case MOD_FACTORS_COUNT :
+                    //    result = Algorithms.ModFactorsCount(this, this.algPrm);
+                    //    break;
                     case PRIMES_LIST :
                         result = Algorithms.PrimesList(this, this.algPrm);
                         break;

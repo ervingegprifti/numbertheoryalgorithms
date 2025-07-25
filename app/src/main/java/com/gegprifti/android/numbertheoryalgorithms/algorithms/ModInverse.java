@@ -12,12 +12,17 @@ public class ModInverse extends Algorithm implements StringCalculator {
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         // Input
         BigInteger a = algorithmParameters.getInput1();
         BigInteger b = algorithmParameters.getInput2();
 
         // Output
+
+        // TODO +++
+        // Is there a way to cancel this.
+        // Perhaps custom write the algorithm so to be cancelable for long calculations.
+
         if (a.gcd(b).equals(ONE)) {
             BigInteger result = a.modInverse(b);
             return result.toString();

@@ -17,7 +17,7 @@ import com.gegprifti.android.numbertheoryalgorithms.R;
  * Displays a full-screen splash screen using a PopupWindow.
  */
 public final class PopupSplashScreen {
-    private final static String TAG = "PopupSplashScreen";
+    private final static String TAG = PopupSplashScreen.class.getSimpleName();
 
     private final FragmentActivity fragmentActivity;
     private final Context context;

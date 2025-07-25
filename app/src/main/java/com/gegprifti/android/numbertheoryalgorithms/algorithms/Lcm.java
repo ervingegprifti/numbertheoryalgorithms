@@ -12,14 +12,20 @@ public class Lcm extends Algorithm implements StringCalculator {
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         // Input
         BigInteger a = algorithmParameters.getInput1();
         BigInteger b = algorithmParameters.getInput2();
 
         // Output
+
+        // TODO +++
+        // Is there a way to cancel this.
+        // Perhaps custom write the algorithm so to be cancelable for long calculations.
+
         // LCM(a,b) = (ab)/GCD(a,b) since (ab)=GCD(a,b)LCM(a,b)
         BigInteger result = a.multiply(b).divide(a.gcd(b));
+
         return result.toString();
     }
 }

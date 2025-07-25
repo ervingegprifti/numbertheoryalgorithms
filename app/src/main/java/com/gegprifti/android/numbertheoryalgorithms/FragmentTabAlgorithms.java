@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 
 
 public class FragmentTabAlgorithms extends Fragment {
-    private final static String TAG = "FragmentTabAlgorithms";
+    private final static String TAG = FragmentTabAlgorithms.class.getSimpleName();
+
     private SectionsPagerAdapter sectionsPagerAdapter;
     public SectionsPagerAdapter getSectionsPagerAdapter() {
         return  sectionsPagerAdapter;

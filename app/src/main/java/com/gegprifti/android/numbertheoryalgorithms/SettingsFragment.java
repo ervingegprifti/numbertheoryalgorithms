@@ -17,7 +17,8 @@ import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat implements MenuProvider {
-    private final static String TAG = "SettingsFragment";
+    private final static String TAG = SettingsFragment.class.getSimpleName();
+
     private String rootKey;
 
     @Override

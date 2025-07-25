@@ -25,7 +25,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
  * This class is designed to be instantiated for each operation.
  */
 public final class ProgressManager {
-    private final static String TAG = "ProgressManager";
+    private final static String TAG = ProgressManager.class.getSimpleName();
 
     private PopupWindow popupWindow;
     private Future<?> runningTask;
@@ -231,13 +231,13 @@ public final class ProgressManager {
             // TODO. case QUADRATIC_FORM_1: return Algorithms.QuadraticFormRun1(algPrm);
             // TODO. case QUADRATIC_FORM_2: return Algorithms.QuadraticFormRun2(algPrm);
             case EUCLIDEAN_ALGORITHM: return new EuclideanAlgorithm(algPrm).calculate();
-            // TODO. case EXTENDED_EUCLIDEAN_ALGORITHM : return Algorithms.ExtendedEuclideanAlgorithm(algPrm);
+            case EXTENDED_EUCLIDEAN_ALGORITHM : return new ExtendedEuclideanAlgorithm(algPrm).calculate();
             // TODO. case LINEAR_CONGRUENCE_IN_ONE_VARIABLE : return Algorithms.LinearCongruenceInOneVariable(algPrm);
             // TODO. case LINEAR_CONGRUENCE_IN_TWO_VARIABLES : return Algorithms.LinearCongruenceInTwoVariables(algPrm);
             // TODO. case LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES : return Algorithms.LinearDiophantineEquation(algPrm);
-            // TODO. case TONELLI_SHANKS_ALGORITHM : return Algorithms.TonelliShanksAlgorithm(algPrm);
-            // TODO. case MOD_FACTORS : return Algorithms.ModFactors(algPrm);
-            // TODO. case MOD_FACTORS_COUNT : return Algorithms.ModFactorsCount(algPrm);
+            case TONELLI_SHANKS_ALGORITHM : return new TonelliShanksAlgorithm(algPrm).calculate();
+            case MOD_FACTORS : return new ModFactors(algPrm).calculate();
+            case MOD_FACTORS_COUNT : return new ModFactorsCount(algPrm).calculate();
             // TODO. case PRIMES_LIST : return Algorithms.PrimesList(algPrm);
             default: return null;
         }

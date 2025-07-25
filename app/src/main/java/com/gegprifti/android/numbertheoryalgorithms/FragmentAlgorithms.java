@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 
 
 public class FragmentAlgorithms extends FragmentBase {
-    private final static String TAG = "FragmentAlgorithms";
+    private final static String TAG = FragmentAlgorithms.class.getSimpleName();
 
     // Define the parent fragment
     private FragmentTabAlgorithms fragmentTabAlgorithms;

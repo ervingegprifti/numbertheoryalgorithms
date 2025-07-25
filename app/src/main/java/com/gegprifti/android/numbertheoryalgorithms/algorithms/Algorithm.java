@@ -14,12 +14,24 @@ public abstract class Algorithm {
 
     protected final AlgorithmParameters algorithmParameters;
     protected static final String COLOR = "#8C5900";
-    protected static final String BULLET = ""; // "•"; // TODO Useless, remove it later.
-    protected static final String TAB = ""; // "\t" // TODO Useless, remove it later.
+    protected static final String BULLET = ""; // "•"; // TODO +++ Useless, remove it later.
+    protected static final String TAB = ""; // "\t" // TODO +++ Useless, remove it later.
     protected static final String STOP = "■";
+    protected static final String RIGHT_ARROW_COLORED = "<font color='#8C5900'>➡</font>";
 
 
     public Algorithm(AlgorithmParameters algorithmParameters) {
         this.algorithmParameters = algorithmParameters;
+    }
+
+    /**
+     * Checks if the current thread has been interrupted and throws an exception if it has.
+     * This helper method can be called from any subclass's long-running loop.
+     * @throws InterruptedException if the thread has been interrupted.
+     */
+    protected void checkIfCanceled() throws InterruptedException {
+        if (Thread.currentThread().isInterrupted()) {
+            throw new InterruptedException("Calculation was cancelled by the user.");
+        }
     }
 }

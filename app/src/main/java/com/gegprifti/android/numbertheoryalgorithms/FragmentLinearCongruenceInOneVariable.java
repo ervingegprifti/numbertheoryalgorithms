@@ -30,7 +30,7 @@ import java.math.BigInteger;
 
 
 public class FragmentLinearCongruenceInOneVariable extends FragmentBase implements Callback {
-    private final static String TAG = "FragmentLC";
+    private final static String TAG = FragmentLinearCongruenceInOneVariable.class.getSimpleName();
 
     TextView textViewLinearCongruenceInOneVariableBackToAlgorithms;
     TextView textViewLinearCongruenceInOneVariableTitle;

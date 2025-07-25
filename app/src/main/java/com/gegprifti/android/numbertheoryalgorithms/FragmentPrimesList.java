@@ -33,7 +33,8 @@ import java.util.List;
 
 
 public class FragmentPrimesList extends FragmentBase implements Callback {
-    private final static String TAG = "FragmentPL";
+    private final static String TAG = FragmentPrimesList.class.getSimpleName();
+
     private TextView textViewPrimesListTitle;
     private TextView textViewPrimesListLabelColumns;
     private TextView textViewPrimesListLabelNumbers;

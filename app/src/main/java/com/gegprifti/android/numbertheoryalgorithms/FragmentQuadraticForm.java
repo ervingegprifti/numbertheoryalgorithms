@@ -35,7 +35,7 @@ import java.util.List;
 
 
 public class FragmentQuadraticForm extends FragmentBase implements Callback {
-    private final static String TAG = "FragmentQF";
+    private final static String TAG = FragmentQuadraticForm.class.getSimpleName();
 
     TextView textViewQuadraticFormBackToAlgorithms;
     TextView textViewQuadraticFormTitle;

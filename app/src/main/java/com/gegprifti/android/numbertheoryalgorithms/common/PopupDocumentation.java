@@ -19,7 +19,7 @@ import com.github.barteksc.pdfviewer.listener.OnTapListener;
 
 
 public final class PopupDocumentation {
-    private final static String TAG = "PopupDocumentation";
+    private final static String TAG = PopupDocumentation.class.getSimpleName();
 
     public final static String CALCULATOR_PDF = "documentation/Calculator.pdf";
     public final static String QUADRATIC_FORM_PDF = "documentation/SimpleQuadraticForm.pdf";

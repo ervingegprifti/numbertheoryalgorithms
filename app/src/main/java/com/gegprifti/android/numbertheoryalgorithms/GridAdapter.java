@@ -15,7 +15,8 @@ import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
 
 
 public class GridAdapter extends BaseAdapter {
-    private final static String TAG = "GridAdapter";
+    private final static String TAG = GridAdapter.class.getSimpleName();
+
     private final Context context;
     private final LayoutInflater layoutInflater;
     private final List<List<RowItem>> gridRows;

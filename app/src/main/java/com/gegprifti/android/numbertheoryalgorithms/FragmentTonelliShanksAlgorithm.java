@@ -34,7 +34,7 @@ import java.math.BigInteger;
  */
 public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Callback {
     // quadratic residue modulo
-    private final static String TAG = "FragmentTSHA";
+    private final static String TAG = FragmentTonelliShanksAlgorithm.class.getSimpleName();
 
     TextView textViewTonelliShanksAlgorithmBackToAlgorithms;
     TextView textViewTonelliShanksAlgorithmTitle;
@@ -497,7 +497,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.TONELLI_SHANKS_ALGORITHM, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(p);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

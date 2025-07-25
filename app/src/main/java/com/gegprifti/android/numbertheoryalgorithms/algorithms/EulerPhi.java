@@ -33,7 +33,7 @@ public class EulerPhi extends Algorithm implements StringCalculator {
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         // Input
         BigInteger a = algorithmParameters.getInput1();
 
@@ -46,6 +46,7 @@ public class EulerPhi extends Algorithm implements StringCalculator {
         }
         BigInteger counter = ZERO;
         for(BigInteger i = ONE; i.compareTo(a) <= 0; i = i.add(ONE)) {
+            checkIfCanceled();
             // Calculate Euler's phi-function
             BigInteger g = i.gcd(a);
             if (g.compareTo(ONE) == 0) {

@@ -3,6 +3,8 @@ package com.gegprifti.android.numbertheoryalgorithms;
 
 import android.util.Log;
 import android.util.Pair;
+
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.common.Tabular;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.getSign;
@@ -13,7 +15,7 @@ import java.util.Locale;
 
 
 class Algorithms {
-    private final static String TAG = "Algorithms";
+    private final static String TAG = Algorithms.class.getSimpleName();
 
     private static final BigInteger ZERO = BigInteger.ZERO;
     private static final BigInteger ONE = BigInteger.ONE;
@@ -460,141 +462,47 @@ class Algorithms {
 
 
 
-    //region EXTENDED EUCLIDEAN ALGORITHM
-    static String ExtendedEuclideanAlgorithm(ProgressDialog.Run run, AlgorithmParameters algorithmParameters) {
-        StringBuilder output = new StringBuilder();
-        try {
-            BigInteger a = algorithmParameters.getInput1();
-            BigInteger b = algorithmParameters.getInput2();
 
-            // Extended Euclidean Algorithm
-            output.append(String.format(Locale.getDefault(), "<font color='%s'><b>Extended Euclidean Algorithm</b></font><br>", COLOR));
 
-            // Solve for x,y such as ax+by=GCD(a,b) where a,b ∊ ℕ, x,y ∊ ℤ
-            output.append("Solve for <b>x</b>,<b>y</b> such as a<b>x</b>+b<b>y</b>=GCD(a,b) where a,b ∊ ℕ, <b>x</b>,<b>y</b> ∊ ℤ<br>");
-            output.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> = GCD(%s, %s)<br>", NP(a), NP(b), NP(a), NP(b)));
-            output.append("<br>");
 
-            // Input
-            output.append(String.format(Locale.getDefault(), "<font color='%s'>Input</font><br>", COLOR));
-            output.append(String.format(Locale.getDefault(), "a = %s<br>", NP(a)));
-            output.append(String.format(Locale.getDefault(), "b = %s<br>", NP(b)));
-            output.append(String.format(Locale.getDefault(), "GCD(a,b) = %s<br>", a.gcd(b)));
-            output.append("<br>");
 
-            // Apply the division algorithm (rₙ₋₂ = rₙ₋₁ qₙ₋₁ + rₙ) repeatedly
-            output.append(String.format(Locale.getDefault(), "<font color='%s'>Apply r<sub><small><small>n-2</small></small></sub> = r<sub><small><small>n-1</small></small></sub> · q<sub><small><small>n-1</small></small></sub> + r<sub><small><small>n</small></small></sub> repeatedly</font><br>", COLOR));
-            output.append("Set the starting point<br>");
-            output.append("r<sub><small><small>n-2</small></small></sub> = a<br>");
-            output.append("r<sub><small><small>n-1</small></small></sub> = b<br>");
-            output.append("q<sub><small><small>n-1</small></small></sub> = quotient of r<sub><small><small>n-2</small></small></sub>/r<sub><small><small>n-1</small></small></sub><br>");
-            output.append("r<sub><small><small>n</small></small></sub> = remainder of r<sub><small><small>n-2</small></small></sub>/r<sub><small><small>n-1</small></small></sub><br>");
-            output.append("x<sub><small><small>n-2</small></small></sub> = 1<br>");
-            output.append("x<sub><small><small>n-1</small></small></sub> = 0<br>");
-            output.append("x<sub><small><small>n-1</small></small></sub> = x<sub><small><small>n-2</small></small></sub> - x<sub><small><small>n-1</small></small></sub> · q<sub><small><small>n-1</small></small></sub><br>");
-            output.append("y<sub><small><small>n-2</small></small></sub> = 1<br>");
-            output.append("y<sub><small><small>n-1</small></small></sub> = 0<br>");
-            output.append("y<sub><small><small>n-1</small></small></sub> = y<sub><small><small>n-2</small></small></sub> - y<sub><small><small>n-1</small></small></sub> · q<sub><small><small>n-1</small></small></sub><br>");
-            output.append("<br>");
 
-            // Loop rₙ₋₂ = rₙ₋₁ qₙ₋₁ + rₙ until rₙ = 0
-            output.append(String.format(Locale.getDefault(), "<font color='%s'>Loop until r<sub><small><small>n</small></small></sub> = 0</font><br>", COLOR));
-            // The first result
-            BigInteger rn_2 = a; // rₙ₋₂ = rn_2
-            BigInteger rn_1 = b; // rₙ₋₁ = rn_1
-            BigInteger[] divisionResult = a.divideAndRemainder(b);
-            BigInteger qn_1 = divisionResult[0]; // qₙ₋₁ = qn_1
-            BigInteger rn = divisionResult[1]; // rₙ = rn
-            output.append(String.format(Locale.getDefault(), "%s = %s · %s + %s<br>", rn_2, rn_1, qn_1, rn));
-            BigInteger xn_2 = ONE;
-            BigInteger xn_1 = ZERO;
-            BigInteger xn_temp = xn_1;
-            xn_1 = xn_2.subtract(xn_1.multiply(qn_1));
-            output.append(String.format(Locale.getDefault(),"<b>x</b> = (%+d) - (%+d)·(%+d) =%s<br>", xn_2, xn_1, qn_1, xn_1));
-            xn_2 = xn_temp;
-            BigInteger yn_2 = ZERO;
-            BigInteger yn_1 = ONE;
-            BigInteger yn_temp = yn_1;
-            yn_1 = yn_2.subtract(yn_1.multiply(qn_1));
-            output.append(String.format(Locale.getDefault(), "<b>y</b> = (%+d) - (%+d)·(%+d) =%s<br>", yn_2, yn_1, qn_1, yn_1));
-            yn_2 = yn_temp;
-            output.append("<br>");
 
-            while (rn.compareTo(BigInteger.ZERO) > 0) {
 
-                // Check if the run is canceled
-                if (run.isCancelled()) { return null; }
 
-                rn_2 = rn_1;
-                rn_1 = rn;
-                divisionResult = rn_2.divideAndRemainder(rn_1);
-                qn_1 = divisionResult[0];
-                rn = divisionResult[1];
-                output.append(String.format(Locale.getDefault(), "%s = %s · %s + %s", rn_2, rn_1, qn_1, rn));
-                if (rn.compareTo(BigInteger.ZERO) == 0) {
-                    output.append(String.format(Locale.getDefault(), "<font color='%s'> %s stop here</font>", COLOR, STOP));
-                }
-                output.append("<br>");
-                xn_temp = xn_1;
-                xn_1 = xn_2.subtract(xn_1.multiply(qn_1));
-                output.append(String.format(Locale.getDefault(),"<b>x</b> = (%+d) - (%+d)·(%+d) =%s<br>", xn_2, xn_1, qn_1, xn_1));
-                xn_2 = xn_temp;
-                yn_temp = yn_1;
-                yn_1 = yn_2.subtract(yn_1.multiply(qn_1));
-                output.append(String.format(Locale.getDefault(), "<b>y</b> = (%+d) - (%+d)·(%+d) =%s<br>", yn_2, yn_1, qn_1, yn_1));
-                yn_2 = yn_temp;
-                output.append("<br>");
-            }
 
-            // Return the last rₙ before rₙ = 0. Hence return rₙ₋₁
-            output.append(String.format(Locale.getDefault(), "<font color='%s'>Output</font><br>", COLOR));
-            // output.append(String.format(Locale.getDefault(), "GCD(a, b) = %s<br>", rn_1));
-            output.append(String.format(Locale.getDefault(), "<b>x</b> = %s<br>", xn_2));
-            output.append(String.format(Locale.getDefault(), "<b>y</b> = %s", yn_2));
 
-            // Return
-            return output.toString();
 
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-            return ex.toString();
-        }
-    }
 
-    /**
-     * Extended Euclidean Algorithm. Must be called like EEA(|a|, |b|)
-     * @param a must be the in the absolute value of an integer when called
-     * @param b must be the in the absolute value of an integer when called
-     * @return array [g, x, y] such that ax + by = gcd(x, y) = g<br>
-     * [0] = GCD(a, b)<br>
-     * [1] = x<br>
-     * [2] = y
-     *
-     * @see <a href="https://math.stackexchange.com/questions/37806/extended-euclidean-algorithm-with-negative-numbers">Extended Euclidean algorithm with negative numbers</a>
-     */
-    private static BigInteger[] EEA (BigInteger a, BigInteger b) {
-        BigInteger[] result = new BigInteger[3];
 
-        if (b.equals(BigInteger.ZERO)) {
-            result[0] = a;
-            result[1] = ONE;
-            result[2] = ZERO;
-            return result;
-        }
 
-        BigInteger[] values = EEA(b, a.mod(b));
 
-        BigInteger g = values[0];
-        BigInteger x = values[2];
-        BigInteger y = values[1].subtract(values[2].multiply(a.divide(b)));
 
-        result[0] = g;
-        result[1] = x;
-        result[2] = y;
 
-        return result;
-    }
-    //endregion EXTENDED EUCLIDEAN ALGORITHM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //region LINEAR DIOPHANTINE EQUATION IN TWO VARIABLES
@@ -648,7 +556,7 @@ class Algorithms {
                 result.append("<br>");
             }
 
-            BigInteger[] EE = EEA(a.abs(), b.abs());
+            BigInteger[] EE = AlgorithmHelper.EEA(a.abs(), b.abs());
             BigInteger xee = getSign(a).multiply(EE[1]);
             BigInteger yee = getSign(b).multiply(EE[2]);
 
@@ -802,7 +710,7 @@ class Algorithms {
                 }
             }
 
-            BigInteger[] EE = EEA(a.abs(), m.abs());
+            BigInteger[] EE = AlgorithmHelper.EEA(a.abs(), m.abs());
             BigInteger xee = getSign(a).multiply(EE[1]);
             //BigInteger yee = getSign(m).multiply(EE[2]);
 
@@ -1018,7 +926,7 @@ class Algorithms {
                 result.append("<br>");
             }
 
-            BigInteger[] eeaForWandZ = EEA(j.abs(), n.abs());
+            BigInteger[] eeaForWandZ = AlgorithmHelper.EEA(j.abs(), n.abs());
             BigInteger wee = getSign(j).multiply(eeaForWandZ[1]);
             BigInteger zee = getSign(n).multiply(eeaForWandZ[2]);
 
@@ -1063,7 +971,7 @@ class Algorithms {
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Since GCD(d,e) is always 1, then we find x₀ and y₀ by solving d<b>x</b>+<b>e</b>y=1</font><br>", COLOR));
             result.append("<br>");
 
-            BigInteger[] eeaForXandY = EEA(d.abs(), e.abs());
+            BigInteger[] eeaForXandY = AlgorithmHelper.EEA(d.abs(), e.abs());
             BigInteger xee = getSign(d).multiply(eeaForXandY[1]);
             BigInteger yee = getSign(e).multiply(eeaForXandY[2]);
 
@@ -1188,431 +1096,17 @@ class Algorithms {
     //endregion LINEAR CONGRUENCE IN TWO VARIABLES
 
 
-    //region TONELLI SHANKS ALGORITHM
-
-    /**
-     *
-     * @param run
-     * @param algorithmParameters
-     * @return
-     *
-     * @see <a href="http://www.math.vt.edu/people/brown/doc/sqrts.pdf">sqrts</a>
-     */
-    static  String TonelliShanksAlgorithm(ProgressDialog.Run run, AlgorithmParameters algorithmParameters) {
-        StringBuilder result = new StringBuilder();
-        try {
-            BigInteger a = algorithmParameters.getInput1();
-            BigInteger p = algorithmParameters.getInput2();
-
-            // Tonelli-Shanks Algorithm
-            result.append(String.format(Locale.getDefault(),"<font color='%s'><b>Tonelli-Shanks Algorithm</b></font><br>", COLOR));
-
-            // Solve for x, quadratic residue modulo x² ≡ a (mod p), where p ∊ PRIMES
-            result.append("Solve for <b>x</b>, quadratic residue modulo <b>x</b>² ≡ a (mod p), where p ∊ PRIMES<br>");
-            result.append(String.format(Locale.getDefault(), "<b>x</b>² ≡ %s (mod %s)<br>", NP(a), NP(p)));
-            result.append("<br>");
-
-            //
-            result.append(String.format(Locale.getDefault(),"<font color='%s'>Input </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(),"%sa = %s<br>", TAB, NP(a)));
-            result.append(String.format(Locale.getDefault(),"%sp = %s<br>", TAB, NP(p)));
-            result.append("<br>");
-
-            // p must be prime. Check if p is prime.
-            // The higher the certainty number you pass, the more certain you can be,
-            // i.e. 100 means it's prime with probability 1 - (1/2)^100, which is extremely close to 1.
-            // For reference: if certainty is 10, then 1 - 1/2^10 is approximately 99.9%
-            if ((p.isProbablePrime(10))) {
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>If p is prime, then continue... </font><br>", COLOR));
-                result.append("p is probable prime <br>");
-                // result.append(String.format(LOCALE,"<font color='%s'>Continue... </font><br>", COLOR));
-                result.append("<br>");
-            } else {
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>If p is not prime, then stop.</font><br>", COLOR));
-                result.append("p is not prime");
-                // result.append(String.format(LOCALE,"<font color='%s'>Stop. </font>", COLOR));
-                return result.toString();
-            }
-
-            // Check if GCD(a, p) = 1
-            //BigInteger gcd_a_p = a.gcd(p);
-            if (a.gcd(p).equals(ONE)) {
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>If p is relatively prime to a, then continue... </font><br>", COLOR));
-                result.append("GCD(a, p) = 1 <br>");
-                // result.append(String.format(LOCALE,"<font color='%s'>%sContinue...</font><br>", COLOR, TAB));
-                result.append("<br>");
-            } else {
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>If p is not relatively prime to a, then stop.</font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(),"GCD(a, p) = %s ≠ 1", a.gcd(p)));
-                //result.append(String.format(LOCALE,"<font color='%s'>%sStop.</font>", COLOR, TAB));
-                return result.toString();
-            }
-
-            // Calculate a⁽ᵖ⁻¹⁾ᐟ² (mod p)
-            // Use Euler's Criterion to check if there is a solution or not.
-            // If a⁽ᵖ⁻¹⁾ᐟ² (mod p) ≡ -1, then by Euler's Criterion, a has no square root (mod p)
-            // result.append(String.format(LOCALE,"<font color='%s'>Check by Euler's Criterion, if a has square root (mod p)</font><br>", COLOR));
-            BigInteger exp = p.subtract(ONE).divide(TWO); // Calculate (p-1)/2
-            BigInteger mod = a.modPow(exp, p); // Calculate a⁽ᵖ⁻¹⁾ᐟ² (mod p)
-            if(mod.equals(p.subtract(ONE))) {
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>If a<sup><small><small>(p-1)/2</small></small></sup> ≡ -1 (mod p), then by Euler's Criterion a has no square root (mod p)</font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(), "%s<sup><small><small>(%s-1)/2</small></small></sup> = %s<sup><small><small>%s</small></small></sup> = %s ≡ -1 (mod %s)<br>", a, p, a, exp, mod, p));
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>There is no sqrt solution. </font>", COLOR));
-                return result.toString();
-            } else {
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>If a<sup><small><small>(p-1)/2</small></small></sup> ≡ 1 (mod p), then continue..., as by Euler's Criterion a has square root (mod p)</font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(), "%s<sup><small><small>(%s-1)/2</small></small></sup> = %s<sup><small><small>%s</small></small></sup> ≡ %s (mod %s)<br>", a, p, a, exp, mod, p));
-                //result.append(String.format(LOCALE,"<font color='%s'>%sContinue...</font><br>", COLOR, TAB));
-                result.append("<br>");
-            }
-
-            // Check if p ≡ 3 (mod 4) then return x = a⁽ᵖ⁺¹⁾ᐟ⁴ (mod p)
-            // result.append(String.format(LOCALE,"<font color='%s'>Check if p ≡ 3 (mod 4)</font><br>", COLOR));
-            BigInteger pmod4 = p.mod(FOUR);
-            if (pmod4.equals(THREE)) {
-                BigInteger x = a.modPow(p.add(ONE).divide(FOUR), p);
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>IF p ≡ 3 (mod 4), then return <b>x</b> = a<sup><small><small>(p+1)/4</small></small></sup> (mod p)</font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(),"%s ≡ %s (mod 4)<br>", p, pmod4));
-                result.append(String.format(Locale.getDefault(),"<b>x</b> = %s<sup><small><small>(%s+1)/4</small></small></sup> (mod %s) = %s<br>", a, p, p, x));
-                result.append("<br>");
-                result.append(TonelliShanksResult(a, p, x));
-                return result.toString();
-            } else {
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>IF p ≢ 3 (mod 4), then continue...</font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(),"%s ≡ %s (mod 4)<br>", p, pmod4));
-                // result.append(String.format(LOCALE,"<font color='%s'>Continue... </font><br>", COLOR));
-                result.append("<br>");
-            }
-
-            // Calculate s,e where p-1=s2ᵉ with a odd and e positive.
-            result.append(String.format(Locale.getDefault(),"<font color='%s'>Calculate s,e where p-1 = s·2<sup><small><small>e</small></small></sup> with s odd and e positive </font><br>", COLOR));
-            BigInteger s = p.subtract(ONE);
-            BigInteger e = ZERO;
-            result.append(String.format(Locale.getDefault(), "%s-1 = %s = %s·2<sup><small><small>%s</small></small></sup>" + "<br>", p, p.subtract(ONE), s, e)) ;
-            while (s.mod(TWO).equals(ZERO)) {
-                s = s.divide(TWO);
-                e = e.add(ONE);
-                result.append(String.format(Locale.getDefault(), "%s-1 = %s = %s·2<sup><small>%s</small></sup>", p, p.subtract(ONE), s, e));
-                if (s.mod(TWO).equals(ZERO)) {
-                    result.append("<br>");
-                } else {
-                    result.append(String.format(Locale.getDefault(), "<font color='%s'> %s s = %s stop here, s is odd</font>" + "<br>", COLOR, STOP, s));
-                }
-            }
-            result.append(String.format(Locale.getDefault(), "s = %s<br>", s));
-            result.append(String.format(Locale.getDefault(), "e = %s<br>", e));
-            result.append("<br>");
-
-            // Find a number n such that n⁽ᵖ⁻¹⁾ᐟ² ≡ -1 (mod p). Some number that does not have a square root (mod p)
-            result.append(String.format(Locale.getDefault(),"<font color='%s'>Find a number n such that n<sup><small><small>(p-1)/2</small></small></sup> ≡ -1 (mod p). Some number that does not have a square root (mod p) </font><br>", COLOR));
-            BigInteger n = TWO; // Start from 2
-            while (n.modPow(p.subtract(ONE).divide(TWO), p).equals(ONE)) {
-                if (n.equals(TWO)) {
-                    result.append(String.format(Locale.getDefault(), "%s<sup><small><small>%s</small></small></sup> ≡ %s (mod %s)<font color='%s'> %s start from n=2</font><br>", n, exp, n.modPow(p.subtract(ONE).divide(TWO), p), p, COLOR, STOP)) ;
-                } else {
-                    result.append(String.format(Locale.getDefault(), "%s<sup><small><small>%s</small></small></sup> ≡ %s (mod %s)<br>", n, exp, n.modPow(p.subtract(ONE).divide(TWO), p), p)) ;
-                }
-                n = n.add(ONE);
-            }
-            result.append(String.format(Locale.getDefault(), "%s<sup><small><small>%s</small></small></sup> ≡ %s (mod %s)<font color='%s'> %s stop here</font><br>", n, exp, n.modPow(p.subtract(ONE).divide(TWO), p).subtract(p), p, COLOR, STOP)) ;
-            result.append(String.format(Locale.getDefault(), "n = %s<br>", n));
-            result.append("<br>");
-
-            // Initialize
-            result.append(String.format(Locale.getDefault(),"<font color='%s'>Initialize </font><br>", COLOR));
-            BigInteger x = a.modPow(s.add(ONE).divide(TWO), p); // First guess at the square root
-            BigInteger b = a.modPow(s, p); // First guess at the fudge factor
-            BigInteger g = n.modPow(s, p); // Powers of g will update both x and b
-            BigInteger r = e; // Exponent will decrease with each update of the algorithm
-            result.append(String.format(Locale.getDefault(), "<font color='%s'><b>x</b> = a<sup><small><small>(s+1)/2</small></small></sup> (mod p), First guess at the square root</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>b = a<sup><small><small>s</small></small></sup> (mod p), First guess at the fudge factor</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>g = n<sup><small><small>s</small></small></sup> (mod p), Powers of g will update both <b>x</b> and b</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>r = e, Exponent will decrease with each update of the algorithm</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Note that <b>x</b>² ≡ ba (mod p) </font><br>", COLOR)); // Note that x² ≡ ba (mod p)
-            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s<sup><small><small>(%s+1)/2</small></small></sup> (mod %s) = %s<sup><small><small>%s</small></small></sup> (mod %s) = %s<br>", a, s, p, a, s.add(ONE).divide(TWO), p, x)) ;
-            result.append(String.format(Locale.getDefault(), "b = %s<sup><small><small>%s</small></small></sup> (mod %s) = %s<br>", a, s, p, b)) ;
-            result.append(String.format(Locale.getDefault(), "g = %s<sup><small><small>%s</small></small></sup> (mod %s) = %s<br>", n, s, p, g)) ;
-            result.append(String.format(Locale.getDefault(), "r = %s<br>", r)) ;
-            result.append("<br>");
-
-            // Find m such that, 0 ≤ m ≤ r-1 and b^{2^{m}} (mod p) = 1
-            Ord ord = CalculateOrd(b, p, r);
-            BigInteger m = ord.getM(); // Get the calculated m
-            result.append(ord.getResult()); // Get the result logs
-            result.append("<br>");
-
-            // Check m ≠ -1
-            if(m.equals(ONE.negate())) {
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>Something went wrong calculating m </font>", COLOR));
-                return result.toString();
-            }
-
-            // Check if m = 0
-            // result.append(String.format(LOCALE,"<font color='%s'>Check if m = 0</font><br>", COLOR));
-            if(m.equals(ZERO)) {
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>IF m = 0, then return <b>x</b> </font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(), "m = %s<br>", m));
-                result.append("<br>");
-                result.append(TonelliShanksResult(a, p, x));
-                return result.toString();
-            } else {
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>IF m > 0, update variables... </font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(), "m = %s<br>", m));
-                result.append("<br>");
-            }
-
-            //
-            while (m.compareTo(ZERO) > 0) {
-                result.append(String.format(Locale.getDefault(),"<font color='%s'>Update variables, repeat until m = 0 </font><br>", COLOR));
-                // x
-                result.append("<b>x</b> = xg<sup><small><small>2<sup><small><small>r-m-1</small></small></sup></small></small></sup> (mod p) = ");
-                result.append(String.format(Locale.getDefault(), " %s·%s<sup><small><small>2<sup><small><small>%s-%s-1</small></small></sup></small></small></sup> (mod %s) = ", x, g, r, m, p)) ;
-                x = (x.multiply(g.modPow(TwoExp(r.subtract(m).subtract(BigInteger.ONE)), p))).mod(p);
-                result.append(String.format(Locale.getDefault(), "%s<br>", x)) ;
-                // b
-                result.append("b = bg<sup><small><small>2<sup><small><small>r-m</small></small></sup></small></small></sup> (mod p) = ");
-                result.append(String.format(Locale.getDefault(), " %s·%s<sup><small><small>2<sup><small><small>%s-%s</small></small></sup></small></small></sup> (mod %s) = ", b, g, r, m, p)) ;
-                b = (b.multiply(g.modPow(TwoExp(r.subtract(m)), p))).mod(p);
-                result.append(String.format(Locale.getDefault(), "%s<br>", b)) ;
-                // g
-                result.append("g = g<sup><small><small>2<sup><small><small>r-m</small></small></sup></small></small></sup> (mod p) = ");
-                result.append(String.format(Locale.getDefault(), " %s<sup><small><small>2<sup><small><small>%s-%s</small></small></sup></small></small></sup> (mod %s) = ", g, r, m, p)) ;
-                g = g.modPow(TwoExp(r.subtract(m)), p);
-                result.append(String.format(Locale.getDefault(), "%s<br>", g)) ;
-                // r
-                r = m;
-                result.append(String.format(Locale.getDefault(), "r = m = %s<br>", m));
-                //
-                result.append("<br>");
-                //
-                ord = CalculateOrd(b, p, r);
-                m = ord.getM(); // Get the calculated m
-                result.append(ord.getResult()); // Get the result logs
-                //result.append(String.format(LOCALE, "%sm = %s<br>", TAB, m));
-                result.append("<br>");
-            }
-
-            // Check if m = 0
-            // result.append(String.format(LOCALE,"<font color='%s'>Check if m = 0 </font><br>", COLOR));
-            if(m.equals(ZERO)) {
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>IF m = 0, then return <b>x</b></font><br>", COLOR));
-                result.append(String.format(Locale.getDefault(), "m = %s<br>", m));
-                result.append("<br>");
-                result.append(TonelliShanksResult(a, p, x));
-                return result.toString();
-            }
-
-            //
-            result.append(TonelliShanksResult(a, p, x));
-
-            // Just for the sake of canceling, but this has no real effect here
-            // Check if the run is canceled
-            if (run.isCancelled()) { return null; }
-
-            // Return
-            return  result.toString();
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-            return ex.toString();
-        }
-    }
-    private static String TonelliShanksResult(BigInteger a, BigInteger p, BigInteger x) {
-        StringBuilder result = new StringBuilder();
-        try {
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Output </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s<br>", x)) ;
-            result.append(String.format(Locale.getDefault(), "<b>x</b><sup><small><small>2</small></small></sup> = %s<sup><small><small>2</small></small></sup> = %s ≡ %s (mod %s)<br>", x, x.pow(2), x.pow(2).mod(p), p));
-            result.append(String.format(Locale.getDefault(), "a = %s ≡ %s (mod %s)<br>", a, a.mod(p), p)) ;
-            result.append("<br>");
-            //
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Check correctness </font><br>", COLOR));
-            if (x.pow(2).mod(p).equals(a.mod(p))) {
-                result.append(String.format(Locale.getDefault(), "%s<sup><small><small>2</small></small></sup> ≡ %s (mod %s)<br>", x, a, p)) ;
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>Correct.</font>", COLOR));
-            } else {
-                result.append(String.format(Locale.getDefault(), "%s<sup><small><small>2</small></small></sup> ≢ %s (mod %s)<br>", x, a, p)) ;
-                result.append(String.format(Locale.getDefault(), "<font color='%s'>Something went wrong.</font>", COLOR));
-            }
-
-            return result.toString();
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-            return ex.toString();
-        }
-    }
-    private static BigInteger TwoExp(BigInteger e) {
-        BigInteger a = ONE;
-        while (e.compareTo(ZERO) > 0) {
-            a = a.multiply(TWO);
-            e = e.subtract(ONE);
-        }
-        // Return 2ᵉ
-        return a;
-    }
-    private static class Ord {
-
-        BigInteger m;
-        String result;
-        void setM(BigInteger m) {
-            this.m = m;
-        }
-        public void setResult(String result) {
-            this.result = result;
-        }
-        BigInteger getM() {
-            return m;
-        }
-        public String getResult() {
-            return result;
-        }
-
-    }
-    private static Ord CalculateOrd(BigInteger b, BigInteger p, BigInteger r) {
-        // Return the value and the result log
-        Ord ord = new Ord();
-        try {
-            // Find m such that, 0 ≤ m ≤ r-1 and b^{2^{m}} (mod p) = 1
-            StringBuilder result = new StringBuilder();
-            result.append(String.format(Locale.getDefault(),"<font color='%s'>%s%sFind m such that, 0 ≤ m ≤ r-1 and b<sup><small><small>2<sup><small><small>m</small></small></sup></small></small></sup> (mod p) = 1</font><br>", COLOR, BULLET, TAB));
-            //
-            for(BigInteger m = ZERO; m.compareTo(r.subtract(ONE)) <= 0; m = m.add(ONE)) {
-                BigInteger mod = b.modPow(TwoExp(m), p);
-                result.append(String.format(Locale.getDefault(), "%sm = %s %s %s<sup><small><small>2<sup><small><small>%s</small></small></sup></small></small></sup> (mod %s) = %s", TAB, m, RIGHT_ARROW_COLORED, b, m, p, mod));
-                if(mod.equals(ONE)) {
-                    result.append(String.format(Locale.getDefault(), "<font color='%s'> %s stop here</font><br>", COLOR, STOP));
-                    ord.setM(m);
-                    ord.setResult(result.toString());
-                    return ord;
-                } else {
-                    result.append("<br>");
-                }
-            }
-            ord.setM(ONE.negate());
-            ord.setResult(result.toString());
-            return ord;
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-            return null;
-        }
-    }
-    //endregion TONELLI SHANKS ALGORITHM
 
 
-    //region MOD FACTORS
-    static String ModFactors(ProgressDialog.Run run, AlgorithmParameters algorithmParameters) {
-        StringBuilder result = new StringBuilder();
-        try {
-            BigInteger n = algorithmParameters.getInput1();
-            BigInteger a = algorithmParameters.getInput2();
 
-            // Mod factors
-            result.append(String.format(Locale.getDefault(), "<font color='%s'><b>Mod factors</b></font><br>", COLOR));
 
-            // Find n ≡ bc (mod a) where
-            result.append("Find n ≡ bc (mod a) where <br>");
-            result.append("(a<b>x</b> + c)(a<b>y</b> + b) = n <br>");
-            result.append("a(a<b>x</b><b>y</b> + b<b>x</b> + c<b>y</b>) + bc = n <br>");
-            result.append("<br>");
 
-            // Input
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Input</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "n = %s<br>", NP(n)));
-            result.append(String.format(Locale.getDefault(), "a = %s<br>", NP(a)));
-            result.append("<br>");
 
-            // Possible bc mod factors for each b,c = {0, ..., a-1}
-            BigInteger m = n.mod(a);
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Possible bc mod factors for each b,c = {0, ..., a-1} </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>m = n (mod a)</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>bc ≡ m (mod a)</font><br>", COLOR));
-            int counter = 0;
-            for (BigInteger b = ZERO; b.compareTo(a) < 0; b = b.add(ONE)) {
-                // Check if the run is canceled
-                if (run.isCancelled()) { return null; }
-                for (BigInteger c = ZERO; c.compareTo(a) < 0; c = c.add(ONE)) {
-                    // Check if the run is canceled
-                    if (run.isCancelled()) { return null; }
-                    if(b.compareTo(c) <= 0) {
-                        // Get only one of the pair and the ones with the same values. e.x. from 1,2 and 2,1 get only one pair 1,2. Get all the pairs like 00; 11; 22...
-                        BigInteger bc = b.multiply(c);
-                        BigInteger rem = bc.mod(a);
-                        if(m.equals(rem)) {
-                            counter += 1;
-                            result.append(String.format(Locale.getDefault(), "bc = %s·%s = %s ≡ %s (mod %s)<br>", b, c, bc, m, a));
-                        }
-                    }
-                }
-            }
-            result.append("<br>");
 
-            // Possible bc mod factors counted
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Possible bc mod factors counted </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "counter = %s", counter));
 
-            // Return
-            return result.toString();
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-            return ex.toString();
-        }
-    }
-    static String ModFactorsCount(ProgressDialog.Run run, AlgorithmParameters algorithmParameters) {
-        StringBuilder result = new StringBuilder();
-        try {
-            BigInteger n = algorithmParameters.getInput1();
-            BigInteger a = algorithmParameters.getInput2();
 
-            // Mod factors count
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Mod factors count </font><br>", COLOR));
-            result.append("(a<b>x</b> + c)(a<b>y</b> + b) = a(a<b>x</b><b>y</b> + b<b>x</b> + c<b>y</b>) + bc = n </font><br>");
-            result.append("<br>");
 
-            // Input
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Input</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "n = %s<br>", n));
-            result.append(String.format(Locale.getDefault(), "a = %s<br>", a));
-            result.append("<br>");
 
-            // Count possible bc mod factors for each b,c = {0, ... , k-1}, k = {2, ... , a}
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Count possible bc mod factors for each b,c = {0, ... , k-1}, k = {2, ... , a} </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>m = n (mod k) </font><br>",COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>bc ≡ m (mod k) %s p possible bc mod factors counted per each k</font><br>",COLOR, RIGHT_ARROW_COLORED));
-            for(BigInteger k = TWO; k.compareTo(a) <= 0; k = k.add(ONE))
-            {
-                BigInteger m = n.mod(k);
-                int counter = 0;
-                for (BigInteger b = ZERO; b.compareTo(k) < 0; b = b.add(ONE)) {
-                    // Check if the run is canceled
-                    if (run.isCancelled()) { return null; }
-                    for (BigInteger c = ZERO; c.compareTo(k) < 0; c = c.add(ONE)) {
-                        // Check if the run is canceled
-                        if (run.isCancelled()) { return null; }
-                        if(b.compareTo(c) <= 0) {
-                            // Get only one of the pair and the ones with the same values.
-                            // e.x. from 1,2 and 2,1 get only one pair 1,2. Get all the pairs like 0,0; 1,1; 2,2;...
-                            BigInteger rem = b.multiply(c).mod(k);
-                            if(m.equals(rem)) {
-                                counter += 1;
-                            }
-                        }
-                    }
-                }
-                if(k.equals(a)) {
-                    result.append(String.format(Locale.getDefault(), "bc ≡ %s (mod %s) %s %s", m, k, RIGHT_ARROW_COLORED, counter));
-                } else {
-                    result.append(String.format(Locale.getDefault(), "bc ≡ %s (mod %s) %s %s<br>", m, k, RIGHT_ARROW_COLORED, counter));
-                }
-            }
-
-            // Return
-            return  result.toString();
-
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-            return ex.toString();
-        }
-    }
-    //endregion MOD FACTORS
 
 
     //region PRIMES LIST

@@ -1,5 +1,5 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 public interface StringCalculator {
-    String calculate();
+    String calculate() throws InterruptedException;
 }

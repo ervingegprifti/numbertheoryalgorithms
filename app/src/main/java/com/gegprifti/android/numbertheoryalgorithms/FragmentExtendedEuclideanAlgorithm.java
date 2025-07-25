@@ -30,7 +30,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 
 
 public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements Callback {
-    private final static String TAG = "FragmentEEA";
+    private final static String TAG = FragmentExtendedEuclideanAlgorithm.class.getSimpleName();
 
     TextView textViewExtendedEuclideanBackToAlgorithms;
     TextView textViewExtendedEuclideanTitle;
@@ -479,7 +479,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.EXTENDED_EUCLIDEAN_ALGORITHM, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

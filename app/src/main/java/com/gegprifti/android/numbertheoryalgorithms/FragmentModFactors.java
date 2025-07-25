@@ -31,10 +31,8 @@ import java.math.BigInteger;
 
 
 public class FragmentModFactors extends FragmentBase implements Callback {
-    private final static String TAG = "FragmentMF";
+    private final static String TAG = FragmentModFactors.class.getSimpleName();
 
-    //static final BigInteger ZERO = BigInteger.ZERO;
-    //static final BigInteger ONE = BigInteger.ONE;
     static final BigInteger TWO = BigInteger.valueOf(2L);
     BigInteger INTEGER_MAX_VALUE = new BigInteger(Integer.toString(Integer.MAX_VALUE));
 
@@ -617,7 +615,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.MOD_FACTORS, this);
             algorithmParameters.setInput1(n);
             algorithmParameters.setInput2(a);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -646,7 +644,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.MOD_FACTORS_COUNT, this);
             algorithmParameters.setInput1(n);
             algorithmParameters.setInput2(a);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

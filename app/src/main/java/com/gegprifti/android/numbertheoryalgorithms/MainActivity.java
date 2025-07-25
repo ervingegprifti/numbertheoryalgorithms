@@ -17,7 +17,8 @@ import android.view.WindowManager;
 
 
 public class MainActivity extends AppCompatActivity {
-    private final static String TAG = "MainActivity";
+    private final static String TAG = MainActivity.class.getSimpleName();
+
     private ViewPager2 viewPager2;
 
     @Override

@@ -13,12 +13,17 @@ public class Root extends Algorithm implements StringCalculator {
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         // Input
         BigInteger a = algorithmParameters.getInput1();
         int b = algorithmParameters.getInput2().intValue();
 
         // Output
+
+        // TODO +++
+        // Is there a way to cancel this.
+        // Perhaps custom write the algorithm so to be cancelable for long calculations.
+
         // Root, Power & Remainder
         BigInteger root = BigMath.NthRootFloor(a, b);
         BigInteger power = root.pow(b);

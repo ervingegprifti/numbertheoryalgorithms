@@ -17,7 +17,7 @@ public class NextProbableTwinPrimePair extends Algorithm implements StringCalcul
 
 
     @Override
-    public String calculate() {
+    public String calculate() throws InterruptedException {
         // Input
         BigInteger a = algorithmParameters.getInput1();
 
@@ -36,6 +36,7 @@ public class NextProbableTwinPrimePair extends Algorithm implements StringCalcul
         }
         boolean twinPrimeNotFoundYet = true;
         while (twinPrimeNotFoundYet) {
+            checkIfCanceled();
             prime1 = prime2;
             prime2 = prime1.nextProbablePrime();
             if ((prime2.subtract(prime1)).compareTo(TWO) == 0) {

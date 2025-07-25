@@ -16,7 +16,7 @@ import com.gegprifti.android.numbertheoryalgorithms.common.PopupSplashScreen;
 
 
 public class FragmentTabAbout extends Fragment {
-    private final static String TAG = "TabAbout";
+    private final static String TAG = FragmentTabAbout.class.getSimpleName();
 
     @Nullable
     @Override

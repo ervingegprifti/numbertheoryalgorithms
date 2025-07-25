@@ -40,7 +40,7 @@ import java.util.Locale;
 
 
 public final class Helper {
-    private final static String TAG = "Helper";
+    private final static String TAG = Helper.class.getSimpleName();
 
     private static final BigInteger ZERO = BigInteger.ZERO;
     private static final BigInteger ONE = BigInteger.ONE;
