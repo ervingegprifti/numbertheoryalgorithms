@@ -20,23 +20,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
-import com.gegprifti.android.numbertheoryalgorithms.SettingsActivity;
+import com.gegprifti.android.numbertheoryalgorithms.settings.SettingsActivity;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
+
 import java.math.BigInteger;
 
 
-public class FragmentTabCalculator extends FragmentBase implements Callback {
-    private final static String TAG = FragmentTabCalculator.class.getSimpleName();
+public class TabFragmentCalculator extends FragmentBase implements Callback {
+    private final static String TAG = TabFragmentCalculator.class.getSimpleName();
 
     static final BigInteger ZERO = BigInteger.ZERO;
     static final BigInteger ONE = BigInteger.ONE;
@@ -133,8 +134,8 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             editTextCalculatorResult2 = inflater.findViewById(R.id.EditTextCalculatorResult2);
 
             // Input filter integer only
-            editTextCalculatorA.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextCalculatorB.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
+            editTextCalculatorA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCalculatorB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // Default UI status
             // Check if this is the first time the user is using this.
@@ -146,7 +147,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 editTextCalculatorB.setText(rsa_100_q);
                 // Reset the last button clicked.
                 ResetAllAndSelectButtonClicked(null);
-                Helper.HideSoftKeyBoard(requireActivity());
+                UIHelper.HideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
                 // Run example
@@ -221,49 +222,49 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             textViewCalculatorCopyA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextCalculatorA);
+                    UIHelper.CopyEditText(requireContext(), editTextCalculatorA);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorCopyA);
                 }
             });
             textViewCalculatorCopyB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextCalculatorB);
+                    UIHelper.CopyEditText(requireContext(), editTextCalculatorB);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorCopyB);
                 }
             });
             textViewCalculatorCopyResult1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextCalculatorResult1);
+                    UIHelper.CopyEditText(requireContext(), editTextCalculatorResult1);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorCopyResult1);
                 }
             });
             textViewCalculatorCopyResult2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextCalculatorResult2);
+                    UIHelper.CopyEditText(requireContext(), editTextCalculatorResult2);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorCopyResult2);
                 }
             });
             textViewCalculatorPasteA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextCalculatorA);
+                    UIHelper.PasteEditText(requireContext(), editTextCalculatorA);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorPasteA);
                 }
             });
             textViewCalculatorPasteB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextCalculatorB);
+                    UIHelper.PasteEditText(requireContext(), editTextCalculatorB);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorPasteB);
                 }
             });
             textViewCalculatorClearA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextCalculatorA);
+                    UIHelper.ClearEditText(requireContext(), editTextCalculatorA);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorClearA);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -272,7 +273,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             textViewCalculatorClearB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextCalculatorB);
+                    UIHelper.ClearEditText(requireContext(), editTextCalculatorB);
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorClearB);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -281,7 +282,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             textViewCalculatorClearResult1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextCalculatorResult1);
+                    UIHelper.ClearEditText(requireContext(), editTextCalculatorResult1);
                     Result1Reset();
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorClearResult1);
                     // Reset the last button clicked.
@@ -291,7 +292,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             textViewCalculatorClearResult2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextCalculatorResult2);
+                    UIHelper.ClearEditText(requireContext(), editTextCalculatorResult2);
                     Result2Reset();
                     ResetAllAndSelectClipboardButtonClicked(textViewCalculatorClearResult2);
                     // Reset the last button clicked.
@@ -309,7 +310,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String calculatorLabelA = "a" + Helper.GetNrOfDigits(s.toString());
+                    String calculatorLabelA = "a" + UIHelper.GetNrOfDigits(s.toString());
                     textViewCalculatorLabelA.setText(calculatorLabelA);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -326,7 +327,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String calculatorLabelB = "b" + Helper.GetNrOfDigits(s.toString());
+                    String calculatorLabelB = "b" + UIHelper.GetNrOfDigits(s.toString());
                     textViewCalculatorLabelB.setText(calculatorLabelB);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -378,7 +379,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 // Result: 1522605027922533360535618378132637429718068114961380688657908494580122963258952897654000350692006139
                 // Reset the last button clicked.
                 ResetAllAndSelectButtonClicked(null);
-                Helper.HideSoftKeyBoard(requireActivity());
+                UIHelper.HideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
                 // Reset result
@@ -395,7 +396,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 // Result: 188198812920607963838697239461650439807163563379417382700763356422988859715234665485319060606504743045317388011303396716199692321205734031879550656996221305168759307650257059
                 // Reset the last button clicked.
                 ResetAllAndSelectButtonClicked(null);
-                Helper.HideSoftKeyBoard(requireActivity());
+                UIHelper.HideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
                 // Reset result
@@ -412,7 +413,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 // Result: 1230186684530117755130494958384962720772853569595334792197322452151726400507263657518745202199786469389956474942774063845925192557326303453731548268507917026122142913461670429214311602221240479274737794080665351419597459856902143413
                 // Reset the last button clicked.
                 ResetAllAndSelectButtonClicked(null);
-                Helper.HideSoftKeyBoard(requireActivity());
+                UIHelper.HideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
                 // Reset result
@@ -428,7 +429,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 // Result: 1847699703211741474306835620200164403018549338663410171471785774910651696711161249859337684305435744585616061544571794052229717732524660960646946071249623720442022269756756687378427562389508764678440933285157496578843415088475528298186726451339863364931908084671990431874381283363502795470282653297802934916155811881049844908319545009848393775227257052578591944993870073695755688436933812779613089230392569695253261620823676490316036551371447913932347169566988069
                 // Reset the last button clicked.
                 ResetAllAndSelectButtonClicked(null);
-                Helper.HideSoftKeyBoard(requireActivity());
+                UIHelper.HideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
                 // Reset result
@@ -444,7 +445,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 // Result: 25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216869987549182422433637259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133844143603833904414952634432190114657544454178424020924616515723350778707749817125772467962926386356373289912154831438167899885040445364023527381951378636564391212010397122822120720357
                 // Reset the last button clicked.
                 ResetAllAndSelectButtonClicked(null);
-                Helper.HideSoftKeyBoard(requireActivity());
+                UIHelper.HideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
                 // Reset result
@@ -452,7 +453,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 Result2SetVisibilityToGone();
                 return true;
             } else if (id == R.id.menu_more_rsa) {
-                Helper.openWith(requireContext(), "https://en.wikipedia.org/wiki/RSA_Factoring_Challenge");
+                UIHelper.openWith(requireContext(), "https://en.wikipedia.org/wiki/RSA_Factoring_Challenge");
                 return true;
             }
         } catch (Exception ex) {
@@ -477,66 +478,66 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     //region Display
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorPasteA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearA, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorPasteA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearA, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorPasteB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearB, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorPasteB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearB, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyResult1, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearResult1, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyResult1, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearResult1, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyResult2, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearResult2, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorCopyResult2, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewCalculatorClearResult2, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelA, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticA, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelA, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticA, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextCalculatorA, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextCalculatorA, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelB, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticB, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelB, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticB, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextCalculatorB, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextCalculatorB, biggerControls);
             // Buttons
-            ControlDisplay.SetButtonFontSize(buttonCalculatorAddition, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorSubtraction, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorMultiplication, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorDivision, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorPower, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorRoot, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorGcd, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorLcm, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorMod, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorModInverse, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorIsProbablePrime, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorEulerPhi, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorFactorial, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorNextProbablePrime, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonCalculatorNextProbableTwinPrime, smallerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorAddition, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorSubtraction, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorMultiplication, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorDivision, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorPower, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorRoot, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorGcd, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorLcm, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorMod, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorModInverse, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorIsProbablePrime, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorEulerPhi, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorFactorial, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorNextProbablePrime, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonCalculatorNextProbableTwinPrime, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelResult1, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticResult1, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelResult1, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticResult1, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(editTextCalculatorResult1, smallerControls);
+            ControlDisplay.SetOutputFontSize(editTextCalculatorResult1, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelResult2, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticResult2, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelResult2, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewCalculatorLabelElasticResult2, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(editTextCalculatorResult2, smallerControls);
+            ControlDisplay.SetOutputFontSize(editTextCalculatorResult2, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -563,15 +564,15 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
         //
         switch (algorithmName) {
             case CALCULATOR_ADDITION:
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_addition_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_addition_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_SUBTRACTION:
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_subtraction_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_subtraction_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MULTIPLICATION :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_multiplication_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_multiplication_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_DIVISION :
@@ -580,14 +581,14 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                     quotient_remainder = ((String)result).split("_"); // quotient_remainder
                 }
                 // Result 1
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_division_label_result1) + Helper.GetNrOfDigits(quotient_remainder[0]);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_division_label_result1) + UIHelper.GetNrOfDigits(quotient_remainder[0]);
                 result1 = quotient_remainder[0];
                 // Result 2
-                labelResult2 = requireContext().getResources().getString(R.string.calculator_division_label_result2) + Helper.GetNrOfDigits(quotient_remainder[1]);
+                labelResult2 = requireContext().getResources().getString(R.string.calculator_division_label_result2) + UIHelper.GetNrOfDigits(quotient_remainder[1]);
                 result2 = quotient_remainder[1];
                 break;
             case CALCULATOR_POWER :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_power_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_power_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_ROOT :
@@ -596,26 +597,26 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                     root_remainder = ((String)result).split("_"); // root_remainder
                 }
                 // Result 1
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_root_label_result1) + Helper.GetNrOfDigits(root_remainder[0]);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_root_label_result1) + UIHelper.GetNrOfDigits(root_remainder[0]);
                 result1 = root_remainder[0];
                 // Result 2
-                labelResult2 = requireContext().getResources().getString(R.string.calculator_root_label_result2) + Helper.GetNrOfDigits(root_remainder[1]);
+                labelResult2 = requireContext().getResources().getString(R.string.calculator_root_label_result2) + UIHelper.GetNrOfDigits(root_remainder[1]);
                 result2 = root_remainder[1];
                 break;
             case CALCULATOR_GCD :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_gcd_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_gcd_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_LCM :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_lcm_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_lcm_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MOD :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_mod_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_mod_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MOD_INVERSE :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_mod_inverse_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_mod_inverse_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_IS_PROBABLE_PRIME :
@@ -628,15 +629,15 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                 result1 = (String)result;
                 break;
             case CALCULATOR_EULER_PHI :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_euler_phi_of_a) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_euler_phi_of_a) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_FACTORIAL :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_a_factorial) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_a_factorial) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_NEXT_PROBABLE_PRIME:
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_prime_label_result1) + Helper.GetNrOfDigits((String)result);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_prime_label_result1) + UIHelper.GetNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR :
@@ -645,10 +646,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
                     twin_prime_pair = ((String)result).split("_"); // prime1_prime2
                 }
                 // Result 1
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result1) + Helper.GetNrOfDigits((String)twin_prime_pair[0]);
+                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result1) + UIHelper.GetNrOfDigits((String)twin_prime_pair[0]);
                 result1 = twin_prime_pair[0];
                 // Result 2
-                labelResult2 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result2) + Helper.GetNrOfDigits((String)twin_prime_pair[1]);
+                labelResult2 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result2) + UIHelper.GetNrOfDigits((String)twin_prime_pair[1]);
                 result2 = twin_prime_pair[1];
                 break;
             default:
@@ -674,10 +675,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonAddition(ViewGroup container, boolean displayProgressDialog) {
         try  {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
                 return;
             }
 
@@ -706,10 +707,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonSubtraction(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
                 return;
             }
 
@@ -738,10 +739,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonMultiplication(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
                 return;
             }
 
@@ -770,10 +771,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonDivision(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeOtherThanZero(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
                 return;
             }
 
@@ -802,10 +803,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonPower(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ZERO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ZERO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
@@ -835,10 +836,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonRoot(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
                 return;
             }
-            if(Helper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE, INTEGER_MAX_VALUE)) {
                 return;
             }
 
@@ -867,10 +868,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonGcd(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
                 return;
             }
 
@@ -899,10 +900,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonLcm(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
                 return;
             }
 
@@ -911,7 +912,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
 
             if (a.compareTo(ZERO) == 0 && b.compareTo(ZERO) == 0) {
-                Helper.CustomToastLight(requireContext(), "Not both a and b can be zero!");
+                UIHelper.CustomToastLight(requireContext(), "Not both a and b can be zero!");
                 return;
             }
 
@@ -936,10 +937,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonMod(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE)) {
                 return;
             }
 
@@ -968,10 +969,10 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonModInverse(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE)) {
                 return;
             }
 
@@ -1000,13 +1001,13 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonIsProbablePrime(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", TWO)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", TWO)) {
                 return;
             }
-            if (Helper.checkInputMustBeFilled(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, textViewCalculatorLabelB.getText().toString(), "Must specify the certainty in input <b>%s</b>")) {
+            if (UIHelper.checkInputMustBeFilled(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, textViewCalculatorLabelB.getText().toString(), "Must specify the certainty in input <b>%s</b>")) {
                 return;
             }
-            if(Helper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE, INTEGER_MAX_VALUE)) {
                 return;
             }
 
@@ -1035,7 +1036,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonEulerPhi(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if (Helper.checkInputMustBeGreaterThanMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
+            if (UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
                 return;
             }
 
@@ -1062,7 +1063,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonFactorial(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
                 return;
             }
 
@@ -1089,7 +1090,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     private void OnButtonNextProbablePrime(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", TWO)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", TWO)) {
                 return;
             }
 
@@ -1121,7 +1122,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
             // (3, 5), (5, 7), (11, 13), (17, 19), (29, 31), (41, 43), (59, 61), (71, 73), (101, 103), (107, 109), (137, 139), ...
 
             // Check.
-            if (Helper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            if (UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
                 return;
             }
 
@@ -1150,7 +1151,7 @@ public class FragmentTabCalculator extends FragmentBase implements Callback {
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextCalculatorA.clearFocus();
         editTextCalculatorB.clearFocus();

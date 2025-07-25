@@ -30,6 +30,12 @@
 
 
         <LinearLayout style="@style/AboutInfoContainerH">
+            <TextView android:text="@string/fa_bullhorn" style="@style/AboutInfoIconFaSolid" />
+            <TextView android:text="@string/about_app" style="@style/AboutInfoValue" />
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/AboutInfoContainerH">
             <TextView android:text="@string/fa_globe" style="@style/AboutInfoIconFaSolid" />
             <TextView android:id="@+id/TextViewAboutAppWebsite" android:text="@string/about_app_website" style="@style/AboutInfoLink" />
         </LinearLayout>

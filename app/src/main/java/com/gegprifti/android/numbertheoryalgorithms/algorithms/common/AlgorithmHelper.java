@@ -2,7 +2,7 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
 import android.util.Pair;
-import com.gegprifti.android.numbertheoryalgorithms.Solution;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,19 @@ public class AlgorithmHelper {
     private static final BigInteger ONE = BigInteger.ONE;
     private static final BigInteger TWO = BigInteger.valueOf(2L);
     private static final BigInteger EIGHT = BigInteger.valueOf(8L);
+
+
+    public static String NP(int value) {
+        return  (value < 0) ? "(" + value + ")" : value + "";
+    }
+    public static String NP(BigInteger value) {
+        return  (value.compareTo(BigInteger.ZERO) < 0) ? "(" + value + ")" : value + "";
+    }
+
+
+    public static BigInteger getSign(BigInteger value) {
+        return (value.compareTo(ZERO) < 0) ? ONE.negate() : ONE;
+    }
 
 
     /**

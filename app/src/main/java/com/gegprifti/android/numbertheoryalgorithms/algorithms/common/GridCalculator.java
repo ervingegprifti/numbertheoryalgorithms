@@ -1,7 +1,6 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
-import com.gegprifti.android.numbertheoryalgorithms.common.RowItem;
 import java.util.List;
 
 

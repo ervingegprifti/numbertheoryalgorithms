@@ -1,14 +1,14 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
-import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.getSign;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.NP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getSign;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
-import com.gegprifti.android.numbertheoryalgorithms.common.Tabular;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Tabular;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,6 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
             BigInteger c = algorithmParameters.getInput3();
-            boolean showResultInMonospace = algorithmParameters.getShowResultInMonospace();
 
             // Linear Diophantine Equation In Two Variables
             result.append(String.format(Locale.getDefault(), "<font color='%s'><b>Linear Diophantine Equation In Two Variables</b></font><br>", COLOR));
@@ -144,21 +143,10 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
                 row.add(" + ");
                 row.add(String.format(Locale.getDefault(),"%s·%s", NP(b), NP(y)));
                 row.add(String.format(Locale.getDefault()," = %s", NP(cCalculated)));
-
-                if (showResultInMonospace) {
-                    tabular.addRow(row);
-                } else {
-                    for (String cell : row) {
-                        result.append(cell);
-                    }
-                    result.append("<br>");
-                }
+                tabular.addRow(row);
             }
-            if (showResultInMonospace) {
-                result.append(tabular.render());
-            }
+            result.append(tabular.render());
             result.append("⋮");
-
             return result.toString();
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.

@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
 import java.util.ArrayList;

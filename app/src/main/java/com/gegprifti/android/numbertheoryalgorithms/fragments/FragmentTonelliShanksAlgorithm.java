@@ -2,7 +2,6 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,17 +19,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
@@ -70,9 +70,9 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     EditText editTextTonelliShanksAlgorithmResult;
 
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    // public FragmentTabAlgorithms getFragmentTabAlgorithms() { return fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms(FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    // public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms(TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
     //
     // private final static BigInteger TWO = BigInteger.valueOf(2L);
     // private final static BigInteger THREE = BigInteger.valueOf(3L);
@@ -116,8 +116,8 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             editTextTonelliShanksAlgorithmResult = inflater.findViewById(R.id.EditTextTonelliShanksAlgorithmResult);
 
             // Input filter integer only
-            editTextTonelliShanksAlgorithmA.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextTonelliShanksAlgorithmP.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
+            editTextTonelliShanksAlgorithmA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextTonelliShanksAlgorithmP.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // editTextTonelliShanksResult.setEnabled(false);
             // Make the link text in the textView clickable
@@ -133,10 +133,10 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             textViewTonelliShanksAlgorithmBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(fragmentTabAlgorithms != null) {
+                    if(tabFragmentAlgorithms != null) {
                         // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        fragmentTabAlgorithms.SetFragment(fragmentAlgorithms);
+                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                        tabFragmentAlgorithms.SetFragment(fragmentAlgorithms);
                     }
                 }
             });
@@ -174,42 +174,42 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             textViewTonelliShanksAlgorithmCopyA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextTonelliShanksAlgorithmA);
+                    UIHelper.CopyEditText(requireContext(), editTextTonelliShanksAlgorithmA);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyA);
                 }
             });
             textViewTonelliShanksAlgorithmCopyP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextTonelliShanksAlgorithmP);
+                    UIHelper.CopyEditText(requireContext(), editTextTonelliShanksAlgorithmP);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyP);
                 }
             });
             textViewTonelliShanksAlgorithmCopyResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
+                    UIHelper.CopyEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyResult);
                 }
             });
             textViewTonelliShanksAlgorithmPasteA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextTonelliShanksAlgorithmA);
+                    UIHelper.PasteEditText(requireContext(), editTextTonelliShanksAlgorithmA);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmPasteA);
                 }
             });
             textViewTonelliShanksAlgorithmPasteP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextTonelliShanksAlgorithmP);
+                    UIHelper.PasteEditText(requireContext(), editTextTonelliShanksAlgorithmP);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmPasteP);
                 }
             });
             textViewTonelliShanksAlgorithmClearA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextTonelliShanksAlgorithmA);
+                    UIHelper.ClearEditText(requireContext(), editTextTonelliShanksAlgorithmA);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmClearA);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -218,7 +218,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             textViewTonelliShanksAlgorithmClearP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextTonelliShanksAlgorithmP);
+                    UIHelper.ClearEditText(requireContext(), editTextTonelliShanksAlgorithmP);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmClearP);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -227,7 +227,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             textViewTonelliShanksAlgorithmClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
+                    UIHelper.ClearEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewTonelliShanksAlgorithmClearResult);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -244,7 +244,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String tonelliShanksLabelA = "a" + Helper.GetNrOfDigits(s.toString());
+                    String tonelliShanksLabelA = "a" + UIHelper.GetNrOfDigits(s.toString());
                     textViewTonelliShanksAlgorithmLabelA.setText(tonelliShanksLabelA);
                     // Reset
                     ResultReset(false);
@@ -263,7 +263,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String tonelliShanksLabelP = "p" + Helper.GetNrOfDigits(s.toString());
+                    String tonelliShanksLabelP = "p" + UIHelper.GetNrOfDigits(s.toString());
                     textViewTonelliShanksAlgorithmLabelP.setText(tonelliShanksLabelP);
                     // Reset
                     ResultReset(false);
@@ -368,24 +368,10 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
         this.refreshSmallerClipboardButtons();
         this.refreshSmallerControls();
         this.refreshHideExampleButtons();
-        this.refreshShowResultInMonospace();
     }
 
 
     //region Display
-    private void refreshShowResultInMonospace() {
-        try {
-            Typeface currentTypeface = editTextTonelliShanksAlgorithmResult.getTypeface();
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-            if (currentTypeface != Typeface.MONOSPACE && showResultInMonospace) {
-                editTextTonelliShanksAlgorithmResult.setTypeface(Typeface.MONOSPACE);
-            } else if (currentTypeface == Typeface.MONOSPACE && !showResultInMonospace) {
-                editTextTonelliShanksAlgorithmResult.setTypeface(Typeface.DEFAULT);
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.buttonTonelliShanksAlgorithmRunExample1.getVisibility() == View.VISIBLE; // Just check one.
@@ -407,48 +393,48 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     }
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmCopyA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmPasteA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmClearA, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmCopyA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmPasteA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmClearA, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmCopyP, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmPasteP, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmClearP, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmCopyP, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmPasteP, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmClearP, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmExpandResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmCopyResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmClearResult, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmExpandResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmCopyResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewTonelliShanksAlgorithmClearResult, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelA, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticA, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelA, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticA, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextTonelliShanksAlgorithmA, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextTonelliShanksAlgorithmA, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelP, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticP, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelP, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticP, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextTonelliShanksAlgorithmP, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextTonelliShanksAlgorithmP, biggerControls);
             // Buttons
-            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRun, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRunExample1, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRunExample2, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRunExample3, smallerControls);
+            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRun, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRunExample1, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRunExample2, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonTonelliShanksAlgorithmRunExample3, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelResult, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticResult, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelResult, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticResult, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(editTextTonelliShanksAlgorithmResult, smallerControls);
+            ControlDisplay.SetOutputFontSize(editTextTonelliShanksAlgorithmResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -483,10 +469,10 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     private void OnButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextTonelliShanksAlgorithmA, textViewTonelliShanksAlgorithmLabelA, textViewTonelliShanksAlgorithmLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextTonelliShanksAlgorithmA, textViewTonelliShanksAlgorithmLabelA, textViewTonelliShanksAlgorithmLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextTonelliShanksAlgorithmP, textViewTonelliShanksAlgorithmLabelP, textViewTonelliShanksAlgorithmLabelElasticP, "p", BigInteger.valueOf(2L))) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextTonelliShanksAlgorithmP, textViewTonelliShanksAlgorithmLabelP, textViewTonelliShanksAlgorithmLabelElasticP, "p", BigInteger.valueOf(2L))) {
                 return;
             }
 
@@ -548,7 +534,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextTonelliShanksAlgorithmA.clearFocus();
         editTextTonelliShanksAlgorithmP.clearFocus();

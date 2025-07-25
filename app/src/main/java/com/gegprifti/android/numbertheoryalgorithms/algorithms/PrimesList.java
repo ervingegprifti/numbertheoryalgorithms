@@ -7,7 +7,7 @@ import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmH
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridCalculator;
-import com.gegprifti.android.numbertheoryalgorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms;
+package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.R;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 
 
 public class GridAdapter extends BaseAdapter {
@@ -26,29 +26,29 @@ public class GridAdapter extends BaseAdapter {
     private final int rowItemHeightGlobal;
     private final List<Integer> rowItemWidths;
     private final List<Integer> rowItemHeights;
-    private final boolean smallerResultDisplay;
+    private final boolean biggerResultDisplay;
     private final int marginLeft;
     private final int marginTop;
     private final int marginRight;
     private final int marginBottom;
     private int lastItemIndex = -1;
 
-    public GridAdapter(Context context, LinearLayout staticColumnHeader, List<List<RowItem>> gridRows, int rowItemWidthGlobal, List<Integer> rowItemWidths, int rowItemHeightGlobal, List<Integer> rowItemHeights, boolean smallerResultDisplay) {
+    public GridAdapter(Context context, LinearLayout staticColumnHeader, List<List<RowItem>> gridRows, int rowItemWidthGlobal, List<Integer> rowItemWidths, int rowItemHeightGlobal, List<Integer> rowItemHeights, boolean biggerResultDisplay) {
         this.context = context;
         this.gridRows = gridRows;
         this.rowItemWidthGlobal = rowItemWidthGlobal;
         this.rowItemWidths = rowItemWidths;
         this.rowItemHeightGlobal = rowItemHeightGlobal;
         this.rowItemHeights = rowItemHeights;
-        this.smallerResultDisplay = smallerResultDisplay;
+        this.biggerResultDisplay = biggerResultDisplay;
 
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.marginLeft = 0; // this.smallerResultDisplay ? (int)Helper.ConvertDpToPixel(1F, layoutInflater.getContext()) : (int)Helper.ConvertDpToPixel(4F, layoutInflater.getContext());
+        this.marginLeft = 0; // this.smallerResultDisplay ? (int)UIHelper.ConvertDpToPixel(1F, layoutInflater.getContext()) : (int)UIHelper.ConvertDpToPixel(4F, layoutInflater.getContext());
         this.marginTop = 0;
-        this.marginRight = this.smallerResultDisplay ? (int) Helper.ConvertDpToPixel(1F, layoutInflater.getContext()) : (int)Helper.ConvertDpToPixel(4F, layoutInflater.getContext());
+        this.marginRight = this.biggerResultDisplay ? (int) UIHelper.ConvertDpToPixel(4F, layoutInflater.getContext()) : (int) UIHelper.ConvertDpToPixel(1F, layoutInflater.getContext());
         this.marginBottom = 0;
 
-        if ((rowItemWidths == null || rowItemWidths.size() == 0) && (rowItemHeights == null || rowItemHeights.size() == 0)) {
+        if ((rowItemWidths == null || rowItemWidths.isEmpty()) && (rowItemHeights == null || rowItemHeights.isEmpty())) {
             this.layoutParamsGlobal = new LinearLayout.LayoutParams(rowItemWidthGlobal, rowItemHeightGlobal);
             this.layoutParamsGlobal.setMargins(this.marginLeft, this.marginTop, this.marginRight, this.marginBottom);
         } else {
@@ -56,18 +56,18 @@ public class GridAdapter extends BaseAdapter {
         }
 
         // Get the last item index in the first row.
-        if (this.gridRows != null && this.gridRows.size() > 0) {
+        if (this.gridRows != null && !this.gridRows.isEmpty()) {
             List<RowItem> firstRowItems = gridRows.get(0);
-            if (firstRowItems != null && firstRowItems.size() > 0) {
+            if (firstRowItems != null && !firstRowItems.isEmpty()) {
                 this.lastItemIndex = firstRowItems.size() - 1;
             }
         }
 
         // Write the static column header.
-        int margin = this.smallerResultDisplay ? (int)Helper.ConvertDpToPixel(1F, layoutInflater.getContext()) : (int)Helper.ConvertDpToPixel(4F, layoutInflater.getContext());
-        if (this.gridRows != null && this.gridRows.size() > 0) {
+        int margin = this.biggerResultDisplay ? (int) UIHelper.ConvertDpToPixel(4F, layoutInflater.getContext()) : (int) UIHelper.ConvertDpToPixel(1F, layoutInflater.getContext());
+        if (this.gridRows != null && !this.gridRows.isEmpty()) {
             List<RowItem> firstRowItems = this.gridRows.get(0);
-            if (firstRowItems != null && firstRowItems.size() > 0) {
+            if (firstRowItems != null && !firstRowItems.isEmpty()) {
                 staticColumnHeader.removeAllViews();
                 LinearLayout.LayoutParams layoutParamsStaticColumnHeader = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParamsStaticColumnHeader.setMargins(0, 0, 0, margin);
@@ -88,7 +88,7 @@ public class GridAdapter extends BaseAdapter {
         }
 
         // Remove the column header.
-        if (this.gridRows != null && this.gridRows.size() > 0) {
+        if (this.gridRows != null && !this.gridRows.isEmpty()) {
             this.gridRows.remove(0);
         }
     }
@@ -170,7 +170,7 @@ public class GridAdapter extends BaseAdapter {
 
 
         if (!rowItem.getIsHeader() && rowItem.getValue() != null && !rowItem.getValue().isEmpty()) {
-            textView.setOnClickListener(view -> Helper.CopyTextToClipboard(context, rowItem.getValue()));
+            textView.setOnClickListener(view -> UIHelper.CopyTextToClipboard(context, rowItem.getValue()));
         } else {
             textView.setOnClickListener(null);
         }
@@ -252,13 +252,13 @@ public class GridAdapter extends BaseAdapter {
     private TextView GenerateTextView(int i, ViewGroup parent, boolean isLastItem) {
         LinearLayout.LayoutParams layoutParams = null;
         if (this.layoutParamsGlobal == null) {
-            int rowItemWidth = (rowItemWidths != null && rowItemWidths.size() > 0) ? rowItemWidths.get(i) : this.rowItemWidthGlobal;
-            int rowItemHeight = (rowItemHeights != null && rowItemHeights.size() > 0) ? rowItemHeights.get(i) : this.rowItemHeightGlobal;
+            int rowItemWidth = (rowItemWidths != null && !rowItemWidths.isEmpty()) ? rowItemWidths.get(i) : this.rowItemWidthGlobal;
+            int rowItemHeight = (rowItemHeights != null && !rowItemHeights.isEmpty()) ? rowItemHeights.get(i) : this.rowItemHeightGlobal;
             layoutParams = new LinearLayout.LayoutParams(rowItemWidth, rowItemHeight);
             layoutParams.setMargins(this.marginLeft, this.marginTop, isLastItem ? 0 : this.marginRight, this.marginBottom);
         }
-        int rowItemResource = this.smallerResultDisplay ? R.layout.row_item_small : R.layout.row_item_big;
-        int rowItemId = this.smallerResultDisplay ? R.id.RowItemSmall : R.id.RowItemBig;
+        int rowItemResource = this.biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
+        int rowItemId = this.biggerResultDisplay ? R.id.RowItemBig : R.id.RowItemSmall;
         View rowItemInflater = layoutInflater.inflate(rowItemResource, parent, false);
         TextView textView = (TextView) rowItemInflater.findViewById(rowItemId);
         if (layoutParams == null) {
@@ -268,5 +268,4 @@ public class GridAdapter extends BaseAdapter {
         }
         return textView;
     }
-
 }

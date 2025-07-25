@@ -1,9 +1,11 @@
-package com.gegprifti.android.numbertheoryalgorithms;
+package com.gegprifti.android.numbertheoryalgorithms.settings;
 
 
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import com.gegprifti.android.numbertheoryalgorithms.R;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentSettings;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -16,7 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content, new SettingsFragment())
+                .replace(R.id.content, new FragmentSettings())
                 .addToBackStack(null)
                 .commit();
 

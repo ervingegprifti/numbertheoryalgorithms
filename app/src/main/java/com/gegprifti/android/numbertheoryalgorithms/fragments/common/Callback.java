@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.fragments.common;
 
 
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 
 

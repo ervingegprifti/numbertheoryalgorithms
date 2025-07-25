@@ -1,11 +1,12 @@
 package com.gegprifti.android.numbertheoryalgorithms;
 
 
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.TabPagerAdapter;
+import com.gegprifti.android.numbertheoryalgorithms.settings.SettingsActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import androidx.core.content.ContextCompat;
@@ -37,14 +38,11 @@ public class MainActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
-        // Display the long title here
-        this.setTitle(getResources().getString(R.string.app_name_title));
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setLogo(R.drawable.toolbar_logo);
-        toolbar.setSubtitle(R.string.app_name_subtitle);
+        //toolbar.setTitle(R.string.app_title);
 
         // For tabs
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -98,16 +96,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        refreshDisableTabSwiping();
+        refreshTabSwipeGestures();
     }
 
-    private void refreshDisableTabSwiping() {
+    private void refreshTabSwipeGestures() {
         if (this.viewPager2 != null) {
-            boolean isUserInputEnabled = this.viewPager2.isUserInputEnabled();
-            boolean disableTabSwiping = UserSettings.GetDisableTabSwiping(this);
-            if (isUserInputEnabled && disableTabSwiping) {
+            boolean tabSwipeGesturesEnabled = this.viewPager2.isUserInputEnabled();
+            boolean tabSwipeGestures = UserSettings.GetTabSwipeGestures(this);
+            if (tabSwipeGesturesEnabled && !tabSwipeGestures) {
                 this.viewPager2.setUserInputEnabled(false);
-            } else if (!isUserInputEnabled && !disableTabSwiping) {
+            } else if (!tabSwipeGesturesEnabled && tabSwipeGestures) {
                 this.viewPager2.setUserInputEnabled(true);
             }
         }

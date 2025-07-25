@@ -37,6 +37,7 @@
 			<EditText
 				android:id="@+id/EditTextResult"
 				style="@style/EditTextResult"
+				android:typeface="monospace"
 				android:autofillHints="" />
 		</HorizontalScrollView>
 	</ScrollView>

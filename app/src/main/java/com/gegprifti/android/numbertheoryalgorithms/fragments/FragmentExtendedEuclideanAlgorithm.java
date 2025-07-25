@@ -2,7 +2,6 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,18 +20,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.math.BigInteger;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 
 
@@ -65,10 +64,11 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     TextView textViewExtendedEuclideanClearResult;
     EditText editTextExtendedEuclideanResult;
 
+
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    // public FragmentTabAlgorithms getFragmentTabAlgorithms() { return fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms(FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    // public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms(TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
 
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
@@ -108,8 +108,8 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             editTextExtendedEuclideanResult = inflater.findViewById(R.id.EditTextExtendedEuclideanResult);
 
             // Input filter integer only
-            editTextExtendedEuclideanA.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextExtendedEuclideanB.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
+            editTextExtendedEuclideanA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextExtendedEuclideanB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // Default UI status
             // Check if this is the first time the user is using this.
@@ -121,10 +121,10 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             textViewExtendedEuclideanBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(fragmentTabAlgorithms != null) {
+                    if(tabFragmentAlgorithms != null) {
                         // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        fragmentTabAlgorithms.SetFragment(fragmentAlgorithms);
+                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                        tabFragmentAlgorithms.SetFragment(fragmentAlgorithms);
                     }
                 }
             });
@@ -138,42 +138,42 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             textViewExtendedEuclideanCopyA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextExtendedEuclideanA);
+                    UIHelper.CopyEditText(requireContext(), editTextExtendedEuclideanA);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanCopyA);
                 }
             });
             textViewExtendedEuclideanCopyB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextExtendedEuclideanB);
+                    UIHelper.CopyEditText(requireContext(), editTextExtendedEuclideanB);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanCopyB);
                 }
             });
             textViewExtendedEuclideanCopyResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextExtendedEuclideanResult);
+                    UIHelper.CopyEditText(requireContext(), editTextExtendedEuclideanResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanCopyResult);
                 }
             });
             textViewExtendedEuclideanPasteA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextExtendedEuclideanA);
+                    UIHelper.PasteEditText(requireContext(), editTextExtendedEuclideanA);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanPasteA);
                 }
             });
             textViewExtendedEuclideanPasteB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextExtendedEuclideanB);
+                    UIHelper.PasteEditText(requireContext(), editTextExtendedEuclideanB);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanPasteB);
                 }
             });
             textViewExtendedEuclideanClearA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextExtendedEuclideanA);
+                    UIHelper.ClearEditText(requireContext(), editTextExtendedEuclideanA);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanClearA);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -182,7 +182,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             textViewExtendedEuclideanClearB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextExtendedEuclideanB);
+                    UIHelper.ClearEditText(requireContext(), editTextExtendedEuclideanB);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanClearB);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -191,7 +191,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             textViewExtendedEuclideanClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextExtendedEuclideanResult);
+                    UIHelper.ClearEditText(requireContext(), editTextExtendedEuclideanResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewExtendedEuclideanClearResult);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -208,7 +208,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String extendedEuclideanLabelA = "a" + Helper.GetNrOfDigits(s.toString());
+                    String extendedEuclideanLabelA = "a" + UIHelper.GetNrOfDigits(s.toString());
                     textViewExtendedEuclideanLabelA.setText(extendedEuclideanLabelA);
                     // Reset
                     ResultReset(false);
@@ -227,7 +227,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String extendedEuclideanLabelB = "b" + Helper.GetNrOfDigits(s.toString());
+                    String extendedEuclideanLabelB = "b" + UIHelper.GetNrOfDigits(s.toString());
                     textViewExtendedEuclideanLabelB.setText(extendedEuclideanLabelB);
                     // Reset
                     ResultReset(false);
@@ -350,24 +350,10 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         this.refreshSmallerClipboardButtons();
         this.refreshSmallerControls();
         this.refreshHideExampleButtons();
-        this.refreshShowResultInMonospace();
     }
 
 
     //region Display
-    private void refreshShowResultInMonospace() {
-        try {
-            Typeface currentTypeface = editTextExtendedEuclideanResult.getTypeface();
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-            if (currentTypeface != Typeface.MONOSPACE && showResultInMonospace) {
-                editTextExtendedEuclideanResult.setTypeface(Typeface.MONOSPACE);
-            } else if (currentTypeface == Typeface.MONOSPACE && !showResultInMonospace) {
-                editTextExtendedEuclideanResult.setTypeface(Typeface.DEFAULT);
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.buttonExtendedEuclideanRunExample1.getVisibility() == View.VISIBLE; // Just check one.
@@ -389,48 +375,48 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     }
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanCopyA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanPasteA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanClearA, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanCopyA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanPasteA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanClearA, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanCopyB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanPasteB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanClearB, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanCopyB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanPasteB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanClearB, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanExpandResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanCopyResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanClearResult, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanExpandResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanCopyResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewExtendedEuclideanClearResult, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelA, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelElasticA, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelA, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelElasticA, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextExtendedEuclideanA, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextExtendedEuclideanA, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelB, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelElasticB, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelB, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelElasticB, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextExtendedEuclideanB, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextExtendedEuclideanB, biggerControls);
             // Buttons
-            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRun, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRunExample1, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRunExample2, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRunExample3, smallerControls);
+            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRun, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRunExample1, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRunExample2, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonExtendedEuclideanRunExample3, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelResult, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelElasticResult, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelResult, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewExtendedEuclideanLabelElasticResult, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(editTextExtendedEuclideanResult, smallerControls);
+            ControlDisplay.SetOutputFontSize(editTextExtendedEuclideanResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -465,10 +451,10 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     private void OnButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanA, textViewExtendedEuclideanLabelA, textViewExtendedEuclideanLabelElasticA, "a", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanA, textViewExtendedEuclideanLabelA, textViewExtendedEuclideanLabelElasticA, "a", BigInteger.ZERO)) {
                 return;
             }
-            if(Helper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanB, textViewExtendedEuclideanLabelB, textViewExtendedEuclideanLabelElasticB, "b", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanB, textViewExtendedEuclideanLabelB, textViewExtendedEuclideanLabelElasticB, "b", BigInteger.ZERO)) {
                 return;
             }
 
@@ -531,7 +517,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextExtendedEuclideanA.clearFocus();
         editTextExtendedEuclideanB.clearFocus();

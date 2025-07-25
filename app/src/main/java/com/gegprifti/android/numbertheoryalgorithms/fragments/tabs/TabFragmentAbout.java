@@ -12,12 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import com.gegprifti.android.numbertheoryalgorithms.R;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupSplashScreen;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupSplashScreen;
 
 
-public class FragmentTabAbout extends Fragment {
-    private final static String TAG = FragmentTabAbout.class.getSimpleName();
+public class TabFragmentAbout extends Fragment {
+    private final static String TAG = TabFragmentAbout.class.getSimpleName();
 
     @Nullable
     @Override
@@ -37,7 +37,7 @@ public class FragmentTabAbout extends Fragment {
             final TextView textViewAndroidPdfViewerProject = inflater.findViewById(R.id.TextViewAndroidPdfViewerProject);
             final TextView textViewAndroidPdfViewerLicense = inflater.findViewById(R.id.TextViewAndroidPdfViewerLicense);
 
-            String versionName = Helper.GetAppVersionName(requireContext());
+            String versionName = UIHelper.GetAppVersionName(requireContext());
             textViewAppVersion.setText(versionName);
 
             // Events
@@ -45,9 +45,9 @@ public class FragmentTabAbout extends Fragment {
                 String shareAppSubject = getResources().getString(R.string.app_name);
                 String shareAppUrl = "https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms";
                 String shareAppChooser = "Share " + shareAppSubject + " via";
-                Helper.shareApp(requireContext(), shareAppSubject, shareAppUrl, shareAppChooser);
+                UIHelper.shareApp(requireContext(), shareAppSubject, shareAppUrl, shareAppChooser);
             });
-            cardViewRateThisApp.setOnClickListener(view -> Helper.openWith(requireContext(), "https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms"));
+            cardViewRateThisApp.setOnClickListener(view -> UIHelper.openWith(requireContext(), "https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms"));
             cardViewSplashScreen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -55,14 +55,14 @@ public class FragmentTabAbout extends Fragment {
                     popupSplashScreen.Show();
                 }
             });
-            textViewAboutContact.setOnClickListener(view -> Helper.sendEmail(requireContext(), "gegprifti.ervin@gmail.com", "Hi", ""));
-            textViewAboutAppWebsite.setOnClickListener(view -> Helper.openWith(requireContext(), "https://ervingegprifti.github.io/numbertheoryalgorithms/"));
-            textViewAboutAppGitHub.setOnClickListener(view -> Helper.openWith(requireContext(), "https://github.com/ervingegprifti/numbertheoryalgorithms/"));
-            textViewPrivacyPolicy.setOnClickListener(view -> Helper.openWith(requireContext(), "https://ervingegprifti.github.io/numbertheoryalgorithms/privacy_policy/"));
-            textViewTermsAndConditions.setOnClickListener(view -> Helper.openWith(requireContext(), "https://ervingegprifti.github.io/numbertheoryalgorithms/terms_and_conditions/"));
+            textViewAboutContact.setOnClickListener(view -> UIHelper.sendEmail(requireContext(), "gegprifti.ervin@gmail.com", "Hi", ""));
+            textViewAboutAppWebsite.setOnClickListener(view -> UIHelper.openWith(requireContext(), "https://ervingegprifti.github.io/numbertheoryalgorithms/"));
+            textViewAboutAppGitHub.setOnClickListener(view -> UIHelper.openWith(requireContext(), "https://github.com/ervingegprifti/numbertheoryalgorithms/"));
+            textViewPrivacyPolicy.setOnClickListener(view -> UIHelper.openWith(requireContext(), "https://ervingegprifti.github.io/numbertheoryalgorithms/privacy_policy/"));
+            textViewTermsAndConditions.setOnClickListener(view -> UIHelper.openWith(requireContext(), "https://ervingegprifti.github.io/numbertheoryalgorithms/terms_and_conditions/"));
             //
-            textViewAndroidPdfViewerProject.setOnClickListener(view -> Helper.openWith(requireContext(), "https://github.com/barteksc/AndroidPdfViewer"));
-            textViewAndroidPdfViewerLicense.setOnClickListener(view -> Helper.openWith(requireContext(), "https://github.com/barteksc/AndroidPdfViewer/blob/master/LICENSE"));
+            textViewAndroidPdfViewerProject.setOnClickListener(view -> UIHelper.openWith(requireContext(), "https://github.com/barteksc/AndroidPdfViewer"));
+            textViewAndroidPdfViewerLicense.setOnClickListener(view -> UIHelper.openWith(requireContext(), "https://github.com/barteksc/AndroidPdfViewer/blob/master/LICENSE"));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

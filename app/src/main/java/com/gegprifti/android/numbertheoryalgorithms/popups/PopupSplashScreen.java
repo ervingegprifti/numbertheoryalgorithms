@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.popups;
 
 
 import android.annotation.SuppressLint;
@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import androidx.fragment.app.FragmentActivity;
 import com.gegprifti.android.numbertheoryalgorithms.R;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 
 
 /**
@@ -55,7 +56,7 @@ public final class PopupSplashScreen {
 
             // Apply full-screen immersive mode to the Activity's window.
             // The PopupWindow will then naturally occupy this full-screen space.
-            Helper.setFullScreenImmersive(fragmentActivity);
+            UIHelper.setFullScreenImmersive(fragmentActivity);
 
             // Make the popup window focusable after showing it, ensuring it handles input.
             popupWindow.setFocusable(true);
@@ -72,7 +73,7 @@ public final class PopupSplashScreen {
             // Add a listener for when the popup window is dismissed.
             // This is crucial to revert the Activity's window from full-screen mode.
             popupWindow.setOnDismissListener(() -> {
-                Helper.exitFullScreen(fragmentActivity);
+                UIHelper.exitFullScreen(fragmentActivity);
             });
 
         } catch (Exception ex) {

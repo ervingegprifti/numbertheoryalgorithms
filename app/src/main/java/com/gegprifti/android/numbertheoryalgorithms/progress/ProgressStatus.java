@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms;
+package com.gegprifti.android.numbertheoryalgorithms.progress;
 
 
 public enum ProgressStatus {

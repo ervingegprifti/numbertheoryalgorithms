@@ -91,7 +91,11 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal">
-				<TextView android:id="@+id/TextViewEuclideanLabelResult" android:text="@string/result" style="@style/TextViewLabelResultStyle" android:labelFor="@+id/EditTextEuclideanResult" />
+				<TextView
+					android:id="@+id/TextViewEuclideanLabelResult"
+					android:text="@string/result"
+					style="@style/TextViewLabelResultStyle"
+					android:labelFor="@+id/EditTextEuclideanResult" />
 				<TextView android:id="@+id/TextViewEuclideanLabelElasticResult" style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle" />
 				<TextView android:id="@+id/TextViewEuclideanExpandResult" style="@style/ClipboardButtonBase.ExpandResult" />
 				<TextView android:id="@+id/TextViewEuclideanCopyResult" style="@style/ClipboardButtonCopyStyle"/>
@@ -99,7 +103,11 @@
 			</LinearLayout>
 			<LinearLayout style="@style/ResultContainer" >
 				<HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
-					<EditText android:id="@+id/EditTextEuclideanResult" style="@style/EditTextResult" android:autofillHints="" />
+					<EditText
+						android:id="@+id/EditTextEuclideanResult"
+						style="@style/EditTextResult"
+						android:typeface="monospace"
+						android:autofillHints="" />
 				</HorizontalScrollView>
 			</LinearLayout>
 

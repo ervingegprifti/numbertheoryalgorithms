@@ -5,10 +5,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAbout;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabCalculator;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAbout;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentCalculator;
 
 
 // https://developer.android.com/develop/ui/views/animations/vp2-migration
@@ -23,9 +22,9 @@ public class TabPagerAdapter extends FragmentStateAdapter {
     public TabPagerAdapter(FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         // Initiate fragments.
-        fragments[0] = new FragmentTabCalculator();
-        fragments[1] = new FragmentTabAlgorithms();
-        fragments[2] = new FragmentTabAbout();
+        fragments[0] = new TabFragmentCalculator();
+        fragments[1] = new TabFragmentAlgorithms();
+        fragments[2] = new TabFragmentAbout();
         // Initiate tab names.
         pageTitles[0] = "CALCULATOR";
         pageTitles[1] = "ALGORITHMS";

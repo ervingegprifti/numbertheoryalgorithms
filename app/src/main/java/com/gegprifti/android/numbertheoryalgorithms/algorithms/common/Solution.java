@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms;
+package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
 import java.math.BigInteger;

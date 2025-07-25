@@ -113,7 +113,11 @@
 			</LinearLayout>
 			<LinearLayout style="@style/ResultContainer">
 				<HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
-					<EditText android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesResult" style="@style/EditTextResult" android:autofillHints="" />
+					<EditText
+						android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesResult"
+						style="@style/EditTextResult"
+						android:typeface="monospace"
+						android:autofillHints="" />
 				</HorizontalScrollView>
 			</LinearLayout>
 

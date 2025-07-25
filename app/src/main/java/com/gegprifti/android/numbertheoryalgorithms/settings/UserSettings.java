@@ -1,9 +1,10 @@
-package com.gegprifti.android.numbertheoryalgorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.settings;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
+
 
 /**
  * A helper class to ease user preferences.
@@ -12,7 +13,6 @@ import androidx.preference.PreferenceManager;
  * @see <a href="https://developer.android.com/guide/topics/ui/settings/use-saved-values">Use saved values </a>
  */
 public class UserSettings {
-
     // First time.
     private static final String FIRST_TIME_CALCULATOR = "FIRST_TIME_CALCULATOR";
     private static final String FIRST_TIME_QF = "FIRST_TIME_QF";
@@ -25,19 +25,21 @@ public class UserSettings {
     private static final String FIRST_TIME_MF = "FIRST_TIME_MF";
     private static final String FIRST_TIME_PL = "FIRST_TIME_PL";
 
+
     // Clipboard Buttons Configuration.
     private static final String VIBRATE_ON_CLIPBOARD_BUTTON_CLICK = "VIBRATE_ON_CLIPBOARD_BUTTON_CLICK";
     private static final String NOTIFY_ON_CLIPBOARD_BUTTON_CLICK = "NOTIFY_ON_CLIPBOARD_BUTTON_CLICK";
 
+
     // UI Configuration.
-    private static final String SMALLER_CONTROLS = "SMALLER_CONTROLS";
-    private static final String SMALLER_CLIPBOARD_BUTTONS = "SMALLER_CLIPBOARD_BUTTONS";
-    private static final String SMALLER_RESULT_DISPLAY = "SMALLER_RESULT_DISPLAY";
+    private static final String BIGGER_CONTROLS = "BIGGER_CONTROLS";
+    private static final String BIGGER_CLIPBOARD_BUTTONS = "BIGGER_CLIPBOARD_BUTTONS";
+    private static final String BIGGER_RESULT_DISPLAY = "BIGGER_RESULT_DISPLAY";
     private static final String SQUARE_RESULT_DISPLAY = "SQUARE_RESULT_DISPLAY";
-    private static final String SHOW_RESULT_IN_MONOSPACE = "SHOW_RESULT_IN_MONOSPACE";
+
 
     // Misc Configurations.
-    private static final String DISABLE_TAB_SWIPING = "DISABLE_TAB_SWIPING";
+    private static final String TAB_SWIPE_GESTURES = "TAB_SWIPE_GESTURES";
     private static final String HIDE_EXAMPLE_BUTTONS = "HIDE_EXAMPLE_BUTTONS";
 
     // Quadratic Form Menu.
@@ -126,25 +128,23 @@ public class UserSettings {
     }
 
     // UI Configuration.
-    public static boolean GetSmallerControls (Context context) {
-        return GetBoolean(context, SMALLER_CONTROLS);
+    public static boolean GetBiggerControls(Context context) {
+        return GetBoolean(context, BIGGER_CONTROLS);
     }
-    public static boolean GetSmallerClipboardButtons (Context context) {
-        return GetBoolean(context, SMALLER_CLIPBOARD_BUTTONS);
+    public static boolean GetBiggerClipboardButtons(Context context) {
+        return GetBoolean(context, BIGGER_CLIPBOARD_BUTTONS);
     }
-    public static boolean GetSmallerResultDisplay (Context context) {
-        return GetBoolean(context, SMALLER_RESULT_DISPLAY);
+    public static boolean GetBiggerResultDisplay(Context context) {
+        return GetBoolean(context, BIGGER_RESULT_DISPLAY);
     }
     public static boolean GetSquareResultDisplay (Context context) {
         return GetBoolean(context, SQUARE_RESULT_DISPLAY);
     }
-    public static boolean GetShowResultInMonospace (Context context) {
-        return GetBoolean(context, SHOW_RESULT_IN_MONOSPACE);
-    }
+
 
     // Misc Configurations.
-    public static boolean GetDisableTabSwiping (Context context) {
-        return GetBoolean(context, DISABLE_TAB_SWIPING);
+    public static boolean GetTabSwipeGestures(Context context) {
+        return GetBoolean(context, TAB_SWIPE_GESTURES);
     }
     public static boolean GetHideExampleButtons (Context context) {
         return GetBoolean(context, HIDE_EXAMPLE_BUTTONS);
@@ -189,14 +189,13 @@ public class UserSettings {
         SetBoolean(context, NOTIFY_ON_CLIPBOARD_BUTTON_CLICK, false);
 
         // UI Configuration.
-        SetBoolean(context, SMALLER_CONTROLS, false);
-        SetBoolean(context, SMALLER_CLIPBOARD_BUTTONS, false);
-        SetBoolean(context, SMALLER_RESULT_DISPLAY, false);
+        SetBoolean(context, BIGGER_CONTROLS, false);
+        SetBoolean(context, BIGGER_CLIPBOARD_BUTTONS, false);
+        SetBoolean(context, BIGGER_RESULT_DISPLAY, false);
         SetBoolean(context, SQUARE_RESULT_DISPLAY, false);
-        SetBoolean(context, SHOW_RESULT_IN_MONOSPACE, false);
 
         // Misc Configurations.
-        SetBoolean(context, DISABLE_TAB_SWIPING, false);
+        SetBoolean(context, TAB_SWIPE_GESTURES, false);
         SetBoolean(context, HIDE_EXAMPLE_BUTTONS, false);
 
         // Quadratic Form Menu.

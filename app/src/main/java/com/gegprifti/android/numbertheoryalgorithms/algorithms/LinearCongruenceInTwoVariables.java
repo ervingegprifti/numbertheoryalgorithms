@@ -1,14 +1,14 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
-import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.getSign;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.NP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getSign;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
-import com.gegprifti.android.numbertheoryalgorithms.common.Tabular;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Tabular;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,6 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             BigInteger b = algorithmParameters.getInput2();
             BigInteger c = algorithmParameters.getInput3();
             BigInteger m = algorithmParameters.getInput4();
-            boolean showResultInMonospace = algorithmParameters.getShowResultInMonospace();
 
             // Solving linear Congruence ax+by ≡ c (mod m)
             result.append(String.format(Locale.getDefault(), "<font color='%s'><b>Linear Congruence In Two Variables</b></font><br>", COLOR));
@@ -285,21 +284,10 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
                     row.add(" ≡ ");
                     row.add(String.format(Locale.getDefault(), "%s", axNewPLUSbyNewMODm)); // Calculated c
                     row.add(String.format(Locale.getDefault(), " (mod %s)", m));
-
-                    if (showResultInMonospace) {
-                        tabular.addRow(row);
-                    } else {
-                        for (String cell : row) {
-                            result.append(cell);
-                        }
-                        result.append("<br>");
-                    }
+                    tabular.addRow(row);
                 }
             }
-
-            if (showResultInMonospace) {
-                result.append(tabular.render());
-            }
+            result.append(tabular.render());
             result.append("⋮");
 
             return result.toString();

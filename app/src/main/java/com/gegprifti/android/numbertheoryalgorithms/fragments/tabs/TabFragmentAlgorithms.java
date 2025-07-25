@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.gegprifti.android.numbertheoryalgorithms.R;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.common.SectionsPagerAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.SectionsPagerAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentEuclideanAlgorithm;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentExtendedEuclideanAlgorithm;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentLinearCongruenceInOneVariable;
@@ -25,8 +25,8 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentQuadraticF
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentTonelliShanksAlgorithm;
 
 
-public class FragmentTabAlgorithms extends Fragment {
-    private final static String TAG = FragmentTabAlgorithms.class.getSimpleName();
+public class TabFragmentAlgorithms extends Fragment {
+    private final static String TAG = TabFragmentAlgorithms.class.getSimpleName();
 
     private SectionsPagerAdapter sectionsPagerAdapter;
     public SectionsPagerAdapter getSectionsPagerAdapter() {

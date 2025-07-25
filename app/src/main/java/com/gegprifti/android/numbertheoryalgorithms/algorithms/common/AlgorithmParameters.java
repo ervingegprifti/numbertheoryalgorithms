@@ -15,7 +15,6 @@ public class AlgorithmParameters {
     private BigInteger input4;
     private BigInteger input5;
     private BigInteger input6;
-    private boolean showResultInMonospace;
     private boolean includeTrivialSolutions;
     private boolean includeOnlyPositiveSolutions;
     private boolean includeOnlyNegativeSolutions;
@@ -26,7 +25,6 @@ public class AlgorithmParameters {
     public void setInput4(BigInteger input4) { this.input4 = input4; }
     public void setInput5(BigInteger input5) { this.input5 = input5; }
     public void setInput6(BigInteger input6) { this.input6 = input6; }
-    public void setShowResultInMonospace(boolean showResultInMonospace) { this.showResultInMonospace = showResultInMonospace; }
     public void setIncludeTrivialSolutions(boolean includeTrivialSolutions) { this.includeTrivialSolutions = includeTrivialSolutions; }
     public void setIncludeOnlyPositiveSolutions(boolean includeOnlyPositiveSolutions) { this.includeOnlyPositiveSolutions = includeOnlyPositiveSolutions; }
     public void setIncludeOnlyNegativeSolutions(boolean includeOnlyNegativeSolutions) { this.includeOnlyNegativeSolutions = includeOnlyNegativeSolutions; }
@@ -39,7 +37,6 @@ public class AlgorithmParameters {
     public BigInteger getInput4() { return this.input4; }
     public BigInteger getInput5() { return this.input5; }
     public BigInteger getInput6() { return this.input6; }
-    public boolean getShowResultInMonospace() { return  this.showResultInMonospace; }
     public boolean getIncludeTrivialSolutions() { return  this.includeTrivialSolutions; }
     public boolean getIncludeOnlyPositiveSolutions() { return  this.includeOnlyPositiveSolutions; }
     public boolean getIncludeOnlyNegativeSolutions() { return  this.includeOnlyNegativeSolutions; }
@@ -54,7 +51,6 @@ public class AlgorithmParameters {
     public String toString() {
         return "{" +
                 "algorithmName: " + this.algorithmName + "; " +
-                "showResultInMonospace: " + this.showResultInMonospace + "; " +
                 "includeTrivialSolutions: " + this.includeTrivialSolutions + "; " +
                 "includeOnlyPositiveSolutions: " + this.includeOnlyPositiveSolutions + "; " +
                 "includeOnlyNegativeSolutions: " + this.includeOnlyNegativeSolutions +

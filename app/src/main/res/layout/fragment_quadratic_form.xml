@@ -132,6 +132,7 @@
                         <EditText
                             android:id="@+id/EditTextQuadraticFormResult"
                             style="@style/EditTextResult"
+                            android:typeface="monospace"
                             android:autofillHints="" />
                     </HorizontalScrollView>
                 </ScrollView>

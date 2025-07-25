@@ -1,15 +1,15 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.NP;
 import android.util.Log;
 import android.util.Pair;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.Solution;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Solution;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridCalculator;
-import com.gegprifti.android.numbertheoryalgorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

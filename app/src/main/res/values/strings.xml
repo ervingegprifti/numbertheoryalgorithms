@@ -1,9 +1,7 @@
 <resources>
     <!-- Common -->
     <string name="app_name">Number Theory Algorithms</string>
-    <string name="app_name_title">Number Theory</string>
-    <string name="app_name_subtitle">Algorithms</string>
-    <string name="app_name_light">NT Algorithms</string>
+    <string name="app_title">Number Theory</string>
     <string name="separator_comma" translatable="false">,</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
@@ -44,23 +42,6 @@
 
 
 
-
-    <!-- Settings -->
-    <string name="settings_preference_category_clipboard">Clipboard Buttons Configurations</string>
-    <string name="settings_vibrate_on_clipboard_button_click">Vibrate on clipboard button click</string>
-    <string name="settings_notify_on_clipboard_button_click">Notify on clipboard button click</string>
-    <string name="settings_preference_category_ui">UI Configurations</string>
-    <string name="settings_smaller_controls">Smaller controls</string>
-    <string name="settings_smaller_clipboard_buttons">Smaller clipboard buttons</string>
-    <string name="settings_smaller_result_display">Smaller result display</string>
-    <string name="settings_square_result_display">Square result display</string>
-    <string name="settings_preference_category_misc">Misc Configurations</string>
-    <string name="settings_disable_tab_swiping">Disable tab swiping</string>
-    <string name="settings_hide_example_buttons">Hide example buttons</string>
-    <string name="settings_run_app_in_full_screen">Run app in full screen</string>
-    <string name="settings_show_result_in_monospace">Show result in monospace</string>
-    <string name="settings_menu_reset_to_default">Reset to default</string>
-    <!-- Settings -->
 
 
 

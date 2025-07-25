@@ -2,7 +2,6 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -20,17 +19,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import java.math.BigInteger;
@@ -72,9 +72,9 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     EditText editTextLinearDiophantineEquationInTwoVariablesResult;
 
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    // public FragmentTabAlgorithms getFragmentTabAlgorithms() { return fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms(FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    // public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms(TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
 
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
@@ -120,9 +120,9 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             editTextLinearDiophantineEquationInTwoVariablesResult = inflater.findViewById(R.id.EditTextLinearDiophantineEquationInTwoVariablesResult);
 
             // Input filter integer only
-            editTextLinearDiophantineEquationInTwoVariablesA.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextLinearDiophantineEquationInTwoVariablesB.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextLinearDiophantineEquationInTwoVariablesC.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
+            editTextLinearDiophantineEquationInTwoVariablesA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearDiophantineEquationInTwoVariablesB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearDiophantineEquationInTwoVariablesC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // Default UI status
             // Check if this is the first time the user is using this.
@@ -134,10 +134,10 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             textViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(fragmentTabAlgorithms != null) {
+                    if(tabFragmentAlgorithms != null) {
                         // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        fragmentTabAlgorithms.SetFragment(fragmentAlgorithms);
+                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                        tabFragmentAlgorithms.SetFragment(fragmentAlgorithms);
                     }
                 }
             });
@@ -151,56 +151,56 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             textViewLinearDiophantineEquationInTwoVariablesCopyA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyA);
                 }
             });
             textViewLinearDiophantineEquationInTwoVariablesCopyB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyB);
                 }
             });
             textViewLinearDiophantineEquationInTwoVariablesCopyC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyC);
                 }
             });
             textViewLinearDiophantineEquationInTwoVariablesCopyResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesResult);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyResult);
                 }
             });
             textViewLinearDiophantineEquationInTwoVariablesPasteA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
+                    UIHelper.PasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesPasteA);
                 }
             });
             textViewLinearDiophantineEquationInTwoVariablesPasteB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
+                    UIHelper.PasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesPasteB);
                 }
             });
             textViewLinearDiophantineEquationInTwoVariablesPasteC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
+                    UIHelper.PasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesPasteC);
                 }
             });
             textViewLinearDiophantineEquationInTwoVariablesClearA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearA);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -209,7 +209,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             textViewLinearDiophantineEquationInTwoVariablesClearB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearB);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -218,7 +218,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             textViewLinearDiophantineEquationInTwoVariablesClearC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearC);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -227,7 +227,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             textViewLinearDiophantineEquationInTwoVariablesClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesResult);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearResult);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -245,7 +245,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 @Override
                 public void afterTextChanged(Editable s)
                 {
-                    String linearDiophantineEquationLabelA = "a" + Helper.GetNrOfDigits(s.toString());
+                    String linearDiophantineEquationLabelA = "a" + UIHelper.GetNrOfDigits(s.toString());
                     textViewLinearDiophantineEquationInTwoVariablesLabelA.setText(linearDiophantineEquationLabelA);
                     // Reset
                     ResultReset(false);
@@ -264,7 +264,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String linearDiophantineEquationLabelB = "b" + Helper.GetNrOfDigits(s.toString());
+                    String linearDiophantineEquationLabelB = "b" + UIHelper.GetNrOfDigits(s.toString());
                     textViewLinearDiophantineEquationInTwoVariablesLabelB.setText(linearDiophantineEquationLabelB);
                     // Reset
                     ResultReset(false);
@@ -283,7 +283,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String linearDiophantineEquationLabelC = "c" + Helper.GetNrOfDigits(s.toString());
+                    String linearDiophantineEquationLabelC = "c" + UIHelper.GetNrOfDigits(s.toString());
                     textViewLinearDiophantineEquationInTwoVariablesLabelC.setText(linearDiophantineEquationLabelC);
                     // Reset
                     ResultReset(false);
@@ -409,24 +409,10 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         this.refreshSmallerClipboardButtons();
         this.refreshSmallerControls();
         this.refreshHideExampleButtons();
-        this.refreshShowResultInMonospace();
     }
 
 
     //region Display
-    private void refreshShowResultInMonospace() {
-        try {
-            Typeface currentTypeface = editTextLinearDiophantineEquationInTwoVariablesResult.getTypeface();
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-            if (currentTypeface != Typeface.MONOSPACE && showResultInMonospace) {
-                editTextLinearDiophantineEquationInTwoVariablesResult.setTypeface(Typeface.MONOSPACE);
-            } else if (currentTypeface == Typeface.MONOSPACE && !showResultInMonospace) {
-                editTextLinearDiophantineEquationInTwoVariablesResult.setTypeface(Typeface.DEFAULT);
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.buttonLinearDiophantineEquationInTwoVariablesRunExample1.getVisibility() == View.VISIBLE; // Just check one.
@@ -448,57 +434,57 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     }
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearA, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearA, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearB, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearB, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyC, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteC, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearC, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyC, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteC, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearC, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesExpandResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearResult, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesExpandResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearResult, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelA, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelA, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextLinearDiophantineEquationInTwoVariablesA, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextLinearDiophantineEquationInTwoVariablesA, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelB, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticB, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelB, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticB, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextLinearDiophantineEquationInTwoVariablesB, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextLinearDiophantineEquationInTwoVariablesB, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelC, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticC, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelC, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticC, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextLinearDiophantineEquationInTwoVariablesC, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextLinearDiophantineEquationInTwoVariablesC, biggerControls);
             // Buttons
-            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRun, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample1, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample2, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample3, smallerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRun, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample1, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample2, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample3, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelResult, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticResult, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelResult, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticResult, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(editTextLinearDiophantineEquationInTwoVariablesResult, smallerControls);
+            ControlDisplay.SetOutputFontSize(editTextLinearDiophantineEquationInTwoVariablesResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -533,13 +519,13 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     private void OnButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeOtherThanZero(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA, textViewLinearDiophantineEquationInTwoVariablesLabelA, textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA, textViewLinearDiophantineEquationInTwoVariablesLabelA, textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeOtherThanZero(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB, textViewLinearDiophantineEquationInTwoVariablesLabelB, textViewLinearDiophantineEquationInTwoVariablesLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB, textViewLinearDiophantineEquationInTwoVariablesLabelB, textViewLinearDiophantineEquationInTwoVariablesLabelElasticB, "b")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC, textViewLinearDiophantineEquationInTwoVariablesLabelC, textViewLinearDiophantineEquationInTwoVariablesLabelElasticC, "c")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC, textViewLinearDiophantineEquationInTwoVariablesLabelC, textViewLinearDiophantineEquationInTwoVariablesLabelElasticC, "c")) {
                 return;
             }
 
@@ -554,14 +540,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             // Before action performing.
             BeforeActionPerforming(button);
 
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-
             // Perform the linear diophantine equation solver
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
             algorithmParameters.setInput3(c);
-            algorithmParameters.setShowResultInMonospace(showResultInMonospace);
             progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -609,7 +592,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextLinearDiophantineEquationInTwoVariablesA.clearFocus();
         editTextLinearDiophantineEquationInTwoVariablesB.clearFocus();

@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.fragments.common;
 
 
 import android.annotation.SuppressLint;
@@ -33,34 +33,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.gegprifti.android.numbertheoryalgorithms.R;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 
-public final class Helper {
-    private final static String TAG = Helper.class.getSimpleName();
+public final class UIHelper {
+    private final static String TAG = UIHelper.class.getSimpleName();
 
-    private static final BigInteger ZERO = BigInteger.ZERO;
-    private static final BigInteger ONE = BigInteger.ONE;
-    private static final BigInteger TWO = BigInteger.valueOf(2L);
-    private static final BigInteger THREE = BigInteger.valueOf(3L);
-    private static final BigInteger FOUR = BigInteger.valueOf(4L);
-    private static final BigInteger FIVE = BigInteger.valueOf(5L);
-
-    private Helper() {}
-
-    public static String NP(int value) {
-        return  (value < 0) ? "(" + value + ")" : value + "";
-    }
-    public static String NP(BigInteger value) {
-        return  (value.compareTo(BigInteger.ZERO) < 0) ? "(" + value + ")" : value + "";
-    }
-
-    public static BigInteger getSign(BigInteger value) {
-        return (value.compareTo(ZERO) < 0) ? ONE.negate() : ONE;
-    }
 
     public static boolean isStatusBarVisible(FragmentActivity fragmentActivity) {
         Rect rectangle = new Rect();
@@ -452,7 +435,7 @@ public final class Helper {
         String result = "";
         try {
             // Validate BigInteger
-            if(Helper.IsBigInteger(value)) {
+            if(UIHelper.IsBigInteger(value)) {
                 BigInteger bi = new BigInteger(value);
                 bi = bi.abs(); // Make sure there are non negative numbers
 
@@ -486,8 +469,8 @@ public final class Helper {
         labelElastic.setBackgroundResource(R.drawable.label_elastic_error_bg);
     }
     public static void displayTheErrorMessage(Context  context, String errorMessage){
-        if (!Helper.isNullOrEmpty(errorMessage)) {
-            Helper.CustomToastError(context, errorMessage);
+        if (!UIHelper.isNullOrEmpty(errorMessage)) {
+            UIHelper.CustomToastError(context, errorMessage);
         }
     }
     public static boolean isNullOrEmpty(String value) {
@@ -513,7 +496,7 @@ public final class Helper {
         String errorMessage = "";
         String stringValue = editText.getText().toString();
         // Check.
-        if(Helper.isNullOrEmpty(stringValue)) {
+        if(UIHelper.isNullOrEmpty(stringValue)) {
             errorMessage = String.format(Locale.getDefault(), errorMessageFormat,  labelText);
             displayError(editText, label, labelElastic);
             checkFailed = true;
@@ -522,7 +505,7 @@ public final class Helper {
             checkFailed = false;
         }
         // Notify before return.
-        Helper.displayTheErrorMessage(context, errorMessage);
+        UIHelper.displayTheErrorMessage(context, errorMessage);
         // Return
         return checkFailed;
     }
@@ -542,7 +525,7 @@ public final class Helper {
         String errorMessage = "";
         String stringValue = editText.getText().toString();
         // Check.
-        if (Helper.checkInputMustBeFilled(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeFilled(context, editText, label, labelElastic, labelText)) {
             return true;
         }
         // Check.
@@ -562,7 +545,7 @@ public final class Helper {
             checkFailed = true;
         }
         // Notify before return.
-        Helper.displayTheErrorMessage(context, errorMessage);
+        UIHelper.displayTheErrorMessage(context, errorMessage);
         // Return.
         return checkFailed;
     }
@@ -583,7 +566,7 @@ public final class Helper {
         String errorMessage = "";
         String stringValue = editText.getText().toString();
         // Check.
-        if (Helper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
             return true;
         }
         // Check.
@@ -597,7 +580,7 @@ public final class Helper {
             checkFailed = true;
         }
         // Notify before return.
-        Helper.displayTheErrorMessage(context, errorMessage);
+        UIHelper.displayTheErrorMessage(context, errorMessage);
         // Return.
         return checkFailed;
     }
@@ -618,7 +601,7 @@ public final class Helper {
         String errorMessage = "";
         String stringValue = editText.getText().toString();
         // Check.
-        if (Helper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
             return true;
         }
         // Check.
@@ -632,7 +615,7 @@ public final class Helper {
             checkFailed = false;
         }
         // Notify before return.
-        Helper.displayTheErrorMessage(context, errorMessage);
+        UIHelper.displayTheErrorMessage(context, errorMessage);
         // Return.
         return checkFailed;
     }
@@ -655,7 +638,7 @@ public final class Helper {
         String errorMessage = "";
         String stringValue = editText.getText().toString();
         // Check.
-        if (Helper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
             return true;
         }
         // Check.
@@ -669,7 +652,7 @@ public final class Helper {
             checkFailed = false;
         }
         // Notify before return.
-        Helper.displayTheErrorMessage(context, errorMessage);
+        UIHelper.displayTheErrorMessage(context, errorMessage);
         // Return.
         return checkFailed;
     }
@@ -691,7 +674,7 @@ public final class Helper {
         String errorMessage = "";
         String stringValue = editText.getText().toString();
         // Check.
-        if (Helper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
             return true;
         }
         // Check.
@@ -705,7 +688,7 @@ public final class Helper {
             checkFailed = false;
         }
         // Notify before return.
-        Helper.displayTheErrorMessage(context, errorMessage);
+        UIHelper.displayTheErrorMessage(context, errorMessage);
         // Return.
         return checkFailed;
     }
@@ -727,7 +710,7 @@ public final class Helper {
         String errorMessage = "";
         String stringValue = editText.getText().toString();
         // Check.
-        if (Helper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeNumber(context, editText, label, labelElastic, labelText)) {
             return true;
         }
         // Check.
@@ -741,7 +724,7 @@ public final class Helper {
             checkFailed = false;
         }
         // Notify before return.
-        Helper.displayTheErrorMessage(context, errorMessage);
+        UIHelper.displayTheErrorMessage(context, errorMessage);
         // Return.
         return checkFailed;
     }
@@ -750,7 +733,7 @@ public final class Helper {
         List<BigInteger> returnValue = new ArrayList<>();
         String errorMessage = "";
         // Check.
-        if (Helper.checkInputMustBeFilled(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeFilled(context, editText, label, labelElastic, labelText)) {
             return null;
         }
         try {
@@ -772,7 +755,7 @@ public final class Helper {
         } else {
             displayError(editText, label, labelElastic);
             // Notify before return.
-            Helper.displayTheErrorMessage(context, errorMessage);
+            UIHelper.displayTheErrorMessage(context, errorMessage);
             return null;
         }
     }
@@ -836,7 +819,7 @@ public final class Helper {
         } else {
             displayError(editText, label, labelElastic);
             // Notify before return.
-            Helper.displayTheErrorMessage(context, errorMessage);
+            UIHelper.displayTheErrorMessage(context, errorMessage);
             return null;
         }
     }
@@ -897,7 +880,7 @@ public final class Helper {
         } else {
             displayError(editText, label, labelElastic);
             // Notify before return.
-            Helper.displayTheErrorMessage(context, errorMessage);
+            UIHelper.displayTheErrorMessage(context, errorMessage);
             return null;
         }
     }

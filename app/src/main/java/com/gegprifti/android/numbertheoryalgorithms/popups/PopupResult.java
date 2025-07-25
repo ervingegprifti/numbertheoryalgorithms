@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.popups;
 
 
 import android.annotation.SuppressLint;
@@ -17,6 +17,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import com.gegprifti.android.numbertheoryalgorithms.R;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 
 
 public final class PopupResult {
@@ -80,12 +82,6 @@ public final class PopupResult {
                 scrollViewResultTextContained.setVisibility(View.GONE);
             } else {
                 scrollViewResultTextContained.setVisibility(View.VISIBLE);
-                // Refresh Show Result In Monospace
-                boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(context);
-                if (showResultInMonospace) {
-                    editTextResult.setTypeface(Typeface.MONOSPACE);
-                }
-                //
                 editTextResult.setText(editableResult);
             }
 
@@ -115,7 +111,7 @@ public final class PopupResult {
 
             // Apply full-screen immersive mode to the Activity's window.
             // The PopupWindow will then naturally occupy this full-screen space.
-            Helper.setFullScreenImmersive(fragmentActivity);
+            UIHelper.setFullScreenImmersive(fragmentActivity);
 
             // Make the popup window focusable after showing it, ensuring it handles input.
             popupWindow.setFocusable(true);
@@ -138,7 +134,7 @@ public final class PopupResult {
                         linearLayoutParentResultOrigin.addView(linearLayoutStaticColumnHeaderResult);
                         linearLayoutParentResultOrigin.addView(listViewResult);
                     }
-                    Helper.exitFullScreen(fragmentActivity);
+                    UIHelper.exitFullScreen(fragmentActivity);
                 }
             });
         } catch (Exception ex) {

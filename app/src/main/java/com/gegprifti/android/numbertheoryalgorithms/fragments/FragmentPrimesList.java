@@ -21,21 +21,23 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
-import com.gegprifti.android.numbertheoryalgorithms.GridAdapter;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.RowItem;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +59,9 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     private ListView listViewPrimesListResult;
 
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    // public FragmentTabAlgorithms getFragmentTabAlgorithms() { return fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms(FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    // public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms(TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
 
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
@@ -106,10 +108,10 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
             // Events
             textViewPrimesListBackToAlgorithms.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
+                if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
-                    FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                    fragmentTabAlgorithms.SetFragment(fragmentAlgorithms);
+                    FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                    tabFragmentAlgorithms.SetFragment(fragmentAlgorithms);
                 }
             });
             textViewPrimesListDocumentationFile.setOnClickListener(view -> {
@@ -312,13 +314,13 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             }
 
             // Get the value from shared preferences.
-            boolean smallerResultDisplay = UserSettings.GetSmallerResultDisplay(requireContext());
+            boolean biggerResultDisplay = UserSettings.GetBiggerResultDisplay(requireContext());
 
             // Start the pre-calculate
             // TextView textViewTemp = new TextView(requireContext());
             LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TextView textViewTemp;
-            int rowItemResource = smallerResultDisplay ? R.layout.row_item_small : R.layout.row_item_big;
+            int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
             textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
             textViewTemp.setText(maxText.toString());
             textViewTemp.measure(0, 0); //must call measure!
@@ -326,14 +328,14 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             int rowItemHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space.
-            if(smallerResultDisplay) {
-                listViewPrimesListResult.setDividerHeight((int)Helper.ConvertDpToPixel(1F, requireContext()));
+            if(biggerResultDisplay) {
+                listViewPrimesListResult.setDividerHeight((int) UIHelper.ConvertDpToPixel(1F, requireContext()));
             } else {
-                listViewPrimesListResult.setDividerHeight((int)Helper.ConvertDpToPixel(4F, requireContext()));
+                listViewPrimesListResult.setDividerHeight((int) UIHelper.ConvertDpToPixel(4F, requireContext()));
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutPrimesListStaticColumnHeader, rows, rowItemWidth, null, rowItemHeight, null, smallerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutPrimesListStaticColumnHeader, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
             listViewPrimesListResult.setAdapter(adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -345,32 +347,32 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     //region Display
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewPrimesListExpandResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewPrimesListClearResult, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewPrimesListExpandResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewPrimesListClearResult, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelColumns, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelNumbers, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelColumns, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelNumbers, biggerControls);
             // Input & Buttons. For some reason these are not aligned properly when font size changed.
-            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListColumnsMinus, smallerControls);
-            // ControlDisplay.SetInputFontSize(this.editTextPrimesListColumns, smallerControls);
-            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListColumnsPlus, smallerControls);
-            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListNumbersMinus, smallerControls);
-            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListRun, smallerControls);
-            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListNumbersPlus, smallerControls);
+            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListColumnsMinus, biggerControls);
+            // ControlDisplay.SetInputFontSize(this.editTextPrimesListColumns, biggerControls);
+            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListColumnsPlus, biggerControls);
+            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListNumbersMinus, biggerControls);
+            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListRun, biggerControls);
+            // ControlDisplay.SetButtonFontSize(this.buttonPrimesListNumbersPlus, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelResult, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelElasticResult, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelResult, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewPrimesListLabelElasticResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -387,7 +389,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             try {
                 numbers = new BigInteger(numbersString);
             } catch (Exception ex) {
-                Helper.CustomToastLight(requireContext(), numbersString + " not a number");
+                UIHelper.CustomToastLight(requireContext(), numbersString + " not a number");
                 return;
             }
 
@@ -396,17 +398,17 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             BigInteger columns;
             try {
                 if(columnsString.equals("")) {
-                    Helper.CustomToastLight(requireContext(), "nr of columns must not be empty");
+                    UIHelper.CustomToastLight(requireContext(), "nr of columns must not be empty");
                     return;
                 } else {
                     columns = new BigInteger(columnsString);
                 }
             } catch (Exception ex) {
-                Helper.CustomToastLight(requireContext(), columnsString + " not a number");
+                UIHelper.CustomToastLight(requireContext(), columnsString + " not a number");
                 return;
             }
             if (columns.compareTo(BigInteger.ZERO) <= 0) {
-                Helper.CustomToastLight(requireContext(), "nr of columns must be greater than 0");
+                UIHelper.CustomToastLight(requireContext(), "nr of columns must be greater than 0");
                 return;
             }
 
@@ -430,7 +432,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextPrimesListColumns.clearFocus();
         // Select the last button clicked.

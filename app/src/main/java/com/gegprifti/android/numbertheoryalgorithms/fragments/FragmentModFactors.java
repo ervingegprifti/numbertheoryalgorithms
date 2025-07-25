@@ -2,7 +2,6 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,17 +20,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
@@ -75,9 +75,9 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     EditText editTextModFactorsResult;
 
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    //public FragmentTabAlgorithms getFragmentTabAlgorithms() { return fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms(FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    //public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms(TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
 
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
@@ -122,8 +122,8 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             editTextModFactorsResult = inflater.findViewById(R.id.EditTextModFactorsResult);
 
             // Input filter integer only
-            editTextModFactorsN.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextModFactorsA.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
+            editTextModFactorsN.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextModFactorsA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // Default UI status
             // Check if this is the first time the user is using this.
@@ -135,10 +135,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewModFactorsBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(fragmentTabAlgorithms != null) {
+                    if(tabFragmentAlgorithms != null) {
                         // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        fragmentTabAlgorithms.SetFragment(fragmentAlgorithms);
+                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                        tabFragmentAlgorithms.SetFragment(fragmentAlgorithms);
                     }
                 }
             });
@@ -152,42 +152,42 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewModFactorsCopyN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextModFactorsN);
+                    UIHelper.CopyEditText(requireContext(), editTextModFactorsN);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsCopyN);
                 }
             });
             textViewModFactorsCopyA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextModFactorsA);
+                    UIHelper.CopyEditText(requireContext(), editTextModFactorsA);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsCopyA);
                 }
             });
             textViewModFactorsCopyResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextModFactorsResult);
+                    UIHelper.CopyEditText(requireContext(), editTextModFactorsResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsCopyResult);
                 }
             });
             textViewModFactorsPasteN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextModFactorsN);
+                    UIHelper.PasteEditText(requireContext(), editTextModFactorsN);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsPasteN);
                 }
             });
             textViewModFactorsPasteA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextModFactorsA);
+                    UIHelper.PasteEditText(requireContext(), editTextModFactorsA);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsPasteA);
                 }
             });
             textViewModFactorsClearN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextModFactorsN);
+                    UIHelper.ClearEditText(requireContext(), editTextModFactorsN);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsClearN);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -196,7 +196,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewModFactorsClearA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextModFactorsA);
+                    UIHelper.ClearEditText(requireContext(), editTextModFactorsA);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsClearA);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -205,7 +205,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewModFactorsClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextModFactorsResult);
+                    UIHelper.ClearEditText(requireContext(), editTextModFactorsResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewModFactorsClearResult);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -222,7 +222,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String modFactorsLabelN = "n" + Helper.GetNrOfDigits(s.toString());
+                    String modFactorsLabelN = "n" + UIHelper.GetNrOfDigits(s.toString());
                     textViewModFactorsLabelN.setText(modFactorsLabelN);
                     // Reset
                     ResultReset(false);
@@ -241,7 +241,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String modFactorsLabelA = "a" + Helper.GetNrOfDigits(s.toString());
+                    String modFactorsLabelA = "a" + UIHelper.GetNrOfDigits(s.toString());
                     textViewModFactorsLabelA.setText(modFactorsLabelA);
                     // Reset
                     ResultReset(false);
@@ -409,24 +409,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         this.refreshSmallerClipboardButtons();
         this.refreshSmallerControls();
         this.refreshHideExampleButtons();
-        this.refreshShowResultInMonospace();
     }
 
 
     //region Display
-    private void refreshShowResultInMonospace() {
-        try {
-            Typeface currentTypeface = editTextModFactorsResult.getTypeface();
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-            if (currentTypeface != Typeface.MONOSPACE && showResultInMonospace) {
-                editTextModFactorsResult.setTypeface(Typeface.MONOSPACE);
-            } else if (currentTypeface == Typeface.MONOSPACE && !showResultInMonospace) {
-                editTextModFactorsResult.setTypeface(Typeface.DEFAULT);
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.linearLayoutModFactorsExamplesContainer.getVisibility() == View.VISIBLE;
@@ -444,52 +430,52 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     }
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsCopyN, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsPasteN, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsClearN, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsCopyN, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsPasteN, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsClearN, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsCopyA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsPasteA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsClearA, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsCopyA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsPasteA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsClearA, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsExpandResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsCopyResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsClearResult, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsExpandResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsCopyResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewModFactorsClearResult, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelN, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelElasticN, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelN, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelElasticN, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextModFactorsN, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextModFactorsN, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelA, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelElasticA, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelA, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelElasticA, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextModFactorsA, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextModFactorsA, biggerControls);
             // Buttons
-            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample1, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample2, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample3, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample4, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample5, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample6, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonModFactorsRun, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonModFactorsCountRun, smallerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample1, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample2, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample3, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample4, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample5, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsRunExample6, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsRun, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonModFactorsCountRun, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelResult, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelElasticResult, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelResult, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewModFactorsLabelElasticResult, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(editTextModFactorsResult, smallerControls);
+            ControlDisplay.SetOutputFontSize(editTextModFactorsResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -601,10 +587,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void OnButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN, textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN, textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
                 return;
             }
-            if(Helper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextModFactorsA, textViewModFactorsLabelA, textViewModFactorsLabelElasticA, "a", TWO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextModFactorsA, textViewModFactorsLabelA, textViewModFactorsLabelElasticA, "a", TWO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
@@ -630,10 +616,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void OnButtonCountRun(ViewGroup container, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN,  textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN,  textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
                 return;
             }
-            if(Helper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextModFactorsA,  textViewModFactorsLabelA, textViewModFactorsLabelElasticA, "a", TWO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextModFactorsA,  textViewModFactorsLabelA, textViewModFactorsLabelElasticA, "a", TWO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
@@ -662,7 +648,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextModFactorsN.clearFocus();
         editTextModFactorsA.clearFocus();

@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms;
+package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
 import android.os.Bundle;
@@ -13,11 +13,12 @@ import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
 import androidx.lifecycle.Lifecycle;
 import androidx.preference.PreferenceFragmentCompat;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.R;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 
 
-public class SettingsFragment extends PreferenceFragmentCompat implements MenuProvider {
-    private final static String TAG = SettingsFragment.class.getSimpleName();
+public class FragmentSettings extends PreferenceFragmentCompat implements MenuProvider {
+    private final static String TAG = FragmentSettings.class.getSimpleName();
 
     private String rootKey;
 

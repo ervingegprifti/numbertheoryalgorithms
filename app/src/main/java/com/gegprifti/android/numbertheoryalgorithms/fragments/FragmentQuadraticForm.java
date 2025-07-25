@@ -3,7 +3,6 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -23,21 +22,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
-import com.gegprifti.android.numbertheoryalgorithms.GridAdapter;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.RowItem;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +90,9 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
     MenuItem menuItemQuadraticFormIncludeOnlyNegativeSolutions;
 
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    //public FragmentTabAlgorithms getFragmentTabAlgorithms() { return fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms(FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    //public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms(TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
 
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
@@ -151,10 +152,10 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
 
             // Events
             this.textViewQuadraticFormBackToAlgorithms.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
+                if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
-                    FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                    fragmentTabAlgorithms.SetFragment(fragmentAlgorithms);
+                    FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                    tabFragmentAlgorithms.SetFragment(fragmentAlgorithms);
                 }
             });
             this.textViewQuadraticFormDocumentationFile.setOnClickListener(new View.OnClickListener() {
@@ -167,21 +168,21 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             this.textViewQuadraticFormCopyExpression.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextQuadraticFormExpression);
+                    UIHelper.CopyEditText(requireContext(), editTextQuadraticFormExpression);
                     ResetAllAndSelectClipboardButtonClicked(textViewQuadraticFormCopyExpression);
                 }
             });
             this.textViewQuadraticFormPasteExpression.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteToEditTextAsExpressionBDEF(requireContext(), editTextQuadraticFormExpression);
+                    UIHelper.PasteToEditTextAsExpressionBDEF(requireContext(), editTextQuadraticFormExpression);
                     ResetAllAndSelectClipboardButtonClicked(textViewQuadraticFormPasteExpression);
                 }
             });
             this.textViewQuadraticFormClearExpression.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextQuadraticFormExpression);
+                    UIHelper.ClearEditText(requireContext(), editTextQuadraticFormExpression);
                     ResetAllAndSelectClipboardButtonClicked(textViewQuadraticFormClearExpression);
                     ResetAllAndSelectButtonClicked(null);
                 }
@@ -205,7 +206,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             this.textViewQuadraticFormCopyResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextQuadraticFormResult);
+                    UIHelper.CopyEditText(requireContext(), editTextQuadraticFormResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewQuadraticFormCopyResult);
                 }
             });
@@ -280,7 +281,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             this.textViewQuadraticFormClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextQuadraticFormResult);
+                    UIHelper.ClearEditText(requireContext(), editTextQuadraticFormResult);
                     ResultReset(false);
                     ResetAllAndSelectClipboardButtonClicked(textViewQuadraticFormClearResult);
                     ResetAllAndSelectButtonClicked(null);
@@ -482,24 +483,10 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
         this.refreshSmallerClipboardButtons();
         this.refreshSmallerControls();
         this.refreshHideExampleButtons();
-        this.refreshShowResultInMonospace();
     }
 
 
     //region Display
-    private void refreshShowResultInMonospace() {
-        try {
-            Typeface currentTypeface = editTextQuadraticFormResult.getTypeface();
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-            if (currentTypeface != Typeface.MONOSPACE && showResultInMonospace) {
-                editTextQuadraticFormResult.setTypeface(Typeface.MONOSPACE);
-            } else if (currentTypeface == Typeface.MONOSPACE && !showResultInMonospace) {
-                editTextQuadraticFormResult.setTypeface(Typeface.DEFAULT);
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.linearLayoutQuadraticFormExamplesContainer.getVisibility() == View.VISIBLE;
@@ -517,50 +504,50 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
     }
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormCopyExpression, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormPasteExpression, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormClearExpression, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormCopyExpression, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormPasteExpression, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormClearExpression, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormExpandResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormCopyResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormClearResult, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormExpandResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormCopyResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewQuadraticFormClearResult, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelExpression, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelElasticExpression, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelExpression, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelElasticExpression, biggerControls);
             // Input
-            // ControlDisplay.SetInputFontSize(this.editTextExpression, biggerFontSize);
+            ControlDisplay.SetInputFontSize(this.editTextQuadraticFormExpression, biggerControls);
             // Buttons
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample1, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample2, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample3, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample4, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample5, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRun, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRun1, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRun2, smallerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample1, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample2, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample3, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample4, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRunExample5, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRun, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRun1, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonQuadraticFormRun2, biggerControls);
             // Input & Buttons. For some reason these are not aligned properly when font size changed.
-            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormMMinus, smallerControls);
-            // ControlDisplay.SetInputFontSize(editTextQuadraticFormM, smallerControls);
-            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormMPlus, smallerControls);
-            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormRMinus, smallerControls);
-            // ControlDisplay.SetInputFontSize(editTextQuadraticFormR, smallerControls);
-            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormRPlus, smallerControls);
+            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormMMinus, biggerControls);
+            // ControlDisplay.SetInputFontSize(editTextQuadraticFormM, biggerControls);
+            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormMPlus, biggerControls);
+            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormRMinus, biggerControls);
+            // ControlDisplay.SetInputFontSize(editTextQuadraticFormR, biggerControls);
+            // ControlDisplay.SetButtonFontSize(buttonQuadraticFormRPlus, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelResult, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelElasticResult, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelResult, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(this.textViewQuadraticFormLabelElasticResult, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(this.editTextQuadraticFormResult, smallerControls);
+            ControlDisplay.SetOutputFontSize(this.editTextQuadraticFormResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -641,7 +628,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             }
 
             // Get the value from shared preferences.
-            boolean smallerResultDisplay = UserSettings.GetSmallerResultDisplay(requireContext());
+            boolean biggerResultDisplay = UserSettings.GetBiggerResultDisplay(requireContext());
 
             // Get and set the max row item width per each column.
             List<Integer> rowItemWidths = new ArrayList<>();
@@ -649,7 +636,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
                 // Start the pre-calculate
                 LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 TextView textViewTemp;
-                int rowItemResource = smallerResultDisplay ? R.layout.row_item_small : R.layout.row_item_big;
+                int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
                 textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
                 String maxText = columnsMaxText.get(c);
                 textViewTemp.setText(maxText);
@@ -663,14 +650,14 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             int rowItemHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space
-            if(smallerResultDisplay) {
-                listViewQuadraticFormResult1.setDividerHeight((int)Helper.ConvertDpToPixel(1F, requireContext()));
+            if(biggerResultDisplay) {
+                listViewQuadraticFormResult1.setDividerHeight((int) UIHelper.ConvertDpToPixel(4F, requireContext()));
             } else {
-                listViewQuadraticFormResult1.setDividerHeight((int)Helper.ConvertDpToPixel(4F, requireContext()));
+                listViewQuadraticFormResult1.setDividerHeight((int) UIHelper.ConvertDpToPixel(1F, requireContext()));
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutQuadraticFormStaticColumnHeader1, rows, rowItemWidth, rowItemWidths, rowItemHeight, null, smallerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutQuadraticFormStaticColumnHeader1, rows, rowItemWidth, rowItemWidths, rowItemHeight, null, biggerResultDisplay);
             listViewQuadraticFormResult1.setAdapter(adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -683,7 +670,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             }
 
             // Get the values from shared preferences.
-            boolean smallerResultDisplay = UserSettings.GetSmallerResultDisplay(requireContext());
+            boolean biggerResultDisplay = UserSettings.GetBiggerResultDisplay(requireContext());
             boolean squareResultDisplay = UserSettings.GetSquareResultDisplay(requireContext());
 
             BigInteger m = null;
@@ -709,7 +696,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             }
             LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TextView textViewTemp;
-            int rowItemResource = smallerResultDisplay ? R.layout.row_item_small : R.layout.row_item_big;
+            int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
             textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
             textViewTemp.setText(maxText.toString());
             textViewTemp.measure(0, 0); //must call measure!
@@ -717,14 +704,14 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             int rowItemHeight = squareResultDisplay ? rowItemWidth : LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space.
-            if(smallerResultDisplay) {
-                listViewQuadraticFormResult2.setDividerHeight((int)Helper.ConvertDpToPixel(1F, requireContext()));
+            if(biggerResultDisplay) {
+                listViewQuadraticFormResult2.setDividerHeight((int) UIHelper.ConvertDpToPixel(4F, requireContext()));
             } else {
-                listViewQuadraticFormResult2.setDividerHeight((int)Helper.ConvertDpToPixel(4F, requireContext()));
+                listViewQuadraticFormResult2.setDividerHeight((int) UIHelper.ConvertDpToPixel(1F, requireContext()));
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutQuadraticFormStaticColumnHeader2, rows, rowItemWidth, null, rowItemHeight, null, smallerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutQuadraticFormStaticColumnHeader2, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
             FragmentQuadraticForm.SimpleQuadraticFormShowResult2FModM(adapter, m, r);
             listViewQuadraticFormResult2.setAdapter(adapter);
         } catch (Exception ex) {
@@ -800,7 +787,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             ResultReset(skipLabelResult);
 
             // Check.
-            List<BigInteger> expression = Helper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
             if (expression == null) {
                 return;
             }
@@ -810,9 +797,9 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
                 errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
             }
             if (!errorMessage.isEmpty()) {
-                Helper.displayError(this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression);
+                UIHelper.displayError(this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression);
                 // Notify before return.
-                Helper.displayTheErrorMessage(requireContext(), errorMessage);
+                UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
                 return;
             }
 
@@ -823,7 +810,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
 
             // Check b ≠ 0
             if (b.compareTo(BigInteger.ZERO) == 0) {
-                Helper.CustomToastLight(requireContext(), "The value of b must be other than 0");
+                UIHelper.CustomToastLight(requireContext(), "The value of b must be other than 0");
                 return;
             }
 
@@ -855,7 +842,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             ResultReset(false);
 
             // Check.
-            List<BigInteger> expression = Helper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
             if (expression == null) {
                 return;
             }
@@ -865,9 +852,9 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
                 errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
             }
             if (!errorMessage.isEmpty()) {
-                Helper.displayError(this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression);
+                UIHelper.displayError(this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression);
                 // Notify before return.
-                Helper.displayTheErrorMessage(requireContext(), errorMessage);
+                UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
                 return;
             }
 
@@ -878,7 +865,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
 
             // Check b ≠ 0
             if (b.compareTo(BigInteger.ZERO) == 0) {
-                Helper.CustomToastLight(requireContext(), "The value of b must be other than 0");
+                UIHelper.CustomToastLight(requireContext(), "The value of b must be other than 0");
                 return;
             }
 
@@ -903,7 +890,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
             ResultReset(false);
 
             // Check.
-            List<BigInteger> expression = Helper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
             if (expression == null) {
                 return;
             }
@@ -1058,7 +1045,7 @@ public class FragmentQuadraticForm extends FragmentBase implements Callback {
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextQuadraticFormExpression.clearFocus();
         // Select the last button clicked.

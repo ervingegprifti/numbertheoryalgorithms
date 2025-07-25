@@ -12,18 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
 
 
 public class FragmentAlgorithms extends FragmentBase {
     private final static String TAG = FragmentAlgorithms.class.getSimpleName();
 
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    // public FragmentTabAlgorithms getFragmentTabAlgorithms () { return this.fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms (FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    // public TabFragmentAlgorithms getFragmentTabAlgorithms () { return this.tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms (TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
 
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
@@ -48,70 +48,70 @@ public class FragmentAlgorithms extends FragmentBase {
             // FragmentAlgorithms
             // This is the parent and since it is the first one, it is going by default to be displayed.
 
-            // The order these are added in FragmentTabAlgorithms.setupSectionsStatePagerAdapter() defines the order they are displayed.
+            // The order these are added in TabFragmentAlgorithms.setupSectionsStatePagerAdapter() defines the order they are displayed.
 
             // FragmentQuadraticForm
             linearLayoutSimpleQuadraticForm.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentQuadraticForm fragmentQuadraticForm = (FragmentQuadraticForm)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentQuadraticForm");
-                    fragmentTabAlgorithms.SetFragment(fragmentQuadraticForm);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentQuadraticForm fragmentQuadraticForm = (FragmentQuadraticForm) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentQuadraticForm");
+                    tabFragmentAlgorithms.SetFragment(fragmentQuadraticForm);
                 }
             });
 
             // FragmentEuclideanAlgorithm
             linearLayoutEuclideanAlgorithm.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentEuclideanAlgorithm fragmentEuclideanAlgorithm = (FragmentEuclideanAlgorithm)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentEuclideanAlgorithm");
-                    fragmentTabAlgorithms.SetFragment(fragmentEuclideanAlgorithm);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentEuclideanAlgorithm fragmentEuclideanAlgorithm = (FragmentEuclideanAlgorithm) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentEuclideanAlgorithm");
+                    tabFragmentAlgorithms.SetFragment(fragmentEuclideanAlgorithm);
                 }
             });
             // FragmentExtendedEuclideanAlgorithm
             linearLayoutExtendedEuclideanAlgorithm.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentExtendedEuclideanAlgorithm fragmentExtendedEuclideanAlgorithm = (FragmentExtendedEuclideanAlgorithm)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentExtendedEuclideanAlgorithm");
-                    fragmentTabAlgorithms.SetFragment(fragmentExtendedEuclideanAlgorithm);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentExtendedEuclideanAlgorithm fragmentExtendedEuclideanAlgorithm = (FragmentExtendedEuclideanAlgorithm) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentExtendedEuclideanAlgorithm");
+                    tabFragmentAlgorithms.SetFragment(fragmentExtendedEuclideanAlgorithm);
                 }
             });
             // FragmentLinearCongruenceInOneVariable
             linearLayoutLinearCongruence.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentLinearCongruenceInOneVariable fragmentLinearCongruenceInOneVariable = (FragmentLinearCongruenceInOneVariable)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentLinearCongruenceInOneVariable");
-                    fragmentTabAlgorithms.SetFragment(fragmentLinearCongruenceInOneVariable);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentLinearCongruenceInOneVariable fragmentLinearCongruenceInOneVariable = (FragmentLinearCongruenceInOneVariable) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentLinearCongruenceInOneVariable");
+                    tabFragmentAlgorithms.SetFragment(fragmentLinearCongruenceInOneVariable);
                 }
             });
             // FragmentLinearCongruenceInTwoVariables
             linearLayoutLinearCongruenceWithTwoVariables.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentLinearCongruenceInTwoVariables fragmentLinearCongruenceInTwoVariables = (FragmentLinearCongruenceInTwoVariables)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentLinearCongruenceInTwoVariables");
-                    fragmentTabAlgorithms.SetFragment(fragmentLinearCongruenceInTwoVariables);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentLinearCongruenceInTwoVariables fragmentLinearCongruenceInTwoVariables = (FragmentLinearCongruenceInTwoVariables) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentLinearCongruenceInTwoVariables");
+                    tabFragmentAlgorithms.SetFragment(fragmentLinearCongruenceInTwoVariables);
                 }
             });
             // FragmentLinearDiophantineEquationInTwoVariables
             linearLayoutLinearDiophantineEquation.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentLinearDiophantineEquationInTwoVariables fragmentLinearDiophantineEquationInTwoVariables = (FragmentLinearDiophantineEquationInTwoVariables)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentLinearDiophantineEquationInTwoVariables");
-                    fragmentTabAlgorithms.SetFragment(fragmentLinearDiophantineEquationInTwoVariables);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentLinearDiophantineEquationInTwoVariables fragmentLinearDiophantineEquationInTwoVariables = (FragmentLinearDiophantineEquationInTwoVariables) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentLinearDiophantineEquationInTwoVariables");
+                    tabFragmentAlgorithms.SetFragment(fragmentLinearDiophantineEquationInTwoVariables);
                 }
             });
             // FragmentTonelliShanksAlgorithm
             linearLayoutTonelliShanksAlgorithm.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentTonelliShanksAlgorithm fragmentTonelliShanksAlgorithm = (FragmentTonelliShanksAlgorithm)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentTonelliShanksAlgorithm");
-                    fragmentTabAlgorithms.SetFragment(fragmentTonelliShanksAlgorithm);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentTonelliShanksAlgorithm fragmentTonelliShanksAlgorithm = (FragmentTonelliShanksAlgorithm) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentTonelliShanksAlgorithm");
+                    tabFragmentAlgorithms.SetFragment(fragmentTonelliShanksAlgorithm);
                 }
             });
             // FragmentModFactors
             linearLayoutModFactors.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentModFactors fragmentModFactors = (FragmentModFactors)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentModFactors");
-                    fragmentTabAlgorithms.SetFragment(fragmentModFactors);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentModFactors fragmentModFactors = (FragmentModFactors) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentModFactors");
+                    tabFragmentAlgorithms.SetFragment(fragmentModFactors);
                 }
             });
             // FragmentPrimesList
             linearLayoutPrimesList.setOnClickListener(view -> {
-                if(fragmentTabAlgorithms != null) {
-                    FragmentPrimesList fragmentPrimesList = (FragmentPrimesList)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentPrimesList");
-                    fragmentTabAlgorithms.SetFragment(fragmentPrimesList);
+                if(tabFragmentAlgorithms != null) {
+                    FragmentPrimesList fragmentPrimesList = (FragmentPrimesList) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentPrimesList");
+                    tabFragmentAlgorithms.SetFragment(fragmentPrimesList);
                 }
             });
         } catch (Exception ex) {

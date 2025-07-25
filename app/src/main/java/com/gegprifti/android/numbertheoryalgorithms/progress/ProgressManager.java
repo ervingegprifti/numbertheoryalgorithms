@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms;
+package com.gegprifti.android.numbertheoryalgorithms.progress;
 
 
 import android.app.Activity;
@@ -16,10 +16,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import android.os.Handler;
 import android.os.Looper;
+
+import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmFactory;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Calculator;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 
 
 /**
@@ -113,7 +115,7 @@ public final class ProgressManager {
         popupWindow = new PopupWindow(viewProgressDialog, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
 
         if (runningTask != null && !runningTask.isDone()) {
-            Helper.setFullScreenImmersive(activity);
+            UIHelper.setFullScreenImmersive(activity);
             popupWindow.showAtLocation(viewProgressDialog, Gravity.CENTER, 0, 0);
         }
 
@@ -121,7 +123,7 @@ public final class ProgressManager {
 
         popupWindow.setOnDismissListener(() -> {
             onDismiss(algPrm);
-            Helper.exitFullScreen(activity);
+            UIHelper.exitFullScreen(activity);
         });
     }
 

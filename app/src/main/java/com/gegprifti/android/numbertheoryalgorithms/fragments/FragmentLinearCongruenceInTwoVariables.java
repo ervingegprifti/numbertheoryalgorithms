@@ -2,7 +2,6 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -20,19 +19,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.FragmentTabAlgorithms;
-import com.gegprifti.android.numbertheoryalgorithms.ProgressStatus;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.tabs.TabFragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.common.ClipboardButtonDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.ControlDisplay;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupDocumentation;
-import com.gegprifti.android.numbertheoryalgorithms.common.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
-import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupDocumentation;
+import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
+import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
+
 import java.math.BigInteger;
 
 
@@ -78,9 +79,9 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     EditText editTextLinearCongruenceInTwoVariablesResult;
 
     // Define the parent fragment
-    private FragmentTabAlgorithms fragmentTabAlgorithms;
-    // public FragmentTabAlgorithms getFragmentTabAlgorithms() { return fragmentTabAlgorithms; }
-    public void setFragmentTabAlgorithms(FragmentTabAlgorithms fragmentTabAlgorithms) { this.fragmentTabAlgorithms = fragmentTabAlgorithms; }
+    private TabFragmentAlgorithms tabFragmentAlgorithms;
+    // public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
+    public void setFragmentTabAlgorithms(TabFragmentAlgorithms tabFragmentAlgorithms) { this.tabFragmentAlgorithms = tabFragmentAlgorithms; }
 
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
@@ -132,10 +133,10 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             editTextLinearCongruenceInTwoVariablesResult = inflater.findViewById(R.id.EditTextLinearCongruenceInTwoVariablesResult);
 
             // Input filter integer only
-            editTextLinearCongruenceInTwoVariablesA.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextLinearCongruenceInTwoVariablesB.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextLinearCongruenceInTwoVariablesC.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
-            editTextLinearCongruenceInTwoVariablesM.setFilters(new InputFilter[]{Helper.inputFilterIntegerOnly});
+            editTextLinearCongruenceInTwoVariablesA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearCongruenceInTwoVariablesB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearCongruenceInTwoVariablesC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearCongruenceInTwoVariablesM.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // Default UI status
             // Check if this is the first time the user is using this.
@@ -147,10 +148,10 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(fragmentTabAlgorithms != null) {
+                    if(tabFragmentAlgorithms != null) {
                         // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms)fragmentTabAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        fragmentTabAlgorithms.SetFragment(fragmentAlgorithms);
+                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                        tabFragmentAlgorithms.SetFragment(fragmentAlgorithms);
                     }
                 }
             });
@@ -164,70 +165,70 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesCopyA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyA);
                 }
             });
             textViewLinearCongruenceInTwoVariablesCopyB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyB);
                 }
             });
             textViewLinearCongruenceInTwoVariablesCopyC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyC);
                 }
             });
             textViewLinearCongruenceInTwoVariablesCopyM.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyM);
                 }
             });
             textViewLinearCongruenceInTwoVariablesCopyResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
+                    UIHelper.CopyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyResult);
                 }
             });
             textViewLinearCongruenceInTwoVariablesPasteA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
+                    UIHelper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteA);
                 }
             });
             textViewLinearCongruenceInTwoVariablesPasteB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
+                    UIHelper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteB);
                 }
             });
             textViewLinearCongruenceInTwoVariablesPasteC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
+                    UIHelper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteC);
                 }
             });
             textViewLinearCongruenceInTwoVariablesPasteM.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
+                    UIHelper.PasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteM);
                 }
             });
             textViewLinearCongruenceInTwoVariablesClearA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearA);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -236,7 +237,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesClearB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearB);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -245,7 +246,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesClearC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearC);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -254,7 +255,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesClearM.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearM);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -263,7 +264,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Helper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
+                    UIHelper.ClearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
                     ResetAllAndSelectClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearResult);
                     // Reset the last button clicked.
                     ResetAllAndSelectButtonClicked(null);
@@ -281,7 +282,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 @Override
                 public void afterTextChanged(Editable s)
                 {
-                    String linearCongruenceInTwoVariablesLabelA = "a" + Helper.GetNrOfDigits(s.toString());
+                    String linearCongruenceInTwoVariablesLabelA = "a" + UIHelper.GetNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelA.setText(linearCongruenceInTwoVariablesLabelA);
                     // Reset
                     ResultReset(false);
@@ -300,7 +301,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String linearCongruenceInTwoVariablesLabelB = "b" + Helper.GetNrOfDigits(s.toString());
+                    String linearCongruenceInTwoVariablesLabelB = "b" + UIHelper.GetNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelB.setText(linearCongruenceInTwoVariablesLabelB);
                     // Reset
                     ResultReset(false);
@@ -319,7 +320,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String linearCongruenceInTwoVariablesLabelB = "c" + Helper.GetNrOfDigits(s.toString());
+                    String linearCongruenceInTwoVariablesLabelB = "c" + UIHelper.GetNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelC.setText(linearCongruenceInTwoVariablesLabelB);
                     // Reset
                     ResultReset(false);
@@ -338,7 +339,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String linearCongruenceInTwoVariablesLabelM = "m" + Helper.GetNrOfDigits(s.toString());
+                    String linearCongruenceInTwoVariablesLabelM = "m" + UIHelper.GetNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelM.setText(linearCongruenceInTwoVariablesLabelM);
                     // Reset
                     ResultReset(false);
@@ -467,24 +468,10 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         this.refreshSmallerClipboardButtons();
         this.refreshSmallerControls();
         this.refreshHideExampleButtons();
-        this.refreshShowResultInMonospace();
     }
 
 
     //region Display
-    private void refreshShowResultInMonospace() {
-        try {
-            Typeface currentTypeface = editTextLinearCongruenceInTwoVariablesResult.getTypeface();
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-            if (currentTypeface != Typeface.MONOSPACE && showResultInMonospace) {
-                editTextLinearCongruenceInTwoVariablesResult.setTypeface(Typeface.MONOSPACE);
-            } else if (currentTypeface == Typeface.MONOSPACE && !showResultInMonospace) {
-                editTextLinearCongruenceInTwoVariablesResult.setTypeface(Typeface.DEFAULT);
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.buttonLinearCongruenceInTwoVariablesRunExample1.getVisibility() == View.VISIBLE; // Just check one.
@@ -506,66 +493,66 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     }
     private void refreshSmallerClipboardButtons() {
         try {
-            boolean smallerClipboardButtons = UserSettings.GetSmallerClipboardButtons(requireContext());
+            boolean biggerClipboardButtons = UserSettings.GetBiggerClipboardButtons(requireContext());
 
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteA, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearA, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteA, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearA, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteB, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearB, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteB, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearB, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyC, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteC, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearC, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyC, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteC, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearC, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyM, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteM, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearM, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyM, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteM, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearM, biggerClipboardButtons);
             // Clipboard
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesExpandResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyResult, smallerClipboardButtons);
-            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearResult, smallerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesExpandResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyResult, biggerClipboardButtons);
+            ClipboardButtonDisplay.SetClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearResult, biggerClipboardButtons);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshSmallerControls() {
         try {
-            boolean smallerControls = UserSettings.GetSmallerControls(requireContext());
+            boolean biggerControls = UserSettings.GetBiggerControls(requireContext());
 
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelA, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticA, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelA, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticA, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesA, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesA, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelB, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticB, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelB, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticB, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesB, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesB, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelC, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticC, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelC, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticC, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesC, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesC, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelM, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticM, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelM, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticM, biggerControls);
             // Input
-            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesM, smallerControls);
+            ControlDisplay.SetInputFontSize(editTextLinearCongruenceInTwoVariablesM, biggerControls);
             // Buttons
-            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRun, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample1, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample2, smallerControls);
-            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample3, smallerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRun, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample1, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample2, biggerControls);
+            ControlDisplay.SetButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample3, biggerControls);
             // Label
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelResult, smallerControls);
-            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticResult, smallerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelResult, biggerControls);
+            ControlDisplay.SetInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticResult, biggerControls);
             // Output
-            ControlDisplay.SetOutputFontSize(editTextLinearCongruenceInTwoVariablesResult, smallerControls);
+            ControlDisplay.SetOutputFontSize(editTextLinearCongruenceInTwoVariablesResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -600,16 +587,16 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     private void OnButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
         try {
             // Check.
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesA, textViewLinearCongruenceInTwoVariablesLabelA, textViewLinearCongruenceInTwoVariablesLabelElasticA, "a")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesA, textViewLinearCongruenceInTwoVariablesLabelA, textViewLinearCongruenceInTwoVariablesLabelElasticA, "a")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesB, textViewLinearCongruenceInTwoVariablesLabelB, textViewLinearCongruenceInTwoVariablesLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesB, textViewLinearCongruenceInTwoVariablesLabelB, textViewLinearCongruenceInTwoVariablesLabelElasticB, "b")) {
                 return;
             }
-            if(Helper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesC, textViewLinearCongruenceInTwoVariablesLabelC, textViewLinearCongruenceInTwoVariablesLabelElasticC, "c")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesC, textViewLinearCongruenceInTwoVariablesLabelC, textViewLinearCongruenceInTwoVariablesLabelElasticC, "c")) {
                 return;
             }
-            if(Helper.checkInputMustBeGreaterThanMin(requireActivity(), editTextLinearCongruenceInTwoVariablesM, textViewLinearCongruenceInTwoVariablesLabelM, textViewLinearCongruenceInTwoVariablesLabelElasticM, "m", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireActivity(), editTextLinearCongruenceInTwoVariablesM, textViewLinearCongruenceInTwoVariablesLabelM, textViewLinearCongruenceInTwoVariablesLabelElasticM, "m", BigInteger.ZERO)) {
                 return;
             }
 
@@ -625,15 +612,12 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             // Before action performing.
             BeforeActionPerforming(button);
 
-            boolean showResultInMonospace = UserSettings.GetShowResultInMonospace(requireContext());
-
             // Perform the linear congruence solver
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.LINEAR_CONGRUENCE_IN_TWO_VARIABLES, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
             algorithmParameters.setInput3(c);
             algorithmParameters.setInput4(m);
-            algorithmParameters.setShowResultInMonospace(showResultInMonospace);
             progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -684,7 +668,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     //region RESULT
     private void BeforeActionPerforming(Button button) {
         // Hide the keyboard.
-        Helper.HideSoftKeyBoard(requireActivity());
+        UIHelper.HideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextLinearCongruenceInTwoVariablesA.clearFocus();
         editTextLinearCongruenceInTwoVariablesB.clearFocus();

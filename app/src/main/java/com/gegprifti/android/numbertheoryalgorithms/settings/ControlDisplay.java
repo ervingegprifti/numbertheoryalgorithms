@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.settings;
 
 
 import android.util.TypedValue;
@@ -19,34 +19,36 @@ public class ControlDisplay {
     private static final int BIGGER_BUTTON_FONT_SIZE = 16;
     private static final int BIGGER_OUTPUT_FONT_SIZE = 20;
 
-    public static void SetInputLabelFontSize (TextView control, Boolean smallerFontSize) {
-        if (smallerFontSize) {
-            SetFontSize(control, SMALLER_INPUT_LABEL_FONT_SIZE);
-        } else {
+
+    public static void SetInputLabelFontSize (TextView control, Boolean biggerFontSize) {
+        if (biggerFontSize) {
             SetFontSize(control, BIGGER_INPUT_LABEL_FONT_SIZE);
+        } else {
+            SetFontSize(control, SMALLER_INPUT_LABEL_FONT_SIZE);
         }
     }
-    public static void SetInputFontSize (EditText control, Boolean smallerFontSize) {
-        if (smallerFontSize) {
-            SetFontSize(control, SMALLER_INPUT_FONT_SIZE);
-        } else {
+    public static void SetInputFontSize (EditText control, Boolean biggerFontSize) {
+        if (biggerFontSize) {
             SetFontSize(control, BIGGER_INPUT_FONT_SIZE);
+        } else {
+            SetFontSize(control, SMALLER_INPUT_FONT_SIZE);
         }
     }
-    public static void SetButtonFontSize (Button control, Boolean smallerFontSize) {
-        if (smallerFontSize) {
-            SetFontSize(control, SMALLER_BUTTON_FONT_SIZE);
-        } else {
+    public static void SetButtonFontSize (Button control, Boolean biggerFontSize) {
+        if (biggerFontSize) {
             SetFontSize(control, BIGGER_BUTTON_FONT_SIZE);
-        }
-    }
-    public static void SetOutputFontSize (EditText control, Boolean smallerFontSize) {
-        if (smallerFontSize) {
-            SetFontSize(control, SMALLER_OUTPUT_FONT_SIZE);
         } else {
-            SetFontSize(control, BIGGER_OUTPUT_FONT_SIZE);
+            SetFontSize(control, SMALLER_BUTTON_FONT_SIZE);
         }
     }
+    public static void SetOutputFontSize (EditText control, Boolean biggerFontSize) {
+        if (biggerFontSize) {
+            SetFontSize(control, BIGGER_OUTPUT_FONT_SIZE);
+        } else {
+            SetFontSize(control, SMALLER_OUTPUT_FONT_SIZE);
+        }
+    }
+
 
     private static void SetFontSize (View view, int fontSize) {
         if (view instanceof TextView) {

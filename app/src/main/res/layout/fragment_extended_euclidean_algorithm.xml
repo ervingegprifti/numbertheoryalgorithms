@@ -98,7 +98,11 @@
 			</LinearLayout>
 			<LinearLayout style="@style/ResultContainer" >
 				<HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
-					<EditText android:id="@+id/EditTextExtendedEuclideanResult" style="@style/EditTextResult" android:autofillHints="" />
+					<EditText
+						android:id="@+id/EditTextExtendedEuclideanResult"
+						style="@style/EditTextResult"
+						android:typeface="monospace"
+						android:autofillHints="" />
 				</HorizontalScrollView>
 			</LinearLayout>
 

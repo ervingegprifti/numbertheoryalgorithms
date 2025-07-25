@@ -5,6 +5,7 @@
     <string name="about_author_value">Ervin Gegprifti</string>
     <string name="about_contact_value">gegprifti.ervin@gmail.com</string>
     <string name="about_app_website">Web: numbertheoryalgorithms</string>
+    <string name="about_app">Starting with version 3.0.7.0, Number Theory Algorithms is open source. If you’d like to contribute, check out the GitHub page below.</string>
     <string name="about_app_github">GitHub: numbertheoryalgorithms</string>
     <string name="about_privacy_policy">Privacy Policy</string>
     <string name="about_terms_and_conditions">Terms and Conditions</string>

@@ -13,7 +13,7 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 
-import com.gegprifti.android.numbertheoryalgorithms.ProgressManager;
+import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressManager;
 
 
 public abstract class FragmentBase extends Fragment implements MenuProvider {
