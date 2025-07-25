@@ -2,6 +2,7 @@ package com.gegprifti.android.numbertheoryalgorithms.common;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
@@ -39,7 +40,7 @@ import java.util.Locale;
 
 
 public final class Helper {
-    private final static String TAG = "Helper";
+    private final static String TAG = Helper.class.getSimpleName();
 
     private static final BigInteger ZERO = BigInteger.ZERO;
     private static final BigInteger ONE = BigInteger.ONE;
@@ -70,6 +71,15 @@ public final class Helper {
     }
 
     //region Full Screen
+    public static  void setFullScreenImmersive(@NonNull Activity activity) {
+        Window window = activity.getWindow();
+        if (window == null) {
+            return;
+        }
+        setFullScreenImmersive(window);
+    }
+
+
     public static void setFullScreenImmersive(@NonNull FragmentActivity fragmentActivity) {
         Window window = fragmentActivity.getWindow();
         if (window == null) {
@@ -77,6 +87,7 @@ public final class Helper {
         }
         setFullScreenImmersive(window);
     }
+
 
     /**
      * Sets the given Window to full-screen immersive mode.
@@ -91,17 +102,27 @@ public final class Helper {
 
         // Get the WindowInsetsControllerCompat for the window.
         // This controller provides APIs to manage system bars.
-        WindowInsetsControllerCompat insetsController = WindowCompat.getInsetsController(window, window.getDecorView());
+        WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, window.getDecorView());
 
         // Hide specific system bars for full screen immersive mode.
         // WindowInsetsCompat.Type.systemBars() includes both status and navigation bars.
-        insetsController.hide(WindowInsetsCompat.Type.systemBars());
+        windowInsetsControllerCompat.hide(WindowInsetsCompat.Type.systemBars());
 
         // Set behavior for when the system bars are hidden.
         // BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE: bars will temporarily show when user swipes from the edge.
         // insetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-        insetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_DEFAULT);
+        windowInsetsControllerCompat.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_DEFAULT);
     }
+
+
+    public static void exitFullScreen(@NonNull Activity activity) {
+        Window window = activity.getWindow();
+        if (window == null) {
+            return;
+        }
+        exitFullScreen(window);
+    }
+
 
     public static void exitFullScreen(@NonNull FragmentActivity fragmentActivity) {
         Window window = fragmentActivity.getWindow();
@@ -111,11 +132,12 @@ public final class Helper {
         exitFullScreen(window);
     }
 
+
     public static void exitFullScreen(@NonNull Window window) {
         WindowCompat.setDecorFitsSystemWindows(window, true); // Let system manage insets again
-        WindowInsetsControllerCompat insetsController = WindowCompat.getInsetsController(window, window.getDecorView());
-        insetsController.show(WindowInsetsCompat.Type.systemBars());
-        insetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_DEFAULT);
+        WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, window.getDecorView());
+        windowInsetsControllerCompat.show(WindowInsetsCompat.Type.systemBars());
+        windowInsetsControllerCompat.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_DEFAULT);
     }
     //endregion Full Screen
 

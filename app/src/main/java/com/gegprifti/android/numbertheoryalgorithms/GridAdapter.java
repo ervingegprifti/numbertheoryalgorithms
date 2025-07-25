@@ -12,10 +12,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
+import com.gegprifti.android.numbertheoryalgorithms.common.RowItem;
 
 
 public class GridAdapter extends BaseAdapter {
-    private final static String TAG = "GridAdapter";
+    private final static String TAG = GridAdapter.class.getSimpleName();
+
     private final Context context;
     private final LayoutInflater layoutInflater;
     private final List<List<RowItem>> gridRows;
@@ -31,7 +33,7 @@ public class GridAdapter extends BaseAdapter {
     private final int marginBottom;
     private int lastItemIndex = -1;
 
-    GridAdapter(Context context, LinearLayout staticColumnHeader, List<List<RowItem>> gridRows, int rowItemWidthGlobal, List<Integer> rowItemWidths, int rowItemHeightGlobal, List<Integer> rowItemHeights, boolean smallerResultDisplay) {
+    public GridAdapter(Context context, LinearLayout staticColumnHeader, List<List<RowItem>> gridRows, int rowItemWidthGlobal, List<Integer> rowItemWidths, int rowItemHeightGlobal, List<Integer> rowItemHeights, boolean smallerResultDisplay) {
         this.context = context;
         this.gridRows = gridRows;
         this.rowItemWidthGlobal = rowItemWidthGlobal;

@@ -20,7 +20,7 @@ import com.gegprifti.android.numbertheoryalgorithms.R;
 
 
 public final class PopupResult {
-    private final static String TAG = "PopupResult";
+    private final static String TAG = PopupResult.class.getSimpleName();
 
     final FragmentActivity fragmentActivity;
     final Context context;

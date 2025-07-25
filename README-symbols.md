@@ -38,6 +38,7 @@ Aᵦ ᵧ ᵨ ᵩ ᵪ
 ## References
 
 [Unicode subscripts and superscripts](https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts)
+[Unicode Characters](https://www.htmlsymbols.xyz/unicode)
 
 
 

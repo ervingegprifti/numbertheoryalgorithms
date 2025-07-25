@@ -4,6 +4,8 @@ package com.gegprifti.android.numbertheoryalgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.common.UserSettings;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.TabPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import androidx.core.content.ContextCompat;
@@ -17,7 +19,8 @@ import android.view.WindowManager;
 
 
 public class MainActivity extends AppCompatActivity {
-    private final static String TAG = "MainActivity";
+    private final static String TAG = MainActivity.class.getSimpleName();
+
     private ViewPager2 viewPager2;
 
     @Override
@@ -33,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-
 
         // Display the long title here
         this.setTitle(getResources().getString(R.string.app_name_title));
