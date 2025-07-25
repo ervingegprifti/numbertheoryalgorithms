@@ -4,7 +4,7 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 import java.math.BigInteger;
 
 
-public abstract class Algorithm {
+public abstract class Algorithm implements Calculator {
     protected static final BigInteger ZERO = BigInteger.ZERO;
     protected static final BigInteger ONE = BigInteger.ONE;
     protected static final BigInteger TWO = BigInteger.valueOf(2L);

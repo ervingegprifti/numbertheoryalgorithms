@@ -16,23 +16,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import android.os.Handler;
 import android.os.Looper;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.*;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Addition;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Division;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.EulerPhi;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Factorial;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Gcd;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.IsProbablePrime;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Lcm;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Mod;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.ModInverse;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Multiplication;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.NextProbablePrime;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.NextProbableTwinPrimePair;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Power;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Root;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Subtraction;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmFactory;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Calculator;
 import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
 
 
@@ -227,35 +213,7 @@ public final class ProgressManager {
             throw new InterruptedException();
         }
 
-        switch (algPrm.getAlgorithmName()) {
-            case CALCULATOR_ADDITION : return new Addition(algPrm).calculate();
-            case CALCULATOR_SUBTRACTION : return new Subtraction(algPrm).calculate();
-            case CALCULATOR_MULTIPLICATION : return new Multiplication(algPrm).calculate();
-            case CALCULATOR_DIVISION : return new Division(algPrm).calculate();
-            case CALCULATOR_POWER : return new Power(algPrm).calculate();
-            case CALCULATOR_ROOT : return new Root(algPrm).calculate();
-            case CALCULATOR_GCD : return new Gcd(algPrm).calculate();
-            case CALCULATOR_LCM : return new Lcm(algPrm).calculate();
-            case CALCULATOR_MOD : return new Mod(algPrm).calculate();
-            case CALCULATOR_MOD_INVERSE : return new ModInverse(algPrm).calculate();
-            case CALCULATOR_IS_PROBABLE_PRIME : return new IsProbablePrime(algPrm).calculate();
-            case CALCULATOR_EULER_PHI : return new EulerPhi(algPrm).calculate();
-            case CALCULATOR_FACTORIAL : return new Factorial(algPrm).calculate();
-            case CALCULATOR_NEXT_PROBABLE_PRIME: return new NextProbablePrime(algPrm).calculate();
-            case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR : return new NextProbableTwinPrimePair(algPrm).calculate();
-            case QUADRATIC_FORM: return new QuadraticFormRun(algPrm).calculate();
-            case QUADRATIC_FORM_1: return new QuadraticFormRun1(algPrm).calculate();
-            case QUADRATIC_FORM_2: return new QuadraticFormRun2(algPrm).calculate();
-            case EUCLIDEAN_ALGORITHM: return new EuclideanAlgorithm(algPrm).calculate();
-            case EXTENDED_EUCLIDEAN_ALGORITHM : return new ExtendedEuclideanAlgorithm(algPrm).calculate();
-            case LINEAR_CONGRUENCE_IN_ONE_VARIABLE : return new LinearCongruenceInOneVariable(algPrm).calculate();
-            case LINEAR_CONGRUENCE_IN_TWO_VARIABLES : return new LinearCongruenceInTwoVariables(algPrm).calculate();
-            case LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES : return new LinearDiophantineEquation(algPrm).calculate();
-            case TONELLI_SHANKS_ALGORITHM : return new TonelliShanksAlgorithm(algPrm).calculate();
-            case MOD_FACTORS : return new ModFactors(algPrm).calculate();
-            case MOD_FACTORS_COUNT : return new ModFactorsCount(algPrm).calculate();
-            case PRIMES_LIST : return new PrimesList(algPrm).calculate();
-            default: return null;
-        }
+        Calculator algorithm = AlgorithmFactory.create(algPrm);
+        return algorithm.calculate();
     }
 }
