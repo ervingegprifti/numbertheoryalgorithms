@@ -232,9 +232,9 @@ public final class ProgressManager {
             // TODO. case QUADRATIC_FORM_2: return Algorithms.QuadraticFormRun2(algPrm);
             case EUCLIDEAN_ALGORITHM: return new EuclideanAlgorithm(algPrm).calculate();
             case EXTENDED_EUCLIDEAN_ALGORITHM : return new ExtendedEuclideanAlgorithm(algPrm).calculate();
-            // TODO. case LINEAR_CONGRUENCE_IN_ONE_VARIABLE : return Algorithms.LinearCongruenceInOneVariable(algPrm);
-            // TODO. case LINEAR_CONGRUENCE_IN_TWO_VARIABLES : return Algorithms.LinearCongruenceInTwoVariables(algPrm);
-            // TODO. case LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES : return Algorithms.LinearDiophantineEquation(algPrm);
+            case LINEAR_CONGRUENCE_IN_ONE_VARIABLE : return new LinearCongruenceInOneVariable(algPrm).calculate();
+            case LINEAR_CONGRUENCE_IN_TWO_VARIABLES : return new LinearCongruenceInTwoVariables(algPrm).calculate();
+            case LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES : return new LinearDiophantineEquation(algPrm).calculate();
             case TONELLI_SHANKS_ALGORITHM : return new TonelliShanksAlgorithm(algPrm).calculate();
             case MOD_FACTORS : return new ModFactors(algPrm).calculate();
             case MOD_FACTORS_COUNT : return new ModFactorsCount(algPrm).calculate();

@@ -182,15 +182,15 @@ final class ProgressDialog {
                     //case EXTENDED_EUCLIDEAN_ALGORITHM :
                     //    result = Algorithms.ExtendedEuclideanAlgorithm(this, this.algPrm);
                     //    break;
-                    case LINEAR_CONGRUENCE_IN_ONE_VARIABLE :
-                        result = Algorithms.LinearCongruenceInOneVariable(this, this.algPrm);
-                        break;
-                    case LINEAR_CONGRUENCE_IN_TWO_VARIABLES :
-                        result = Algorithms.LinearCongruenceInTwoVariables(this, this.algPrm);
-                        break;
-                    case LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES :
-                        result = Algorithms.LinearDiophantineEquation(this, this.algPrm);
-                        break;
+                    //case LINEAR_CONGRUENCE_IN_ONE_VARIABLE :
+                    //    result = Algorithms.LinearCongruenceInOneVariable(this, this.algPrm);
+                    //    break;
+                    //case LINEAR_CONGRUENCE_IN_TWO_VARIABLES :
+                    //    result = Algorithms.LinearCongruenceInTwoVariables(this, this.algPrm);
+                    //    break;
+                    //case LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES :
+                    //    result = Algorithms.LinearDiophantineEquation(this, this.algPrm);
+                    //    break;
                     //case TONELLI_SHANKS_ALGORITHM :
                     //    result = Algorithms.TonelliShanksAlgorithm(this, this.algPrm);
                     //    break;

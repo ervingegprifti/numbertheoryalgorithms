@@ -18,6 +18,8 @@ public abstract class Algorithm {
     protected static final String TAB = ""; // "\t" // TODO +++ Useless, remove it later.
     protected static final String STOP = "■";
     protected static final String RIGHT_ARROW_COLORED = "<font color='#8C5900'>➡</font>";
+    protected static final String NBSP = "&nbsp;";
+    protected static final String LEFT_RIGHT_ARROW = "<b>⬌</b>";
 
 
     public Algorithm(AlgorithmParameters algorithmParameters) {

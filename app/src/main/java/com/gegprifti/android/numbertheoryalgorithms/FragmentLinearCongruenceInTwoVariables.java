@@ -627,7 +627,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             algorithmParameters.setInput3(c);
             algorithmParameters.setInput4(m);
             algorithmParameters.setShowResultInMonospace(showResultInMonospace);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

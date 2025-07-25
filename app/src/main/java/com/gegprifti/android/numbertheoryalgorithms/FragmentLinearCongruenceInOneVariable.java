@@ -555,7 +555,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             algorithmParameters.setInput2(b);
             algorithmParameters.setInput3(m);
             algorithmParameters.setShowResultInMonospace(showResultInMonospace);
-            ProgressDialog.StartWork(requireContext(), container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
