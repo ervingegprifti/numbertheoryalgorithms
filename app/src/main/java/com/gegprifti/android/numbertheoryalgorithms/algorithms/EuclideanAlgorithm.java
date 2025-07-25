@@ -3,14 +3,17 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import android.util.Log;
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.BigMath;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 import java.math.BigInteger;
 import java.util.Locale;
 
 
 public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
     private final static String TAG = EuclideanAlgorithm.class.getSimpleName();
+
 
     public EuclideanAlgorithm(AlgorithmParameters algorithmParameters) {
         super(algorithmParameters);
@@ -66,7 +69,7 @@ public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
             }
 
             // If b ∣ a then GCD(a, b) = b. If b ∤ a then apply the division algorithm
-            if (BigMath.DoesDCompletelyDivideN(b, a)) {
+            if (AlgorithmHelper.DoesDCompletelyDivideN(b, a)) {
                 output.append(String.format("<font color='%s'>%s%sSince b ∣ a then GCD(a, b) = b</font><br>", COLOR, BULLET, TAB));
                 output.append(String.format("%sGCD(a, b) = %s", TAB, b));
                 return output.toString();
@@ -91,7 +94,7 @@ public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
             BigInteger rn = divisionResult[1]; // rₙ = rn
             output.append(String.format("%s%s = %s · %s + %s<br>", TAB, rn_2, rn_1, qn_1, rn));
             while (rn.compareTo(BigInteger.ZERO) > 0) {
-                checkIfCanceled();
+                AlgorithmHelper.checkIfCanceled();
                 rn_2 = rn_1;
                 rn_1 = rn;
                 divisionResult = rn_2.divideAndRemainder(rn_1);
@@ -111,7 +114,10 @@ public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
 
             // Return
             return output.toString();
-
+        } catch (InterruptedException ex) {
+            // This specifically handles the cancellation.
+            // Re-throw it so ProgressManager can handle it correctly.
+            throw ex;
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return ex.toString();

@@ -4,7 +4,10 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.getSign;
 import android.util.Log;
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 import com.gegprifti.android.numbertheoryalgorithms.common.Tabular;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -90,7 +93,7 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
             result.append(String.format(Locale.getDefault(), "<font color='%s'>All initial solutions for n = {0, ..., g-1} are xₙ = n(m/g) + x₀ (mod m) </font><br>", COLOR));
             List<BigInteger> initialXSolutions = new ArrayList<>();
             for (BigInteger n = ZERO; n.compareTo(g) < 0; n = n.add(ONE)) {
-                checkIfCanceled();
+                AlgorithmHelper.checkIfCanceled();
 
                 BigInteger xn = n.multiply(m.divide(g)).add(x0).mod(m);
                 initialXSolutions.add(xn);
@@ -113,7 +116,7 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
             // Check correctness for r = {-3, ..., 3}
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Check correctness for <b>r</b> = {-3, ..., 3} </font><br>", COLOR));
             for (int n = 0; n < initialXSolutions.size(); n++) {
-                checkIfCanceled();
+                AlgorithmHelper.checkIfCanceled();
 
                 if (n > 0) {
                     result.append("<br><br>");
@@ -124,7 +127,7 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
                 result.append("⋮<br>");
                 Tabular tabular = new Tabular();
                 for (BigInteger r = BigInteger.valueOf(-3); r.compareTo(BigInteger.valueOf(3)) < 0; r = r.add(ONE)) {
-                    checkIfCanceled();
+                    AlgorithmHelper.checkIfCanceled();
 
                     BigInteger mMrPxn = m.multiply(r).add(xn);
                     BigInteger aMx = a.multiply(mMrPxn);
@@ -156,6 +159,10 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
             }
 
             return result.toString();
+        } catch (InterruptedException ex) {
+            // This specifically handles the cancellation.
+            // Re-throw it so ProgressManager can handle it correctly.
+            throw ex;
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return ex.toString();

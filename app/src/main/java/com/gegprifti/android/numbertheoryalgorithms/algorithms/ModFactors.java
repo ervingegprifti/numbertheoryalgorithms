@@ -3,7 +3,11 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import android.util.Log;
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
+
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 import java.math.BigInteger;
 import java.util.Locale;
 
@@ -49,9 +53,9 @@ public class ModFactors extends Algorithm implements StringCalculator {
             result.append(String.format(Locale.getDefault(), "<font color='%s'>bc ≡ r (mod a)</font><br>", COLOR));
             int counter = 0;
             for (BigInteger b = ZERO; b.compareTo(a) < 0; b = b.add(ONE)) {
-                checkIfCanceled();
+                AlgorithmHelper.checkIfCanceled();
                 for (BigInteger c = ZERO; c.compareTo(a) < 0; c = c.add(ONE)) {
-                    checkIfCanceled();
+                    AlgorithmHelper.checkIfCanceled();
                     if(b.compareTo(c) <= 0) {
                         // Get only one of the pair and the ones with the same values. e.x. from 1,2 and 2,1 get only one pair 1,2. Get all the pairs like 00; 11; 22...
                         BigInteger bc = b.multiply(c);
@@ -71,6 +75,10 @@ public class ModFactors extends Algorithm implements StringCalculator {
 
             // Return
             return result.toString();
+        } catch (InterruptedException ex) {
+            // This specifically handles the cancellation.
+            // Re-throw it so ProgressManager can handle it correctly.
+            throw ex;
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return ex.toString();

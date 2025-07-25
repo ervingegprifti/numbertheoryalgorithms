@@ -3,7 +3,11 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import android.util.Log;
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
+
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 import java.math.BigInteger;
 import java.util.Locale;
 
@@ -77,7 +81,7 @@ public class ExtendedEuclideanAlgorithm extends Algorithm implements StringCalcu
             output.append("<br>");
 
             while (rn.compareTo(BigInteger.ZERO) > 0) {
-                checkIfCanceled();
+                AlgorithmHelper.checkIfCanceled();
 
                 rn_2 = rn_1;
                 rn_1 = rn;
@@ -108,7 +112,10 @@ public class ExtendedEuclideanAlgorithm extends Algorithm implements StringCalcu
 
             // Return
             return output.toString();
-
+        } catch (InterruptedException ex) {
+            // This specifically handles the cancellation.
+            // Re-throw it so ProgressManager can handle it correctly.
+            throw ex;
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return ex.toString();

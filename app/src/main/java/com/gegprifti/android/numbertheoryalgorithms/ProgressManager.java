@@ -17,6 +17,22 @@ import java.util.concurrent.Future;
 import android.os.Handler;
 import android.os.Looper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.*;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Addition;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Division;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.EulerPhi;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Factorial;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Gcd;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.IsProbablePrime;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Lcm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Mod;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.ModInverse;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Multiplication;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.NextProbablePrime;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.NextProbableTwinPrimePair;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Power;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Root;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.Subtraction;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.common.Helper;
 
 
@@ -143,7 +159,7 @@ public final class ProgressManager {
         if (runningTask != null && !runningTask.isDone()) {
             runningTask.cancel(true);
             if (algPrm != null && algPrm.getCallback() != null) {
-                algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), null, AlgorithmStatus.CANCELED);
+                algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), null, ProgressStatus.CANCELED);
             }
         }
         // Clean up to prevent leaks
@@ -166,7 +182,7 @@ public final class ProgressManager {
             try {
                 // Write result to the main UI.
                 // Calling setText on EditText is a time consuming process when string to set is huge.
-                algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), result, AlgorithmStatus.FINISHED);
+                algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), result, ProgressStatus.FINISHED);
             } finally {
                 // Dismiss the progress popup window after the calculate + write results to UI is complete.
                 dismiss();
@@ -177,7 +193,7 @@ public final class ProgressManager {
 
     private void onError(AlgorithmParameters algPrm) {
         if (algPrm != null && algPrm.getCallback() != null) {
-            algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), null, AlgorithmStatus.ERROR);
+            algPrm.getCallback().callbackResult(algPrm.getAlgorithmName(), null, ProgressStatus.ERROR);
         }
         dismiss();
     }
@@ -227,9 +243,9 @@ public final class ProgressManager {
             case CALCULATOR_FACTORIAL : return new Factorial(algPrm).calculate();
             case CALCULATOR_NEXT_PROBABLE_PRIME: return new NextProbablePrime(algPrm).calculate();
             case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR : return new NextProbableTwinPrimePair(algPrm).calculate();
-            // TODO. case QUADRATIC_FORM: return Algorithms.QuadraticFormRun(algPrm);
-            // TODO. case QUADRATIC_FORM_1: return Algorithms.QuadraticFormRun1(algPrm);
-            // TODO. case QUADRATIC_FORM_2: return Algorithms.QuadraticFormRun2(algPrm);
+            case QUADRATIC_FORM: return new QuadraticFormRun(algPrm).calculate();
+            case QUADRATIC_FORM_1: return new QuadraticFormRun1(algPrm).calculate();
+            case QUADRATIC_FORM_2: return new QuadraticFormRun2(algPrm).calculate();
             case EUCLIDEAN_ALGORITHM: return new EuclideanAlgorithm(algPrm).calculate();
             case EXTENDED_EUCLIDEAN_ALGORITHM : return new ExtendedEuclideanAlgorithm(algPrm).calculate();
             case LINEAR_CONGRUENCE_IN_ONE_VARIABLE : return new LinearCongruenceInOneVariable(algPrm).calculate();
@@ -238,7 +254,7 @@ public final class ProgressManager {
             case TONELLI_SHANKS_ALGORITHM : return new TonelliShanksAlgorithm(algPrm).calculate();
             case MOD_FACTORS : return new ModFactors(algPrm).calculate();
             case MOD_FACTORS_COUNT : return new ModFactorsCount(algPrm).calculate();
-            // TODO. case PRIMES_LIST : return Algorithms.PrimesList(algPrm);
+            case PRIMES_LIST : return new PrimesList(algPrm).calculate();
             default: return null;
         }
     }

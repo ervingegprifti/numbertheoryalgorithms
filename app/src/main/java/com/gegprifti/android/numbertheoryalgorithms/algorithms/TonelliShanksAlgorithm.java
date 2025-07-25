@@ -3,7 +3,11 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import android.util.Log;
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
+
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 import java.math.BigInteger;
 import java.util.Locale;
 
@@ -113,6 +117,8 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
             BigInteger e = ZERO;
             result.append(String.format(Locale.getDefault(), "%s-1 = %s = %s·2<sup><small><small>%s</small></small></sup>" + "<br>", p, p.subtract(ONE), s, e)) ;
             while (s.mod(TWO).equals(ZERO)) {
+                AlgorithmHelper.checkIfCanceled();
+
                 s = s.divide(TWO);
                 e = e.add(ONE);
                 result.append(String.format(Locale.getDefault(), "%s-1 = %s = %s·2<sup><small>%s</small></sup>", p, p.subtract(ONE), s, e));
@@ -130,6 +136,8 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
             result.append(String.format(Locale.getDefault(),"<font color='%s'>Find a number n such that n<sup><small><small>(p-1)/2</small></small></sup> ≡ -1 (mod p). Some number that does not have a square root (mod p) </font><br>", COLOR));
             BigInteger n = TWO; // Start from 2
             while (n.modPow(p.subtract(ONE).divide(TWO), p).equals(ONE)) {
+                AlgorithmHelper.checkIfCanceled();
+
                 if (n.equals(TWO)) {
                     result.append(String.format(Locale.getDefault(), "%s<sup><small><small>%s</small></small></sup> ≡ %s (mod %s)<font color='%s'> %s start from n=2</font><br>", n, exp, n.modPow(p.subtract(ONE).divide(TWO), p), p, COLOR, STOP)) ;
                 } else {
@@ -186,6 +194,8 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
 
             //
             while (m.compareTo(ZERO) > 0) {
+                AlgorithmHelper.checkIfCanceled();
+
                 result.append(String.format(Locale.getDefault(),"<font color='%s'>Update variables, repeat until m = 0 </font><br>", COLOR));
                 // x
                 result.append("<b>x</b> = xg<sup><small><small>2<sup><small><small>r-m-1</small></small></sup></small></small></sup> (mod p) = ");
@@ -230,6 +240,10 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
 
             // Return
             return  result.toString();
+        } catch (InterruptedException ex) {
+            // This specifically handles the cancellation.
+            // Re-throw it so ProgressManager can handle it correctly.
+            throw ex;
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return ex.toString();

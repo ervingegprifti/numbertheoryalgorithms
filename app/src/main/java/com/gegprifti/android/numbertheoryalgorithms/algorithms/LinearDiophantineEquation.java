@@ -4,7 +4,10 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.getSign;
 import android.util.Log;
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 import com.gegprifti.android.numbertheoryalgorithms.common.Tabular;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -112,7 +115,7 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
             result.append("⋮<br>");
             Tabular tabular = new Tabular();
             for (BigInteger r = BigInteger.valueOf(-3); r.compareTo(BigInteger.valueOf(3)) < 0; r = r.add(ONE)) {
-                checkIfCanceled();
+                AlgorithmHelper.checkIfCanceled();
 
                 BigInteger bDgMr = (bDg).multiply(r);
                 BigInteger aDgMr = (aDg).multiply(r);
@@ -157,6 +160,10 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
             result.append("⋮");
 
             return result.toString();
+        } catch (InterruptedException ex) {
+            // This specifically handles the cancellation.
+            // Re-throw it so ProgressManager can handle it correctly.
+            throw ex;
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return ex.toString();

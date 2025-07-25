@@ -4,7 +4,10 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.NP;
 import static com.gegprifti.android.numbertheoryalgorithms.common.Helper.getSign;
 import android.util.Log;
-import com.gegprifti.android.numbertheoryalgorithms.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 import com.gegprifti.android.numbertheoryalgorithms.common.Tabular;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -249,9 +252,9 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             BigInteger tMin = BigInteger.valueOf(-3);
             BigInteger tMax = BigInteger.valueOf(3);
             for(BigInteger r = rMin; r.compareTo(rMax) <= 0; r = r.add(ONE)) {
-                checkIfCanceled();
+                AlgorithmHelper.checkIfCanceled();
                 for(BigInteger t = tMin; t.compareTo(tMax) <= 0; t = t.add(ONE)) {
-                    checkIfCanceled();
+                    AlgorithmHelper.checkIfCanceled();
                     BigInteger xeepr = xeep.multiply(r);
                     BigInteger et = e.multiply(t);
                     BigInteger axNew = a.multiply(xeew0.add(xeepr).add(et));
@@ -300,6 +303,10 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             result.append("⋮");
 
             return result.toString();
+        } catch (InterruptedException ex) {
+            // This specifically handles the cancellation.
+            // Re-throw it so ProgressManager can handle it correctly.
+            throw ex;
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return ex.toString();
