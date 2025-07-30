@@ -6,7 +6,7 @@ permalink: /privacy_policy/
 
 # Privacy Policy
 
-**Effective Date:** July 22, 2025, (as of version 3.0.7.0)
+**Effective Date:** July 30, 2025, (as of version 3.0.7.0)
 
 **Number Theory Algorithms** (“we”, “our”, or “us”) values your privacy. This Privacy Policy explains how we handle your information.
 
