@@ -6,7 +6,7 @@ permalink: /terms_and_conditions/
 
 # Terms and Conditions
 
-**Effective Date:** July 22, 2025 (as of version 3.0.7.0)
+**Effective Date:** July 30, 2025, (as of version 3.0.7.0)
 
 Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the **Number Theory Algorithms** Android application ("App", "Service") operated by us.
 
