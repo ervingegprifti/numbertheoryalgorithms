@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="0dp"
+	android:layout_margin="0dp"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content" >
+
+	<RelativeLayout
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+		<TextView style="@style/TextViewBack"
+            android:id="@+id/TextViewTonelliShanksAlgorithmBackToAlgorithms" />
+		<TextView style="@style/TextViewFragmentTitle"
+            android:id="@+id/TextViewTonelliShanksAlgorithmTitle" android:text="@string/tonelli_shanks_algorithm_title" />
+        <TextView style="@style/TextViewDocumentationFile"
+            android:id="@+id/TextViewTonelliShanksAlgorithmDocumentationFile" />
+	</RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--Create this in order the clearFocus() on edittext to work-->
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"
+                tools:ignore="UselessLeaf" />
+
+                <!--Big integer a:-->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+                    <TextView style="@style/TextViewLabelStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmLabelA"
+                        android:text="@string/label_a"
+                        android:labelFor="@+id/EditTextTonelliShanksAlgorithmA" />
+                    <TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmLabelElasticA" />
+                    <TextView style="@style/ClipboardButtonCopyStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmCopyA" />
+                    <TextView style="@style/ClipboardButtonPasteStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmPasteA" />
+                    <TextView style="@style/ClipboardButtonClearStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmClearA" />
+                </LinearLayout>
+                <EditText android:id="@+id/EditTextTonelliShanksAlgorithmA" style="@style/EditTextNumberInput" android:autofillHints="" />
+
+                <!--Big integer p:-->
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+                    <TextView style="@style/TextViewLabelStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmLabelP" android:text="@string/label_p"  android:labelFor="@+id/EditTextTonelliShanksAlgorithmP" />
+                    <TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmLabelElasticP" />
+                    <TextView style="@style/ClipboardButtonCopyStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmCopyP" />
+                    <TextView style="@style/ClipboardButtonPasteStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmPasteP" />
+                    <TextView style="@style/ClipboardButtonClearStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmClearP" />
+                </LinearLayout>
+                <EditText style="@style/EditTextPositiveNumberInput"
+                    android:id="@+id/EditTextTonelliShanksAlgorithmP"
+                    android:autofillHints="" />
+
+                <!--Buttons first line-->
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+                    <Button style="@style/ButtonRunStyle"
+                        android:id="@+id/ButtonTonelliShanksAlgorithmRun"
+                        android:text="@string/tonelli_shanks_algorithm_run_short" />
+                    <Button style="@style/ButtonExampleAfterRunStyle"
+                        android:id="@+id/ButtonTonelliShanksAlgorithmRunExample1"
+                        android:text="@string/run_example_1" />
+                    <Button style="@style/ButtonExampleAfterRunStyle"
+                        android:id="@+id/ButtonTonelliShanksAlgorithmRunExample2"
+                        android:text="@string/run_example_2" />
+                    <Button style="@style/ButtonExampleAfterRunStyle"
+                        android:id="@+id/ButtonTonelliShanksAlgorithmRunExample3"
+                        android:text="@string/run_example_3" />
+                </LinearLayout>
+
+                <!--Result-->
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+                    <TextView style="@style/TextViewLabelResultStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmLabelResult" android:text="@string/result"  android:labelFor="@+id/EditTextTonelliShanksAlgorithmResult" />
+                    <TextView style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmLabelElasticResult" />
+                    <TextView style="@style/ClipboardButtonBase.ExpandResult"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmExpandResult" />
+                    <TextView style="@style/ClipboardButtonCopyStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmCopyResult" />
+                    <TextView style="@style/ClipboardButtonClearStyle"
+                        android:id="@+id/TextViewTonelliShanksAlgorithmClearResult" />
+                </LinearLayout>
+                <LinearLayout style="@style/ResultContainer">
+                    <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <EditText style="@style/EditTextResult"
+                            android:id="@+id/EditTextTonelliShanksAlgorithmResult"
+                            android:typeface="monospace"
+                            android:autofillHints="" />
+                    </HorizontalScrollView>
+                </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,236 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+\usepackage[ruled]{algorithm2e}
+% [linesnumbered, ruled, vlined]
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}
+% \nopagecolor % Transparent if the rendering machine supports it.
+
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Calculator module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Calculator operations}	
+\subsection*{Addition: $a+b$}
+\textbf{\emph{Description:}} Add $b$ to $a$. \\
+\textbf{\emph{Input:}} $a,b$, where $a,b \in \mathbb{Z}$ \\ 
+\textbf{\emph{Output:}} $a+b$
+
+\subsection*{Subtraction: $a-b$}
+\textbf{\emph{Description:}} Subtract $b$ from $a$. \\
+\textbf{\emph{Input:}} $a,b$, where $a,b \in \mathbb{Z}$ \\
+\textbf{\emph{Output:}} $a-b$
+
+\subsection*{Multiplication: $a \times b$}
+\textbf{\emph{Description:}} Multiply $a$ with $b$. \\
+\textbf{\emph{Input:}} $a,b$, where $a,b \in \mathbb{Z}$ \\
+\textbf{\emph{Output:}} $a \times b$
+
+\subsection*{Division: $a/b$}
+\textbf{\emph{Description:}} Divide $a$ with $b$. \\
+\textbf{\emph{Input:}} $a,b$, where $a \in \mathbb{Z}$, $b \in \mathbb{Z}_{\ne 0}$ \\
+\textbf{\emph{Output:}} quotient as $\lfloor a/b \rfloor$, remainder as $a-(\lfloor a/b \rfloor b)$
+
+\subsection*{Power: $a^b$}
+\textbf{\emph{Description:}} Raise $a$ to the power of $b$. \\
+\textbf{\emph{Input:}} $a,b$, where $a \in \mathbb{Z}$, $b = \{0,\dots,2147483647\}$ \\
+\textbf{\emph{Output:}} $a^b$
+
+\subsection*{Root: $\sqrt[b]{a}$}
+\textbf{\emph{Description:}} The $b$ root of $a$. \\
+\textbf{\emph{Input:}} $a,b$, where $a \in \mathbb{Z}$, $b = \{1,\dots,2147483647\}$ \\
+\textbf{\emph{Output:}} $\sqrt[b]{a}$
+
+\subsection*{Greatest Common Divisor: $GCD(|a|, |b|)$}
+\textbf{\emph{Description:}} The largest number that divides both $a$ and $b$ without leaving a remainder. \\
+\textbf{\emph{Input:}} $a,b$, where $a,b \in \mathbb{Z}$ \\
+\textbf{\emph{Output:}} $GCD(|a|, |b|)$
+
+\subsection*{Lowest Common Multiple: $LCM(a,b)$}
+\textbf{\emph{Description:}} The smallest integer that is evenly divisible by both $a$ and $b$. \\
+\textbf{\emph{Input:}} $a,b$, where $a,b \in \mathbb{Z}$, not both $0$ \\
+\textbf{\emph{Output:}} $LCM(a,b) = (ab)/GCD(a,b)$ since $(ab)=GCD(a,b)LCM(a,b)$
+
+\subsection*{Modulo: $a \pmod b$}
+\textbf{\emph{Description:}} The remainder when $a$ is divided by $b$. \\
+\textbf{\emph{Input:}} $a,b$, where $a \in \mathbb{Z}$, $b \in \mathbb{Z}_{\geq 1}$ \\
+\textbf{\emph{Output:}} $a \pmod b$, output is always a non-negative number
+
+\subsection*{Modulo Inverse: $a^{-1} \pmod b$}
+\textbf{\emph{Description:}} Modular inverse of $a \pmod b$ is $a^{-1}$. If $a \equiv c \pmod{b}$, then $aa^{-1} \equiv 1 \pmod{b}$. \\
+\textbf{\emph{Input:}} $a$, where $a \in \mathbb{Z}$, $b \in \mathbb{Z}_{\geq 1}$ \\
+\textbf{\emph{Output:}} $a^{-1} \pmod b$
+
+\subsection*{Is probable prime:}
+\textbf{\emph{Description:}} Check if a number is probable prime within a certain certainty. \\
+\textbf{\emph{Input:}} $a$, where $a \in \mathbb{Z}$ with $a \ge 2$, $b = \{1, \dots, 2147483647\}$ \\
+\textbf{\emph{Output:}} $1$ if $a$ is probably prime with probability $1-1/2^b$, $0$ if $a$ is definitely composite
+
+\subsection*{Euler's phi-function: $\phi(a)$}
+\textbf{Relatively prime definition.} The integers $d$ and $e$, with $d\neq0$ and $e\neq0$, are relatively prime if $d$ and $e$ have greatest common divisor $(d,e)=1$. Because $(25,42)=1$, then $25$ and $42$ are relatively prime. \\
+\noindent
+\textbf{Euler's phi-function $\phi(a)$ definition.} Let $a$ be a positive integer. The $\phi(a)$ is defined to be the number of positive integers not exceeding $a$ that are relatively prime to $a$. \\
+\textbf{Example.} \\
+\noindent
+$\phi(1)=1$ because 
+$\left\lbrace \begin{tabular}{ll}
+	(1,1)=1 $\longrightarrow$ $counter=1$
+\end{tabular} \right.$ \\ [6pt]
+\noindent
+$\phi(2)=1$ because 
+$\left\lbrace \begin{tabular}{ll}
+	(1,2)=1 $\longrightarrow$ $counter=1$ \\ [3pt]
+	(2,2)=2
+\end{tabular} \right.$ \\ [6pt]
+\noindent
+$\phi(3)=2$ because 
+$\left\lbrace \begin{tabular}{ll}
+	(1,3)=1 $\longrightarrow$ $counter=1$ \\ [3pt]
+	(2,3)=1 $\longrightarrow$ $counter=2$ \\ [3pt]
+	(3,3)=3
+\end{tabular} \right.$ \\ [6pt]
+\noindent
+$\phi(4)=2$ because 
+$\left\lbrace \begin{tabular}{ll}
+	(1,4)=1 $\longrightarrow$ $counter=1$ \\ [3pt]
+	(2,4)=2 \\ [3pt]
+	(3,4)=1 $\longrightarrow$ $counter=2$ \\ [3pt]
+	(4,4)=4
+\end{tabular} \right.$ \\ [6pt]
+\noindent
+$\phi(5)=4$ because 
+$\left\lbrace \begin{tabular}{ll}
+	(1,5)=1 $\longrightarrow$ $counter=1$ \\ [3pt]
+	(2,5)=1 $\longrightarrow$ $counter=2$ \\ [3pt]
+	(3,5)=1 $\longrightarrow$ $counter=3$ \\ [3pt]
+	(4,5)=1 $\longrightarrow$ $counter=4$ \\ [3pt]
+	(5,5)=5
+\end{tabular} \right.$
+
+\subsection*{Factorial: $a!$}
+\textbf{\emph{Description:}} Calculates the $a! = 1 \times 2 \times 3 \times \dots \times a$. \\
+\textbf{\emph{Input:}} $a$, where $a \in \mathbb{Z}$ with $a > 0$ \\
+\textbf{\emph{Output:}} $a!$
+
+\subsection*{Next probable prime:}
+\textbf{\emph{Description:}} The next probable prime to a number. \\
+\textbf{\emph{Input:}} $a$, where $a \in \mathbb{Z}$ with $a \ge 2$ \\
+\textbf{\emph{Output:}} next probable prime to $a$
+
+\subsection*{Next twin prime to $a$:}
+\textbf{\emph{Description:}} The next probable twin prime pair to $a$. \\
+\textbf{\emph{Input:}} $a$, where $a \in \mathbb{Z}$ with $a > 2$ \\
+\textbf{\emph{Output:}} next probable twin prime pair to $a$
+
+
+\begin{thebibliography}{}
+	\bibitem{javabiginteger}
+	\newblock {"Class BigInteger."}
+	\newblock \href{https://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html}{java.math.BigInteger}
+\end{thebibliography}
+%\section*{References}
+%\newpage
+% Source tutorial: https://www.youtube.com/watch?v=NRXvqthfDG0
+% Use this link: https://scholar.google.com to find cites for references
+% After using \cite command or adding new entry into the bib file. 
+% Refer to (\cite{brown1999TonelliShanks} pg. 91)
+% 1. Run pdflatex (F6)
+% 2. Run BibTex (F11)
+% 3. Run pdflatex (F6)
+% 4. Run pdflatex (F6)
+%\bibliographystyle{plain} % unsrt % 
+%\bibliography{Bibliography}
+% Display all bibliography cites even if there are no cites. Or just the cpecific ones
+% \nocite{*} 
+
+%CRC standard mathematical tables and formulae \\
+%https://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+\begin{comment}
+\noindent
+\begin{minipage}[t]{\minipageWidth\linewidth} % \linewidth, \textwidth, \hsize, \columnwidth
+Column 1
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\minipageSpaceCenter
+\begin{minipage}[t]{\minipageWidth\linewidth}
+Column 2
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\end{comment}
+
+
+
+
+
+
+\begin{comment}
+
+$\boxbslash$
+$\boxslash$
+
+
+\begin{center}
+\renewcommand\arraystretch{1.6}
+\begin{tabular}{c|c}
+$x$ 
+&
+$z$ \\
+\end{tabular}
+\end{center}
+
+%\NewDocumentEnvironment
+
+
+	% minipage reference: https://tex.stackexchange.com/tags/minipage/info
+	\begin{minipage}[<pos>][<height>][<inner-pos>]{<width>} 
+	<text>
+	\end{minipage}
+	where
+	<pos> controls the vertical positioning of the box with respect to the text baseline (valid values: c, t, or b).
+	<height> determines the height of the box.
+	<width> determines the width of the box.
+	<inner-pos> determines the position of <te

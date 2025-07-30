@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingStart="5dp" android:paddingTop="5dp" android:paddingEnd="5dp" android:paddingBottom="5dp" >
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:width="1px" android:color="@color/colorInsideTextStrokeBg" />
+            <solid android:color="@color/colorGeneralBg2" />
+            <corners
+                android:bottomLeftRadius="2dp"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="2dp"
+                android:bottomRightRadius="2dp" />
+        </shape>
+    </item>
+</layer-list>

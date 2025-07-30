@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.application'
+    // Open Source Software Licenses plugin
+    id 'com.google.android.gms.oss-licenses-plugin'
+}
+
+android {
+    namespace = 'com.gegprifti.android.numbertheoryalgorithms'
+    compileSdk = 36 // Min one year old. Requirement from Google. https://developer.android.com/studio/releases/platforms
+
+    defaultConfig {
+        applicationId = "com.gegprifti.android.numbertheoryalgorithms"
+        minSdk = 31 // Android 12 (https://apilevels.com/)
+        targetSdk = 36 // Min one year old. Requirement from Google. https://developer.android.com/studio/releases/platforms
+        versionCode = 3070
+        versionName = '3.0.7.0'
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            //keyAlias System.getenv("RELEASE_KEY_ALIAS")
+            //keyPassword System.getenv("RELEASE_KEY_PASSWORD")
+            //storeFile file(System.getenv("RELEASE_KEYSTORE_FILE"))
+            //storePassword System.getenv("RELEASE_KEYSTORE_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled = false
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    // SplashScreen
+    implementation "androidx.core:core-splashscreen:1.0.1"
+    // Open Source Software Licenses plugin
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.2.1'
+    // PDF Viewer
+    implementation "androidx.pdf:pdf-viewer-fragment:1.0.0-alpha10"
+    // Local unit tests (run on JVM)
+    testImplementation 'junit:junit:4.13.2'
+    // Instrumented tests (run on Android device/emulator)
+    androidTestImplementation 'androidx.test:core:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    // Investigate memory leaks
+    // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--http://www.htmlcsscolor.com/hex/DCD9CD-->
+    <!--Shades of Milk White #DCD9CD-->
+    <!--#DCD9CD, #B0AEA4, #8D8B83, #716F69, #5A5954, #484743, #3A3936, #2E2E2B, #252522, #1E1E1B, Black-->
+    <!--Tints of Milk White #DCD9CD-->
+    <!--#DCD9CD, #E3E1D7, #E9E7DF, #EDECE5, #F1F0EA, #F4F3EE, #F6F5F1, #F8F7F4, #F9F9F6, #FAFAF8, White-->
+
+    <!--Used before-->
+    <!--colorInsideTextBg: #CFCFBB-->
+    <!--<color name="colorAccent">#5c5748</color>-->
+
+<!--    TODO remove unused-->
+
+    <color name="colorTransparent">#00E3E1D7</color>
+    <color name="colorGeneralBg">#E3E1D7</color>
+    <color name="colorGeneralBg2">#C8C6BC</color>
+
+    <color name="colorLabel">#E3E1D7</color> <!--8D8B83-->
+    <color name="colorToastBg">#ffe37c</color>
+    <color name="colorResultLabel">#008b8b</color>
+
+    <!--Switch-->
+    <color name="colorSwitchUnchecked">#A4A299</color>
+    <color name="colorSwitchChecked">@color/colorAccent</color>
+    <color name="colorSwitchTrackUnchecked">@color/colorGeneralBg2</color>
+    <color name="colorSwitchTrackChecked">@color/colorGeneralBg2</color>
+
+
+    <color name="colorPrimary">#5c5748</color>
+    <color name="colorPrimaryDark">#433f34</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colorAccent2">#8D8B83</color>
+    <color name="colorLink">#000000</color>
+
+    <color name="colorInsideTextBg">#FAFAF8</color>
+    <color name="colorInsideTextStrokeBg">#716F69</color>
+    <color name="colorLightButtonBg">#babaaa</color>
+
+    <color name="colorCardViewHorizontalSeparator">#C8C6BC</color>
+
+
+    <!-- Clipboard button colors -->
+    <color name="clipboardButtonBg">#E3E1D7</color>
+    <color name="clipboardButtonStroke">#716F69</color>
+    <color name="clipboardButtonPressedBg">#C8C6BC</color>
+    <color name="clipboardButtonSelectedBg">#C8C6BC</color>
+    <color name="clipboardButtonText">#716F69</color>
+
+
+    <!-- Button colors -->
+    <color name="buttonBg">#5c5748</color>
+    <color name="buttonPressedBg">#433f34</color>
+    <color name="buttonSelectedBg">#008b8b</color>
+    <color name="buttonText">#E3E1D7</color>
+
+
+    <!-- Button run colors -->
+    <color name="buttonRunBgPressedColor">#433f34</color>
+    <color name="buttonRunBgSelectedColor">@color/cian_dark</color>
+    <color name="buttonRunBgColor">#5c5748</color>
+    <color name="buttonRunBgDisabledColor">@color/colorGeneralBg2</color>
+    <color name="buttonRunTextColor">@color/colorGeneralBg</color>
+
+
+    <!-- Button example colors -->
+    <color name="buttonExampleBgPressedColor">#433f34</color>
+    <color name="buttonExampleBgSelectedColor">@color/orange_dark</color>
+    <color name="buttonExampleBgColor">#5c5748</color>
+    <color name="buttonExampleTextColor">@color/colorGeneralBg</color>
+
+
+
+
+
+    <color name="cian_dark">#008b8b</color>
+    <color name="cian_dark_dark">#256079</color>
+
+    <color name="colorRed">#ff4500</color>
+    <color name="colorOrange">#FF9800</color>
+    <color name="orange_dark">#DD8300</color>
+    <color name="colorYellow">#FFC107</color>
+    <color name="colorSun">#6E6650</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorResultExplanation">#8C5900</color>
+
+    <!--Error-->
+    <color name="errorStroke">#BF0000</color>
+    <color name="errorBg">#FFE4B4</color>
+</resources>

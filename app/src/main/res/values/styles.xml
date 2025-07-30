@@ -1,0 +1,430 @@
+<resources>
+
+<!--TODO remove unused-->
+
+
+
+    <style name="TextViewLabelResultStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/label_result_bg</item>
+        <item name="android:textColor">@color/colorLabel</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+    <style name="TextViewLabelResultStyle.TextViewLabelElasticResultStyle">
+        <item name="android:background">@drawable/label_result_elastic_bg</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+
+
+    <style name="TextViewLabelStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/label_bg</item>
+        <item name="android:textColor">@color/colorLabel</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+    <style name="TextViewLabelStyle.TextViewLabelElasticStyle">
+        <item name="android:background">@drawable/label_elastic_bg</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="TextViewLabelNoBgStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#8D8B83</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+
+
+
+
+    <!-- Clipboard Button Styles -->
+    <style name="ClipboardButtonBase">
+        <item name="android:background">@drawable/clipboard_button_bg</item>
+        <item name="android:textColor">@color/clipboardButtonText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <style name="ClipboardButtonBase.ExpandResult">
+        <item name="android:text">@string/expand_result</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="ClipboardButtonCopyStyle">
+        <item name="android:background">@drawable/clipboard_button_bg</item>
+        <item name="android:textColor">@color/clipboardButtonText</item>
+        <item name="android:text">@string/clipboard_copy</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <style name="ClipboardButtonPasteStyle">
+        <item name="android:background">@drawable/clipboard_button_bg</item>
+        <item name="android:textColor">@color/clipboardButtonText</item>
+        <item name="android:text">@string/clipboard_paste</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <style name="ClipboardButtonClearStyle">
+        <item name="android:background">@drawable/clipboard_button_bg</item>
+        <item name="android:textColor">@color/clipboardButtonText</item>
+        <item name="android:text">@string/clipboard_clear</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+
+    <style name="TextViewDocumentation">
+        <item name="android:background">@drawable/documentation_button_bg</item>
+        <item name="android:textColor">@color/colorGeneralBg</item>
+        <item name="android:text">@string/documentation</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textSize">8sp</item>
+    </style>
+
+
+    <style name="EditTextNumberInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:digits">-0123456789</item>
+        <item name="android:maxLength">1000000</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="EditTextPositiveNumberInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:digits">0123456789</item>
+        <item name="android:maxLength">1000000</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="EditTextQuadraticFormExpression">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:digits">0123456789 -,</item>
+        <item name="android:maxLength">1000000</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="EditTextPositiveNumberInputNotAloneMax999">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:digits">0123456789</item>
+        <item name="android:maxLength">3</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="EditTextNumberInputInline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:digits">-0123456789</item>
+        <item name="android:maxLength">1000000</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+    <!-- Common Styles -->
+    <style name="CommonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ButtonStyle" parent="CommonStyle">
+        <item name="cornerRadius">5dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+
+    <!-- Calculator Styles -->
+    <style name="CalculatorButtonContainerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    <style name="CalculatorButtonFirstContainerStyle" parent="CalculatorButtonContainerStyle">
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+    <style name="CalculatorButtonStyle" parent="ButtonStyle">
+        <item name="backgroundTint">@color/button_run_bg_selector</item>
+        <item name="android:textColor">@color/buttonRunTextColor</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginEnd">7dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    <style name="CalculatorButtonLastStyle" parent="CalculatorButtonStyle">
+        <item name="android:layout_marginEnd">0dp</item>
+    </style>
+
+
+    <style name="ButtonRunStyle" parent="ButtonStyle">
+        <item name="backgroundTint">@color/button_run_bg_selector</item>
+        <item name="android:textColor">@color/buttonRunTextColor</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingVertical">0dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+    </style>
+
+
+    <!-- Button Example -->
+    <style name="ButtonExampleStyle" parent="ButtonStyle">
+        <item name="backgroundTint">@color/button_example_bg_selector</item>
+        <item name="android:textColor">@color/buttonExampleTextColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    <style name="ButtonExampleFirstStyle" parent="ButtonExampleStyle">
+        <item name="android:layout_marginStart">0dp</item>
+    </style>
+    <style name="ButtonExampleLastStyle" parent="ButtonExampleStyle">
+        <item name="android:layout_marginEnd">0dp</item>
+    </style>
+    <style name="ButtonExampleAfterRunStyle" parent="ButtonExampleStyle">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+    </style>
+
+
+
+    <!-- Button Pills -->
+    <style name="ButtonPillStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">@color/buttonRunTextColor</item>
+    </style>
+    <style name="ButtonPillLeftStyle" parent="ButtonPillStyle">
+        <item name="shapeAppearanceOverlay">@style/ButtonPillLeftCornerRadiusStyle</item>
+        <item name="backgroundTint">@color/button_run_bg_selector</item>
+        <item name="android:minWidth">50dp</item>
+    </style>
+    <style name="ButtonPillMiddleStyle" parent="ButtonPillStyle">
+        <item name="backgroundTint">@color/button_run_bg_selector</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="ButtonPillRightStyle" parent="ButtonPillStyle">
+        <item name="shapeAppearanceOverlay">@style/ButtonPillRightCornerRadiusStyle</item>
+        <item name="backgroundTint">@color/button_run_bg_selector</item>
+        <item name="android:minWidth">50dp</item>
+    </style>
+    <style name="ButtonPillLeftCornerRadiusStyle" parent="ShapeAppearance.Material3.Corner.None">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">5dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">5dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    <style name="ButtonPillRightCornerRadiusStyle" parent="ShapeAppearance.Material3.Corner.None">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">5dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">5dp</item>
+    </style>
+
+
+
+    <style name="EditTextResult">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">#00FFFFFF</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:inputType">none</item>
+        <item name="android:editable">false</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:clickable">false</item>
+        <!--<item name="android:layout_marginBottom">10dp</item>-->
+    </style>
+
+
+
+
+    <style name="ResultContainer">
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/result_bg</item>
+        <item name="android:gravity">top|left</item>
+    </style>
+
+
+    <!--Back-->
+    <style name="TextViewBack">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/fa_solid_900</item>
+        <item name="android:text">@string/fa_arrow_left</item>
+    </style>
+    <style name="ImageButtonBack">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/ic_baseline_arrow_back_24</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+
+
+    <style name="TextViewFragmentTitle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextViewDocumentationFile">
+        <item name="android:textColor">@color/cian_dark</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/fa_solid_900</item>
+        <item name="android:text">@string/fa_icon_file_alt</item>
+    </style>
+
+
+    <!-- About tab styles -->
+    <style name="AboutInfoContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+    <style name="AboutInfoContainerH" parent="AboutInfoContainer">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="AboutInfoContainerV" parent="AboutInfoContainer">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="AboutInfo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+    <style name="AboutInfoIconFaBrand" parent="AboutInfo">
+        <item name="android:fontFamily">@font/fa_brands_400</item>
+    </style>
+    <style name="AboutInfoIconFaSolid" parent="AboutInfo">
+        <item name="android:fontFamily">@font/fa_solid_900</item>
+    </style>
+    <style name="AboutInfoHead" parent="AboutInfo">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <style name="AboutInfoLabel" parent="AboutInfo">
+
+    </style>
+    <style name="AboutInfoValue" parent="AboutInfo">
+
+    </style>
+    <style name="AboutInfoLink" parent="AboutInfo">
+
+    </style>
+
+
+    <!-- Algorithms -->
+    <style name="AlgorithmsCardView">
+        <item name="cardBackgroundColor">@color/colorWhite</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="contentPaddingTop">8dp</item>
+        <item name="contentPaddingBottom">8dp</item>
+        <item name="contentPaddingLeft">10dp</item>
+        <item name="contentPaddingRight">10dp</item>
+        <item name="cardElevation">3dp</item>
+        <item name="cardCornerRadius">5dp</item>
+    </style>
+
+    <style name="AlgorithmsTextViewTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/cian_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AlgorithmsViewSeparator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#C8C6BC</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+    </style>
+
+</resources>

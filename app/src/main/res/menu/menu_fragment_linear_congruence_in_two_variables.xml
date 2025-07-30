@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/linear_congruence_in_two_variables_menu_example_1"
+            android:title="@string/linear_congruence_in_two_variables_menu_example_1"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/linear_congruence_in_two_variables_menu_example_2"
+            android:title="@string/linear_congruence_in_two_variables_menu_example_2"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/linear_congruence_in_two_variables_menu_example_3"
+            android:title="@string/linear_congruence_in_two_variables_menu_example_3"
+            app:showAsAction="never"/>
+    </group>
+</menu>

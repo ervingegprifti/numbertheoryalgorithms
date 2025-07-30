@@ -1,0 +1,152 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+
+%https://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+% [linesnumbered, ruled, vlined]
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}
+% \nopagecolor % Transparent if the rendering machine supports it.
+
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Linear Congruence In One Variable module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Linear Congruence In One Variable}	
+The Linear Congruence In One Variable $ax \equiv b \pmod{m}$ is equivalent to the Linear Diophantine Equation In Two Variables $ax-my=b$. If $GCD(a,m) \nmid c$ there is no solution modulo $m$ and if $GCD(a,m) \mid c$ there are $g$ incongruent solutions modulo $m$. The implementation of this algorithm is based on (\cite{yan2002number} pg. 123, \cite{rosen2011elementary} pg. 157). \\
+
+
+\begin{algorithm}[H]
+	\caption{Linear Congruence In One Variable}
+	\DontPrintSemicolon
+	\SetAlgoLined
+	\KwIn{$a,b,x \in \mathbb{Z}$, $m \in \mathbb{N}$}
+	\KwOut{$x$ general solution if any}
+	
+	\BlankLine
+	
+	Check solubility \\
+	Let $g=GCD(a,m)$ \\
+	\lIf{$g \nmid b$} { there is no solution modulo $m$. Stop. }
+	\lIf{$g \mid b$} { there are $g$ incongruent solutions modulo $m$. Continue... }
+	%\lIf{$g=1$} { There is a unique solution modulo $m$. Continue... }
+	
+	Use Extended Euclidean Algorithm to find $x_{ee}$ from $|a|x+|m|y=GCD(|a|,|m|)=g$ \\
+	Set $x_{ee} = sign(a)x_{ee}$ \\
+	A particular first initial solution is $x_0 = x_{ee}(b/g) \pmod{m}$ \\
+	All initial solutions for $n = \lbrace0, ... ,g-1\rbrace$ are $x_n = n(m/g) + x_0 \pmod{m}$ \\
+	For $r \in \mathbb{Z}$, any integer $x=mr+x_n$ is a solution \\
+		
+	\Return{$x$ general solution}
+\end{algorithm}
+
+
+
+\begin{thebibliography}{}
+	\bibitem{yan2002number}
+	Yan, Song Y.
+	\newblock {\em Number Theory for Computing. - 2nd ed.}
+	\newblock {Springer Science \& Business Media}, 2002.
+	
+	\bibitem{rosen2011elementary}
+	Rosen, Kenneth H.
+	\newblock {\em Elementary Number Theory and Its Applications. - 6th ed.}
+	\newblock {Pearson Education London}, 2011.
+	
+	% Reference like: \cite{tattersall1999elementary} pg. 181
+	%\bibitem{tattersall1999elementary}
+	%Tattersall, James J.
+	%\newblock {\em Elementary number theory in nine chapters. - 2nd ed.}
+	%\newblock {Cambridge University Press}, 1999.	
+	
+	% Reference like: \cite{dickson1929introduction} pg. 10
+	%\bibitem{dickson1929introduction}
+	%Dickson, Leonard E.
+	%\newblock {\em Introduction to the Theory of Numbers.}
+	%\newblock {University of Chicago Press}, 1929.	
+\end{thebibliography}
+
+
+
+\end{document}
+
+
+
+
+
+
+\begin{comment}
+\begin{thebibliography}{}
+\bibitem{yan2002number}
+Yan, Song Y.
+\newblock {\em Number theory for computing.}
+\newblock {Springer Science \& Business Media}, 2002.
+%\newblock
+%\href{http://...}{Web source...}
+\end{thebibliography}
+%\section*{References}
+%\newpage
+% Source tutorial: https://www.youtube.com/watch?v=NRXvqthfDG0
+% Use this link: https://scholar.google.com to find cites for references
+% After using \cite command or adding new entry into the bib file. 
+% Refer to (\cite{brown1999TonelliShanks} pg. 91)
+% 1. Run pdflatex (F6)
+% 2. Run BibTex (F11)
+% 3. Run pdflatex (F6)
+% 4. Run pdflatex (F6)
+%\bibliographystyle{plain} % unsrt % 
+%\bibliography{Bibliography}
+% Display all bibliography cites even if there are no cites. Or just the cpecific ones
+%\nocite{*} 
+\end{comment}
+
+
+
+
+
+\begin{comment}
+\noindent
+\begin{minipage}[t]{\minipageWidth\linewidth} % \linewidth, \textwidth, \hsize, \columnwidth
+Column 1
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\minipageSpaceCenter
+\begin{minipage}[t]{\minipageWidth\linewidth}
+Column 2
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\end{comment}

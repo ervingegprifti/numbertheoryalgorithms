@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- https://fontawesome.com/v6/search -->
+    <!-- https://fontawesome.com/v6/search?ic=free -->
+    <string name="fa_arrow_left" translatable="false">&#xf060;</string>
+    <string name="fa_stars">&#xf005;&#xf005;&#xf005;&#xf005;&#xf005;</string>
+    <string name="fa_share_alt" translatable="false">&#xf1e0;</string>
+    <string name="fa_close" translatable="false">&#xf00d;</string>
+    <string name="fa_grid_1" translatable="false">&#xf00a; ₁</string>
+    <string name="fa_grid_2" translatable="false">&#xf00a; ₂</string>
+    <string name="fa_grid" translatable="false">&#xf00a;</string>
+    <string name="fa_gear" translatable="false">&#xf013;</string>
+    <string name="fa_icon_file_alt" translatable="false">&#xf15c;</string>
+    <string name="fa_github" translatable="false">&#xf09b;</string>
+    <string name="fa_shield" translatable="false">&#xf132;</string>
+    <string name="fa_globe" translatable="false">&#xf0ac;</string>
+    <string name="fa_bullhorn" translatable="false">&#xf0a1;</string>
+    <string name="fa_expand" translatable="false">&#xf065;</string>
+    <string name="fa_compress" translatable="false">&#xf066;</string>
+</resources>

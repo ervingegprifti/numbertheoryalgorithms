@@ -1,0 +1,87 @@
+<resources>
+    <style name="App.Main" parent="Theme.Material3.Light.NoActionBar" >
+        <item name="colorPrimary">@color/colorPrimary</item> <!-- Button background color -->
+        <item name="colorOnPrimary">@color/colorGeneralBg</item> <!-- Text/icons on top of primary color -->
+        <!-- StatusBar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Popup Menu colors (and other surfaces like Cards). The system will use these automatically for the menu -->
+        <item name="colorSurfaceContainer">@color/colorGeneralBg</item> <!-- Menu background -->
+        <!-- ToolBar -->
+        <item name="iconTint">@color/colorGeneralBg</item>  <!--ToolBar Icon Color-->
+        <item name="navigationIconTint">@color/colorGeneralBg</item> <!--ToolBar Back Arrow Color-->
+        <item name="titleTextColor">@color/colorGeneralBg</item> <!--ToolBar Title Text Color-->
+        <item name="colorControlNormal">@color/colorGeneralBg</item> <!--ToolBar Three Dots Color-->
+        <!-- NavigationBar -->
+        <item name="android:navigationBarDividerColor">@color/colorGeneralBg</item> <!---->
+        <item name="android:navigationBarColor">@color/colorGeneralBg</item> <!---->
+        <item name="android:windowLightNavigationBar">true</item> <!--true for dark icons, false for light icons-->
+        <item name="android:enforceNavigationBarContrast">true</item> <!--true disable dimming-->
+    </style>
+
+
+    <style name="App.Settings" parent="Theme.Material3.Light.NoActionBar" >
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorGeneralBg</item> <!-- Text/icons on top of primary color -->
+        <!-- StatusBar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Popup Menu colors (and other surfaces like Cards). The system will use these automatically for the menu -->
+        <item name="colorSurfaceContainer">@color/colorGeneralBg</item> <!-- Menu background -->
+        <!-- ToolBar -->
+        <item name="iconTint">@color/colorGeneralBg</item>  <!--ToolBar Icon Color-->
+        <item name="navigationIconTint">@color/colorGeneralBg</item> <!--ToolBar Back Arrow Color-->
+        <item name="titleTextColor">@color/colorGeneralBg</item> <!--ToolBar Title Text Color-->
+        <item name="colorControlNormal">@color/colorGeneralBg</item> <!--ToolBar Three Dots Color-->
+        <!-- PreferenceCategory -->
+        <item name="preferenceCategoryTitleTextColor">@color/colorPrimary</item> <!---->
+        <!-- NavigationBar -->
+        <item name="android:navigationBarDividerColor">@color/colorPrimary</item> <!---->
+        <item name="android:navigationBarColor">@color/colorGeneralBg</item> <!---->
+        <item name="android:windowLightNavigationBar">true</item> <!--true for dark icons, false for light icons-->
+        <!-- SwitchPreference -->
+        <item name="switchStyle">@style/Widget.App.SwitchCompat</item> <!---->
+    </style>
+
+
+    <style name="Widget.App.SwitchCompat" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="thumbTint">@color/switch_thumb_color</item>
+        <item name="trackTint">@color/switch_track_color</item>
+    </style>
+
+
+    <style name="style_full_screen_dialog" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- NavigationBar -->
+        <item name="android:navigationBarDividerColor">@color/colorPrimary</item> <!---->
+        <item name="android:navigationBarColor">@color/colorGeneralBg</item> <!---->
+        <item name="android:windowLightNavigationBar">true</item> <!--true for dark icons, false for light icons-->
+    </style>
+
+
+    <style name="App.Licenses" parent="Theme.Material3.Light">
+        <item name="android:colorBackground">@color/colorGeneralBg</item> <!--The background color-->
+        <item name="android:backgroundTint">@color/colorGeneralBg</item> <!--The background color-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorGeneralBg</item> <!-- Text/icons on top of primary color -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!-- ToolBar -->
+        <item name="colorSurfaceContainer">@color/colorGeneralBg</item> <!--ToolBar background color-->
+        <item name="titleTextColor">@color/colorPrimary</item> <!--ToolBar Title Text Color-->
+    </style>
+
+
+    <style name="App.Main.SplashScreen" parent="Theme.Material3.Light">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/drawable_splash_screen_bg</item>
+        <item name="android:windowSplashScreenBackground">@color/colorPrimary</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/colorPrimary</item>
+        <!-- Keep it fullscreen -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- Important! The theme to use after the splash is gone -->
+        <item name="postSplashScreenTheme">@style/App.Main</item>
+    </style>
+</resources>

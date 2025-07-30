@@ -1,0 +1,107 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+
+
+%https://ftp.cc.uoc.gr/mirrors/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+% [linesnumbered, ruled, vlined]
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+
+
+
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}
+% \nopagecolor % Transparent if the rendering machine supports it.
+
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Linear Diophantine Equation In Two Variables module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Linear Diophantine Equation In Two Variables}	
+The equation $ax+by=c$ where $a,b,x,y \in \mathbb{Z}$ with $a,b \neq 0$ has no integer solution if $GCD(a,b) \nmid c$ and many integer solutions if $GCD(a,b) \mid c$. The implementation of this algorithm is based on (\cite{rosen2011elementary} pg. 137, \cite{tattersall1999elementary} pg. 183). \\
+
+
+\begin{algorithm}[H]
+	\caption{Linear Diophantine Equation In Two Variables}
+	\DontPrintSemicolon
+	\SetAlgoLined
+	\KwIn{$a,b,c,x,y \in \mathbb{Z}$ with $a,b \neq 0$}
+	\KwOut{$x,y$ solutions if any}
+	
+	\BlankLine
+	
+	Set $g=GCD(a,b)$ \\
+	\lIf{$g \nmid c$} { there is no integer solution. Stop. }
+	\lIf{$g \mid b$} { there are infinitely many integer solutions. Continue.. }
+	
+	Use Extended Euclidean Algorithm to find $x_{ee}$ and $y_{ee}$ from $|a|x+|b|y=GCD(|a|,|b|)=g$ \\
+	Set $x_{ee} = sign(a)x_{ee}$ and $y_{ee} = sign(b)y_{ee}$ \\
+	A particular first initial solution is $x_0 = x_{ee}(c/g)$ and $y_0 = y_{ee}(c/g)$ \\
+	For $r \in \mathbb{Z}$, any integer $x=x_0 + (b/g)r$ and $y=y_0 - (a/g)r$ is a solution \\
+	
+	\Return{solutions}
+\end{algorithm}
+
+
+\begin{thebibliography}{}
+	\bibitem{rosen2011elementary}
+	Rosen, Kenneth H.
+	\newblock {\em Elementary Number Theory and Its Applications. - 6th ed.}
+	\newblock {Pearson Education London}, 2011.
+	
+	\bibitem{tattersall1999elementary}
+	Tattersall, James J.
+	\newblock {\em Elementary number theory in nine chapters. - 2nd ed.}
+	\newblock {Cambridge University Press}, 1999.	
+\end{thebibliography}
+%\section*{References}
+%\newpage
+% Source tutorial: https://www.youtube.com/watch?v=NRXvqthfDG0
+% Use this link: https://scholar.google.com to find cites for references
+% After using \cite command or adding new entry into the bib file. 
+% Refer to (\cite{brown1999TonelliShanks} pg. 91)
+% 1. Run pdflatex (F6)
+% 2. Run BibTex (F11)
+% 3. Run pdflatex (F6)
+% 4. Run pdflatex (F6)
+%\bibliographystyle{plain} % unsrt % 
+%\bibliography{Bibliography}
+% Display all bibliography cites even if there are no cites. Or just the cpecific ones
+%\nocite{*} 
+
+
+\end{document}

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:padding="0dp"
+	android:background="@color/colorGeneralBg"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<RelativeLayout
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+        <TextView style="@style/TextViewBack"
+			android:id="@+id/TextViewEuclideanBackToAlgorithms" />
+        <TextView style="@style/TextViewFragmentTitle"
+			android:id="@+id/TextViewEuclideanTitle"
+			android:text="@string/euclidean_algorithm_title" />
+        <TextView style="@style/TextViewDocumentationFile"
+			android:id="@+id/TextViewEuclideanDocumentationFile" />
+	</RelativeLayout>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<LinearLayout
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+			android:paddingTop="10dp"
+			android:paddingBottom="20dp"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<!--Create this in order the clearFocus() on edittext to work-->
+			<LinearLayout
+				android:focusable="true"
+				android:focusableInTouchMode="true"
+				android:layout_width="0px"
+				android:layout_height="0px"
+				tools:ignore="UselessLeaf" />
+
+			<!--Big integer a:-->
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView style="@style/TextViewLabelStyle"
+					android:id="@+id/TextViewEuclideanLabelA" android:text="@string/label_a"  android:labelFor="@+id/EditTextEuclideanA" />
+				<TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
+					android:id="@+id/TextViewEuclideanLabelElasticA" />
+				<TextView style="@style/ClipboardButtonCopyStyle"
+					android:id="@+id/TextViewEuclideanCopyA" />
+				<TextView style="@style/ClipboardButtonPasteStyle"
+					android:id="@+id/TextViewEuclideanPasteA" />
+				<TextView style="@style/ClipboardButtonClearStyle"
+					android:id="@+id/TextViewEuclideanClearA" />
+			</LinearLayout>
+			<EditText style="@style/EditTextNumberInput"
+				android:id="@+id/EditTextEuclideanA"
+				android:autofillHints="" />
+
+			<!--Big integer b:-->
+			<LinearLayout
+				android:layout_marginTop="15dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView style="@style/TextViewLabelStyle"
+					android:id="@+id/TextViewEuclideanLabelB"
+					android:text="@string/label_b"
+					android:labelFor="@+id/EditTextEuclideanB" />
+				<TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
+					android:id="@+id/TextViewEuclideanLabelElasticB"  />
+				<TextView style="@style/ClipboardButtonCopyStyle"
+					android:id="@+id/TextViewEuclideanCopyB" />
+				<TextView style="@style/ClipboardButtonPasteStyle"
+					android:id="@+id/TextViewEuclideanPasteB"  />
+				<TextView style="@style/ClipboardButtonClearStyle"
+					android:id="@+id/TextViewEuclideanClearB"  />
+			</LinearLayout>
+			<EditText style="@style/EditTextNumberInput"
+				android:id="@+id/EditTextEuclideanB"
+				android:autofillHints="" />
+
+			<!--Buttons run-->
+			<LinearLayout
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<Button style="@style/ButtonRunStyle"
+					android:id="@+id/ButtonEuclideanRun"
+					android:text="@string/euclidean_algorithm_run_short" />
+				<Button style="@style/ButtonExampleAfterRunStyle"
+					android:id="@+id/ButtonEuclideanRunExample1"
+					android:text="@string/run_example_1" />
+				<Button style="@style/ButtonExampleAfterRunStyle"
+					android:id="@+id/ButtonEuclideanRunExample2"
+					android:text="@string/run_example_2" />
+				<Button style="@style/ButtonExampleAfterRunStyle"
+					android:id="@+id/ButtonEuclideanRunExample3"
+					android:text="@string/run_example_3" />
+				<Button style="@style/ButtonExampleAfterRunStyle"
+					android:id="@+id/ButtonEuclideanRunExample4"
+					android:text="@string/run_example_4" />
+			</LinearLayout>
+
+			<!--Result-->
+			<LinearLayout
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal">
+				<TextView style="@style/TextViewLabelResultStyle"
+					android:id="@+id/TextViewEuclideanLabelResult"
+					android:text="@string/result"
+					android:labelFor="@+id/EditTextEuclideanResult" />
+				<TextView style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle"
+					android:id="@+id/TextViewEuclideanLabelElasticResult" />
+				<TextView style="@style/ClipboardButtonBase.ExpandResult"
+					android:id="@+id/TextViewEuclideanExpandResult" />
+				<TextView style="@style/ClipboardButtonCopyStyle"
+					android:id="@+id/TextViewEuclideanCopyResult" />
+				<TextView style="@style/ClipboardButtonClearStyle"
+					android:id="@+id/TextViewEuclideanClearResult" />
+			</LinearLayout>
+			<LinearLayout style="@style/ResultContainer" >
+				<HorizontalScrollView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					<EditText style="@style/EditTextResult"
+						android:id="@+id/EditTextEuclideanResult"
+						android:typeface="monospace"
+						android:autofillHints="" />
+				</HorizontalScrollView>
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>
