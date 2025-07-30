@@ -2,7 +2,7 @@
 
 ## New tracked versions
 
-### [3.0.7.0]
+### [3.0.7.0] - 2025-07-30
 - Minimum Sdk 31 (Android 12 Snow Cone)
 - Open Source
 
@@ -12,7 +12,7 @@
 ### [3.0.6.3]
 - Improved FragmentQuadraticForm
 
-### [3.0.5.9] (Production version)
+### [3.0.5.9]
 - Implemented ABCDEF in FragmentQuadraticForm
 
 ### [3.0.5.7]
