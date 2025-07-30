@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorGeneralBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/colorGeneralBg"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Simple Quadratic Form-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutSimpleQuadraticForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/binary_quadratic_form"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/binary_quadratic_form_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Euclidean Algorithm-->
+        <!--https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout
+                android:id="@+id/LinearLayoutEuclideanAlgorithm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/euclidean_algorithm"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/euclidean_algorithm_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Extended Euclidean Algorithm-->
+        <!--https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout
+                android:id="@+id/LinearLayoutExtendedEuclideanAlgorithm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/extended_euclidean_algorithm"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/extended_euclidean_algorithm_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Linear Diophantine Equation In Two Variables-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutLinearDiophantineEquationInTwoVariables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/linear_diophantine_equation_in_two_variables"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/linear_diophantine_equation_in_two_variables_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Linear Congruence In One Variable-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutLinearCongruence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/linear_congruence_in_one_variable"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/linear_congruence_in_one_variable_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Linear Congruence In Two Variables-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutLinearCongruenceWithTwoVariables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/linear_congruence_in_two_variables"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/linear_congruence_in_two_variables_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Tonelli Shanks-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutTonelliShanksAlgorithm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/tonelli_shanks_algorithm"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tonelli_shanks_algorithm_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Mod Factors-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutModFactors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/mod_factors"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mod_factors_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Primes list-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutPrimesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/primes_list"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/primes_list_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

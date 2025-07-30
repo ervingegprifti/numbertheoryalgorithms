@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_title">About</string>
+    <string name="about_app_name">Number Theory Algorithms</string>
+    <string name="about_app_version">v</string>
+    <string name="about_author">Author</string>
+    <string name="about_author_value">Ervin Gegprifti</string>
+    <string name="about_contact_value">gegprifti.ervin@gmail.com</string>
+    <string name="about_app_website">Web: numbertheoryalgorithms</string>
+    <string name="about_app_info">Starting with version 3.0.7.0, Number Theory Algorithms is open source. If you’d like to contribute, check out the GitHub page below.</string>
+    <string name="about_app_github">GitHub: numbertheoryalgorithms</string>
+    <string name="about_privacy_policy">Privacy Policy</string>
+    <string name="about_terms_and_conditions">Terms and Conditions</string>
+    <string name="about_separator" translatable="false"><strong><font color='#ff4500'> | </font></strong></string>
+    <string name="about_splash_screen">splash screen</string>
+    <string name="about_third_party_notice">Third Party Notice</string>
+    <string name="about_third_party_licenses">Third Party Licenses</string>
+</resources>

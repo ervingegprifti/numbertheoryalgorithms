@@ -1,0 +1,180 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+% \usepackage{calc} % you're allowed to say \begin{minipage}{\linewidth-2ex}
+%\usetikzlibrary{positioning,fit,shapes}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{url} 
+%\usepackage[hidelinks]{hyperref}  % For url links
+\usepackage[colorlinks = true, %Colours links instead of ugly boxes
+urlcolor = blue, %Colour for external hyperlinks blue, red, black
+linkcolor = black, %Colour of internal links
+citecolor = red %Colour of citations
+]{hyperref}
+\usepackage[ruled]{algorithm2e}
+% [linesnumbered, ruled, vlined]
+\usepackage{xcolor}
+\definecolor{bgcolor}{HTML}{E3E1D7}
+
+
+% Declare variables
+\newcommand{\myScale}{0.345}
+\newcommand{\myBorder}{0.0pt}
+\newcommand{\minipageWidth}{0.485}
+\newcommand{\minipageSpaceCenter}{\hspace{5mm}}
+
+
+\title{Number Theory Algorithms}
+\author{Ervin Gegprifti \\ [6pt]
+	gegprifti.ervin@gmail.com}
+\date{} 
+
+\begin{document}
+\pagecolor{bgcolor}
+% \nopagecolor % Transparent if the rendering machine supports it.
+
+\maketitle
+
+\begin{abstract}
+	This paper is the documentation for the Euclidean Algorithm module in \href{https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms}{Number Theory Algorithms} mobile application.
+\end{abstract}
+
+\section*{Extended Euclidean Algorithm}	
+The Extended Euclidean Algorithm is used to compute integers $x,y$ for $ax+by=GCD(a,b)$ where $a,b \in \mathbb{N}$ and $x,y \in \mathbb{Z}$. The implementation of this algorithm is based on (\cite{cohen1996course} pg. 16). \\
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetAlgoLined
+\KwIn{$a,b \in \mathbb{N}$}
+\KwOut{$x,y \in \mathbb{Z}$ for $ax+by=GCD(a,b)$}
+\BlankLine
+$r_{n-2}:=a$ \;
+$r_{n-1}:=b$ \;
+$q_{n-1}:=$ quotient of $r_{n-2}/r_{n-1}$ \;
+$r_n:=$ remainder of $r_{n-2}/r_{n-1}$ \;
+$x_{n-2}:=1$, $x_{n-1}:=0$, $x_{temp}:=x_{n-1}$, $x_{n-1}:=x_{n-2} - x_{n-1} \cdot q_{n-1}$, $x_{n-2}:=x_{temp}$ \;
+$y_{n-2}:=0$, $y_{n-1}:=1$, $y_{temp}:=y_{n-1}$, $y_{n-1}:=y_{n-2} - y_{n-1} \cdot q_{n-1}$, $y_{n-2}:=y_{temp}$ \;
+\BlankLine
+\While{$r_n > 0$}
+{
+	$r_{n-2}:=r_{n-1}$ \;
+	$r_{n-1}:=r_n$ \;
+	$q_{n-1}:=$ quotient of $r_{n-2}/r_{n-1}$ \;
+	$r_n:=$ remainder of $r_{n-2}/r_{n-1}$ \;
+	$x_{temp}:=x_{n-1}$ \;
+	$x_{n-1}:=x_{n-2} - x_{n-1} \cdot q_{n-1}$ \;
+	$x_{n-2}:=x_{temp}$ \;
+	$y_{temp}:=y_{n-1}$ \;
+	$y_{n-1}:=y_{n-2} - y_{n-1} \cdot q_{n-1}$ \;
+	$y_{n-2}:=y_{temp}$ \;
+}
+\BlankLine
+\Return{$x=x_{n-2}$, $y=y_{n-2}$}
+\caption{Extended Euclidean Algorithm}
+\end{algorithm}
+
+\begin{thebibliography}{}
+	\bibitem{cohen1996course}
+	Cohen, Henri.
+	\newblock {\em A course in computational algebraic number theory.}
+	\newblock {Springer-Verlag}, 1996.
+	%\newblock
+	%\href{http://...}{Web source...}
+\end{thebibliography}
+
+
+
+\begin{comment}
+
+
+
+
+
+
+\begin{thebibliography}{}
+	\bibitem{yan2002number}
+	Yan, Song Y.
+	\newblock {\em Number theory for computing.}
+	\newblock {Springer Science \& Business Media}, 2002.
+	%\newblock
+	%\href{http://...}{Web source...}
+\end{thebibliography}
+%\section*{References}
+%\newpage
+% Source tutorial: https://www.youtube.com/watch?v=NRXvqthfDG0
+% Use this link: https://scholar.google.com to find cites for references
+% After using \cite command or adding new entry into the bib file. 
+% Refer to (\cite{brown1999TonelliShanks} pg. 91)
+% 1. Run pdflatex (F6)
+% 2. Run BibTex (F11)
+% 3. Run pdflatex (F6)
+% 4. Run pdflatex (F6)
+\bibliographystyle{plain} % unsrt % 
+\bibliography{Bibliography}
+% Display all bibliography cites even if there are no cites. Or just the cpecific ones
+%\nocite{*} 
+\end{comment}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+@book{yan2002number,
+title={Number theory for computing},
+author={Yan, Song Y},
+year={2002},
+publisher={Springer Science \& Business Media}
+}
+\end{comment}
+
+
+
+\begin{comment}
+\noindent
+\begin{minipage}[t]{\minipageWidth\linewidth} % \linewidth, \textwidth, \hsize, \columnwidth
+Column 1
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\minipageSpaceCenter
+\begin{minipage}[t]{\minipageWidth\linewidth}
+Column 2
+\end{minipage}% PUT THIS % NOT TO HAVE AN EXTRA SPACE
+\end{comment}
+
+
+
+
+
+
+\begin{comment}
+
+$\boxbslash$
+$\boxslash$
+
+
+\begin{center}
+\renewcommand\arraystretch{1.6}
+\begin

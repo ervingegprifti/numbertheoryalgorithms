@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--https://fonts.google.com/icons-->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/menu_group_calculator_input_rsas">
+        <!--Solved RSA-->
+        <item
+            android:id="@+id/menu_rsa_100"
+            android:title="@string/rsa_100"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_rsa_576"
+            android:title="@string/rsa_576"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_rsa_768"
+            android:title="@string/rsa_768"
+            app:showAsAction="never" />
+        <!--Unsolved RSA-->
+        <item
+            android:id="@+id/menu_rsa_1536"
+            android:title="@string/rsa_1536"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_rsa_2048"
+            android:title="@string/rsa_2048"
+            app:showAsAction="never" />
+        <!--More RSA-->
+        <item
+            android:id="@+id/menu_more_rsa"
+            android:title="@string/more_rsa"
+            app:showAsAction="never" />
+    </group>
+
+    <group android:id="@+id/menu_group_calculator_documentation">
+        <item
+            android:id="@+id/menu_calculator_documentation"
+            android:title="@string/menu_calculator_documentation"
+            android:icon="@drawable/ic_baseline_docs_24"
+            android:orderInCategory="102"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>
