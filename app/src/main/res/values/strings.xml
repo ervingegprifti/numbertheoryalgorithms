@@ -10,6 +10,7 @@
     <string name="clipboard_copy">copy</string>
     <string name="clipboard_paste">paste</string>
     <string name="clipboard_clear">clear</string>
+    <string name="empty" />
     <string name="documentation">doc&#8230;</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>

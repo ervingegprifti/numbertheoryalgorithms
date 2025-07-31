@@ -350,11 +350,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.menuItemQuadraticFormIncludeOnlyPositiveSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_positive_solutions);
         this.menuItemQuadraticFormIncludeOnlyNegativeSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_negative_solutions);
         // Get the value from shared preferences.
-        boolean includeTrivialSolutions = UserSettings.getQFIncludeTrivialSolutions(requireContext());
+        boolean includeTrivialSolutions = UserSettings.getBQFIncludeTrivialSolutions(requireContext());
         menuItemQuadraticFormIncludeTrivialSolutions.setChecked(includeTrivialSolutions);
-        boolean includeOnlyPositiveSolutions = UserSettings.getQFIncludeOnlyPositiveSolutions(requireContext());
+        boolean includeOnlyPositiveSolutions = UserSettings.getBQFIncludeOnlyPositiveSolutions(requireContext());
         menuItemQuadraticFormIncludeOnlyPositiveSolutions.setChecked(includeOnlyPositiveSolutions);
-        boolean includeOnlyNegativeSolutions = UserSettings.getQFIncludeOnlyNegativeSolutions(requireContext());
+        boolean includeOnlyNegativeSolutions = UserSettings.getBQFIncludeOnlyNegativeSolutions(requireContext());
         menuItemQuadraticFormIncludeOnlyNegativeSolutions.setChecked(includeOnlyNegativeSolutions);
     }
 
@@ -369,7 +369,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             if (id == R.id.quadratic_form_menu_include_trivial_solutions) {
                 boolean isChecked = !menuItemQuadraticFormIncludeTrivialSolutions.isChecked();
                 // Store the value to shared preferences.
-                UserSettings.setQFIncludeTrivialSolutions(requireContext(), isChecked);
+                UserSettings.setBQFIncludeTrivialSolutions(requireContext(), isChecked);
                 menuItemQuadraticFormIncludeTrivialSolutions.setChecked(isChecked);
                 resetResult(false);
                 return true;
@@ -377,7 +377,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             if (id == R.id.quadratic_form_menu_include_only_positive_solutions) {
                 boolean isChecked = !menuItemQuadraticFormIncludeOnlyPositiveSolutions.isChecked();
                 // Store the value to shared preferences.
-                UserSettings.setQFIncludeOnlyPositiveSolutions(requireContext(), isChecked);
+                UserSettings.setBQFIncludeOnlyPositiveSolutions(requireContext(), isChecked);
                 menuItemQuadraticFormIncludeOnlyPositiveSolutions.setChecked(isChecked);
                 resetResult(false);
                 return true;
@@ -385,7 +385,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             if (id == R.id.quadratic_form_menu_include_only_negative_solutions) {
                 boolean isChecked = !menuItemQuadraticFormIncludeOnlyNegativeSolutions.isChecked();
                 // Store the value to shared preferences.
-                UserSettings.setQFIncludeOnlyNegativeSolutions(requireContext(), isChecked);
+                UserSettings.setBQFIncludeOnlyNegativeSolutions(requireContext(), isChecked);
                 menuItemQuadraticFormIncludeOnlyNegativeSolutions.setChecked(isChecked);
                 resetResult(false);
                 return true;
@@ -783,9 +783,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Before action performing.
             beforeActionPerforming(button);
 
-            boolean includeTrivialSolutions = UserSettings.getQFIncludeTrivialSolutions(requireContext());
-            boolean includeOnlyPositiveSolutions = UserSettings.getQFIncludeOnlyPositiveSolutions(requireContext());
-            boolean includeOnlyNegativeSolutions = UserSettings.getQFIncludeOnlyNegativeSolutions(requireContext());
+            boolean includeTrivialSolutions = UserSettings.getBQFIncludeTrivialSolutions(requireContext());
+            boolean includeOnlyPositiveSolutions = UserSettings.getBQFIncludeOnlyPositiveSolutions(requireContext());
+            boolean includeOnlyNegativeSolutions = UserSettings.getBQFIncludeOnlyNegativeSolutions(requireContext());
 
             // Perform the quadratic form
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.BINARY_QUADRATIC_FORM, this);

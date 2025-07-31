@@ -21,6 +21,45 @@
             android:layout_width="0px"
             android:layout_height="0px" />
 
+
+        <!--Compact big integer a:-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp">
+            <TextView style="@style/CompactTextViewLabel"
+                android:text="@string/label_a" />
+            <EditText style="@style/CompactEditTextNumberInput" />
+            <TextView style="@style/CompactClipboardButtonMiddleStyle"
+                android:text="@string/clipboard_copy"/>
+            <TextView style="@style/CompactClipboardButtonMiddleStyle"
+                android:text="@string/clipboard_paste"/>
+            <TextView style="@style/CompactClipboardButtonRightStyle"
+                android:text="@string/clipboard_clear"/>
+        </LinearLayout>
+
+        <!--Compact big integer b:-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp">
+            <TextView style="@style/CompactTextViewLabel"
+                android:text="@string/label_b" />
+            <EditText style="@style/CompactEditTextNumberInput" />
+            <TextView style="@style/CompactClipboardButtonMiddleStyle"
+                android:text="@string/clipboard_copy"/>
+            <TextView style="@style/CompactClipboardButtonMiddleStyle"
+                android:text="@string/clipboard_paste"/>
+            <TextView style="@style/CompactClipboardButtonRightStyle"
+                android:text="@string/clipboard_clear"/>
+        </LinearLayout>
+
+
+
         <!--Big integer a:-->
         <LinearLayout
             android:orientation="horizontal"

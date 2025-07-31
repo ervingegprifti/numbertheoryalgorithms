@@ -306,6 +306,66 @@
 
 
 
+
+
+
+    <!--Compact View Styles-->
+    <style name="CompactTextViewLabel">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/compact_label_bg</item>
+        <item name="android:textColor">@color/colorLabel</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="CompactEditTextNumberInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/compact_edittext_bg</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:digits">-0123456789</item>
+        <item name="android:maxLength">1000000</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:text">013456789013456</item>
+        <item name="android:autofillHints">@string/empty</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="CompactClipboardButtonMiddleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/compact_clipboard_button_middle_bg</item>
+        <item name="android:textColor">@color/clipboardButtonText</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingHorizontal">10dp</item>
+    </style>
+    <style name="CompactClipboardButtonRightStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/compact_clipboard_button_right_bg</item>
+        <item name="android:textColor">@color/clipboardButtonText</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingHorizontal">10dp</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
     <style name="ResultContainer">
         <item name="android:padding">5dp</item>
         <item name="android:layout_width">match_parent</item>

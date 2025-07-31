@@ -2,13 +2,15 @@
 <resources>
     <string name="settings_title">Settings</string>
     <string name="settings_preference_category_clipboard">Clipboard Buttons Configurations</string>
-    <string name="settings_vibrate_on_clipboard_button_click">Vibrate on clipboard button click</string>
+    <string name="settings_vibrate_on_clipboard_button_click">Vibrate on button tap</string>
     <string name="settings_vibrate_on_clipboard_button_click_description">Adds a small vibration when tapping Copy, Paste, or Clear to confirm the action.</string>
-    <string name="settings_notify_on_clipboard_button_click">Notify on clipboard button click</string>
+    <string name="settings_notify_on_clipboard_button_click">Notify on button tap</string>
     <string name="settings_notify_on_clipboard_button_click_description">Shows a message when you tap Copy, Paste, or Clear, as an alternative or addition to vibration.</string>
     <string name="settings_preference_category_ui">UI Configurations</string>
     <string name="settings_bigger_controls">Bigger controls</string>
-    <string name="settings_bigger_controls_description">Increases control size to improve touch accuracy and visibility..</string>
+    <string name="settings_bigger_controls_description">Increases control size to improve touch accuracy and visibility.</string>
+    <string name="settings_extended_view_mode">Extended input view</string>
+    <string name="settings_extended_view_mode_description">Toggle between Extended and Compact input view modes.</string>
     <string name="settings_bigger_clipboard_buttons">Bigger clipboard buttons</string>
     <string name="settings_bigger_clipboard_buttons_description">Makes the Copy, Paste, and Clear buttons larger for better touch interaction.</string>
     <string name="settings_bigger_result_display">Bigger result display</string>
@@ -19,6 +21,6 @@
     <string name="settings_tab_swipe_gestures">Tab swipe gestures</string>
     <string name="settings_tab_swipe_gestures_description">Tab swipe gestures are off by default to avoid conflicts with horizontal scrolling in long results.</string>
     <string name="settings_hide_example_buttons">Hide example buttons</string>
-    <string name="settings_hide_example_buttons_description">Hides the S₁, S₂, etc. buttons for quick examples to save screen space.</string>
+    <string name="settings_hide_example_buttons_description">Hides the E₁, E₂, etc. buttons for quick examples to save screen space.</string>
     <string name="settings_menu_reset_to_default">Reset to default</string>
 </resources>
