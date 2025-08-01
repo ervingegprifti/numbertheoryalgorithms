@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 
 public class ClipboardButtonDisplay {
-    private static final int SMALLER_CLIPBOARD_BUTTON_FONT_SIZE = 8;
-    private static final int BIGGER_CLIPBOARD_BUTTON_FONT_SIZE = 14;
+    private static final int SMALLER_CLIPBOARD_BUTTON_FONT_SIZE = 14;
+    private static final int BIGGER_CLIPBOARD_BUTTON_FONT_SIZE = 16;
 
 
     public static void setClipboardButtonFontSize(TextView control, Boolean bigger) {

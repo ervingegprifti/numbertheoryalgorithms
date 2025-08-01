@@ -315,6 +315,7 @@
     <style name="CompactStyle">
         <item name="android:layout_height">32dp</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
     <style name="TextViewLabelCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">30dp</item>
