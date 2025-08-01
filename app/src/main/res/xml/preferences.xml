@@ -26,9 +26,9 @@
         app:title="@string/settings_preference_category_ui"
         app:iconSpaceReserved="false">
         <SwitchPreferenceCompat
-            app:key="EXTENDED_VIEW_MODE"
-            app:title="@string/settings_extended_view_mode"
-            app:summary="@string/settings_extended_view_mode_description"
+            app:key="COMPACT_INPUT_VIEW"
+            app:title="@string/settings_compact_input_view"
+            app:summary="@string/settings_compact_input_view_description"
             app:defaultValue="false"
             app:icon="@drawable/ic_baseline_input_24"
             app:iconSpaceReserved="true" />

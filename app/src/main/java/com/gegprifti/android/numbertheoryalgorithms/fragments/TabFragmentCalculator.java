@@ -33,6 +33,7 @@ import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class TabFragmentCalculator extends FragmentBase implements Callback {
@@ -44,7 +45,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     static final BigInteger THREE = BigInteger.valueOf(3L);
     static final BigInteger FIVE = BigInteger.valueOf(5L);
     BigInteger INTEGER_MAX_VALUE = new BigInteger(Integer.toString(Integer.MAX_VALUE));
-
+    // Extended input view
+    LinearLayout linearLayoutExtendedInputView;
     TextView textViewCalculatorLabelA;
     TextView textViewCalculatorLabelElasticA;
     TextView textViewCalculatorCopyA;
@@ -57,6 +59,19 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     TextView textViewCalculatorPasteB;
     TextView textViewCalculatorClearB;
     EditText editTextCalculatorB;
+    // Compact input view
+    LinearLayout linearLayoutCompactInputView;
+    TextView textViewCalculatorLabelCompactA;
+    EditText editTextCalculatorCompactA;
+    TextView textViewCalculatorCopyCompactA;
+    TextView textViewCalculatorPasteCompactA;
+    TextView textViewCalculatorClearCompactA;
+    TextView textViewCalculatorLabelCompactB;
+    EditText editTextCalculatorCompactB;
+    TextView textViewCalculatorCopyCompactB;
+    TextView textViewCalculatorPasteCompactB;
+    TextView textViewCalculatorClearCompactB;
+    // Run buttons
     Button buttonCalculatorAddition;
     Button buttonCalculatorSubtraction;
     Button buttonCalculatorMultiplication;
@@ -72,6 +87,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     Button buttonCalculatorFactorial;
     Button buttonCalculatorNextProbablePrime;
     Button buttonCalculatorNextProbableTwinPrime;
+    // Result
     TextView textViewCalculatorLabelResult1;
     TextView textViewCalculatorLabelElasticResult1;
     TextView textViewCalculatorCopyResult1;
@@ -84,6 +100,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     TextView textViewCalculatorCopyResult2;
     TextView textViewCalculatorClearResult2;
     EditText editTextCalculatorResult2;
+    // Flags to prevent recursive updates
+    AtomicBoolean isUpdatingEditTextCalculatorA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCalculatorCompactA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCalculatorB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCalculatorCompactB = new AtomicBoolean(false);
 
     //region CREATE
     @Nullable
@@ -92,6 +113,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 		View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_tab_calculator, container, false);
+            // Extended input view
+            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewCalculatorLabelA = inflater.findViewById(R.id.TextViewCalculatorLabelA);
             textViewCalculatorLabelElasticA = inflater.findViewById(R.id.TextViewCalculatorLabelElasticA);
             textViewCalculatorCopyA = inflater.findViewById(R.id.TextViewCalculatorCopyA);
@@ -104,6 +127,19 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewCalculatorPasteB = inflater.findViewById(R.id.TextViewCalculatorPasteB);
             textViewCalculatorClearB = inflater.findViewById(R.id.TextViewCalculatorClearB);
             editTextCalculatorB = inflater.findViewById(R.id.EditTextCalculatorB);
+            // Compact input view
+            linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
+            textViewCalculatorLabelCompactA = inflater.findViewById(R.id.TextViewCalculatorLabelCompactA);
+            textViewCalculatorCopyCompactA = inflater.findViewById(R.id.TextViewCalculatorCopyCompactA);
+            textViewCalculatorPasteCompactA = inflater.findViewById(R.id.TextViewCalculatorPasteCompactA);
+            textViewCalculatorClearCompactA = inflater.findViewById(R.id.TextViewCalculatorClearCompactA);
+            editTextCalculatorCompactA = inflater.findViewById(R.id.EditTextCalculatorCompactA);
+            textViewCalculatorLabelCompactB = inflater.findViewById(R.id.TextViewCalculatorLabelCompactB);
+            textViewCalculatorCopyCompactB = inflater.findViewById(R.id.TextViewCalculatorCopyCompactB);
+            textViewCalculatorPasteCompactB = inflater.findViewById(R.id.TextViewCalculatorPasteCompactB);
+            textViewCalculatorClearCompactB = inflater.findViewById(R.id.TextViewCalculatorClearCompactB);
+            editTextCalculatorCompactB = inflater.findViewById(R.id.EditTextCalculatorCompactB);
+            // Run buttons
             buttonCalculatorAddition = inflater.findViewById(R.id.ButtonCalculatorAddition);
             buttonCalculatorSubtraction = inflater.findViewById(R.id.ButtonCalculatorSubtraction);
             buttonCalculatorMultiplication = inflater.findViewById(R.id.ButtonCalculatorMultiplication);
@@ -119,6 +155,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             buttonCalculatorFactorial = inflater.findViewById(R.id.ButtonCalculatorFactorial);
             buttonCalculatorNextProbablePrime = inflater.findViewById(R.id.ButtonCalculatorNextProbablePrime);
             buttonCalculatorNextProbableTwinPrime = inflater.findViewById(R.id.ButtonCalculatorNextProbableTwinPrime);
+            // Result
             textViewCalculatorLabelResult1 = inflater.findViewById(R.id.TextViewCalculatorLabelResult1);
             textViewCalculatorLabelElasticResult1 = inflater.findViewById(R.id.TextViewCalculatorLabelElasticResult1);
             textViewCalculatorCopyResult1 = inflater.findViewById(R.id.TextViewCalculatorCopyResult1);
@@ -132,190 +169,205 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewCalculatorClearResult2 = inflater.findViewById(R.id.TextViewCalculatorClearResult2);
             editTextCalculatorResult2 = inflater.findViewById(R.id.EditTextCalculatorResult2);
 
-            // Input filter integer only
+            // Constrain extended input integer only
             editTextCalculatorA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextCalculatorB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain compact input integer only
+            editTextCalculatorCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCalculatorCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Events
-            buttonCalculatorAddition.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonAddition(container, true);
-                }
-            });
-            buttonCalculatorSubtraction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonSubtraction(container, true); }
-            });
-            buttonCalculatorMultiplication.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonMultiplication(container, true); }
-            });
-            buttonCalculatorDivision.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonDivision(container, true); }
-            });
-            buttonCalculatorPower.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonPower(container, true); }
-            });
-            buttonCalculatorRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRoot(container, true);
-                }
-            });
-            buttonCalculatorIsProbablePrime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonIsProbablePrime(container, true); }
-            });
-            buttonCalculatorEulerPhi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonEulerPhi(container, true); }
-            });
-            buttonCalculatorFactorial.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonFactorial(container, true); }
-            });
-            buttonCalculatorNextProbablePrime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonNextProbablePrime(container, true); }
-            });
-            buttonCalculatorNextProbableTwinPrime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonNextProbableTwinPrime(container, true); }
-            });
-            buttonCalculatorGcd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonGcd(container, true); }
-            });
-            buttonCalculatorLcm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonLcm(container, true); }
-            });
-            buttonCalculatorMod.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonMod(container, true); }
-            });
-            buttonCalculatorModInverse.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonModInverse(container, true); }
-            });
-            textViewCalculatorCopyA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyA);
-                }
-            });
-            textViewCalculatorCopyB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyB);
-                }
-            });
-            textViewCalculatorCopyResult1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorResult1);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyResult1);
-                }
-            });
-            textViewCalculatorCopyResult2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorResult2);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyResult2);
-                }
-            });
-            textViewCalculatorPasteA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextCalculatorA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteA);
-                }
-            });
-            textViewCalculatorPasteB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextCalculatorB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteB);
-                }
-            });
-            textViewCalculatorClearA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewCalculatorClearB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearB);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewCalculatorClearResult1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorResult1);
-                    resetResult1();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearResult1);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewCalculatorClearResult2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorResult2);
-                    resetResult2();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearResult2);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
+            // Extended input events
             editTextCalculatorA.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCalculatorA.get()) return; // editTextCalculatorA is locked
+                    // Other work
                     String calculatorLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
                     textViewCalculatorLabelA.setText(calculatorLabelA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCalculatorCompactA
+                    isUpdatingEditTextCalculatorCompactA.set(true); // Lock editTextCalculatorCompactA
+                    try {
+                        editTextCalculatorCompactA.setText(s.toString());
+                        // editTextCalculatorCompactA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCalculatorCompactA.set(false); // Unlock editTextCalculatorCompactA
+                    }
                 }
             });
             editTextCalculatorB.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCalculatorB.get()) return; // editTextCalculatorB is locked
+                    // Other work
                     String calculatorLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
                     textViewCalculatorLabelB.setText(calculatorLabelB);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCalculatorCompactB
+                    isUpdatingEditTextCalculatorCompactB.set(true); // Lock editTextCalculatorCompactB
+                    try {
+                        editTextCalculatorCompactB.setText(s.toString());
+                        // editTextCalculatorCompactB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCalculatorCompactB.set(false); // Unlock editTextCalculatorCompactB
+                    }
                 }
             });
 
+            // Compact input events
+            editTextCalculatorCompactA.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCalculatorCompactA.get()) return; // editTextCalculatorCompactA is locked
+                    // Other work
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCalculatorA
+                    isUpdatingEditTextCalculatorA.set(true); // Lock editTextCalculatorA
+                    try {
+                        editTextCalculatorA.setText(s.toString());
+                        // editTextCalculatorA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCalculatorA.set(false); // unlock editTextCalculatorA
+                    }
+                }
+            });
+            editTextCalculatorCompactB.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCalculatorCompactB.get()) return; // editTextCalculatorCompactB is locked
+                    // Other work
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCalculatorB
+                    isUpdatingEditTextCalculatorB.set(true); // Lock editTextCalculatorB
+                    try {
+                        editTextCalculatorB.setText(s.toString());
+                        // editTextCalculatorB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCalculatorB.set(false); // unlock editTextCalculatorB
+                    }
+                }
+            });
+
+            // Extended input a clipboard button events
+            textViewCalculatorCopyA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCalculatorA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyA);
+            });
+            textViewCalculatorPasteA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCalculatorA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteA);
+            });
+            textViewCalculatorClearA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCalculatorA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input b clipboard button events
+            textViewCalculatorCopyB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCalculatorB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyB);
+            });
+            textViewCalculatorPasteB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCalculatorB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteB);
+            });
+            textViewCalculatorClearB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCalculatorB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input a clipboard button events
+            textViewCalculatorCopyCompactA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCalculatorCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyCompactA);
+            });
+            textViewCalculatorPasteCompactA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCalculatorCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteCompactA);
+            });
+            textViewCalculatorClearCompactA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCalculatorCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearCompactA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input b clipboard button events
+            textViewCalculatorCopyCompactB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCalculatorCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyCompactB);
+            });
+            textViewCalculatorPasteCompactB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCalculatorCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteCompactB);
+            });
+            textViewCalculatorClearCompactB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCalculatorCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearCompactB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Run button events
+            buttonCalculatorAddition.setOnClickListener(v -> onButtonAddition(container, true));
+            buttonCalculatorSubtraction.setOnClickListener(v -> onButtonSubtraction(container, true));
+            buttonCalculatorMultiplication.setOnClickListener(v -> onButtonMultiplication(container, true));
+            buttonCalculatorDivision.setOnClickListener(v -> onButtonDivision(container, true));
+            buttonCalculatorPower.setOnClickListener(v -> onButtonPower(container, true));
+            buttonCalculatorRoot.setOnClickListener(v -> onButtonRoot(container, true));
+            buttonCalculatorIsProbablePrime.setOnClickListener(view -> onButtonIsProbablePrime(container, true));
+            buttonCalculatorEulerPhi.setOnClickListener(view -> onButtonEulerPhi(container, true));
+            buttonCalculatorFactorial.setOnClickListener(view -> onButtonFactorial(container, true));
+            buttonCalculatorNextProbablePrime.setOnClickListener(view -> onButtonNextProbablePrime(container, true));
+            buttonCalculatorNextProbableTwinPrime.setOnClickListener(view -> onButtonNextProbableTwinPrime(container, true));
+            buttonCalculatorGcd.setOnClickListener(v -> onButtonGcd(container, true));
+            buttonCalculatorLcm.setOnClickListener(v -> onButtonLcm(container, true));
+            buttonCalculatorMod.setOnClickListener(v -> onButtonMod(container, true));
+            buttonCalculatorModInverse.setOnClickListener(v -> onButtonModInverse(container, true));
+
+            // Result1 clipboard button events
+            textViewCalculatorCopyResult1.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCalculatorResult1);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyResult1);
+            });
+            textViewCalculatorClearResult1.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCalculatorResult1);
+                resetResult1();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearResult1);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Result2 clipboard button events
+            textViewCalculatorCopyResult2.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCalculatorResult2);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyResult2);
+            });
+            textViewCalculatorClearResult2.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCalculatorResult2);
+                resetResult2();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearResult2);
+                resetAllAndSelectTheLastButtonClicked();
+            });
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -364,7 +416,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b: 40094690950920881030683735292761468389214899724061
                 // Result: 1522605027922533360535618378132637429718068114961380688657908494580122963258952897654000350692006139
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
@@ -381,7 +433,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b: 472772146107435302536223071973048224632914695302097116459852171130520711256363590397527
                 // Result: 188198812920607963838697239461650439807163563379417382700763356422988859715234665485319060606504743045317388011303396716199692321205734031879550656996221305168759307650257059
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
@@ -398,7 +450,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b: 36746043666799590428244633799627952632279158164343087642676032283815739666511279233373417143396810270092798736308917
                 // Result: 1230186684530117755130494958384962720772853569595334792197322452151726400507263657518745202199786469389956474942774063845925192557326303453731548268507917026122142913461670429214311602221240479274737794080665351419597459856902143413
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
@@ -414,7 +466,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b:
                 // Result: 1847699703211741474306835620200164403018549338663410171471785774910651696711161249859337684305435744585616061544571794052229717732524660960646946071249623720442022269756756687378427562389508764678440933285157496578843415088475528298186726451339863364931908084671990431874381283363502795470282653297802934916155811881049844908319545009848393775227257052578591944993870073695755688436933812779613089230392569695253261620823676490316036551371447913932347169566988069
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
@@ -430,7 +482,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b:
                 // Result: 25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216869987549182422433637259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133844143603833904414952634432190114657544454178424020924616515723350778707749817125772467962926386356373289912154831438167899885040445364023527381951378636564391212010397122822120720357
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextCalculatorA.clearFocus();
                 editTextCalculatorB.clearFocus();
@@ -456,12 +508,27 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
-        this.refreshBiggerControls();
+        refreshInputViewMode();
+        refreshSmallerClipboardButtons();
+        refreshBiggerControls();
     }
 
 
-    //region Display
+    //region Refresh UI
+    private void refreshInputViewMode() {
+        try {
+            boolean compactInputView = UserSettings.getCompactInputView(requireContext());
+            if(compactInputView){
+                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutCompactInputView.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
     private void refreshSmallerClipboardButtons() {
         try {
             boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
@@ -528,7 +595,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
-    //endregion Display
+    //endregion Refresh UI
 
 
     //region Callback
@@ -1143,6 +1210,9 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
+    private void resetAllAndSelectTheLastClipboardButtonClicked() {
+        resetAllAndSelectTheLastClipboardButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
         textViewCalculatorCopyA.setSelected(false);
@@ -1159,6 +1229,9 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         if (textView != null) {
             textView.setSelected(true);
         }
+    }
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
     }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
         // Reset the last button clicked.
@@ -1183,22 +1256,16 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         }
     }
     private void resetResult() {
-        // Reset the last clipboard clicked.
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
-        // Reset the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(null);
-        // Reset the Result1
+        resetAllAndSelectTheLastClipboardButtonClicked();
+        resetAllAndSelectTheLastButtonClicked();
         resetResult1();
-        // Reset the Result2
         resetResult2();
     }
     private void resetResult1() {
-        // Reset the Result1
         textViewCalculatorLabelResult1.setText(R.string.result);
         editTextCalculatorResult1.setText("");
     }
     private void resetResult2() {
-        // Reset the Result2
         textViewCalculatorLabelResult2.setText(R.string.result);
         editTextCalculatorResult2.setText("");
     }

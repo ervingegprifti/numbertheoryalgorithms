@@ -19,7 +19,7 @@ public class UserSettings {
 
 
     // UI Configuration.
-    private static final String EXTENDED_VIEW_MODE = "EXTENDED_VIEW_MODE";
+    private static final String COMPACT_INPUT_VIEW = "COMPACT_INPUT_VIEW";
     private static final String BIGGER_CONTROLS = "BIGGER_CONTROLS";
     private static final String BIGGER_CLIPBOARD_BUTTONS = "BIGGER_CLIPBOARD_BUTTONS";
     private static final String BIGGER_RESULT_DISPLAY = "BIGGER_RESULT_DISPLAY";
@@ -71,8 +71,8 @@ public class UserSettings {
 
 
     // UI Configuration.
-    public static boolean getExtendedViewMode(Context context) {
-        return getBoolean(context, EXTENDED_VIEW_MODE);
+    public static boolean getCompactInputView(Context context) {
+        return getBoolean(context, COMPACT_INPUT_VIEW);
     }
 
 
@@ -146,7 +146,7 @@ public class UserSettings {
         setBoolean(context, NOTIFY_ON_CLIPBOARD_BUTTON_CLICK, false);
 
         // UI Configuration.
-        setBoolean(context, EXTENDED_VIEW_MODE, false);
+        setBoolean(context, COMPACT_INPUT_VIEW, false);
         setBoolean(context, BIGGER_CONTROLS, false);
         setBoolean(context, BIGGER_CLIPBOARD_BUTTONS, false);
         setBoolean(context, BIGGER_RESULT_DISPLAY, false);

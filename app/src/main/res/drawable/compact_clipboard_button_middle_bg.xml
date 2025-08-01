@@ -4,7 +4,7 @@
     <item android:state_pressed="true">
         <shape >
             <solid android:color="@color/clipboardButtonPressedBg"/>
-            <stroke android:width="1px" android:color="@color/clipboardButtonStroke"/>
+            <stroke android:width="1px"  android:color="@color/clipboardButtonStroke"/>
         </shape>
     </item>
 

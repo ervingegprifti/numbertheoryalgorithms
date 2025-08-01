@@ -186,15 +186,6 @@
 
 
     <!-- Calculator Styles -->
-    <style name="CalculatorButtonContainerStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-    </style>
-    <style name="CalculatorButtonFirstContainerStyle" parent="CalculatorButtonContainerStyle">
-        <item name="android:layout_marginTop">20dp</item>
-    </style>
     <style name="CalculatorButtonStyle" parent="ButtonStyle">
         <item name="backgroundTint">@color/button_run_bg_selector</item>
         <item name="android:textColor">@color/buttonRunTextColor</item>
@@ -304,56 +295,58 @@
     </style>
 
 
+    <style name="ColumnContainerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 
 
+    <style name="RowContainerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 
 
-
-    <!--Compact View Styles-->
-    <style name="CompactTextViewLabel">
-        <item name="android:layout_width">30dp</item>
+    <!--Compact input view styles-->
+    <style name="CompactStyle">
         <item name="android:layout_height">32dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="TextViewLabelCompactStyle" parent="CompactStyle">
+        <item name="android:layout_width">30dp</item>
         <item name="android:background">@drawable/compact_label_bg</item>
         <item name="android:textColor">@color/colorLabel</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center</item>
     </style>
-    <style name="CompactEditTextNumberInput">
+    <style name="EditTextNumberInputCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">32dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/compact_edittext_bg</item>
         <item name="android:gravity">left|center_vertical</item>
-        <item name="android:layout_gravity">center</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:digits">-0123456789</item>
         <item name="android:maxLength">1000000</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:paddingHorizontal">10dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:text">013456789013456</item>
-        <item name="android:autofillHints">@string/empty</item>
         <item name="android:singleLine">true</item>
         <item name="android:scrollHorizontally">true</item>
         <item name="android:ellipsize">end</item>
     </style>
-    <style name="CompactClipboardButtonMiddleStyle">
+    <style name="ClipboardButtonMiddleCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">32dp</item>
         <item name="android:background">@drawable/compact_clipboard_button_middle_bg</item>
         <item name="android:textColor">@color/clipboardButtonText</item>
         <item name="android:layout_marginRight">0dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center</item>
         <item name="android:paddingHorizontal">10dp</item>
     </style>
-    <style name="CompactClipboardButtonRightStyle">
+    <style name="ClipboardButtonRightCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">32dp</item>
         <item name="android:background">@drawable/compact_clipboard_button_right_bg</item>
         <item name="android:textColor">@color/clipboardButtonText</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center</item>
         <item name="android:paddingHorizontal">10dp</item>
     </style>
 

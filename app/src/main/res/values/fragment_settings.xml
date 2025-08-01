@@ -9,8 +9,8 @@
     <string name="settings_preference_category_ui">UI Configurations</string>
     <string name="settings_bigger_controls">Bigger controls</string>
     <string name="settings_bigger_controls_description">Increases control size to improve touch accuracy and visibility.</string>
-    <string name="settings_extended_view_mode">Extended input view</string>
-    <string name="settings_extended_view_mode_description">Toggle between Extended and Compact input view modes.</string>
+    <string name="settings_compact_input_view">Compact input view</string>
+    <string name="settings_compact_input_view_description">Toggle between Compact and Extended input view modes.</string>
     <string name="settings_bigger_clipboard_buttons">Bigger clipboard buttons</string>
     <string name="settings_bigger_clipboard_buttons_description">Makes the Copy, Paste, and Clear buttons larger for better touch interaction.</string>
     <string name="settings_bigger_result_display">Bigger result display</string>
