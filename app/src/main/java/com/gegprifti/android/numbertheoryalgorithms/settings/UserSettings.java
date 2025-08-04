@@ -13,17 +13,15 @@ import androidx.preference.PreferenceManager;
  * @see <a href="https://developer.android.com/guide/topics/ui/settings/use-saved-values">Use saved values</a>
  */
 public class UserSettings {
-    // Clipboard Buttons Configuration.
-    private static final String VIBRATE_ON_CLIPBOARD_BUTTON_CLICK = "VIBRATE_ON_CLIPBOARD_BUTTON_CLICK";
-    private static final String NOTIFY_ON_CLIPBOARD_BUTTON_CLICK = "NOTIFY_ON_CLIPBOARD_BUTTON_CLICK";
-
-
     // UI Configuration.
     private static final String COMPACT_INPUT_VIEW = "COMPACT_INPUT_VIEW";
     private static final String BIGGER_CONTROLS = "BIGGER_CONTROLS";
-    private static final String BIGGER_CLIPBOARD_BUTTONS = "BIGGER_CLIPBOARD_BUTTONS";
     private static final String BIGGER_RESULT_DISPLAY = "BIGGER_RESULT_DISPLAY";
     private static final String SQUARE_RESULT_DISPLAY = "SQUARE_RESULT_DISPLAY";
+
+    // Clipboard Buttons Configuration.
+    private static final String VIBRATE_ON_CLIPBOARD_BUTTON_CLICK = "VIBRATE_ON_CLIPBOARD_BUTTON_CLICK";
+    private static final String NOTIFY_ON_CLIPBOARD_BUTTON_CLICK = "NOTIFY_ON_CLIPBOARD_BUTTON_CLICK";
 
     // Misc Configurations.
     private static final String TAB_SWIPE_GESTURES = "TAB_SWIPE_GESTURES";
@@ -76,14 +74,8 @@ public class UserSettings {
     }
 
 
-
     public static boolean getBiggerControls(Context context) {
         return getBoolean(context, BIGGER_CONTROLS);
-    }
-
-
-    public static boolean getBiggerClipboardButtons(Context context) {
-        return getBoolean(context, BIGGER_CLIPBOARD_BUTTONS);
     }
 
 
@@ -141,16 +133,15 @@ public class UserSettings {
 
     // Reset to default.
     public static void resetToDefault(Context context) {
-        // Clipboard Buttons Configuration.
-        setBoolean(context, VIBRATE_ON_CLIPBOARD_BUTTON_CLICK, false);
-        setBoolean(context, NOTIFY_ON_CLIPBOARD_BUTTON_CLICK, false);
-
         // UI Configuration.
         setBoolean(context, COMPACT_INPUT_VIEW, false);
         setBoolean(context, BIGGER_CONTROLS, false);
-        setBoolean(context, BIGGER_CLIPBOARD_BUTTONS, false);
         setBoolean(context, BIGGER_RESULT_DISPLAY, false);
         setBoolean(context, SQUARE_RESULT_DISPLAY, false);
+
+        // Clipboard Buttons Configuration.
+        setBoolean(context, VIBRATE_ON_CLIPBOARD_BUTTON_CLICK, false);
+        setBoolean(context, NOTIFY_ON_CLIPBOARD_BUTTON_CLICK, false);
 
         // Misc Configurations.
         setBoolean(context, TAB_SWIPE_GESTURES, false);

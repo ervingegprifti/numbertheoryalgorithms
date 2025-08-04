@@ -17,4 +17,8 @@
     <string name="fa_bullhorn" translatable="false">&#xf0a1;</string>
     <string name="fa_expand" translatable="false">&#xf065;</string>
     <string name="fa_compress" translatable="false">&#xf066;</string>
+    <string name="fa_copy" translatable="false">&#xf0c5;</string>
+    <string name="fa_paste" translatable="false">&#xf0ea;</string>
+    <string name="fa_clipboard" translatable="false">&#xf328;</string>
+    <string name="fa_eraser" translatable="false">&#xf12d;</string>
 </resources>

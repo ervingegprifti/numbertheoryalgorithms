@@ -3,6 +3,40 @@
     <!--https://fonts.google.com/icons?selected=Material+Icons&icon.platform=android-->
 
     <PreferenceCategory
+        app:title="@string/settings_preference_category_ui"
+        app:iconSpaceReserved="false">
+        <SwitchPreferenceCompat
+            app:key="COMPACT_INPUT_VIEW"
+            app:title="@string/settings_compact_input_view"
+            app:summary="@string/settings_compact_input_view_description"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_input_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="BIGGER_CONTROLS"
+            app:title="@string/settings_bigger_controls"
+            app:summary="@string/settings_bigger_controls_description"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_text_fields_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="BIGGER_RESULT_DISPLAY"
+            app:title="@string/settings_bigger_result_display"
+            app:summary="@string/settings_bigger_result_display_description"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_text_fields_24"
+            app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="SQUARE_RESULT_DISPLAY"
+            app:title="@string/settings_square_items_result_display"
+            app:summary="@string/settings_square_items_result_display_description"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_crop_square_24"
+            app:iconSpaceReserved="true" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
         app:title="@string/settings_preference_category_clipboard"
         app:iconSpaceReserved="false">
         <SwitchPreferenceCompat
@@ -22,45 +56,6 @@
             app:allowDividerBelow="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:title="@string/settings_preference_category_ui"
-        app:iconSpaceReserved="false">
-        <SwitchPreferenceCompat
-            app:key="COMPACT_INPUT_VIEW"
-            app:title="@string/settings_compact_input_view"
-            app:summary="@string/settings_compact_input_view_description"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_baseline_input_24"
-            app:iconSpaceReserved="true" />
-        <SwitchPreferenceCompat
-            app:key="BIGGER_CONTROLS"
-            app:title="@string/settings_bigger_controls"
-            app:summary="@string/settings_bigger_controls_description"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_baseline_text_fields_24"
-            app:iconSpaceReserved="true" />
-        <SwitchPreferenceCompat
-            app:key="BIGGER_CLIPBOARD_BUTTONS"
-            app:title="@string/settings_bigger_clipboard_buttons"
-            app:summary="@string/settings_bigger_clipboard_buttons_description"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_baseline_text_fields_24"
-            app:iconSpaceReserved="true" />
-        <SwitchPreferenceCompat
-            app:key="BIGGER_RESULT_DISPLAY"
-            app:title="@string/settings_bigger_result_display"
-            app:summary="@string/settings_bigger_result_display_description"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_baseline_text_fields_24"
-            app:iconSpaceReserved="true" />
-        <SwitchPreferenceCompat
-            app:key="SQUARE_RESULT_DISPLAY"
-            app:title="@string/settings_square_items_result_display"
-            app:summary="@string/settings_square_items_result_display_description"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_baseline_crop_square_24"
-            app:iconSpaceReserved="true" />
-    </PreferenceCategory>
 
     <PreferenceCategory
         app:title="@string/settings_preference_category_misc"

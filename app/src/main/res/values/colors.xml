@@ -16,7 +16,7 @@
     <color name="colorGeneralBg">#E3E1D7</color>
     <color name="colorGeneralBg2">#C8C6BC</color>
 
-    <color name="colorLabel">#E3E1D7</color> <!--8D8B83-->
+    <color name="colorLabel">@color/colorGeneralBg</color>
     <color name="colorToastBg">#ffe37c</color>
     <color name="colorResultLabel">#008b8b</color>
 
@@ -37,22 +37,22 @@
     <color name="colorInsideTextStrokeBg">#716F69</color>
     <color name="colorLightButtonBg">#babaaa</color>
 
-    <color name="colorCardViewHorizontalSeparator">#C8C6BC</color>
+    <color name="colorCardViewHorizontalSeparator">@color/colorGeneralBg2</color>
 
 
     <!-- Clipboard button colors -->
-    <color name="clipboardButtonBg">#E3E1D7</color>
+    <color name="clipboardButtonBg">@color/colorGeneralBg2</color>
     <color name="clipboardButtonStroke">#716F69</color>
-    <color name="clipboardButtonPressedBg">#C8C6BC</color>
-    <color name="clipboardButtonSelectedBg">#C8C6BC</color>
-    <color name="clipboardButtonText">#716F69</color>
+    <color name="clipboardButtonPressedBg">@color/colorAccent2</color>
+    <color name="clipboardButtonSelectedBg">@color/colorAccent2</color>
+    <color name="clipboardButtonText">@color/colorGeneralBg</color>
 
 
     <!-- Button colors -->
     <color name="buttonBg">#5c5748</color>
     <color name="buttonPressedBg">#433f34</color>
     <color name="buttonSelectedBg">#008b8b</color>
-    <color name="buttonText">#E3E1D7</color>
+    <color name="buttonText">@color/colorGeneralBg</color>
 
 
     <!-- Button run colors -->

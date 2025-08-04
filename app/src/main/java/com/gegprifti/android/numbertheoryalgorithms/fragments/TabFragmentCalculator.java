@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +27,6 @@ import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.SettingsActivity;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
@@ -189,6 +189,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     // Other work
                     String calculatorLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
                     textViewCalculatorLabelA.setText(calculatorLabelA);
+                    resetAllAndSelectTheLastClipboardButtonClicked();
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCalculatorCompactA
                     isUpdatingEditTextCalculatorCompactA.set(true); // Lock editTextCalculatorCompactA
@@ -212,6 +213,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     // Other work
                     String calculatorLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
                     textViewCalculatorLabelB.setText(calculatorLabelB);
+                    resetAllAndSelectTheLastClipboardButtonClicked();
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCalculatorCompactB
                     isUpdatingEditTextCalculatorCompactB.set(true); // Lock editTextCalculatorCompactB
@@ -235,6 +237,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     // Prevent recursive updates
                     if (isUpdatingEditTextCalculatorCompactA.get()) return; // editTextCalculatorCompactA is locked
                     // Other work
+                    resetAllAndSelectTheLastClipboardButtonClicked();
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCalculatorA
                     isUpdatingEditTextCalculatorA.set(true); // Lock editTextCalculatorA
@@ -256,6 +259,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     // Prevent recursive updates
                     if (isUpdatingEditTextCalculatorCompactB.get()) return; // editTextCalculatorCompactB is locked
                     // Other work
+                    resetAllAndSelectTheLastClipboardButtonClicked();
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCalculatorB
                     isUpdatingEditTextCalculatorB.set(true); // Lock editTextCalculatorB
@@ -509,8 +513,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
-        refreshSmallerClipboardButtons();
         refreshBiggerControls();
+        refreshBiggerResultDisplay();
     }
 
 
@@ -529,39 +533,29 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshSmallerClipboardButtons() {
-        try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
 
-            // Extended clipboard for input a
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorPasteA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearA, biggerClipboardButtons);
-            //  Extended clipboard for input b
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorPasteB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearB, biggerClipboardButtons);
-            // Compact clipboard for input a
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyCompactA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorPasteCompactA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearCompactA, biggerClipboardButtons);
-            //  Compact clipboard for input b
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyCompactB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorPasteCompactB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearCompactB, biggerClipboardButtons);
-            // Result1 clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyResult1, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult1, biggerClipboardButtons);
-            // Result2 clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyResult2, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult2, biggerClipboardButtons);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorCopyCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorPasteCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorCopyCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorPasteCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearCompactB, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorCopyResult1, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult1, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorCopyResult2, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult2, biggerControls);
             // Extended label for input a
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticA, biggerControls);
@@ -599,11 +593,20 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             // Result1 label
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelResult1, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticResult1, biggerControls);
-            // Result1 output
-            ControlDisplay.setOutputFontSize(editTextCalculatorResult1, biggerControls);
             // Result2 label
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelResult2, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticResult2, biggerControls);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshBiggerResultDisplay() {
+        try {
+            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+            // Result1 output
+            ControlDisplay.setOutputFontSize(editTextCalculatorResult1, biggerControls);
             // Result2 output
             ControlDisplay.setOutputFontSize(editTextCalculatorResult2, biggerControls);
         } catch (Exception ex) {

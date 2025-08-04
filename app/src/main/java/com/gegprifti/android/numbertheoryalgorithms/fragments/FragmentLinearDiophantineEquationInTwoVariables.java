@@ -24,7 +24,6 @@ import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
@@ -396,7 +395,6 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
     }
@@ -422,34 +420,25 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshSmallerClipboardButtons() {
-        try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
 
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearA, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearB, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyC, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteC, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearC, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesExpandResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearResult, biggerClipboardButtons);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearC, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearResult, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, biggerControls);

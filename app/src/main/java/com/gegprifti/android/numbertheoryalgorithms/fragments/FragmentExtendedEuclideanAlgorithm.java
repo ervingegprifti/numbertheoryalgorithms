@@ -26,7 +26,6 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
@@ -338,7 +337,6 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
     }
@@ -364,30 +362,22 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshSmallerClipboardButtons() {
-        try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
 
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanPasteA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearA, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanPasteB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearB, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanExpandResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearResult, biggerClipboardButtons);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearB, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearResult, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelElasticA, biggerControls);

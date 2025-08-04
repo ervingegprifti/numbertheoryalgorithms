@@ -106,9 +106,9 @@
 			android:layout_gravity="center_horizontal">
 			<TextView style="@style/TextViewLabelResultStyle"
 				android:id="@+id/TextViewPrimesListLabelResult" android:text="@string/result" />
-			<TextView style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle"
+			<TextView style="@style/TextViewLabelElasticStyle"
 				android:id="@+id/TextViewPrimesListLabelElasticResult" />
-			<TextView style="@style/ClipboardButtonBase.ExpandResult"
+			<TextView style="@style/ClipboardButtonExpandResultStyle"
 				android:id="@+id/TextViewPrimesListExpandResult" />
 			<TextView style="@style/ClipboardButtonClearStyle"
 				android:id="@+id/TextViewPrimesListClearResult" />

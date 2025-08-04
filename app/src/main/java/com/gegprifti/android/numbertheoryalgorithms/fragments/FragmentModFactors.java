@@ -25,7 +25,6 @@ import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
@@ -396,7 +395,6 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
     }
@@ -418,30 +416,22 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshSmallerClipboardButtons() {
-        try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
 
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsCopyN, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsPasteN, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsClearN, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsCopyA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsPasteA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsClearA, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsExpandResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsCopyResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewModFactorsClearResult, biggerClipboardButtons);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsCopyN, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsPasteN, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsClearN, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsClearA, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewModFactorsClearResult, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewModFactorsLabelN, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewModFactorsLabelElasticN, biggerControls);

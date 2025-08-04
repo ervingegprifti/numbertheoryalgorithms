@@ -24,7 +24,6 @@ import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
@@ -454,7 +453,6 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
     }
@@ -480,38 +478,28 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshSmallerClipboardButtons() {
-        try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
 
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearA, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearB, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyC, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteC, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearC, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyM, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteM, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearM, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesExpandResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearResult, biggerClipboardButtons);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearM, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearResult, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticA, biggerControls);

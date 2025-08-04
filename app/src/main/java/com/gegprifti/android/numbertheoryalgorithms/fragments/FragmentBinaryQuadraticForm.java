@@ -28,7 +28,6 @@ import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
@@ -444,7 +443,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
     }
@@ -466,26 +464,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshSmallerClipboardButtons() {
-        try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
 
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewQuadraticFormCopyExpression, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewQuadraticFormPasteExpression, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewQuadraticFormClearExpression, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewQuadraticFormExpandResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewQuadraticFormCopyResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewQuadraticFormClearResult, biggerClipboardButtons);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormCopyExpression, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormPasteExpression, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormClearExpression, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormClearResult, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelExpression, biggerControls);
             ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelElasticExpression, biggerControls);
