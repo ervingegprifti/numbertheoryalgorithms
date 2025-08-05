@@ -20,7 +20,7 @@ public class NextProbableTwinPrimePair extends Algorithm implements StringCalcul
 
     @Override
     public String calculate() throws InterruptedException {
-        // Input
+        // InputGroup
         BigInteger a = algorithmParameters.getInput1();
 
         // Output

@@ -22,6 +22,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
@@ -83,6 +85,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     MenuItem menuItemQuadraticFormIncludeTrivialSolutions;
     MenuItem menuItemQuadraticFormIncludeOnlyPositiveSolutions;
     MenuItem menuItemQuadraticFormIncludeOnlyNegativeSolutions;
+    boolean isCompactInputView = false;
+
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -320,14 +324,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     // ResetAllAndSelectResultButtonClicked(null);
                 }
             });
-            this.buttonQuadraticFormRunExample1.setOnClickListener(v -> onButtonRunExample1(container, true));
-            this.buttonQuadraticFormRunExample2.setOnClickListener(v -> onButtonRunExample2(container, true));
-            this.buttonQuadraticFormRunExample3.setOnClickListener(v -> onButtonRunExample3(container, true));
-            this.buttonQuadraticFormRunExample4.setOnClickListener(v -> onButtonRunExample4(container, true));
-            this.buttonQuadraticFormRunExample5.setOnClickListener(v -> onButtonRunExample5(container, true));
-            this.buttonQuadraticFormRun.setOnClickListener(v -> onButtonRun(container, buttonQuadraticFormRun, false, true));
-            this.buttonQuadraticFormRun1.setOnClickListener(v -> onButtonRun1(container, true));
-            this.buttonQuadraticFormRun2.setOnClickListener(v -> onButtonRun2(container, true));
+            this.buttonQuadraticFormRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            this.buttonQuadraticFormRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            this.buttonQuadraticFormRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            this.buttonQuadraticFormRunExample4.setOnClickListener(v -> onButtonRunExample4(container));
+            this.buttonQuadraticFormRunExample5.setOnClickListener(v -> onButtonRunExample5(container));
+            this.buttonQuadraticFormRun.setOnClickListener(v -> onButtonRun(container, buttonQuadraticFormRun, false));
+            this.buttonQuadraticFormRun1.setOnClickListener(v -> onButtonRun1(container));
+            this.buttonQuadraticFormRun2.setOnClickListener(v -> onButtonRun2(container));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -480,7 +484,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Label
             ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelExpression, biggerControls);
             ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelElasticExpression, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(this.editTextQuadraticFormExpression, biggerControls);
             // Buttons
             ControlDisplay.setButtonFontSize(buttonQuadraticFormRunExample1, biggerControls);
@@ -677,72 +681,81 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
 
     //region BUTTON ACTIONS
-    private void onButtonRunExample1(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample1(ViewGroup container) {
         try {
             this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_1_expression));
             this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_1_m));
             this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_1_r));
             this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample1, true, displayProgressDialog);
+            onButtonRun(container, buttonQuadraticFormRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample2(ViewGroup container) {
         try {
             this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_2_expression));
             this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_2_m));
             this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_2_r));
             this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample2, true, displayProgressDialog);
+            onButtonRun(container, buttonQuadraticFormRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample3(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample3(ViewGroup container) {
         try {
             this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_3_expression));
             this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_3_m));
             this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_3_r));
             this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample3, true, displayProgressDialog);
+            onButtonRun(container, buttonQuadraticFormRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample4(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample4(ViewGroup container) {
         try {
             this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_4_expression));
             this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_4_m));
             this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_4_r));
             this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_4));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample4, true, displayProgressDialog);
+            onButtonRun(container, buttonQuadraticFormRunExample4, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample5(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample5(ViewGroup container) {
         try {
             this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_5_expression));
             this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_5_m));
             this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_5_r));
             this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_5));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample5, true, displayProgressDialog);
+            onButtonRun(container, buttonQuadraticFormRunExample5, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
+    private InputGroup getInputGroupQuadraticFormExpression() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewQuadraticFormLabelExpression, "bxy+dx+ey=f", textViewQuadraticFormLabelElasticExpression)
+                .setInput(editTextQuadraticFormExpression)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             resetResult(skipLabelResult);
 
             // Check.
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
+            InputGroup inputGroupQuadraticFormExpression = getInputGroupQuadraticFormExpression();
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupQuadraticFormExpression);
             if (expression == null) {
                 return;
             }
@@ -752,7 +765,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
             }
             if (!errorMessage.isEmpty()) {
-                UIHelper.displayError(this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression);
+                UIHelper.displayError(inputGroupQuadraticFormExpression);
                 // Notify before return.
                 UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
                 return;
@@ -787,17 +800,18 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             algorithmParameters.setIncludeTrivialSolutions(includeTrivialSolutions);
             algorithmParameters.setIncludeOnlyPositiveSolutions(includeOnlyPositiveSolutions);
             algorithmParameters.setIncludeOnlyNegativeSolutions(includeOnlyNegativeSolutions);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRun1(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRun1(ViewGroup container) {
         try {
             resetResult(false);
 
             // Check.
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
+            InputGroup inputGroupQuadraticFormExpression = getInputGroupQuadraticFormExpression();
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupQuadraticFormExpression);
             if (expression == null) {
                 return;
             }
@@ -807,7 +821,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
             }
             if (!errorMessage.isEmpty()) {
-                UIHelper.displayError(this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression);
+                UIHelper.displayError(inputGroupQuadraticFormExpression);
                 // Notify before return.
                 UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
                 return;
@@ -835,17 +849,18 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             algorithmParameters.setInput2(d);
             algorithmParameters.setInput3(e);
             algorithmParameters.setInput4(f);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRun2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRun2(ViewGroup container) {
         try {
             resetResult(false);
 
             // Check.
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), this.editTextQuadraticFormExpression, textViewQuadraticFormLabelExpression, textViewQuadraticFormLabelElasticExpression, "bxy+dx+ey=f");
+            InputGroup inputGroupQuadraticFormExpression = getInputGroupQuadraticFormExpression();
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupQuadraticFormExpression);
             if (expression == null) {
                 return;
             }
@@ -885,7 +900,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             algorithmParameters.setInput4(d);
             algorithmParameters.setInput5(e);
             algorithmParameters.setInput6(f);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

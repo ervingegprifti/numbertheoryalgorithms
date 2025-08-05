@@ -69,6 +69,8 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     TextView textViewModFactorsCopyResult;
     TextView textViewModFactorsClearResult;
     EditText editTextModFactorsResult;
+    boolean isCompactInputView = false;
+
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -117,7 +119,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewModFactorsClearResult = inflater.findViewById(R.id.TextViewModFactorsClearResult);
             editTextModFactorsResult = inflater.findViewById(R.id.EditTextModFactorsResult);
 
-            // Input filter integer only
+            // InputGroup filter integer only
             editTextModFactorsN.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextModFactorsA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
@@ -238,61 +240,18 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            this.buttonModFactorsRunExample1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample1(container, true);
-                }
-            });
-            this.buttonModFactorsRunExample2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample2(container, true);
-                }
-            });
-            this.buttonModFactorsRunExample3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample3(container, true);
-                }
-            });
-            this.buttonModFactorsRunExample4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample4(container, true);
-                }
-            });
-            this.buttonModFactorsRunExample5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample5(container, true);
-                }
-            });
-            this.buttonModFactorsRunExample6.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample6(container, true);
-                }
-            });
-            buttonModFactorsRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRun(container, buttonModFactorsRun, false, true);
-                }
-            });
-            buttonModFactorsCountRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonCountRun(container, true);
-                }
-            });
-            textViewModFactorsExpandResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewModFactorsTitle.getText().toString(), editTextModFactorsResult.getText());
-                    popupResult.show();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewModFactorsExpandResult);
-                }
+            this.buttonModFactorsRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            this.buttonModFactorsRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            this.buttonModFactorsRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            this.buttonModFactorsRunExample4.setOnClickListener(v -> onButtonRunExample4(container));
+            this.buttonModFactorsRunExample5.setOnClickListener(v -> onButtonRunExample5(container));
+            this.buttonModFactorsRunExample6.setOnClickListener(v -> onButtonRunExample6(container));
+            buttonModFactorsRun.setOnClickListener(v -> onButtonRun(container, buttonModFactorsRun, false));
+            buttonModFactorsCountRun.setOnClickListener(v -> onButtonCountRun(container));
+            textViewModFactorsExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewModFactorsTitle.getText().toString(), editTextModFactorsResult.getText());
+                popupResult.show();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewModFactorsExpandResult);
             });
             editTextModFactorsResult.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -435,12 +394,12 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Label
             ControlDisplay.setInputLabelFontSize(textViewModFactorsLabelN, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewModFactorsLabelElasticN, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextModFactorsN, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewModFactorsLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewModFactorsLabelElasticA, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextModFactorsA, biggerControls);
             // Buttons
             ControlDisplay.setButtonFontSize(buttonModFactorsRunExample1, biggerControls);
@@ -498,73 +457,73 @@ public class FragmentModFactors extends FragmentBase implements Callback {
 
 
     //region BUTTON ACTIONS
-    private void onButtonRunExample1(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample1(ViewGroup container) {
         try {
             this.editTextModFactorsN.setText(requireContext().getText(R.string.mod_factors_example_1_n));
             this.editTextModFactorsA.setText(requireContext().getText(R.string.mod_factors_example_1_a));
             this.textViewModFactorsLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonModFactorsRunExample1, true, displayProgressDialog);
+            onButtonRun(container, buttonModFactorsRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample2(ViewGroup container) {
         try {
             this.editTextModFactorsN.setText(requireContext().getText(R.string.mod_factors_example_2_n));
             this.editTextModFactorsA.setText(requireContext().getText(R.string.mod_factors_example_2_a));
             this.textViewModFactorsLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonModFactorsRunExample2, true, displayProgressDialog);
+            onButtonRun(container, buttonModFactorsRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample3(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample3(ViewGroup container) {
         try {
             this.editTextModFactorsN.setText(requireContext().getText(R.string.mod_factors_example_3_n));
             this.editTextModFactorsA.setText(requireContext().getText(R.string.mod_factors_example_3_a));
             this.textViewModFactorsLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonModFactorsRunExample3, true, displayProgressDialog);
+            onButtonRun(container, buttonModFactorsRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample4(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample4(ViewGroup container) {
         try {
             this.editTextModFactorsN.setText(requireContext().getText(R.string.mod_factors_example_4_n));
             this.editTextModFactorsA.setText(requireContext().getText(R.string.mod_factors_example_4_a));
             this.textViewModFactorsLabelResult.setText(requireContext().getText(R.string.result_example_4));
             //
-            onButtonRun(container, buttonModFactorsRunExample4, true, displayProgressDialog);
+            onButtonRun(container, buttonModFactorsRunExample4, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample5(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample5(ViewGroup container) {
         try {
             this.editTextModFactorsN.setText(requireContext().getText(R.string.mod_factors_example_5_n));
             this.editTextModFactorsA.setText(requireContext().getText(R.string.mod_factors_example_5_a));
             this.textViewModFactorsLabelResult.setText(requireContext().getText(R.string.result_example_5));
             //
-            onButtonRun(container, buttonModFactorsRunExample5, true, displayProgressDialog);
+            onButtonRun(container, buttonModFactorsRunExample5, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample6(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample6(ViewGroup container) {
         try {
             this.editTextModFactorsN.setText(requireContext().getText(R.string.mod_factors_example_6_n));
             this.editTextModFactorsA.setText(requireContext().getText(R.string.mod_factors_example_6_a));
             this.textViewModFactorsLabelResult.setText(requireContext().getText(R.string.result_example_6));
             //
-            onButtonRun(container, buttonModFactorsRunExample6, true, displayProgressDialog);
+            onButtonRun(container, buttonModFactorsRunExample6, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
+    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN, textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
@@ -588,12 +547,12 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.MOD_FACTORS, this);
             algorithmParameters.setInput1(n);
             algorithmParameters.setInput2(a);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonCountRun(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonCountRun(ViewGroup container) {
         try {
             // Check.
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN,  textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
@@ -617,7 +576,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.MOD_FACTORS_COUNT, this);
             algorithmParameters.setInput1(n);
             algorithmParameters.setInput2(a);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

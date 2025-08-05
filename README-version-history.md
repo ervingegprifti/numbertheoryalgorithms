@@ -51,7 +51,7 @@
 #### Other:
 - Improved the Clipboard Button's behavior by highlighting the last one tapped.
 - Improved the Run Buttons behavior by highlighting the last one tapped.
-- Improved the input validation experience.
+- Improved the inputGroup validation experience.
 - Added a Splash Starting Screen when the application starts.
 - Fixed the extra space in Soft Keyboard.
 - Improved the experience for first-time users by introducing example buttons.
@@ -74,7 +74,7 @@
 #### Other:
 - Improved the Clipboard Button's behavior by highlighting the last one tapped.
 - Improved the Run Buttons behavior by highlighting the last one tapped.
-- Improved the input validation experience.
+- Improved the inputGroup validation experience.
 - Added a Splash Starting Screen when the application starts.
 - Fixed the extra space in Soft Keyboard.
 - Improved the experience for first-time users by introducing example buttons.

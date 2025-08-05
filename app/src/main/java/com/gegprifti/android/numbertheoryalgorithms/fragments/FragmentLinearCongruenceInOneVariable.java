@@ -66,6 +66,8 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     TextView textViewLinearCongruenceInOneVariableCopyResult;
     TextView textViewLinearCongruenceInOneVariableClearResult;
     EditText editTextLinearCongruenceInOneVariableResult;
+    boolean isCompactInputView = false;
+
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -115,7 +117,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             textViewLinearCongruenceInOneVariableClearResult = inflater.findViewById(R.id.TextViewLinearCongruenceInOneVariableClearResult);
             editTextLinearCongruenceInOneVariableResult = inflater.findViewById(R.id.EditTextLinearCongruenceInOneVariableResult);
 
-            // Input filter integer only
+            // InputGroup filter integer only
             editTextLinearCongruenceInOneVariableA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextLinearCongruenceInOneVariableB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextLinearCongruenceInOneVariableM.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -280,37 +282,14 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            buttonLinearCongruenceInOneVariableRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRun(container, buttonLinearCongruenceInOneVariableRun, false, true);
-                }
-            });
-            buttonLinearCongruenceInOneVariableRunExample1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample1(container, true);
-                }
-            });
-            buttonLinearCongruenceInOneVariableRunExample2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample2(container, true);
-                }
-            });
-            buttonLinearCongruenceInOneVariableRunExample3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample3(container, true);
-                }
-            });
-            textViewLinearCongruenceInOneVariableExpandResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewLinearCongruenceInOneVariableTitle.getText().toString(), editTextLinearCongruenceInOneVariableResult.getText());
-                    popupResult.show();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInOneVariableExpandResult);
-                }
+            buttonLinearCongruenceInOneVariableRun.setOnClickListener(v -> onButtonRun(container, buttonLinearCongruenceInOneVariableRun, false));
+            buttonLinearCongruenceInOneVariableRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            buttonLinearCongruenceInOneVariableRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            buttonLinearCongruenceInOneVariableRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            textViewLinearCongruenceInOneVariableExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewLinearCongruenceInOneVariableTitle.getText().toString(), editTextLinearCongruenceInOneVariableResult.getText());
+                popupResult.show();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInOneVariableExpandResult);
             });
             editTextLinearCongruenceInOneVariableResult.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -442,17 +421,17 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInOneVariableLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInOneVariableLabelElasticA, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearCongruenceInOneVariableA, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInOneVariableLabelB, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInOneVariableLabelElasticB, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearCongruenceInOneVariableB, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInOneVariableLabelM, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInOneVariableLabelElasticM, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearCongruenceInOneVariableM, biggerControls);
             // Buttons
             ControlDisplay.setButtonFontSize(buttonLinearCongruenceInOneVariableRun, biggerControls);
@@ -495,7 +474,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
 
 
     //region BUTTON ACTIONS
-    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
+    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
             if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInOneVariableA, textViewLinearCongruenceInOneVariableLabelA, textViewLinearCongruenceInOneVariableLabelElasticA, "a")) {
@@ -524,43 +503,43 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
             algorithmParameters.setInput3(m);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample1(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample1(ViewGroup container) {
         try {
             editTextLinearCongruenceInOneVariableA.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_1_a));
             editTextLinearCongruenceInOneVariableB.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_1_b));
             editTextLinearCongruenceInOneVariableM.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_1_m));
             this.textViewLinearCongruenceInOneVariableLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonLinearCongruenceInOneVariableRunExample1, true, displayProgressDialog);
+            onButtonRun(container, buttonLinearCongruenceInOneVariableRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample2(ViewGroup container) {
         try {
             editTextLinearCongruenceInOneVariableA.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_2_a));
             editTextLinearCongruenceInOneVariableB.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_2_b));
             editTextLinearCongruenceInOneVariableM.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_2_m));
             this.textViewLinearCongruenceInOneVariableLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonLinearCongruenceInOneVariableRunExample2, true, displayProgressDialog);
+            onButtonRun(container, buttonLinearCongruenceInOneVariableRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample3(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample3(ViewGroup container) {
         try {
             editTextLinearCongruenceInOneVariableA.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_3_a));
             editTextLinearCongruenceInOneVariableB.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_3_b));
             editTextLinearCongruenceInOneVariableM.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_3_m));
             this.textViewLinearCongruenceInOneVariableLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonLinearCongruenceInOneVariableRunExample3, true, displayProgressDialog);
+            onButtonRun(container, buttonLinearCongruenceInOneVariableRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

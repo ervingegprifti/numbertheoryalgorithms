@@ -54,9 +54,8 @@ public final class ProgressManager {
      *
      * @param container             The container for the progress view, can be null.
      * @param algPrm                The parameters for the algorithm.
-     * @param displayProgressDialog True to display the progress popup, false to run silently.
      */
-    public void startWork(ViewGroup container, final AlgorithmParameters algPrm, boolean displayProgressDialog) {
+    public void startWork(ViewGroup container, final AlgorithmParameters algPrm) {
         try {
             // Ensure any previous task on this instance is cancelled before starting a new one.
             if (runningTask != null && !runningTask.isDone()) {
@@ -86,13 +85,8 @@ public final class ProgressManager {
                 }
             });
 
-            if (!displayProgressDialog) {
-                return;
-            }
-
             // --- Setup Progress UI ---
             setupPopupWindow(container, algPrm);
-
         } catch (Exception ex) {
             Log.e(TAG, "An error occurred in startWork.", ex);
         }

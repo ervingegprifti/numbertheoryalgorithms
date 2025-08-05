@@ -55,6 +55,8 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     private TextView textViewPrimesListClearResult;
     private LinearLayout linearLayoutPrimesListStaticColumnHeader;
     private ListView listViewPrimesListResult;
+    boolean isCompactInputView = false;
+
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -164,7 +166,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                     }
                 }
             });
-            this.buttonPrimesListRun.setOnClickListener(view -> onButtonRun(container, buttonPrimesListRun, true));
+            this.buttonPrimesListRun.setOnClickListener(view -> onButtonRun(container, buttonPrimesListRun));
             this.buttonPrimesListRun.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -359,7 +361,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
 
     //region BUTTON ACTIONS
-    private void onButtonRun(ViewGroup container, Button button, boolean displayProgressDialog) {
+    private void onButtonRun(ViewGroup container, Button button) {
         try {
             // Check
             String numbersString = buttonPrimesListRun.getText().toString();
@@ -399,7 +401,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.PRIMES_LIST, this);
             algorithmParameters.setInput1(numbers);
             algorithmParameters.setInput2(columns);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

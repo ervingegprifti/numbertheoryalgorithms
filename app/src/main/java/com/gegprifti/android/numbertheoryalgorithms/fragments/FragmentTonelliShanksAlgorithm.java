@@ -64,6 +64,8 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     TextView textViewTonelliShanksAlgorithmCopyResult;
     TextView textViewTonelliShanksAlgorithmClearResult;
     EditText editTextTonelliShanksAlgorithmResult;
+    boolean isCompactInputView = false;
+
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -111,7 +113,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             textViewTonelliShanksAlgorithmClearResult = inflater.findViewById(R.id.TextViewTonelliShanksAlgorithmClearResult);
             editTextTonelliShanksAlgorithmResult = inflater.findViewById(R.id.EditTextTonelliShanksAlgorithmResult);
 
-            // Input filter integer only
+            // InputGroup filter integer only
             editTextTonelliShanksAlgorithmA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextTonelliShanksAlgorithmP.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
@@ -130,97 +132,48 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                     }
                 }
             });
-            textViewTonelliShanksAlgorithmDocumentationFile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.TONELLI_SHANKS_ALGORITHM_PDF).show(getParentFragmentManager(), "TONELLI_SHANKS_ALGORITHM_PDF");
-                }
+            textViewTonelliShanksAlgorithmDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.TONELLI_SHANKS_ALGORITHM_PDF).show(getParentFragmentManager(), "TONELLI_SHANKS_ALGORITHM_PDF"));
+            buttonTonelliShanksAlgorithmRun.setOnClickListener(v -> onButtonRun(container, buttonTonelliShanksAlgorithmRun, false));
+            buttonTonelliShanksAlgorithmRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            buttonTonelliShanksAlgorithmRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            buttonTonelliShanksAlgorithmRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            textViewTonelliShanksAlgorithmCopyA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextTonelliShanksAlgorithmA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyA);
             });
-            buttonTonelliShanksAlgorithmRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRun(container, buttonTonelliShanksAlgorithmRun, false, true);
-                }
+            textViewTonelliShanksAlgorithmCopyP.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextTonelliShanksAlgorithmP);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyP);
             });
-            buttonTonelliShanksAlgorithmRunExample1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample1(container, true);
-                }
+            textViewTonelliShanksAlgorithmCopyResult.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyResult);
             });
-            buttonTonelliShanksAlgorithmRunExample2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample2(container, true);
-                }
+            textViewTonelliShanksAlgorithmPasteA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextTonelliShanksAlgorithmA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmPasteA);
             });
-            buttonTonelliShanksAlgorithmRunExample3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample3(container, true);
-                }
+            textViewTonelliShanksAlgorithmPasteP.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextTonelliShanksAlgorithmP);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmPasteP);
             });
-            textViewTonelliShanksAlgorithmCopyA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextTonelliShanksAlgorithmA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyA);
-                }
+            textViewTonelliShanksAlgorithmClearA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextTonelliShanksAlgorithmA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmClearA);
+                // Reset the last button clicked.
+                resetAllAndSelectTheLastButtonClicked(null);
             });
-            textViewTonelliShanksAlgorithmCopyP.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextTonelliShanksAlgorithmP);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyP);
-                }
+            textViewTonelliShanksAlgorithmClearP.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextTonelliShanksAlgorithmP);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmClearP);
+                // Reset the last button clicked.
+                resetAllAndSelectTheLastButtonClicked(null);
             });
-            textViewTonelliShanksAlgorithmCopyResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmCopyResult);
-                }
-            });
-            textViewTonelliShanksAlgorithmPasteA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextTonelliShanksAlgorithmA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmPasteA);
-                }
-            });
-            textViewTonelliShanksAlgorithmPasteP.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextTonelliShanksAlgorithmP);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmPasteP);
-                }
-            });
-            textViewTonelliShanksAlgorithmClearA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextTonelliShanksAlgorithmA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmClearA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewTonelliShanksAlgorithmClearP.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextTonelliShanksAlgorithmP);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmClearP);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewTonelliShanksAlgorithmClearResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmClearResult);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
+            textViewTonelliShanksAlgorithmClearResult.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextTonelliShanksAlgorithmResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmClearResult);
+                // Reset the last button clicked.
+                resetAllAndSelectTheLastButtonClicked(null);
             });
             editTextTonelliShanksAlgorithmA.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -260,13 +213,10 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            textViewTonelliShanksAlgorithmExpandResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTonelliShanksAlgorithmTitle.getText().toString(), editTextTonelliShanksAlgorithmResult.getText());
-                    popupResult.show();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmExpandResult);
-                }
+            textViewTonelliShanksAlgorithmExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTonelliShanksAlgorithmTitle.getText().toString(), editTextTonelliShanksAlgorithmResult.getText());
+                popupResult.show();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewTonelliShanksAlgorithmExpandResult);
             });
             editTextTonelliShanksAlgorithmResult.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -398,12 +348,12 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             // Label
             ControlDisplay.setInputLabelFontSize(textViewTonelliShanksAlgorithmLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticA, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextTonelliShanksAlgorithmA, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewTonelliShanksAlgorithmLabelP, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewTonelliShanksAlgorithmLabelElasticP, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextTonelliShanksAlgorithmP, biggerControls);
             // Buttons
             ControlDisplay.setButtonFontSize(buttonTonelliShanksAlgorithmRun, biggerControls);
@@ -446,7 +396,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
 
 
     //region BUTTON ACTIONS
-    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
+    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
             if(UIHelper.checkInputMustBeNumber(requireContext(), editTextTonelliShanksAlgorithmA, textViewTonelliShanksAlgorithmLabelA, textViewTonelliShanksAlgorithmLabelElasticA, "a")) {
@@ -470,40 +420,40 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.TONELLI_SHANKS_ALGORITHM, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(p);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample1(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample1(ViewGroup container) {
         try {
             editTextTonelliShanksAlgorithmA.setText(requireContext().getText(R.string.tonelli_shanks_algorithm_example_1_a));
             editTextTonelliShanksAlgorithmP.setText(requireContext().getText(R.string.tonelli_shanks_algorithm_example_1_p));
             this.textViewTonelliShanksAlgorithmLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonTonelliShanksAlgorithmRunExample1, true, displayProgressDialog);
+            onButtonRun(container, buttonTonelliShanksAlgorithmRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample2(ViewGroup container) {
         try {
             editTextTonelliShanksAlgorithmA.setText(requireContext().getText(R.string.tonelli_shanks_algorithm_example_2_a));
             editTextTonelliShanksAlgorithmP.setText(requireContext().getText(R.string.tonelli_shanks_algorithm_example_2_p));
             this.textViewTonelliShanksAlgorithmLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonTonelliShanksAlgorithmRunExample2, true, displayProgressDialog);
+            onButtonRun(container, buttonTonelliShanksAlgorithmRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample3(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample3(ViewGroup container) {
         try {
             editTextTonelliShanksAlgorithmA.setText(requireContext().getText(R.string.tonelli_shanks_algorithm_example_3_a));
             editTextTonelliShanksAlgorithmP.setText(requireContext().getText(R.string.tonelli_shanks_algorithm_example_3_p));
             this.textViewTonelliShanksAlgorithmLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonTonelliShanksAlgorithmRunExample3, true, displayProgressDialog);
+            onButtonRun(container, buttonTonelliShanksAlgorithmRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

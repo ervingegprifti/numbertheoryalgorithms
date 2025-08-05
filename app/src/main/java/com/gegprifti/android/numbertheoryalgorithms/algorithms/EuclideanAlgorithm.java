@@ -33,7 +33,7 @@ public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
             output.append(String.format(Locale.getDefault(), "GCD(%s, %s)<br>", getNP(a), getNP(b)));
             output.append("<br>");
 
-            // Input
+            // InputGroup
             output.append(String.format("<font color='%s'>%s%sInput</font><br>", COLOR, BULLET, TAB));
             output.append(String.format("%sa = %s<br>", TAB, getNP(a)));
             output.append(String.format("%sb = %s<br>", TAB, getNP(b)));

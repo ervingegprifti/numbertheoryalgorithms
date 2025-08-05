@@ -66,6 +66,8 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     TextView textViewLinearDiophantineEquationInTwoVariablesCopyResult;
     TextView textViewLinearDiophantineEquationInTwoVariablesClearResult;
     EditText editTextLinearDiophantineEquationInTwoVariablesResult;
+    boolean isCompactInputView = false;
+
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -115,7 +117,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             textViewLinearDiophantineEquationInTwoVariablesClearResult = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesClearResult);
             editTextLinearDiophantineEquationInTwoVariablesResult = inflater.findViewById(R.id.EditTextLinearDiophantineEquationInTwoVariablesResult);
 
-            // Input filter integer only
+            // InputGroup filter integer only
             editTextLinearDiophantineEquationInTwoVariablesA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextLinearDiophantineEquationInTwoVariablesB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextLinearDiophantineEquationInTwoVariablesC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -280,37 +282,14 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            buttonLinearDiophantineEquationInTwoVariablesRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRun, false, true);
-                }
-            });
-            buttonLinearDiophantineEquationInTwoVariablesRunExample1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample1(container, true);
-                }
-            });
-            buttonLinearDiophantineEquationInTwoVariablesRunExample2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample2(container, true);
-                }
-            });
-            buttonLinearDiophantineEquationInTwoVariablesRunExample3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample3(container, true);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesExpandResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewLinearDiophantineEquationInTwoVariablesTitle.getText().toString(), editTextLinearDiophantineEquationInTwoVariablesResult.getText());
-                    popupResult.show();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesExpandResult);
-                }
+            buttonLinearDiophantineEquationInTwoVariablesRun.setOnClickListener(v -> onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRun, false));
+            buttonLinearDiophantineEquationInTwoVariablesRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            buttonLinearDiophantineEquationInTwoVariablesRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            buttonLinearDiophantineEquationInTwoVariablesRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            textViewLinearDiophantineEquationInTwoVariablesExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewLinearDiophantineEquationInTwoVariablesTitle.getText().toString(), editTextLinearDiophantineEquationInTwoVariablesResult.getText());
+                popupResult.show();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesExpandResult);
             });
             editTextLinearDiophantineEquationInTwoVariablesResult.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -442,17 +421,17 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearDiophantineEquationInTwoVariablesA, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelB, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticB, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearDiophantineEquationInTwoVariablesB, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelC, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticC, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearDiophantineEquationInTwoVariablesC, biggerControls);
             // Buttons
             ControlDisplay.setButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRun, biggerControls);
@@ -495,7 +474,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
 
 
     //region BUTTON ACTIONS
-    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
+    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
             if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA, textViewLinearDiophantineEquationInTwoVariablesLabelA, textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, "a")) {
@@ -524,43 +503,43 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
             algorithmParameters.setInput3(c);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample1(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample1(ViewGroup container) {
         try {
             editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_a));
             editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_b));
             editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_c));
             this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample1, true, displayProgressDialog);
+            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample2(ViewGroup container) {
         try {
             editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_a));
             editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_b));
             editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_c));
             this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample2, true, displayProgressDialog);
+            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample3(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample3(ViewGroup container) {
         try {
             editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_a));
             editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_b));
             editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_c));
             this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample3, true, displayProgressDialog);
+            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

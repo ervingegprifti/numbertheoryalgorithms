@@ -59,6 +59,7 @@ public final class UIHelper {
         return statusBarHeight != 0;
     }
 
+
     //region Full Screen
     public static  void setFullScreenImmersive(@NonNull Activity activity) {
         Window window = activity.getWindow();
@@ -172,6 +173,8 @@ public final class UIHelper {
     }
     //endregion Full Screen
 
+
+    //region Toasts
     public static void showCustomToastError(Context context, String message) {
         showCustomToastError(context, message, Toast.LENGTH_LONG);
     }
@@ -191,7 +194,6 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
-
     public static void showCustomToastLight(Context context, String message) {
         showCustomToastLight(context, message, Toast.LENGTH_LONG);
     }
@@ -211,7 +213,6 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
-
     public static void showCustomToastDark(Context context, String message) {
         showCustomToastDark(context, message, Toast.LENGTH_LONG);
     }
@@ -231,6 +232,8 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
+    //endregion Toasts
+
 
     public static void hideSoftKeyBoard(FragmentActivity fragmentActivity) {
         // This is to dismiss the keyboard
@@ -254,12 +257,13 @@ public final class UIHelper {
         }
     }
 
+
+    //region Copy Paste Clear
     public static void clearEditText(Context context, EditText editText) {
         // This is to clear the text of the editText
         try {
             editText.setText("");
             editText.requestFocus();
-            editText.setFocusable(true);
             notifyOnClipboardButtonClick(context, "cleared");
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -312,7 +316,6 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
-
     public static void pasteEditText(Context context, EditText editText) {
         // This is to paste the text into the editText from clipboard
         try {
@@ -349,7 +352,6 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
-
     public static void pasteToEditTextAsExpressionBDEF(Context context, EditText editText) {
         // This is to paste the text into the editText from clipboard
         try {
@@ -377,6 +379,9 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
+    //endregion Copy Paste Clear
+
+
     private static boolean isBigInteger(String str) {
         // Validate the number
         try {
@@ -400,6 +405,7 @@ public final class UIHelper {
             return null;
         }
     }
+
 
     public static void openWith(Context context, String url) {
         // Used to start an action view intent
@@ -504,29 +510,75 @@ public final class UIHelper {
         }
     }
 
-    public static void displayNormal(EditText editText, TextView label, TextView labelElastic) {
-        editText.setBackgroundResource(R.drawable.edittext_bg);
-        label.setBackgroundResource(R.drawable.label_bg);
+
+    @Deprecated
+    public static void displayNormal(TextView label, EditText editText, TextView labelElastic) {
+        label.setBackgroundResource(R.drawable.label_input_bg);
+        editText.setBackgroundResource(R.drawable.edittext_input_bg);
         labelElastic.setBackgroundResource(R.drawable.label_elastic_bg);
     }
-    public static void displayError(EditText editText, TextView label, TextView labelElastic) {
-        editText.setBackgroundResource(R.drawable.edittext_error_bg);
+    public static void displayNormal(InputGroup inputGroup) {
+        inputGroup.label.setBackgroundResource(R.drawable.label_input_bg);
+        inputGroup.labelElastic.setBackgroundResource(R.drawable.label_elastic_bg);
+        inputGroup.input.setBackgroundResource(R.drawable.edittext_input_bg);
+        if (inputGroup.labelCompact != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.labelCompact.setBackgroundResource(R.drawable.label_input_compact_bg);
+        }
+        if (inputGroup.inputCompact != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.inputCompact.setBackgroundResource(R.drawable.edittext_input_compact_bg);
+        }
+    }
+
+
+    @Deprecated
+    public static void displayError(TextView label, EditText editText, TextView labelElastic) {
+        editText.setBackgroundResource(R.drawable.edittext_input_error_bg);
         editText.requestFocus();
-        editText.setFocusable(true);
-        label.setBackgroundResource(R.drawable.label_error_bg);
+        label.setBackgroundResource(R.drawable.label_input_error_bg);
         labelElastic.setBackgroundResource(R.drawable.label_elastic_error_bg);
     }
+    public static void displayError(InputGroup inputGroup) {
+        inputGroup.label.setBackgroundResource(R.drawable.label_input_error_bg);
+        inputGroup.labelElastic.setBackgroundResource(R.drawable.label_elastic_error_bg);
+        inputGroup.input.setBackgroundResource(R.drawable.edittext_input_error_bg);
+        if (inputGroup.labelCompact != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.labelCompact.setBackgroundResource(R.drawable.label_input_error_compact_bg);
+        }
+        if (inputGroup.inputCompact != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.inputCompact.setBackgroundResource(R.drawable.edittext_input_error_compact_bg);
+        }
+        if (inputGroup.isCompactInputView && inputGroup.inputCompact != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.inputCompact.requestFocus();
+        } else {
+            inputGroup.input.requestFocus();
+        }
+    }
+
+
     public static void displayTheErrorMessage(Context  context, String errorMessage){
         if (!UIHelper.isNullOrEmpty(errorMessage)) {
             UIHelper.showCustomToastError(context, errorMessage);
         }
     }
+
+
     public static boolean isNullOrEmpty(String value) {
         return value == null || value.isEmpty();
     }
+
+    @Deprecated
     public static boolean checkInputMustBeFilled(Context context, EditText editText, TextView label, TextView labelElastic, String labelText) {
         String errorMessageFormat = "The input <b>%s</b> must be filled.";
         return checkInputMustBeFilled(context, editText, label, labelElastic, labelText, errorMessageFormat);
+    }
+    public static boolean checkInputMustBeFilled(Context context, InputGroup inputGroup) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        String errorMessageFormat = "The input <b>%s</b> must be filled.";
+        return checkInputMustBeFilled(context, inputGroup, errorMessageFormat);
     }
 
 
@@ -539,6 +591,7 @@ public final class UIHelper {
      * @param errorMessageFormat The error message format.
      * @return true if the check failed, false otherwise.
      */
+    @Deprecated
     public static boolean checkInputMustBeFilled(Context context, EditText editText, TextView label, TextView labelElastic, String labelText, String errorMessageFormat) {
         boolean checkFailed;
         String errorMessage = "";
@@ -546,10 +599,33 @@ public final class UIHelper {
         // Check.
         if(UIHelper.isNullOrEmpty(stringValue)) {
             errorMessage = String.format(Locale.getDefault(), errorMessageFormat,  labelText);
-            displayError(editText, label, labelElastic);
+            displayError(label, editText, labelElastic);
             checkFailed = true;
         } else {
-            displayNormal(editText, label, labelElastic);
+            displayNormal(label, editText, labelElastic);
+            checkFailed = false;
+        }
+        // Notify before return.
+        UIHelper.displayTheErrorMessage(context, errorMessage);
+        // Return
+        return checkFailed;
+    }
+    public static boolean checkInputMustBeFilled(Context context, InputGroup inputGroup, String errorMessageFormat) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        boolean checkFailed;
+        String errorMessage = "";
+        String stringValue = editText.getText().toString();
+        // Check.
+        if(UIHelper.isNullOrEmpty(stringValue)) {
+            errorMessage = String.format(Locale.getDefault(), errorMessageFormat,  labelText);
+            displayError(inputGroup);
+            checkFailed = true;
+        } else {
+            displayNormal(inputGroup);
             checkFailed = false;
         }
         // Notify before return.
@@ -568,6 +644,7 @@ public final class UIHelper {
      * @param labelText The label text for the input.
      * @return true if the check failed, false otherwise.
      */
+    @Deprecated
     public static boolean checkInputMustBeNumber(Context context, EditText editText, TextView label, TextView labelElastic, String labelText) {
         boolean checkFailed;
         String errorMessage = "";
@@ -585,11 +662,51 @@ public final class UIHelper {
             isValueANumber = true;
         } catch (Exception ignored) { }
         if(isValueANumber) {
-            displayNormal(editText, label, labelElastic);
+            displayNormal(label, editText, labelElastic);
             checkFailed = false;
         } else {
             errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be a number.", labelText);
-            displayError(editText, label, labelElastic);
+            displayError(label, editText, labelElastic);
+            checkFailed = true;
+        }
+        // Notify before return.
+        UIHelper.displayTheErrorMessage(context, errorMessage);
+        // Return.
+        return checkFailed;
+    }
+    /**
+     *
+     * @param context
+     * @param inputGroup
+     * @return
+     */
+    public static boolean checkInputMustBeNumber(Context context, InputGroup inputGroup) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        boolean checkFailed;
+        String errorMessage = "";
+        String stringValue = editText.getText().toString();
+        // Check.
+        if (UIHelper.checkInputMustBeFilled(context, inputGroup)) {
+            return true;
+        }
+        // Check.
+        boolean isValueANumber = false;
+        try {
+            BigInteger value = new BigInteger(stringValue);
+            // Just do some math
+            BigInteger result = value.add(BigInteger.ONE);
+            isValueANumber = true;
+        } catch (Exception ignored) { }
+        if(isValueANumber) {
+            displayNormal(inputGroup);
+            checkFailed = false;
+        } else {
+            errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be a number.", labelText);
+            displayError(inputGroup);
             checkFailed = true;
         }
         // Notify before return.
@@ -609,6 +726,7 @@ public final class UIHelper {
      * @param labelText The label text for the input.
      * @return true if the check failed, false otherwise.
      */
+    @Deprecated
     public static boolean checkInputMustBePrimeNumber(Context context, EditText editText, TextView label, TextView labelElastic, String labelText) {
         boolean checkFailed;
         String errorMessage = "";
@@ -620,11 +738,39 @@ public final class UIHelper {
         // Check.
         BigInteger value = new BigInteger(stringValue);
         if(value.isProbablePrime(10)) {
-            displayNormal(editText, label, labelElastic);
+            displayNormal(label, editText, labelElastic);
             checkFailed = false;
         } else {
             errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be a prime number.", labelText);
-            displayError(editText, label, labelElastic);
+            displayError(label, editText, labelElastic);
+            checkFailed = true;
+        }
+        // Notify before return.
+        UIHelper.displayTheErrorMessage(context, errorMessage);
+        // Return.
+        return checkFailed;
+    }
+    public static boolean checkInputMustBePrimeNumber(Context context, InputGroup inputGroup) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        boolean checkFailed;
+        String errorMessage = "";
+        String stringValue = editText.getText().toString();
+        // Check.
+        if (UIHelper.checkInputMustBeNumber(context, inputGroup)) {
+            return true;
+        }
+        // Check.
+        BigInteger value = new BigInteger(stringValue);
+        if(value.isProbablePrime(10)) {
+            displayNormal(inputGroup);
+            checkFailed = false;
+        } else {
+            errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be a prime number.", labelText);
+            displayError(inputGroup);
             checkFailed = true;
         }
         // Notify before return.
@@ -644,6 +790,7 @@ public final class UIHelper {
      * @param labelText The label text for the input.
      * @return true if the check failed, false otherwise.
      */
+    @Deprecated
     public static boolean checkInputMustBeOtherThanZero(Context context, EditText editText, TextView label, TextView labelElastic, String labelText) {
         boolean checkFailed;
         String errorMessage = "";
@@ -656,10 +803,38 @@ public final class UIHelper {
         BigInteger value = new BigInteger(stringValue);
         if(value.equals(BigInteger.ZERO)) {
             errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be other than <b>0</b>.", labelText);
-            displayError(editText, label, labelElastic);
+            displayError(label, editText, labelElastic);
             checkFailed = true;
         } else {
-            displayNormal(editText, label, labelElastic);
+            displayNormal(label, editText, labelElastic);
+            checkFailed = false;
+        }
+        // Notify before return.
+        UIHelper.displayTheErrorMessage(context, errorMessage);
+        // Return.
+        return checkFailed;
+    }
+    public static boolean checkInputMustBeOtherThanZero(Context context, InputGroup inputGroup) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        boolean checkFailed;
+        String errorMessage = "";
+        String stringValue = editText.getText().toString();
+        // Check.
+        if (UIHelper.checkInputMustBeNumber(context, inputGroup)) {
+            return true;
+        }
+        // Check.
+        BigInteger value = new BigInteger(stringValue);
+        if(value.equals(BigInteger.ZERO)) {
+            errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be other than <b>0</b>.", labelText);
+            displayError(inputGroup);
+            checkFailed = true;
+        } else {
+            displayNormal(inputGroup);
             checkFailed = false;
         }
         // Notify before return.
@@ -681,6 +856,7 @@ public final class UIHelper {
      * @param maxValue The max value.
      * @return true if the check failed, false otherwise.
      */
+    @Deprecated
     public static boolean checkInputMustBeBetweenMinMaxInclusive(Context context, EditText editText, TextView label, TextView labelElastic, String labelText, BigInteger minValue, BigInteger maxValue) {
         boolean checkFailed;
         String errorMessage = "";
@@ -693,10 +869,38 @@ public final class UIHelper {
         BigInteger value = new BigInteger(stringValue);
         if(value.compareTo(minValue) < 0 || value.compareTo(maxValue) > 0) {
             errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be between <b>%s</b> and <b>%s</b> inclusive.", labelText, minValue, maxValue);
-            displayError(editText, label, labelElastic);
+            displayError(label, editText, labelElastic);
             checkFailed = true;
         } else {
-            displayNormal(editText, label, labelElastic);
+            displayNormal(label, editText, labelElastic);
+            checkFailed = false;
+        }
+        // Notify before return.
+        UIHelper.displayTheErrorMessage(context, errorMessage);
+        // Return.
+        return checkFailed;
+    }
+    public static boolean checkInputMustBeBetweenMinMaxInclusive(Context context, InputGroup inputGroup, BigInteger minValue, BigInteger maxValue) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        boolean checkFailed;
+        String errorMessage = "";
+        String stringValue = editText.getText().toString();
+        // Check.
+        if (UIHelper.checkInputMustBeNumber(context, inputGroup)) {
+            return true;
+        }
+        // Check.
+        BigInteger value = new BigInteger(stringValue);
+        if(value.compareTo(minValue) < 0 || value.compareTo(maxValue) > 0) {
+            errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be between <b>%s</b> and <b>%s</b> inclusive.", labelText, minValue, maxValue);
+            displayError(inputGroup);
+            checkFailed = true;
+        } else {
+            displayNormal(inputGroup);
             checkFailed = false;
         }
         // Notify before return.
@@ -717,6 +921,7 @@ public final class UIHelper {
      * @param minValue The min value.
      * @return true if the check failed, false otherwise.
      */
+    @Deprecated
     public static boolean checkInputMustBeGreaterThanOrEqualToMin(Context context, EditText editText, TextView label, TextView labelElastic, String labelText, BigInteger minValue) {
         boolean checkFailed;
         String errorMessage = "";
@@ -729,10 +934,38 @@ public final class UIHelper {
         BigInteger value = new BigInteger(stringValue);
         if(value.compareTo(minValue) < 0) {
             errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be greater than or equal to <b>%s</b>.", labelText, minValue);
-            displayError(editText, label, labelElastic);
+            displayError(label, editText, labelElastic);
             checkFailed = true;
         } else {
-            displayNormal(editText, label, labelElastic);
+            displayNormal(label, editText, labelElastic);
+            checkFailed = false;
+        }
+        // Notify before return.
+        UIHelper.displayTheErrorMessage(context, errorMessage);
+        // Return.
+        return checkFailed;
+    }
+    public static boolean checkInputMustBeGreaterThanOrEqualToMin(Context context, InputGroup inputGroup, BigInteger minValue) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        boolean checkFailed;
+        String errorMessage = "";
+        String stringValue = editText.getText().toString();
+        // Check.
+        if (UIHelper.checkInputMustBeNumber(context, inputGroup)) {
+            return true;
+        }
+        // Check.
+        BigInteger value = new BigInteger(stringValue);
+        if(value.compareTo(minValue) < 0) {
+            errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be greater than or equal to <b>%s</b>.", labelText, minValue);
+            displayError(inputGroup);
+            checkFailed = true;
+        } else {
+            displayNormal(inputGroup);
             checkFailed = false;
         }
         // Notify before return.
@@ -753,6 +986,7 @@ public final class UIHelper {
      * @param minValue The min value.
      * @return true if the check failed, false otherwise.
      */
+    @Deprecated
     public static boolean checkInputMustBeGreaterThanMin(Context context, EditText editText, TextView label, TextView labelElastic, String labelText, BigInteger minValue) {
         boolean checkFailed;
         String errorMessage = "";
@@ -765,10 +999,38 @@ public final class UIHelper {
         BigInteger number = new BigInteger(stringValue);
         if(number.compareTo(minValue) <= 0) {
             errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be greater than <b>%s</b>.", labelText, minValue);
-            displayError(editText, label, labelElastic);
+            displayError(label, editText, labelElastic);
             checkFailed = true;
         } else {
-            displayNormal(editText, label, labelElastic);
+            displayNormal(label, editText, labelElastic);
+            checkFailed = false;
+        }
+        // Notify before return.
+        UIHelper.displayTheErrorMessage(context, errorMessage);
+        // Return.
+        return checkFailed;
+    }
+    public static boolean checkInputMustBeGreaterThanMin(Context context, InputGroup inputGroup, BigInteger minValue) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
+        boolean checkFailed;
+        String errorMessage = "";
+        String stringValue = editText.getText().toString();
+        // Check.
+        if (UIHelper.checkInputMustBeNumber(context, inputGroup)) {
+            return true;
+        }
+        // Check.
+        BigInteger number = new BigInteger(stringValue);
+        if(number.compareTo(minValue) <= 0) {
+            errorMessage = String.format(Locale.getDefault(), "The value of <b>%s</b> must be greater than <b>%s</b>.", labelText, minValue);
+            displayError(inputGroup);
+            checkFailed = true;
+        } else {
+            displayNormal(inputGroup);
             checkFailed = false;
         }
         // Notify before return.
@@ -777,11 +1039,17 @@ public final class UIHelper {
         return checkFailed;
     }
 
-    public static List<BigInteger> checkInputAndGetQuadraticFormExpression(Context context, EditText editText, TextView label, TextView labelElastic, String labelText) {
+
+    public static List<BigInteger> checkInputAndGetQuadraticFormExpression(Context context, InputGroup inputGroup) {
+        TextView label = inputGroup.label;
+        String labelText = inputGroup.labelText;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
         List<BigInteger> returnValue = new ArrayList<>();
         String errorMessage = "";
         // Check.
-        if (UIHelper.checkInputMustBeFilled(context, editText, label, labelElastic, labelText)) {
+        if (UIHelper.checkInputMustBeFilled(context, inputGroup)) {
             return null;
         }
         try {
@@ -789,9 +1057,9 @@ public final class UIHelper {
             expression = expression.replace(" ", "");
             String[] numbers = expression.split(",");
             if (numbers.length == 6) {
-                returnValue = checkInputAndGetExpressionABCDEF(context, editText, label, labelElastic, labelText);
+                returnValue = checkInputAndGetExpressionABCDEF(context, inputGroup);
             } else if (numbers.length == 4) {
-                returnValue = checkInputAndGetExpressionBDEF(context, editText, label, labelElastic, labelText);
+                returnValue = checkInputAndGetExpressionBDEF(context, inputGroup);
             } else {
                 errorMessage = "The value in expression must be of the form of <b>b, d, e, f</b> or <b>a, b, c, d, e, f</b>";
             }
@@ -801,7 +1069,7 @@ public final class UIHelper {
         if (errorMessage.isEmpty()) {
             return returnValue;
         } else {
-            displayError(editText, label, labelElastic);
+            displayError(inputGroup);
             // Notify before return.
             UIHelper.displayTheErrorMessage(context, errorMessage);
             return null;
@@ -813,12 +1081,15 @@ public final class UIHelper {
      * <p>Check the input must be in the form of a, b, c, d, e, f.
      * <p><b>checkInputMustBeFilled<br>
      * checkInputAndGetExpressionABCDEF</b>
-     * @param context The context.
-     * @param editText The input to check.
-     * @param labelText The label text for the input.
+     * @param context
+     * @param inputGroup
      * @return The list of a, b, c, d, e, f integers, null otherwise.
      */
-    public static List<BigInteger> checkInputAndGetExpressionABCDEF(Context context, EditText editText, TextView label, TextView labelElastic, String labelText) {
+    public static List<BigInteger> checkInputAndGetExpressionABCDEF(Context context, InputGroup inputGroup) {
+        TextView label = inputGroup.label;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
         List<BigInteger> returnValue = new ArrayList<>();
         String errorMessage = "";
         try {
@@ -865,7 +1136,7 @@ public final class UIHelper {
         if (errorMessage.isEmpty()) {
             return returnValue;
         } else {
-            displayError(editText, label, labelElastic);
+            displayError(inputGroup);
             // Notify before return.
             UIHelper.displayTheErrorMessage(context, errorMessage);
             return null;
@@ -878,11 +1149,14 @@ public final class UIHelper {
      * <p><b>checkInputMustBeFilled<br>
      * checkInputAndGetExpressionBDEF</b>
      * @param context The context.
-     * @param editText The input to check.
-     * @param labelText The label text for the input.
+     * @param inputGroup
      * @return The list of b, d, e, f integers, null otherwise.
      */
-    public static List<BigInteger> checkInputAndGetExpressionBDEF(Context context, EditText editText, TextView label, TextView labelElastic, String labelText) {
+    public static List<BigInteger> checkInputAndGetExpressionBDEF(Context context, InputGroup inputGroup) {
+        TextView label = inputGroup.label;
+        TextView labelElastic = inputGroup.labelElastic;
+        EditText editText = inputGroup.input;
+
         List<BigInteger> returnValue = new ArrayList<>();
         String errorMessage = "";
         // Check.
@@ -926,12 +1200,19 @@ public final class UIHelper {
         if (errorMessage.isEmpty()) {
             return returnValue;
         } else {
-            displayError(editText, label, labelElastic);
+            displayError(inputGroup);
             // Notify before return.
             UIHelper.displayTheErrorMessage(context, errorMessage);
             return null;
         }
     }
+
+
+
+
+
+
+
 
 
     public static InputFilter inputFilterIntegerOnly = new InputFilter() {

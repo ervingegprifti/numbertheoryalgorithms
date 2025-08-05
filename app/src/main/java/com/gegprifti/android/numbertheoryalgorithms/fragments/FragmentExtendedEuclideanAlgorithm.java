@@ -60,6 +60,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     TextView textViewExtendedEuclideanCopyResult;
     TextView textViewExtendedEuclideanClearResult;
     EditText editTextExtendedEuclideanResult;
+    boolean isCompactInputView = false;
 
 
     // Define the parent fragment
@@ -104,7 +105,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             textViewExtendedEuclideanClearResult = inflater.findViewById(R.id.TextViewExtendedEuclideanClearResult);
             editTextExtendedEuclideanResult = inflater.findViewById(R.id.EditTextExtendedEuclideanResult);
 
-            // Input filter integer only
+            // InputGroup filter integer only
             editTextExtendedEuclideanA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextExtendedEuclideanB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
@@ -225,37 +226,14 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            buttonExtendedEuclideanRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRun(container, buttonExtendedEuclideanRun, false, true);
-                }
-            });
-            buttonExtendedEuclideanRunExample1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample1(container, true);
-                }
-            });
-            buttonExtendedEuclideanRunExample2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample2(container, true);
-                }
-            });
-            buttonExtendedEuclideanRunExample3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample3(container, true);
-                }
-            });
-            textViewExtendedEuclideanExpandResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewExtendedEuclideanTitle.getText().toString(), editTextExtendedEuclideanResult.getText());
-                    popupResult.show();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanExpandResult);
-                }
+            buttonExtendedEuclideanRun.setOnClickListener(v -> onButtonRun(container, buttonExtendedEuclideanRun, false));
+            buttonExtendedEuclideanRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            buttonExtendedEuclideanRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            buttonExtendedEuclideanRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            textViewExtendedEuclideanExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewExtendedEuclideanTitle.getText().toString(), editTextExtendedEuclideanResult.getText());
+                popupResult.show();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanExpandResult);
             });
             editTextExtendedEuclideanResult.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -381,12 +359,12 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             // Label
             ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelElasticA, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextExtendedEuclideanA, biggerControls);
             // Label
             ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelB, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelElasticB, biggerControls);
-            // Input
+            // InputGroup
             ControlDisplay.setInputFontSize(editTextExtendedEuclideanB, biggerControls);
             // Buttons
             ControlDisplay.setButtonFontSize(buttonExtendedEuclideanRun, biggerControls);
@@ -429,7 +407,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
 
 
     //region BUTTON ACTIONS
-    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
+    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
             if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanA, textViewExtendedEuclideanLabelA, textViewExtendedEuclideanLabelElasticA, "a", BigInteger.ZERO)) {
@@ -453,41 +431,41 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.EXTENDED_EUCLIDEAN_ALGORITHM, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample1(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample1(ViewGroup container) {
         try {
             //
             editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_a));
             editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_b));
             this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonExtendedEuclideanRunExample1, true, displayProgressDialog);
+            onButtonRun(container, buttonExtendedEuclideanRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample2(ViewGroup container) {
         try {
             editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_a));
             editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_b));
             this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonExtendedEuclideanRunExample2, true, displayProgressDialog);
+            onButtonRun(container, buttonExtendedEuclideanRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample3(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample3(ViewGroup container) {
         try {
             editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_a));
             editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_b));
             this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonExtendedEuclideanRunExample3, true, displayProgressDialog);
+            onButtonRun(container, buttonExtendedEuclideanRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

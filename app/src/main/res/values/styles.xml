@@ -21,7 +21,7 @@
         <item name="android:layout_gravity">bottom</item>
     </style>
     <style name="TextViewLabelInputStyle" parent="TextViewLabelStyle">
-        <item name="android:background">@drawable/label_bg</item>
+        <item name="android:background">@drawable/label_input_bg</item>
     </style>
     <style name="TextViewLabelElasticStyle" parent="TextViewLabelStyle">
         <item name="android:background">@drawable/label_elastic_bg</item>
@@ -36,7 +36,7 @@
     <style name="ClipboardButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/clipboard_button_bg</item>
+        <item name="android:background">@drawable/button_clipboard_bg</item>
         <item name="android:textColor">@color/clipboardButtonText</item>
         <item name="android:fontFamily">@font/fa_solid_900</item>
         <item name="android:paddingHorizontal">15dp</item>
@@ -65,7 +65,7 @@
     </style>
 
 
-    <!--Compact input view styles-->
+    <!--Compact inputGroup view styles-->
     <style name="CompactStyle">
         <item name="android:layout_height">40dp</item> <!--TODO +++ Work with this-->
         <item name="android:gravity">center</item>
@@ -73,13 +73,13 @@
     </style>
     <style name="TextViewLabelCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">30dp</item>
-        <item name="android:background">@drawable/compact_label_bg</item>
+        <item name="android:background">@drawable/label_input_compact_bg</item>
         <item name="android:textColor">@color/colorLabel</item>
     </style>
     <style name="EditTextNumberInputCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@drawable/compact_edittext_bg</item>
+        <item name="android:background">@drawable/edittext_input_compact_bg</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:digits">-0123456789</item>
@@ -94,7 +94,7 @@
     </style>
     <style name="ClipboardButtonMiddleCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/compact_clipboard_button_middle_bg</item>
+        <item name="android:background">@drawable/button_clipboard_middle_compact_bg</item>
         <item name="android:textColor">@color/clipboardButtonText</item>
         <item name="android:layout_marginRight">0dp</item>
         <item name="android:paddingHorizontal">15dp</item>
@@ -102,7 +102,7 @@
     </style>
     <style name="ClipboardButtonRightCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/compact_clipboard_button_right_bg</item>
+        <item name="android:background">@drawable/button_clipboard_right_compact_bg</item>
         <item name="android:textColor">@color/clipboardButtonText</item>
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:fontFamily">@font/fa_solid_900</item>
@@ -152,7 +152,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:background">@drawable/edittext_input_bg</item>
         <item name="android:gravity">top|left</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:digits">-0123456789</item>
@@ -165,7 +165,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:background">@drawable/edittext_input_bg</item>
         <item name="android:gravity">top|left</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:digits">0123456789</item>
@@ -178,7 +178,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">35dp</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:background">@drawable/edittext_input_bg</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:digits">0123456789 -,</item>
@@ -194,7 +194,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">35dp</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:background">@drawable/edittext_input_bg</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:digits">0123456789</item>
@@ -208,7 +208,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">35dp</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:background">@drawable/edittext_input_bg</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:digits">-0123456789</item>
