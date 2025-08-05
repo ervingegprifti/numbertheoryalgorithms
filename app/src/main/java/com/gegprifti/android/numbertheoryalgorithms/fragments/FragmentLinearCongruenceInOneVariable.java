@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
@@ -474,16 +476,49 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
 
 
     //region BUTTON ACTIONS
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearCongruenceInOneVariableLabelA, "a", textViewLinearCongruenceInOneVariableLabelElasticA)
+                .setInput(editTextLinearCongruenceInOneVariableA)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupB() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearCongruenceInOneVariableLabelB, "b", textViewLinearCongruenceInOneVariableLabelElasticB)
+                .setInput(editTextLinearCongruenceInOneVariableB)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupM() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearCongruenceInOneVariableLabelM, "m", textViewLinearCongruenceInOneVariableLabelElasticM)
+                .setInput(editTextLinearCongruenceInOneVariableM)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInOneVariableA, textViewLinearCongruenceInOneVariableLabelA, textViewLinearCongruenceInOneVariableLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupM = getInputGroupM();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInOneVariableB, textViewLinearCongruenceInOneVariableLabelB, textViewLinearCongruenceInOneVariableLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeGreaterThanMin(requireActivity(), editTextLinearCongruenceInOneVariableM, textViewLinearCongruenceInOneVariableLabelM, textViewLinearCongruenceInOneVariableLabelElasticM, "m", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireActivity(), inputGroupM, BigInteger.ZERO)) {
                 return;
             }
 
@@ -508,6 +543,8 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void onButtonRunExample1(ViewGroup container) {
         try {
             editTextLinearCongruenceInOneVariableA.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_1_a));
@@ -520,6 +557,8 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void onButtonRunExample2(ViewGroup container) {
         try {
             editTextLinearCongruenceInOneVariableA.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_2_a));
@@ -532,6 +571,8 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void onButtonRunExample3(ViewGroup container) {
         try {
             editTextLinearCongruenceInOneVariableA.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_3_a));

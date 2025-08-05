@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.math.BigInteger;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
@@ -407,13 +409,35 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
 
 
     //region BUTTON ACTIONS
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewExtendedEuclideanLabelA, "a", textViewExtendedEuclideanLabelElasticA)
+                .setInput(editTextExtendedEuclideanA)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupB() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewExtendedEuclideanLabelB, "b", textViewExtendedEuclideanLabelElasticB)
+                .setInput(editTextExtendedEuclideanB)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanA, textViewExtendedEuclideanLabelA, textViewExtendedEuclideanLabelElasticA, "a", BigInteger.ZERO)) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), inputGroupA, BigInteger.ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanB, textViewExtendedEuclideanLabelB, textViewExtendedEuclideanLabelElasticB, "b", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), inputGroupB, BigInteger.ZERO)) {
                 return;
             }
 
@@ -436,6 +460,8 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void onButtonRunExample1(ViewGroup container) {
         try {
             //

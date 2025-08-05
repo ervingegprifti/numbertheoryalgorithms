@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
@@ -540,19 +542,63 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
 
 
     //region BUTTON ACTIONS
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearCongruenceInTwoVariablesLabelA, "a", textViewLinearCongruenceInTwoVariablesLabelElasticA)
+                .setInput(editTextLinearCongruenceInTwoVariablesA)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupB() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearCongruenceInTwoVariablesLabelB, "b", textViewLinearCongruenceInTwoVariablesLabelElasticB)
+                .setInput(editTextLinearCongruenceInTwoVariablesB)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupC() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearCongruenceInTwoVariablesLabelC, "c", textViewLinearCongruenceInTwoVariablesLabelElasticC)
+                .setInput(editTextLinearCongruenceInTwoVariablesC)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupM() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearCongruenceInTwoVariablesLabelM, "m", textViewLinearCongruenceInTwoVariablesLabelElasticM)
+                .setInput(editTextLinearCongruenceInTwoVariablesM)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesA, textViewLinearCongruenceInTwoVariablesLabelA, textViewLinearCongruenceInTwoVariablesLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupC = getInputGroupC();
+            InputGroup inputGroupM = getInputGroupM();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesB, textViewLinearCongruenceInTwoVariablesLabelB, textViewLinearCongruenceInTwoVariablesLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearCongruenceInTwoVariablesC, textViewLinearCongruenceInTwoVariablesLabelC, textViewLinearCongruenceInTwoVariablesLabelElasticC, "c")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeGreaterThanMin(requireActivity(), editTextLinearCongruenceInTwoVariablesM, textViewLinearCongruenceInTwoVariablesLabelM, textViewLinearCongruenceInTwoVariablesLabelElasticM, "m", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireActivity(), inputGroupM, BigInteger.ZERO)) {
                 return;
             }
 
@@ -579,6 +625,8 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void onButtonRunExample1(ViewGroup container) {
         try {
             editTextLinearCongruenceInTwoVariablesA.setText(requireContext().getText(R.string.linear_congruence_in_two_variables_example_1_a));

@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
@@ -474,16 +476,49 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
 
 
     //region BUTTON ACTIONS
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearDiophantineEquationInTwoVariablesLabelA, "a", textViewLinearDiophantineEquationInTwoVariablesLabelElasticA)
+                .setInput(editTextLinearDiophantineEquationInTwoVariablesA)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupB() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearDiophantineEquationInTwoVariablesLabelB, "b", textViewLinearDiophantineEquationInTwoVariablesLabelElasticB)
+                .setInput(editTextLinearDiophantineEquationInTwoVariablesB)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupC() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLinearDiophantineEquationInTwoVariablesLabelC, "c", textViewLinearDiophantineEquationInTwoVariablesLabelElasticC)
+                .setInput(editTextLinearDiophantineEquationInTwoVariablesC)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA, textViewLinearDiophantineEquationInTwoVariablesLabelA, textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupC = getInputGroupC();
+            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB, textViewLinearDiophantineEquationInTwoVariablesLabelB, textViewLinearDiophantineEquationInTwoVariablesLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), inputGroupB)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC, textViewLinearDiophantineEquationInTwoVariablesLabelC, textViewLinearDiophantineEquationInTwoVariablesLabelElasticC, "c")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
                 return;
             }
 

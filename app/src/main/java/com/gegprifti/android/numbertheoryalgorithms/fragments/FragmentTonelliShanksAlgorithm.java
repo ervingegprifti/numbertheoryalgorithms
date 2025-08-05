@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
@@ -396,13 +398,33 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
 
 
     //region BUTTON ACTIONS
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewTonelliShanksAlgorithmLabelA, "a", textViewTonelliShanksAlgorithmLabelElasticA)
+                .setInput(editTextTonelliShanksAlgorithmA)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+
+
+    private InputGroup getInputGroupP() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewTonelliShanksAlgorithmLabelP, "p", textViewTonelliShanksAlgorithmLabelElasticP)
+                .setInput(editTextTonelliShanksAlgorithmP)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextTonelliShanksAlgorithmA, textViewTonelliShanksAlgorithmLabelA, textViewTonelliShanksAlgorithmLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupP = getInputGroupP();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextTonelliShanksAlgorithmP, textViewTonelliShanksAlgorithmLabelP, textViewTonelliShanksAlgorithmLabelElasticP, "p", BigInteger.valueOf(2L))) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupP, BigInteger.valueOf(2L))) {
                 return;
             }
 

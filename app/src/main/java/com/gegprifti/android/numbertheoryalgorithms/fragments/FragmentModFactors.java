@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
@@ -523,13 +525,31 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
+    private InputGroup getInputGroupN() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewModFactorsLabelN, "n", textViewModFactorsLabelElasticN)
+                .setInput(editTextModFactorsN)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewModFactorsLabelA, "a", textViewModFactorsLabelElasticA)
+                .setInput(editTextModFactorsA)
+                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .build();
+    }
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN, textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
+            InputGroup inputGroupN = getInputGroupN();
+            InputGroup inputGroupA = getInputGroupA();
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupN, BigInteger.ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextModFactorsA, textViewModFactorsLabelA, textViewModFactorsLabelElasticA, "a", TWO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupA, TWO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
@@ -555,10 +575,12 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void onButtonCountRun(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextModFactorsN,  textViewModFactorsLabelN, textViewModFactorsLabelElasticN, "n", BigInteger.ZERO)) {
+            InputGroup inputGroupN = getInputGroupN();
+            InputGroup inputGroupA = getInputGroupA();
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupN, BigInteger.ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextModFactorsA,  textViewModFactorsLabelA, textViewModFactorsLabelElasticA, "a", TWO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupA, TWO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
