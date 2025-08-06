@@ -22,7 +22,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
@@ -44,47 +43,47 @@ import java.util.List;
 public class FragmentBinaryQuadraticForm extends FragmentBase implements Callback {
     private final static String TAG = FragmentBinaryQuadraticForm.class.getSimpleName();
 
-    TextView textViewQuadraticFormBackToAlgorithms;
-    TextView textViewQuadraticFormTitle;
-    TextView textViewQuadraticFormDocumentationFile;
-    TextView textViewQuadraticFormLabelExpression;
-    TextView textViewQuadraticFormLabelElasticExpression;
-    TextView textViewQuadraticFormCopyExpression;
-    TextView textViewQuadraticFormPasteExpression;
-    TextView textViewQuadraticFormClearExpression;
-    EditText editTextQuadraticFormExpression;
-    LinearLayout linearLayoutQuadraticFormExamplesContainer;
-    Button buttonQuadraticFormRunExample1;
-    Button buttonQuadraticFormRunExample2;
-    Button buttonQuadraticFormRunExample3;
-    Button buttonQuadraticFormRunExample4;
-    Button buttonQuadraticFormRunExample5;
-    Button buttonQuadraticFormRun;
-    Button buttonQuadraticFormRun1;
-    Button buttonQuadraticFormRun2;
-    LinearLayout linearLayoutQuadraticFormFModMContainer;
-    Button buttonQuadraticFormMMinus;
-    Button buttonQuadraticFormM;
-    Button buttonQuadraticFormMPlus;
-    Button buttonQuadraticFormRMinus;
-    Button buttonQuadraticFormR;
-    Button buttonQuadraticFormRPlus;
-    TextView textViewQuadraticFormLabelResult;
-    TextView textViewQuadraticFormLabelElasticResult;
-    TextView textViewQuadraticFormExpandResult;
-    TextView textViewQuadraticFormCopyResult;
-    TextView textViewQuadraticFormClearResult;
-    LinearLayout linearLayoutQuadraticFormResultContainer;
-    EditText editTextQuadraticFormResult;
-    LinearLayout linearLayoutQuadraticFormResultGridContainer1;
-    LinearLayout linearLayoutQuadraticFormStaticColumnHeader1;
-    ListView listViewQuadraticFormResult1;
-    LinearLayout linearLayoutQuadraticFormResultGridContainer2;
-    LinearLayout linearLayoutQuadraticFormStaticColumnHeader2;
-    ListView listViewQuadraticFormResult2;
-    MenuItem menuItemQuadraticFormIncludeTrivialSolutions;
-    MenuItem menuItemQuadraticFormIncludeOnlyPositiveSolutions;
-    MenuItem menuItemQuadraticFormIncludeOnlyNegativeSolutions;
+    TextView textViewBackToAlgorithms;
+    TextView textViewTitle;
+    TextView textViewDocumentationFile;
+    TextView textViewLabelExpression;
+    TextView textViewLabelElasticExpression;
+    TextView textViewCopyExpression;
+    TextView textViewPasteExpression;
+    TextView textViewClearExpression;
+    EditText editTextExpression;
+    LinearLayout linearLayoutExamplesContainer;
+    Button buttonRunExample1;
+    Button buttonRunExample2;
+    Button buttonRunExample3;
+    Button buttonRunExample4;
+    Button buttonRunExample5;
+    Button buttonRun;
+    Button buttonRun1;
+    Button buttonRun2;
+    LinearLayout linearLayoutFModMContainer;
+    Button buttonMMinus;
+    Button buttonM;
+    Button buttonMPlus;
+    Button buttonRMinus;
+    Button buttonR;
+    Button buttonRPlus;
+    TextView textViewLabelResult;
+    TextView textViewLabelElasticResult;
+    TextView textViewExpandResult;
+    TextView textViewCopyResult;
+    TextView textViewClearResult;
+    LinearLayout linearLayoutResultContainer;
+    EditText editTextResult;
+    LinearLayout linearLayoutResultGridContainer1;
+    LinearLayout linearLayoutStaticColumnHeader1;
+    ListView listViewResult1;
+    LinearLayout linearLayoutResultGridContainer2;
+    LinearLayout linearLayoutStaticColumnHeader2;
+    ListView listViewResult2;
+    MenuItem menuItemIncludeTrivialSolutions;
+    MenuItem menuItemIncludeOnlyPositiveSolutions;
+    MenuItem menuItemIncludeOnlyNegativeSolutions;
     boolean isCompactInputView = false;
 
 
@@ -104,182 +103,182 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_binary_quadratic_form, container, false);
-            this.textViewQuadraticFormBackToAlgorithms = inflater.findViewById(R.id.TextViewQuadraticFormBackToAlgorithms);
-            this.textViewQuadraticFormTitle = inflater.findViewById(R.id.TextViewQuadraticFormTitle);
-            this.textViewQuadraticFormDocumentationFile = inflater.findViewById(R.id.TextViewQuadraticFormDocumentationFile);
-            this.textViewQuadraticFormLabelExpression = inflater.findViewById(R.id.TextViewQuadraticFormLabelExpression);
-            this.textViewQuadraticFormLabelElasticExpression = inflater.findViewById(R.id.TextViewQuadraticFormLabelElasticExpression);
-            this.textViewQuadraticFormCopyExpression = inflater.findViewById(R.id.TextViewQuadraticFormCopyExpression);
-            this.textViewQuadraticFormPasteExpression = inflater.findViewById(R.id.TextViewQuadraticFormPasteExpression);
-            this.textViewQuadraticFormClearExpression = inflater.findViewById(R.id.TextViewQuadraticFormClearExpression);
-            this.editTextQuadraticFormExpression = inflater.findViewById(R.id.EditTextQuadraticFormExpression);
-            this.buttonQuadraticFormM = inflater.findViewById(R.id.ButtonQuadraticFormM);
-            this.buttonQuadraticFormR = inflater.findViewById(R.id.ButtonQuadraticFormR);
-            this.linearLayoutQuadraticFormExamplesContainer = inflater.findViewById(R.id.LinearLayoutQuadraticFormExamplesContainer);
-            this.buttonQuadraticFormRunExample1 = inflater.findViewById(R.id.ButtonQuadraticFormRunExample1);
-            this.buttonQuadraticFormRunExample2 = inflater.findViewById(R.id.ButtonQuadraticFormRunExample2);
-            this.buttonQuadraticFormRunExample3 = inflater.findViewById(R.id.ButtonQuadraticFormRunExample3);
-            this.buttonQuadraticFormRunExample4 = inflater.findViewById(R.id.ButtonQuadraticFormRunExample4);
-            this.buttonQuadraticFormRunExample5 = inflater.findViewById(R.id.ButtonQuadraticFormRunExample5);
-            this.buttonQuadraticFormRun = inflater.findViewById(R.id.ButtonQuadraticFormRun);
-            this.buttonQuadraticFormRun1 = inflater.findViewById(R.id.ButtonQuadraticFormRun1);
-            this.buttonQuadraticFormRun2 = inflater.findViewById(R.id.ButtonQuadraticFormRun2);
-            this.textViewQuadraticFormLabelResult = inflater.findViewById(R.id.TextViewQuadraticFormLabelResult);
-            this.textViewQuadraticFormLabelElasticResult = inflater.findViewById(R.id.TextViewQuadraticFormLabelElasticResult);
-            this.textViewQuadraticFormExpandResult = inflater.findViewById(R.id.TextViewQuadraticFormExpandResult);
-            this.textViewQuadraticFormCopyResult = inflater.findViewById(R.id.TextViewQuadraticFormCopyResult);
-            this.buttonQuadraticFormMMinus = inflater.findViewById(R.id.ButtonQuadraticFormMMinus);
-            this.buttonQuadraticFormMPlus = inflater.findViewById(R.id.ButtonQuadraticFormMPlus);
-            this.buttonQuadraticFormRMinus = inflater.findViewById(R.id.ButtonQuadraticFormRMinus);
-            this.buttonQuadraticFormRPlus = inflater.findViewById(R.id.ButtonQuadraticFormRPlus);
-            this.textViewQuadraticFormClearResult = inflater.findViewById(R.id.TextViewQuadraticFormClearResult);
-            this.linearLayoutQuadraticFormResultContainer = inflater.findViewById(R.id.LinearLayoutQuadraticFormResultContainer);
-            this.editTextQuadraticFormResult = inflater.findViewById(R.id.EditTextQuadraticFormResult);
-            this.linearLayoutQuadraticFormResultGridContainer1 = inflater.findViewById(R.id.LinearLayoutQuadraticFormResultGridContainer1);
-            this.linearLayoutQuadraticFormFModMContainer = inflater.findViewById(R.id.LinearLayoutQuadraticFormFModMContainer);
-            this.linearLayoutQuadraticFormStaticColumnHeader1 = inflater.findViewById(R.id.LinearLayoutQuadraticFormStaticColumnHeader1);
-            this.listViewQuadraticFormResult1 = inflater.findViewById(R.id.ListViewQuadraticFormResult1);
-            this.linearLayoutQuadraticFormResultGridContainer2 = inflater.findViewById(R.id.LinearLayoutQuadraticFormResultGridContainer2);
-            this.linearLayoutQuadraticFormStaticColumnHeader2 = inflater.findViewById(R.id.LinearLayoutQuadraticFormStaticColumnHeader2);
-            this.listViewQuadraticFormResult2 = inflater.findViewById(R.id.ListViewQuadraticFormResult2);
+            this.textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
+            this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
+            this.textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
+            this.textViewLabelExpression = inflater.findViewById(R.id.TextViewLabelExpression);
+            this.textViewLabelElasticExpression = inflater.findViewById(R.id.TextViewLabelElasticExpression);
+            this.textViewCopyExpression = inflater.findViewById(R.id.TextViewCopyExpression);
+            this.textViewPasteExpression = inflater.findViewById(R.id.TextViewPasteExpression);
+            this.textViewClearExpression = inflater.findViewById(R.id.TextViewClearExpression);
+            this.editTextExpression = inflater.findViewById(R.id.EditTextExpression);
+            this.buttonM = inflater.findViewById(R.id.ButtonM);
+            this.buttonR = inflater.findViewById(R.id.ButtonR);
+            this.linearLayoutExamplesContainer = inflater.findViewById(R.id.LinearLayoutExamplesContainer);
+            this.buttonRunExample1 = inflater.findViewById(R.id.ButtonRunExample1);
+            this.buttonRunExample2 = inflater.findViewById(R.id.ButtonRunExample2);
+            this.buttonRunExample3 = inflater.findViewById(R.id.ButtonRunExample3);
+            this.buttonRunExample4 = inflater.findViewById(R.id.ButtonRunExample4);
+            this.buttonRunExample5 = inflater.findViewById(R.id.ButtonRunExample5);
+            this.buttonRun = inflater.findViewById(R.id.ButtonRun);
+            this.buttonRun1 = inflater.findViewById(R.id.ButtonRun1);
+            this.buttonRun2 = inflater.findViewById(R.id.ButtonRun2);
+            this.textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
+            this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
+            this.textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
+            this.textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
+            this.buttonMMinus = inflater.findViewById(R.id.ButtonMMinus);
+            this.buttonMPlus = inflater.findViewById(R.id.ButtonMPlus);
+            this.buttonRMinus = inflater.findViewById(R.id.ButtonRMinus);
+            this.buttonRPlus = inflater.findViewById(R.id.ButtonRPlus);
+            this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
+            this.linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
+            this.editTextResult = inflater.findViewById(R.id.EditTextResult);
+            this.linearLayoutResultGridContainer1 = inflater.findViewById(R.id.LinearLayoutResultGridContainer1);
+            this.linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
+            this.linearLayoutStaticColumnHeader1 = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader1);
+            this.listViewResult1 = inflater.findViewById(R.id.ListViewResult1);
+            this.linearLayoutResultGridContainer2 = inflater.findViewById(R.id.LinearLayoutResultGridContainer2);
+            this.linearLayoutStaticColumnHeader2 = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader2);
+            this.listViewResult2 = inflater.findViewById(R.id.ListViewResult2);
 
             // Events
-            this.textViewQuadraticFormBackToAlgorithms.setOnClickListener(view -> {
+            this.textViewBackToAlgorithms.setOnClickListener(view -> {
                 if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
                     FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            this.textViewQuadraticFormDocumentationFile.setOnClickListener(new View.OnClickListener() {
+            this.textViewDocumentationFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.QUADRATIC_FORM_PDF).show(getParentFragmentManager(), "QUADRATIC_FORM_PDF");
                 }
             });
-            this.textViewQuadraticFormCopyExpression.setOnClickListener(new View.OnClickListener() {
+            this.textViewCopyExpression.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextQuadraticFormExpression);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewQuadraticFormCopyExpression);
+                    UIHelper.copyEditText(requireContext(), editTextExpression);
+                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyExpression);
                 }
             });
-            this.textViewQuadraticFormPasteExpression.setOnClickListener(new View.OnClickListener() {
+            this.textViewPasteExpression.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UIHelper.pasteToEditTextAsExpressionBDEF(requireContext(), editTextQuadraticFormExpression);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewQuadraticFormPasteExpression);
+                    UIHelper.pasteToEditTextAsExpressionBDEF(requireContext(), editTextExpression);
+                    resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteExpression);
                 }
             });
-            this.textViewQuadraticFormClearExpression.setOnClickListener(new View.OnClickListener() {
+            this.textViewClearExpression.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextQuadraticFormExpression);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewQuadraticFormClearExpression);
+                    UIHelper.clearEditText(requireContext(), editTextExpression);
+                    resetAllAndSelectTheLastClipboardButtonClicked(textViewClearExpression);
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            this.textViewQuadraticFormExpandResult.setOnClickListener(new View.OnClickListener() {
+            this.textViewExpandResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (linearLayoutQuadraticFormResultContainer.getVisibility() == View.VISIBLE) {
-                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewQuadraticFormTitle.getText().toString(), editTextQuadraticFormResult.getText());
+                    if (linearLayoutResultContainer.getVisibility() == View.VISIBLE) {
+                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
                         popupResult.show();
-                    } else if (linearLayoutQuadraticFormResultGridContainer1.getVisibility() == View.VISIBLE) {
-                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewQuadraticFormTitle.getText().toString(), linearLayoutQuadraticFormStaticColumnHeader1, listViewQuadraticFormResult1);
+                    } else if (linearLayoutResultGridContainer1.getVisibility() == View.VISIBLE) {
+                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader1, listViewResult1);
                         popupResult.show();
-                    } else if (linearLayoutQuadraticFormResultGridContainer2.getVisibility() == View.VISIBLE) {
-                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewQuadraticFormTitle.getText().toString(), linearLayoutQuadraticFormStaticColumnHeader2, listViewQuadraticFormResult2);
+                    } else if (linearLayoutResultGridContainer2.getVisibility() == View.VISIBLE) {
+                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader2, listViewResult2);
                         popupResult.show();
                     }
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewQuadraticFormExpandResult);
+                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
                 }
             });
-            this.textViewQuadraticFormCopyResult.setOnClickListener(new View.OnClickListener() {
+            this.textViewCopyResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextQuadraticFormResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewQuadraticFormCopyResult);
+                    UIHelper.copyEditText(requireContext(), editTextResult);
+                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
                 }
             });
-            this.buttonQuadraticFormMMinus.setOnClickListener(new View.OnClickListener() {
+            this.buttonMMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String mText = buttonQuadraticFormM.getText().toString();
+                    String mText = buttonM.getText().toString();
                     if (!mText.isEmpty()) {
                         int m = Integer.parseInt(mText);
                         if (m <= 1) { // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
-                            buttonQuadraticFormM.setText("");
+                            buttonM.setText("");
                         } else {
                             m = m - 1;
-                            buttonQuadraticFormM.setText(String.valueOf(m));
+                            buttonM.setText(String.valueOf(m));
                         }
                     }
                     calculateFModM();
                 }
             });
-            this.buttonQuadraticFormMPlus.setOnClickListener(new View.OnClickListener() {
+            this.buttonMPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String mText = buttonQuadraticFormM.getText().toString();
+                    String mText = buttonM.getText().toString();
                     if (mText.isEmpty()) {
-                        buttonQuadraticFormM.setText("1"); // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
+                        buttonM.setText("1"); // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
                     } else {
                         int m = Integer.parseInt(mText);
                         m = m + 1;
-                        buttonQuadraticFormM.setText(String.valueOf(m));
+                        buttonM.setText(String.valueOf(m));
                     }
                     calculateFModM();
                 }
             });
-            this.buttonQuadraticFormRMinus.setOnClickListener(new View.OnClickListener() {
+            this.buttonRMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String rText = buttonQuadraticFormR.getText().toString();
+                    String rText = buttonR.getText().toString();
                     if (!rText.isEmpty()) {
                         int r = Integer.parseInt(rText);
                         if (r <= 0) {
-                            buttonQuadraticFormR.setText("");
+                            buttonR.setText("");
                         } else {
                             r -= 1;
-                            buttonQuadraticFormR.setText(String.valueOf(r));
+                            buttonR.setText(String.valueOf(r));
                         }
                     }
                     calculateFModM();
                 }
             });
-            this.buttonQuadraticFormRPlus.setOnClickListener(new View.OnClickListener() {
+            this.buttonRPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String rText = buttonQuadraticFormR.getText().toString();
+                    String rText = buttonR.getText().toString();
                     if (rText.isEmpty()) {
-                        buttonQuadraticFormR.setText("0");
+                        buttonR.setText("0");
                     } else {
-                        String mText = buttonQuadraticFormM.getText().toString();
+                        String mText = buttonM.getText().toString();
                         if (mText.isEmpty()) {
-                            buttonQuadraticFormR.setText("");
+                            buttonR.setText("");
                         } else {
                             int m = Integer.parseInt(mText);
                             int r = Integer.parseInt(rText);
                             r += 1;
                             if (r < m) {
-                                buttonQuadraticFormR.setText(String.valueOf(r));
+                                buttonR.setText(String.valueOf(r));
                             }
                         }
                     }
                     calculateFModM();
                 }
             });
-            this.textViewQuadraticFormClearResult.setOnClickListener(new View.OnClickListener() {
+            this.textViewClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextQuadraticFormResult);
+                    UIHelper.clearEditText(requireContext(), editTextResult);
                     resetResult(false);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewQuadraticFormClearResult);
+                    resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            this.editTextQuadraticFormExpression.addTextChangedListener(new TextWatcher() {
+            this.editTextExpression.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -294,7 +293,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            this.buttonQuadraticFormM.addTextChangedListener(new TextWatcher() {
+            this.buttonM.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -309,7 +308,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     // ResetAllAndSelectResultButtonClicked(null);
                 }
             });
-            this.buttonQuadraticFormR.addTextChangedListener(new TextWatcher() {
+            this.buttonR.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -324,14 +323,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     // ResetAllAndSelectResultButtonClicked(null);
                 }
             });
-            this.buttonQuadraticFormRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
-            this.buttonQuadraticFormRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
-            this.buttonQuadraticFormRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
-            this.buttonQuadraticFormRunExample4.setOnClickListener(v -> onButtonRunExample4(container));
-            this.buttonQuadraticFormRunExample5.setOnClickListener(v -> onButtonRunExample5(container));
-            this.buttonQuadraticFormRun.setOnClickListener(v -> onButtonRun(container, buttonQuadraticFormRun, false));
-            this.buttonQuadraticFormRun1.setOnClickListener(v -> onButtonRun1(container));
-            this.buttonQuadraticFormRun2.setOnClickListener(v -> onButtonRun2(container));
+            this.buttonRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            this.buttonRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            this.buttonRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            this.buttonRunExample4.setOnClickListener(v -> onButtonRunExample4(container));
+            this.buttonRunExample5.setOnClickListener(v -> onButtonRunExample5(container));
+            this.buttonRun.setOnClickListener(v -> onButtonRun(container, buttonRun, false));
+            this.buttonRun1.setOnClickListener(v -> onButtonRun1(container));
+            this.buttonRun2.setOnClickListener(v -> onButtonRun2(container));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -349,16 +348,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
-        this.menuItemQuadraticFormIncludeTrivialSolutions = menu.findItem(R.id.quadratic_form_menu_include_trivial_solutions);
-        this.menuItemQuadraticFormIncludeOnlyPositiveSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_positive_solutions);
-        this.menuItemQuadraticFormIncludeOnlyNegativeSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_negative_solutions);
+        this.menuItemIncludeTrivialSolutions = menu.findItem(R.id.quadratic_form_menu_include_trivial_solutions);
+        this.menuItemIncludeOnlyPositiveSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_positive_solutions);
+        this.menuItemIncludeOnlyNegativeSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_negative_solutions);
         // Get the value from shared preferences.
         boolean includeTrivialSolutions = UserSettings.getBQFIncludeTrivialSolutions(requireContext());
-        menuItemQuadraticFormIncludeTrivialSolutions.setChecked(includeTrivialSolutions);
+        menuItemIncludeTrivialSolutions.setChecked(includeTrivialSolutions);
         boolean includeOnlyPositiveSolutions = UserSettings.getBQFIncludeOnlyPositiveSolutions(requireContext());
-        menuItemQuadraticFormIncludeOnlyPositiveSolutions.setChecked(includeOnlyPositiveSolutions);
+        menuItemIncludeOnlyPositiveSolutions.setChecked(includeOnlyPositiveSolutions);
         boolean includeOnlyNegativeSolutions = UserSettings.getBQFIncludeOnlyNegativeSolutions(requireContext());
-        menuItemQuadraticFormIncludeOnlyNegativeSolutions.setChecked(includeOnlyNegativeSolutions);
+        menuItemIncludeOnlyNegativeSolutions.setChecked(includeOnlyNegativeSolutions);
     }
 
     @Override
@@ -370,66 +369,66 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Handle menu item clicks here based on their ID.
             int id = menuItem.getItemId();
             if (id == R.id.quadratic_form_menu_include_trivial_solutions) {
-                boolean isChecked = !menuItemQuadraticFormIncludeTrivialSolutions.isChecked();
+                boolean isChecked = !menuItemIncludeTrivialSolutions.isChecked();
                 // Store the value to shared preferences.
                 UserSettings.setBQFIncludeTrivialSolutions(requireContext(), isChecked);
-                menuItemQuadraticFormIncludeTrivialSolutions.setChecked(isChecked);
+                menuItemIncludeTrivialSolutions.setChecked(isChecked);
                 resetResult(false);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_include_only_positive_solutions) {
-                boolean isChecked = !menuItemQuadraticFormIncludeOnlyPositiveSolutions.isChecked();
+                boolean isChecked = !menuItemIncludeOnlyPositiveSolutions.isChecked();
                 // Store the value to shared preferences.
                 UserSettings.setBQFIncludeOnlyPositiveSolutions(requireContext(), isChecked);
-                menuItemQuadraticFormIncludeOnlyPositiveSolutions.setChecked(isChecked);
+                menuItemIncludeOnlyPositiveSolutions.setChecked(isChecked);
                 resetResult(false);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_include_only_negative_solutions) {
-                boolean isChecked = !menuItemQuadraticFormIncludeOnlyNegativeSolutions.isChecked();
+                boolean isChecked = !menuItemIncludeOnlyNegativeSolutions.isChecked();
                 // Store the value to shared preferences.
                 UserSettings.setBQFIncludeOnlyNegativeSolutions(requireContext(), isChecked);
-                menuItemQuadraticFormIncludeOnlyNegativeSolutions.setChecked(isChecked);
+                menuItemIncludeOnlyNegativeSolutions.setChecked(isChecked);
                 resetResult(false);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_1) {
-                this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_1_expression));
-                this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_1_m));
-                this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_1_r));
-                this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_1));
+                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_1_expression));
+                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_1_m));
+                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_1_r));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_2) {
-                this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_2_expression));
-                this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_2_m));
-                this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_2_r));
-                this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_2));
+                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_2_expression));
+                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_2_m));
+                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_2_r));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_3) {
-                this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_3_expression));
-                this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_3_m));
-                this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_3_r));
-                this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_3));
+                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_3_expression));
+                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_3_m));
+                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_3_r));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_4) {
-                this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_4_expression));
-                this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_4_m));
-                this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_4_r));
-                this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_4));
+                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_4_expression));
+                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_4_m));
+                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_4_r));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_5) {
-                this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_5_expression));
-                this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_5_m));
-                this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_5_r));
-                this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_5));
+                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_5_expression));
+                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_5_m));
+                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_5_r));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
                 resetResult(true);
                 return true;
             }
@@ -455,14 +454,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //region Display
     private void refreshHideExampleButtons() {
         try {
-            boolean exampleButtonsAreVisible = this.linearLayoutQuadraticFormExamplesContainer.getVisibility() == View.VISIBLE;
+            boolean exampleButtonsAreVisible = this.linearLayoutExamplesContainer.getVisibility() == View.VISIBLE;
             boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
             if (exampleButtonsAreVisible && hideExampleButtons) {
-                this.buttonQuadraticFormRun.setText(requireContext().getText(R.string.quadratic_form_run_short));
-                this.linearLayoutQuadraticFormExamplesContainer.setVisibility(View.GONE);
+                this.buttonRun.setText(requireContext().getText(R.string.quadratic_form_run_short));
+                this.linearLayoutExamplesContainer.setVisibility(View.GONE);
             } else if (!exampleButtonsAreVisible && !hideExampleButtons) {
-                this.buttonQuadraticFormRun.setText(requireContext().getText(R.string.quadratic_form_run_short));
-                this.linearLayoutQuadraticFormExamplesContainer.setVisibility(View.VISIBLE);
+                this.buttonRun.setText(requireContext().getText(R.string.quadratic_form_run_short));
+                this.linearLayoutExamplesContainer.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -474,39 +473,39 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormCopyExpression, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormPasteExpression, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormClearExpression, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyExpression, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteExpression, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearExpression, biggerControls);
             // Clipboard output buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormExpandResult, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormCopyResult, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewQuadraticFormClearResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
             // Label
-            ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelExpression, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelElasticExpression, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelExpression, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticExpression, biggerControls);
             // InputGroup
-            ControlDisplay.setInputFontSize(this.editTextQuadraticFormExpression, biggerControls);
+            ControlDisplay.setInputFontSize(this.editTextExpression, biggerControls);
             // Buttons
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRunExample1, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRunExample2, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRunExample3, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRunExample4, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRunExample5, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRun, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRun1, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRun2, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample4, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample5, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRun1, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRun2, biggerControls);
             // Buttons.
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormMMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormM, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormMPlus, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormR, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonQuadraticFormRPlus, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonMMinus, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonM, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonMPlus, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRMinus, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonR, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRPlus, biggerControls);
             // Label
-            ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelResult, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewQuadraticFormLabelElasticResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
             // Output
-            ControlDisplay.setOutputFontSize(this.editTextQuadraticFormResult, biggerControls);
+            ControlDisplay.setOutputFontSize(this.editTextResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -526,35 +525,35 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         if (algorithmName == AlgorithmName.BINARY_QUADRATIC_FORM) {
             if (progressStatus == ProgressStatus.CANCELED) {
                 String resultCanceledText = requireContext().getResources().getString(R.string.canceled);
-                editTextQuadraticFormResult.setText(resultCanceledText);
+                editTextResult.setText(resultCanceledText);
             } else {
                 String resultAsString = (String)result;
                 CharSequence resultFromHtml = Html.fromHtml(resultAsString);
-                editTextQuadraticFormResult.setText(resultFromHtml);
+                editTextResult.setText(resultFromHtml);
             }
         }
 
         if (algorithmName == AlgorithmName.BINARY_QUADRATIC_FORM_1) {
             if (progressStatus == ProgressStatus.CANCELED) {
-                cancelBinaryQuadraticFormShowResult(listViewQuadraticFormResult1);
+                cancelShowResult(listViewResult1);
             } else {
                 @SuppressWarnings("unchecked")
                 List<List<RowItem>> sqfResultList1 = (List<List<RowItem>>)result;
-                showResultBinaryQuadraticForm1(sqfResultList1);
+                showResult1(sqfResultList1);
             }
         }
 
         if (algorithmName == AlgorithmName.BINARY_QUADRATIC_FORM_2) {
             if (progressStatus == ProgressStatus.CANCELED) {
-                cancelBinaryQuadraticFormShowResult(listViewQuadraticFormResult2);
+                cancelShowResult(listViewResult2);
             } else {
                 @SuppressWarnings("unchecked")
                 List<List<RowItem>> sqfResultList2 = (List<List<RowItem>>)result;
-                showResultBinaryQuadraticForm2(sqfResultList2);
+                showResult2(sqfResultList2);
             }
         }
     }
-    private void cancelBinaryQuadraticFormShowResult(ListView listView) {
+    private void cancelShowResult(ListView listView) {
         ArrayList<String> listItems=new ArrayList<>();
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(requireContext(), R.layout.row_item_canceled, R.id.RowItemCanceled, listItems);
@@ -562,7 +561,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         listItems.add(requireContext().getResources().getString(R.string.canceled));
         adapter.notifyDataSetChanged();
     }
-    private void showResultBinaryQuadraticForm1(List<List<RowItem>> rows) {
+    private void showResult1(List<List<RowItem>> rows) {
         try {
             if(rows == null || rows.isEmpty()) {
                 return;
@@ -610,19 +609,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Set the listview row space
             if(biggerResultDisplay) {
-                listViewQuadraticFormResult1.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
+                listViewResult1.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
             } else {
-                listViewQuadraticFormResult1.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
+                listViewResult1.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutQuadraticFormStaticColumnHeader1, rows, rowItemWidth, rowItemWidths, rowItemHeight, null, biggerResultDisplay);
-            listViewQuadraticFormResult1.setAdapter(adapter);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader1, rows, rowItemWidth, rowItemWidths, rowItemHeight, null, biggerResultDisplay);
+            listViewResult1.setAdapter(adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void showResultBinaryQuadraticForm2(List<List<RowItem>> rows) {
+    private void showResult2(List<List<RowItem>> rows) {
         try {
             if(rows == null || rows.isEmpty()) {
                 return;
@@ -634,11 +633,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             BigInteger m = null;
             BigInteger r = null;
-            String mText = this.buttonQuadraticFormM.getText().toString();
+            String mText = this.buttonM.getText().toString();
             if (!mText.isEmpty()) {
                 m = new BigInteger(mText);
             }
-            String rText = this.buttonQuadraticFormR.getText().toString();
+            String rText = this.buttonR.getText().toString();
             if (!rText.isEmpty()) {
                 r = new BigInteger(rText);
             }
@@ -664,15 +663,15 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Set the listview row space.
             if(biggerResultDisplay) {
-                listViewQuadraticFormResult2.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
+                listViewResult2.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
             } else {
-                listViewQuadraticFormResult2.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
+                listViewResult2.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutQuadraticFormStaticColumnHeader2, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
-            FragmentBinaryQuadraticForm.showResultBinaryQuadraticFormFModM2(adapter, m, r);
-            listViewQuadraticFormResult2.setAdapter(adapter);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader2, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
+            showResultFModM2(adapter, m, r);
+            listViewResult2.setAdapter(adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -683,69 +682,69 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //region BUTTON ACTIONS
     private void onButtonRunExample1(ViewGroup container) {
         try {
-            this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_1_expression));
-            this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_1_m));
-            this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_1_r));
-            this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_1));
+            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_1_expression));
+            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_1_m));
+            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_1_r));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample1, true);
+            onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void onButtonRunExample2(ViewGroup container) {
         try {
-            this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_2_expression));
-            this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_2_m));
-            this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_2_r));
-            this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_2));
+            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_2_expression));
+            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_2_m));
+            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_2_r));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample2, true);
+            onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void onButtonRunExample3(ViewGroup container) {
         try {
-            this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_3_expression));
-            this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_3_m));
-            this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_3_r));
-            this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_3));
+            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_3_expression));
+            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_3_m));
+            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_3_r));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample3, true);
+            onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void onButtonRunExample4(ViewGroup container) {
         try {
-            this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_4_expression));
-            this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_4_m));
-            this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_4_r));
-            this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_4));
+            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_4_expression));
+            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_4_m));
+            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_4_r));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample4, true);
+            onButtonRun(container, buttonRunExample4, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void onButtonRunExample5(ViewGroup container) {
         try {
-            this.editTextQuadraticFormExpression.setText(requireContext().getText(R.string.quadratic_form_example_5_expression));
-            this.buttonQuadraticFormM.setText(requireContext().getText(R.string.quadratic_form_example_5_m));
-            this.buttonQuadraticFormR.setText(requireContext().getText(R.string.quadratic_form_example_5_r));
-            this.textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result_example_5));
+            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_5_expression));
+            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_5_m));
+            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_5_r));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
             //
-            onButtonRun(container, buttonQuadraticFormRunExample5, true);
+            onButtonRun(container, buttonRunExample5, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private InputGroup getInputGroupQuadraticFormExpression() {
+    private InputGroup getInputGroupExpression() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewQuadraticFormLabelExpression, "bxy+dx+ey=f", textViewQuadraticFormLabelElasticExpression)
-                .setInput(editTextQuadraticFormExpression)
+                .setLabel(textViewLabelExpression, "bxy+dx+ey=f", textViewLabelElasticExpression)
+                .setInput(editTextExpression)
                 .setCompactControls(null, null) // TODO +++ remove null when implemented.
                 .build();
     }
@@ -754,8 +753,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(skipLabelResult);
 
             // Check.
-            InputGroup inputGroupQuadraticFormExpression = getInputGroupQuadraticFormExpression();
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupQuadraticFormExpression);
+            InputGroup inputGroupExpression = getInputGroupExpression();
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupExpression);
             if (expression == null) {
                 return;
             }
@@ -765,7 +764,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
             }
             if (!errorMessage.isEmpty()) {
-                UIHelper.displayError(inputGroupQuadraticFormExpression);
+                UIHelper.displayError(inputGroupExpression);
                 // Notify before return.
                 UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
                 return;
@@ -810,8 +809,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(false);
 
             // Check.
-            InputGroup inputGroupQuadraticFormExpression = getInputGroupQuadraticFormExpression();
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupQuadraticFormExpression);
+            InputGroup inputGroupExpression = getInputGroupExpression();
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupExpression);
             if (expression == null) {
                 return;
             }
@@ -821,7 +820,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
             }
             if (!errorMessage.isEmpty()) {
-                UIHelper.displayError(inputGroupQuadraticFormExpression);
+                UIHelper.displayError(inputGroupExpression);
                 // Notify before return.
                 UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
                 return;
@@ -841,7 +840,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             setResultVisibilityFromButtonRun1();
 
             // Before action performing.
-            beforeActionPerforming(buttonQuadraticFormRun1);
+            beforeActionPerforming(buttonRun1);
 
             // Perform the quadratic form
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.BINARY_QUADRATIC_FORM_1, this);
@@ -859,8 +858,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(false);
 
             // Check.
-            InputGroup inputGroupQuadraticFormExpression = getInputGroupQuadraticFormExpression();
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupQuadraticFormExpression);
+            InputGroup inputGroupExpression = getInputGroupExpression();
+            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupExpression);
             if (expression == null) {
                 return;
             }
@@ -890,7 +889,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             setResultVisibilityFromButtonRun2();
 
             // Before action performing.
-            beforeActionPerforming(buttonQuadraticFormRun2);
+            beforeActionPerforming(buttonRun2);
 
             // Perform the quadratic form
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.BINARY_QUADRATIC_FORM_2, this);
@@ -906,14 +905,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         }
     }
     private void calculateFModM() {
-        if (this.listViewQuadraticFormResult2.getAdapter() != null) {
-            GridAdapter gridAdapter = (GridAdapter) this.listViewQuadraticFormResult2.getAdapter();
+        if (this.listViewResult2.getAdapter() != null) {
+            GridAdapter gridAdapter = (GridAdapter) this.listViewResult2.getAdapter();
 
             BigInteger m = null;
             BigInteger r = null;
 
-            String mText = this.buttonQuadraticFormM.getText().toString();
-            String rText = this.buttonQuadraticFormR.getText().toString();
+            String mText = this.buttonM.getText().toString();
+            String rText = this.buttonR.getText().toString();
 
             if (!mText.isEmpty()) {
                 m = new BigInteger(mText);
@@ -922,10 +921,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 r = new BigInteger(rText);
             }
 
-            showResultBinaryQuadraticFormFModM2(gridAdapter, m, r);
+            showResultFModM2(gridAdapter, m, r);
         }
     }
-    public static void showResultBinaryQuadraticFormFModM2(GridAdapter gridAdapter, BigInteger m, BigInteger r) {
+    public static void showResultFModM2(GridAdapter gridAdapter, BigInteger m, BigInteger r) {
         try {
             if (gridAdapter == null) {
                 return;
@@ -1017,18 +1016,18 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
-        editTextQuadraticFormExpression.clearFocus();
+        editTextExpression.clearFocus();
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
-        textViewQuadraticFormCopyExpression.setSelected(false);
-        textViewQuadraticFormPasteExpression.setSelected(false);
-        textViewQuadraticFormClearExpression.setSelected(false);
-        textViewQuadraticFormExpandResult.setSelected(false);
-        textViewQuadraticFormCopyResult.setSelected(false);
-        textViewQuadraticFormClearResult.setSelected(false);
+        textViewCopyExpression.setSelected(false);
+        textViewPasteExpression.setSelected(false);
+        textViewClearExpression.setSelected(false);
+        textViewExpandResult.setSelected(false);
+        textViewCopyResult.setSelected(false);
+        textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
             textView.setSelected(true);
@@ -1036,20 +1035,20 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
         // Reset the last button clicked.
-        buttonQuadraticFormRunExample1.setSelected(false);
-        buttonQuadraticFormRunExample2.setSelected(false);
-        buttonQuadraticFormRunExample3.setSelected(false);
-        buttonQuadraticFormRunExample4.setSelected(false);
-        buttonQuadraticFormRunExample5.setSelected(false);
-        buttonQuadraticFormRun.setSelected(false);
-        buttonQuadraticFormRun1.setSelected(false);
-        buttonQuadraticFormRun2.setSelected(false);
+        buttonRunExample1.setSelected(false);
+        buttonRunExample2.setSelected(false);
+        buttonRunExample3.setSelected(false);
+        buttonRunExample4.setSelected(false);
+        buttonRunExample5.setSelected(false);
+        buttonRun.setSelected(false);
+        buttonRun1.setSelected(false);
+        buttonRun2.setSelected(false);
         // Select the last button clicked.
         if (button != null) {
             button.setSelected(true);
-            textViewQuadraticFormExpandResult.setVisibility(View.VISIBLE);
+            textViewExpandResult.setVisibility(View.VISIBLE);
         } else {
-            textViewQuadraticFormExpandResult.setVisibility(View.GONE);
+            textViewExpandResult.setVisibility(View.GONE);
         }
     }
     private void resetResult(boolean skipLabelResult) {
@@ -1059,42 +1058,42 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         resetAllAndSelectTheLastButtonClicked(null);
         //
         if(!skipLabelResult) {
-            textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result));
+            textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
-        this.editTextQuadraticFormResult.setText("");
-        this.linearLayoutQuadraticFormStaticColumnHeader1.removeAllViews();
-        this.linearLayoutQuadraticFormStaticColumnHeader2.removeAllViews();
-        this.listViewQuadraticFormResult1.setAdapter(null);
-        this.listViewQuadraticFormResult2.setAdapter(null);
+        this.editTextResult.setText("");
+        this.linearLayoutStaticColumnHeader1.removeAllViews();
+        this.linearLayoutStaticColumnHeader2.removeAllViews();
+        this.listViewResult1.setAdapter(null);
+        this.listViewResult2.setAdapter(null);
     }
     private void setResultVisibilityFromButtonRun(boolean skipLabelResult) {
         if(!skipLabelResult) {
-            textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.result));
+            textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
-        this.linearLayoutQuadraticFormFModMContainer.setVisibility(View.GONE);
-        this.textViewQuadraticFormCopyResult.setVisibility(View.VISIBLE);
-        this.textViewQuadraticFormClearResult.setVisibility(View.VISIBLE);
-        this.linearLayoutQuadraticFormResultContainer.setVisibility(View.VISIBLE);
-        this.linearLayoutQuadraticFormResultGridContainer1.setVisibility(View.GONE);
-        this.linearLayoutQuadraticFormResultGridContainer2.setVisibility(View.GONE);
+        this.linearLayoutFModMContainer.setVisibility(View.GONE);
+        this.textViewCopyResult.setVisibility(View.VISIBLE);
+        this.textViewClearResult.setVisibility(View.VISIBLE);
+        this.linearLayoutResultContainer.setVisibility(View.VISIBLE);
+        this.linearLayoutResultGridContainer1.setVisibility(View.GONE);
+        this.linearLayoutResultGridContainer2.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun1() {
-        textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.representation));
-        this.linearLayoutQuadraticFormFModMContainer.setVisibility(View.GONE);
-        this.textViewQuadraticFormCopyResult.setVisibility(View.GONE);
-        this.textViewQuadraticFormClearResult.setVisibility(View.VISIBLE);
-        this.linearLayoutQuadraticFormResultContainer.setVisibility(View.GONE);
-        this.linearLayoutQuadraticFormResultGridContainer1.setVisibility(View.VISIBLE);
-        this.linearLayoutQuadraticFormResultGridContainer2.setVisibility(View.GONE);
+        textViewLabelResult.setText(requireContext().getText(R.string.representation));
+        this.linearLayoutFModMContainer.setVisibility(View.GONE);
+        this.textViewCopyResult.setVisibility(View.GONE);
+        this.textViewClearResult.setVisibility(View.VISIBLE);
+        this.linearLayoutResultContainer.setVisibility(View.GONE);
+        this.linearLayoutResultGridContainer1.setVisibility(View.VISIBLE);
+        this.linearLayoutResultGridContainer2.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun2() {
-        textViewQuadraticFormLabelResult.setText(requireContext().getText(R.string.quadratic_form_result_representation_f_mod_m_r));
-        this.linearLayoutQuadraticFormFModMContainer.setVisibility(View.VISIBLE);
-        this.textViewQuadraticFormCopyResult.setVisibility(View.GONE);
-        this.textViewQuadraticFormClearResult.setVisibility(View.VISIBLE);
-        this.linearLayoutQuadraticFormResultContainer.setVisibility(View.GONE);
-        this.linearLayoutQuadraticFormResultGridContainer1.setVisibility(View.GONE);
-        this.linearLayoutQuadraticFormResultGridContainer2.setVisibility(View.VISIBLE);
+        textViewLabelResult.setText(requireContext().getText(R.string.quadratic_form_result_representation_f_mod_m_r));
+        this.linearLayoutFModMContainer.setVisibility(View.VISIBLE);
+        this.textViewCopyResult.setVisibility(View.GONE);
+        this.textViewClearResult.setVisibility(View.VISIBLE);
+        this.linearLayoutResultContainer.setVisibility(View.GONE);
+        this.linearLayoutResultGridContainer1.setVisibility(View.GONE);
+        this.linearLayoutResultGridContainer2.setVisibility(View.VISIBLE);
     }
     //endregion RESULT
 

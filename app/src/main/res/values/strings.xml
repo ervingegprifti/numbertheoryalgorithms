@@ -29,6 +29,9 @@
     <string name="label_a" translatable="false">a</string>
     <string name="label_b" translatable="false">b</string>
     <string name="label_c" translatable="false">c</string>
+    <string name="label_d" translatable="false">d</string>
+    <string name="label_e" translatable="false">e</string>
+    <string name="label_f" translatable="false">f</string>
     <string name="label_p" translatable="false">p</string>
     <string name="label_m" translatable="false">m</string>
     <string name="label_n" translatable="false">n</string>
@@ -137,7 +140,7 @@
 
 
     <!-- Fragment Quadratic Form -->
-    <string name="quadratic_form_title">BINARY QUADRATIC FORM</string>
+    <string name="binary_quadratic_form_title">BINARY QUADRATIC FORM</string>
     <string name="quadratic_form_label_expression">bxy+dx+ey=f</string>
     <string name="quadratic_form_expression_hint">b, d, e, f</string>
     <string name="quadratic_form_expression_autofillhints">b, d, e, f</string>
