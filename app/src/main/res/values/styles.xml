@@ -92,6 +92,22 @@
         <item name="android:scrollHorizontally">false</item>
         <item name="android:ellipsize">end</item>
     </style>
+    <style name="EditTextNumberPositiveInputCompactStyle" parent="CompactStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/edittext_input_compact_bg</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:digits">0123456789</item>
+        <item name="android:maxLength">1000000</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:ellipsize">end</item>
+    </style>
     <style name="ClipboardButtonMiddleCompactStyle" parent="CompactStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/button_clipboard_middle_compact_bg</item>
@@ -148,7 +164,7 @@
     </style>
 
 
-    <style name="EditTextNumberInput">
+    <style name="EditTextNumberInputStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
@@ -160,8 +176,7 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:padding">5dp</item>
     </style>
-
-    <style name="EditTextPositiveNumberInput">
+    <style name="EditTextNumberPositiveInputStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>

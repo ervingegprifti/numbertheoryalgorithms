@@ -45,104 +45,164 @@
 				android:layout_height="0px"
 				tools:ignore="UselessLeaf" />
 
-			<!--Big integer a:-->
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
-				<TextView style="@style/TextViewLabelInputStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelA"
-					android:text="@string/label_a"
-					android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesA" />
-				<TextView style="@style/TextViewLabelElasticStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticA"  />
-				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyA" />
-				<TextView style="@style/ClipboardButtonPasteStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteA"  />
-				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearA"  />
-			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
-				android:id="@+id/EditTextLinearCongruenceInTwoVariablesA"
-				android:autofillHints="" />
 
-			<!--Big integer b:-->
-			<LinearLayout
-				android:layout_marginTop="15dp"
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
-				<TextView style="@style/TextViewLabelInputStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelB"
-					android:text="@string/label_b"
-					android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesB" />
-				<TextView style="@style/TextViewLabelElasticStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticB"  />
-				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyB" />
-				<TextView style="@style/ClipboardButtonPasteStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteB"  />
-				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearB"   />
-			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
-				android:id="@+id/EditTextLinearCongruenceInTwoVariablesB"
-				android:autofillHints="" />
+			<!--Extended inputGroup view-->
+			<LinearLayout style="@style/ColumnContainerStyle"
+				android:id="@+id/LinearLayoutExtendedInputView"
+				android:layout_marginBottom="20dp">
+				<!--InputGroup integer a:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelInputStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelA"
+						android:text="@string/label_a"
+						android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesA" />
+					<TextView style="@style/TextViewLabelElasticStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticA"  />
+					<TextView style="@style/ClipboardButtonCopyStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyA" />
+					<TextView style="@style/ClipboardButtonPasteStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteA"  />
+					<TextView style="@style/ClipboardButtonClearStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearA"  />
+				</LinearLayout>
+				<EditText style="@style/EditTextNumberInputStyle"
+					android:id="@+id/EditTextLinearCongruenceInTwoVariablesA"
+					android:autofillHints=""
+					android:layout_marginBottom="20dp"/>
 
-			<!--Big integer c:-->
-			<LinearLayout
-				android:layout_marginTop="15dp"
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
-				<TextView style="@style/TextViewLabelInputStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelC"
-					android:text="@string/label_c"
-					android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesC" />
-				<TextView style="@style/TextViewLabelElasticStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticC"  />
-				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyC" />
-				<TextView style="@style/ClipboardButtonPasteStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteC"  />
-				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearC"   />
-			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
-				android:id="@+id/EditTextLinearCongruenceInTwoVariablesC"
-				android:autofillHints="" />
+				<!--InputGroup integer b:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelInputStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelB"
+						android:text="@string/label_b"
+						android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesB" />
+					<TextView style="@style/TextViewLabelElasticStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticB"  />
+					<TextView style="@style/ClipboardButtonCopyStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyB" />
+					<TextView style="@style/ClipboardButtonPasteStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteB"  />
+					<TextView style="@style/ClipboardButtonClearStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearB"   />
+				</LinearLayout>
+				<EditText style="@style/EditTextNumberInputStyle"
+					android:id="@+id/EditTextLinearCongruenceInTwoVariablesB"
+					android:autofillHints=""
+					android:layout_marginBottom="20dp" />
 
-			<!--Big integer m:-->
-			<LinearLayout
-				android:layout_marginTop="15dp"
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
-				<TextView style="@style/TextViewLabelInputStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelM"
-					android:text="@string/label_m"
-					android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesM" />
-				<TextView style="@style/TextViewLabelElasticStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticM"  />
-				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyM" />
-				<TextView style="@style/ClipboardButtonPasteStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteM"  />
-				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearM"  />
+				<!--InputGroup integer c:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelInputStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelC"
+						android:text="@string/label_c"
+						android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesC" />
+					<TextView style="@style/TextViewLabelElasticStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticC"  />
+					<TextView style="@style/ClipboardButtonCopyStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyC" />
+					<TextView style="@style/ClipboardButtonPasteStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteC"  />
+					<TextView style="@style/ClipboardButtonClearStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearC"   />
+				</LinearLayout>
+				<EditText style="@style/EditTextNumberInputStyle"
+					android:id="@+id/EditTextLinearCongruenceInTwoVariablesC"
+					android:autofillHints=""
+					android:layout_marginBottom="20dp"/>
+
+				<!--InputGroup integer m:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelInputStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelM"
+						android:text="@string/label_m"
+						android:labelFor="@+id/EditTextLinearCongruenceInTwoVariablesM" />
+					<TextView style="@style/TextViewLabelElasticStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelElasticM"  />
+					<TextView style="@style/ClipboardButtonCopyStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyM" />
+					<TextView style="@style/ClipboardButtonPasteStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteM"  />
+					<TextView style="@style/ClipboardButtonClearStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearM"  />
+				</LinearLayout>
+				<EditText style="@style/EditTextNumberPositiveInputStyle"
+					android:id="@+id/EditTextLinearCongruenceInTwoVariablesM"
+					android:autofillHints="" />
 			</LinearLayout>
-			<EditText style="@style/EditTextPositiveNumberInput"
-				android:id="@+id/EditTextLinearCongruenceInTwoVariablesM"
-				android:autofillHints="" />
+
+
+			<!--Compact inputGroup view-->
+			<LinearLayout style="@style/ColumnContainerStyle"
+				android:id="@+id/LinearLayoutCompactInputView"
+				android:layout_marginBottom="20dp">
+				<!--InputGroup integer a:-->
+				<LinearLayout style="@style/RowContainerStyle"
+					android:layout_marginBottom="10dp">
+					<TextView style="@style/TextViewLabelCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelCompactA"
+						android:text="@string/label_a" />
+					<EditText style="@style/EditTextNumberInputCompactStyle"
+						android:id="@+id/EditTextLinearCongruenceInTwoVariablesCompactA"
+						android:autofillHints="@string/empty" />
+					<TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyCompactA" />
+					<TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteCompactA" />
+					<TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearCompactA" />
+				</LinearLayout>
+
+				<LinearLayout style="@style/RowContainerStyle"
+					android:layout_marginBottom="10dp">
+					<TextView style="@style/TextViewLabelCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelCompactB"
+						android:text="@string/label_b" />
+					<EditText style="@style/EditTextNumberInputCompactStyle"
+						android:id="@+id/EditTextLinearCongruenceInTwoVariablesCompactB"
+						android:autofillHints="@string/empty" />
+					<TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyCompactB" />
+					<TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteCompactB" />
+					<TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearCompactB" />
+				</LinearLayout>
+
+				<LinearLayout style="@style/RowContainerStyle"
+					android:layout_marginBottom="10dp">
+					<TextView style="@style/TextViewLabelCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelCompactC"
+						android:text="@string/label_c" />
+					<EditText style="@style/EditTextNumberInputCompactStyle"
+						android:id="@+id/EditTextLinearCongruenceInTwoVariablesCompactC"
+						android:autofillHints="@string/empty" />
+					<TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyCompactC" />
+					<TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteCompactC" />
+					<TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearCompactC" />
+				</LinearLayout>
+
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesLabelCompactM"
+						android:text="@string/label_m" />
+					<EditText style="@style/EditTextNumberPositiveInputCompactStyle"
+						android:id="@+id/EditTextLinearCongruenceInTwoVariablesCompactM"
+						android:autofillHints="@string/empty" />
+					<TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesCopyCompactM" />
+					<TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesPasteCompactM" />
+					<TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+						android:id="@+id/TextViewLinearCongruenceInTwoVariablesClearCompactM" />
+				</LinearLayout>
+			</LinearLayout>
+
 
 			<!--Buttons run-->
 			<LinearLayout
-				android:layout_marginTop="20dp"
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"

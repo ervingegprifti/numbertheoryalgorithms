@@ -64,7 +64,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewLinearCongruenceInOneVariableClearA" />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
+			<EditText style="@style/EditTextNumberInputStyle"
 				android:id="@+id/EditTextLinearCongruenceInOneVariableA"
 				android:autofillHints="" />
 
@@ -88,7 +88,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewLinearCongruenceInOneVariableClearB"  />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
+			<EditText style="@style/EditTextNumberInputStyle"
 				android:id="@+id/EditTextLinearCongruenceInOneVariableB"
 				android:autofillHints="" />
 
@@ -112,7 +112,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewLinearCongruenceInOneVariableClearM"  />
 			</LinearLayout>
-			<EditText style="@style/EditTextPositiveNumberInput"
+			<EditText style="@style/EditTextNumberPositiveInputStyle"
 				android:id="@+id/EditTextLinearCongruenceInOneVariableM"
 				android:autofillHints="" />
 

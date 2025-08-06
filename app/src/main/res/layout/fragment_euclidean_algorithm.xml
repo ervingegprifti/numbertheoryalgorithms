@@ -62,7 +62,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewEuclideanClearA" />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
+			<EditText style="@style/EditTextNumberInputStyle"
 				android:id="@+id/EditTextEuclideanA"
 				android:autofillHints="" />
 
@@ -86,7 +86,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewEuclideanClearB"  />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
+			<EditText style="@style/EditTextNumberInputStyle"
 				android:id="@+id/EditTextEuclideanB"
 				android:autofillHints="" />
 

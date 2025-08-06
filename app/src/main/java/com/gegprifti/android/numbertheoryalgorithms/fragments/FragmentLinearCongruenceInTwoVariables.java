@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,14 +33,19 @@ import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class FragmentLinearCongruenceInTwoVariables extends FragmentBase implements Callback {
     private final static String TAG = FragmentLinearCongruenceInTwoVariables.class.getSimpleName();
-
+    // Navigation controls
     TextView textViewLinearCongruenceInTwoVariablesBackToAlgorithms;
     TextView textViewLinearCongruenceInTwoVariablesTitle;
     TextView textViewLinearCongruenceInTwoVariablesDocumentationFile;
+    // Cache view state
+    boolean isCompactInputView = false;
+    // Extended input view
+    LinearLayout linearLayoutExtendedInputView;
     TextView textViewLinearCongruenceInTwoVariablesLabelA;
     TextView textViewLinearCongruenceInTwoVariablesLabelElasticA;
     TextView textViewLinearCongruenceInTwoVariablesCopyA;
@@ -64,17 +70,49 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     TextView textViewLinearCongruenceInTwoVariablesPasteM;
     TextView textViewLinearCongruenceInTwoVariablesClearM;
     EditText editTextLinearCongruenceInTwoVariablesM;
+    // Compact input view
+    LinearLayout linearLayoutCompactInputView;
+    TextView textViewLinearCongruenceInTwoVariablesLabelCompactA;
+    TextView textViewLinearCongruenceInTwoVariablesCopyCompactA;
+    TextView textViewLinearCongruenceInTwoVariablesPasteCompactA;
+    TextView textViewLinearCongruenceInTwoVariablesClearCompactA;
+    EditText editTextLinearCongruenceInTwoVariablesCompactA;
+    TextView textViewLinearCongruenceInTwoVariablesLabelCompactB;
+    TextView textViewLinearCongruenceInTwoVariablesCopyCompactB;
+    TextView textViewLinearCongruenceInTwoVariablesPasteCompactB;
+    TextView textViewLinearCongruenceInTwoVariablesClearCompactB;
+    EditText editTextLinearCongruenceInTwoVariablesCompactB;
+    TextView textViewLinearCongruenceInTwoVariablesLabelCompactC;
+    TextView textViewLinearCongruenceInTwoVariablesCopyCompactC;
+    TextView textViewLinearCongruenceInTwoVariablesPasteCompactC;
+    TextView textViewLinearCongruenceInTwoVariablesClearCompactC;
+    EditText editTextLinearCongruenceInTwoVariablesCompactC;
+    TextView textViewLinearCongruenceInTwoVariablesLabelCompactM;
+    TextView textViewLinearCongruenceInTwoVariablesCopyCompactM;
+    TextView textViewLinearCongruenceInTwoVariablesPasteCompactM;
+    TextView textViewLinearCongruenceInTwoVariablesClearCompactM;
+    EditText editTextLinearCongruenceInTwoVariablesCompactM;
+    // Run buttons
     Button buttonLinearCongruenceInTwoVariablesRun;
     Button buttonLinearCongruenceInTwoVariablesRunExample1;
     Button buttonLinearCongruenceInTwoVariablesRunExample2;
     Button buttonLinearCongruenceInTwoVariablesRunExample3;
+    // Result controls
     TextView textViewLinearCongruenceInTwoVariablesLabelResult;
     TextView textViewLinearCongruenceInTwoVariablesLabelElasticResult;
     TextView textViewLinearCongruenceInTwoVariablesExpandResult;
     TextView textViewLinearCongruenceInTwoVariablesCopyResult;
     TextView textViewLinearCongruenceInTwoVariablesClearResult;
     EditText editTextLinearCongruenceInTwoVariablesResult;
-    boolean isCompactInputView = false;
+    // Flags to prevent recursive updates
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesCompactA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesCompactB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesC = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesCompactC = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesM = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextLinearCongruenceInTwoVariablesCompactM = new AtomicBoolean(false);
 
 
     // Define the parent fragment
@@ -93,9 +131,12 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_linear_congruence_in_two_variables, container, false);
+            // Navigation controls
             textViewLinearCongruenceInTwoVariablesBackToAlgorithms = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesBackToAlgorithms);
             textViewLinearCongruenceInTwoVariablesTitle = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesTitle);
             textViewLinearCongruenceInTwoVariablesDocumentationFile = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesDocumentationFile);
+            // Extended input view
+            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLinearCongruenceInTwoVariablesLabelA = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelA);
             textViewLinearCongruenceInTwoVariablesLabelElasticA = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelElasticA);
             textViewLinearCongruenceInTwoVariablesCopyA = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesCopyA);
@@ -120,10 +161,34 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesPasteM = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesPasteM);
             textViewLinearCongruenceInTwoVariablesClearM = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesClearM);
             editTextLinearCongruenceInTwoVariablesM = inflater.findViewById(R.id.EditTextLinearCongruenceInTwoVariablesM);
+            // Compact input view
+            linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
+            textViewLinearCongruenceInTwoVariablesLabelCompactA = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelCompactA);
+            textViewLinearCongruenceInTwoVariablesCopyCompactA = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesCopyCompactA);
+            textViewLinearCongruenceInTwoVariablesPasteCompactA = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesPasteCompactA);
+            textViewLinearCongruenceInTwoVariablesClearCompactA = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesClearCompactA);
+            editTextLinearCongruenceInTwoVariablesCompactA = inflater.findViewById(R.id.EditTextLinearCongruenceInTwoVariablesCompactA);
+            textViewLinearCongruenceInTwoVariablesLabelCompactB = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelCompactB);
+            textViewLinearCongruenceInTwoVariablesCopyCompactB = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesCopyCompactB);
+            textViewLinearCongruenceInTwoVariablesPasteCompactB = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesPasteCompactB);
+            textViewLinearCongruenceInTwoVariablesClearCompactB = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesClearCompactB);
+            editTextLinearCongruenceInTwoVariablesCompactB = inflater.findViewById(R.id.EditTextLinearCongruenceInTwoVariablesCompactB);
+            textViewLinearCongruenceInTwoVariablesLabelCompactC = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelCompactC);
+            textViewLinearCongruenceInTwoVariablesCopyCompactC = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesCopyCompactC);
+            textViewLinearCongruenceInTwoVariablesPasteCompactC = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesPasteCompactC);
+            textViewLinearCongruenceInTwoVariablesClearCompactC = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesClearCompactC);
+            editTextLinearCongruenceInTwoVariablesCompactC = inflater.findViewById(R.id.EditTextLinearCongruenceInTwoVariablesCompactC);
+            textViewLinearCongruenceInTwoVariablesLabelCompactM = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelCompactM);
+            textViewLinearCongruenceInTwoVariablesCopyCompactM = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesCopyCompactM);
+            textViewLinearCongruenceInTwoVariablesPasteCompactM = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesPasteCompactM);
+            textViewLinearCongruenceInTwoVariablesClearCompactM = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesClearCompactM);
+            editTextLinearCongruenceInTwoVariablesCompactM = inflater.findViewById(R.id.EditTextLinearCongruenceInTwoVariablesCompactM);
+            // Run buttons
             buttonLinearCongruenceInTwoVariablesRun = inflater.findViewById(R.id.ButtonLinearCongruenceInTwoVariablesRun);
             buttonLinearCongruenceInTwoVariablesRunExample1 = inflater.findViewById(R.id.ButtonLinearCongruenceInTwoVariablesRunExample1);
             buttonLinearCongruenceInTwoVariablesRunExample2 = inflater.findViewById(R.id.ButtonLinearCongruenceInTwoVariablesRunExample2);
             buttonLinearCongruenceInTwoVariablesRunExample3 = inflater.findViewById(R.id.ButtonLinearCongruenceInTwoVariablesRunExample3);
+            // Result controls
             textViewLinearCongruenceInTwoVariablesLabelResult = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelResult);
             textViewLinearCongruenceInTwoVariablesLabelElasticResult = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesLabelElasticResult);
             textViewLinearCongruenceInTwoVariablesExpandResult = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesExpandResult);
@@ -131,232 +196,363 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             textViewLinearCongruenceInTwoVariablesClearResult = inflater.findViewById(R.id.TextViewLinearCongruenceInTwoVariablesClearResult);
             editTextLinearCongruenceInTwoVariablesResult = inflater.findViewById(R.id.EditTextLinearCongruenceInTwoVariablesResult);
 
-            // InputGroup filter integer only
+            // Constrain extended input
             editTextLinearCongruenceInTwoVariablesA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextLinearCongruenceInTwoVariablesB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextLinearCongruenceInTwoVariablesC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextLinearCongruenceInTwoVariablesM.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain compact input
+            editTextLinearCongruenceInTwoVariablesCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearCongruenceInTwoVariablesCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearCongruenceInTwoVariablesCompactC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextLinearCongruenceInTwoVariablesCompactM.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Events
-            textViewLinearCongruenceInTwoVariablesBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(tabFragmentAlgorithms != null) {
-                        // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
-                    }
+            // Navigation vents
+            textViewLinearCongruenceInTwoVariablesBackToAlgorithms.setOnClickListener(view -> {
+                if(tabFragmentAlgorithms != null) {
+                    // Go back to the algorithms main menu
+                    FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                    tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewLinearCongruenceInTwoVariablesDocumentationFile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF).show(getParentFragmentManager(), "LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF");
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesCopyA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyA);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesCopyB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyB);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesCopyC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyC);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesCopyM.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyM);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesCopyResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyResult);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesPasteA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteA);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesPasteB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteB);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesPasteC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteC);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesPasteM.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteM);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesClearA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesClearB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearB);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesClearC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearC);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesClearM.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearM);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewLinearCongruenceInTwoVariablesClearResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearResult);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
+            textViewLinearCongruenceInTwoVariablesDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF).show(getParentFragmentManager(), "LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF"));
+
+            // Extended input events
             editTextLinearCongruenceInTwoVariablesA.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
-                public void afterTextChanged(Editable s)
-                {
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesA.get()) return; // editTextLinearCongruenceInTwoVariablesA is locked
+                    // Other work
                     String linearCongruenceInTwoVariablesLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelA.setText(linearCongruenceInTwoVariablesLabelA);
-                    // Reset
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesCompactA
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesCompactA.set(true); // Lock editTextLinearCongruenceInTwoVariablesCompactA
+                    try {
+                        editTextLinearCongruenceInTwoVariablesCompactA.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesCompactA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesCompactA.set(false); // Unlock editTextLinearCongruenceInTwoVariablesCompactA
+                    }
                 }
             });
             editTextLinearCongruenceInTwoVariablesB.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesB.get()) return; // editTextLinearCongruenceInTwoVariablesB is locked
+                    // Other work
                     String linearCongruenceInTwoVariablesLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelB.setText(linearCongruenceInTwoVariablesLabelB);
-                    // Reset
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesCompactB
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesCompactB.set(true); // Lock editTextLinearCongruenceInTwoVariablesCompactB
+                    try {
+                        editTextLinearCongruenceInTwoVariablesCompactB.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesCompactB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesCompactB.set(false); // Unlock editTextLinearCongruenceInTwoVariablesCompactB
+                    }
                 }
             });
             editTextLinearCongruenceInTwoVariablesC.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesC.get()) return; // editTextLinearCongruenceInTwoVariablesC is locked
+                    // Other work
                     String linearCongruenceInTwoVariablesLabelB = "c" + UIHelper.getNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelC.setText(linearCongruenceInTwoVariablesLabelB);
-                    // Reset
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesCompactC
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesCompactC.set(true); // Lock editTextLinearCongruenceInTwoVariablesCompactC
+                    try {
+                        editTextLinearCongruenceInTwoVariablesCompactC.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesCompactC.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesCompactC.set(false); // Unlock editTextLinearCongruenceInTwoVariablesCompactC
+                    }
                 }
             });
             editTextLinearCongruenceInTwoVariablesM.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesM.get()) return; // editTextLinearCongruenceInTwoVariablesM is locked
+                    // Other work
                     String linearCongruenceInTwoVariablesLabelM = "m" + UIHelper.getNrOfDigits(s.toString());
                     textViewLinearCongruenceInTwoVariablesLabelM.setText(linearCongruenceInTwoVariablesLabelM);
-                    // Reset
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesCompactM
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesCompactM.set(true); // Lock editTextLinearCongruenceInTwoVariablesCompactM
+                    try {
+                        editTextLinearCongruenceInTwoVariablesCompactM.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesCompactM.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesCompactM.set(false); // Unlock editTextLinearCongruenceInTwoVariablesCompactM
+                    }
                 }
             });
+
+            // Compact input events
+            editTextLinearCongruenceInTwoVariablesCompactA.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesCompactA.get()) return; // editTextLinearCongruenceInTwoVariablesCompactA is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesA
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesA.set(true); // Lock editTextLinearCongruenceInTwoVariablesA
+                    try {
+                        editTextLinearCongruenceInTwoVariablesA.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesA.set(false); // unlock editTextLinearCongruenceInTwoVariablesA
+                    }
+                }
+            });
+            editTextLinearCongruenceInTwoVariablesCompactB.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesCompactB.get()) return; // editTextLinearCongruenceInTwoVariablesCompactB is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesB
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesB.set(true); // Lock editTextLinearCongruenceInTwoVariablesB
+                    try {
+                        editTextLinearCongruenceInTwoVariablesB.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesB.set(false); // unlock editTextLinearCongruenceInTwoVariablesB
+                    }
+                }
+            });
+            editTextLinearCongruenceInTwoVariablesCompactC.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesCompactC.get()) return; // editTextLinearCongruenceInTwoVariablesCompactC is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesC
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesC.set(true); // Lock editTextLinearCongruenceInTwoVariablesC
+                    try {
+                        editTextLinearCongruenceInTwoVariablesC.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesC.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesC.set(false); // unlock editTextLinearCongruenceInTwoVariablesC
+                    }
+                }
+            });
+            editTextLinearCongruenceInTwoVariablesCompactM.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextLinearCongruenceInTwoVariablesCompactM.get()) return; // editTextLinearCongruenceInTwoVariablesCompactM is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextLinearCongruenceInTwoVariablesM
+                    isUpdatingEditTextLinearCongruenceInTwoVariablesM.set(true); // Lock editTextLinearCongruenceInTwoVariablesM
+                    try {
+                        editTextLinearCongruenceInTwoVariablesM.setText(s.toString());
+                        // editTextLinearCongruenceInTwoVariablesM.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextLinearCongruenceInTwoVariablesM.set(false); // unlock editTextLinearCongruenceInTwoVariablesM
+                    }
+                }
+            });
+
+            // Extended input a clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyA);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteA);
+            });
+            textViewLinearCongruenceInTwoVariablesClearA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input b clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyB);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteB);
+            });
+            textViewLinearCongruenceInTwoVariablesClearB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input c clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyC.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyC);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteC.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteC);
+            });
+            textViewLinearCongruenceInTwoVariablesClearC.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearC);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input m clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyM.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyM);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteM.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteM);
+            });
+            textViewLinearCongruenceInTwoVariablesClearM.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearM);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input a clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyCompactA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyCompactA);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteCompactA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteCompactA);
+            });
+            textViewLinearCongruenceInTwoVariablesClearCompactA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearCompactA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input b clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyCompactB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyCompactB);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteCompactB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteCompactB);
+            });
+            textViewLinearCongruenceInTwoVariablesClearCompactB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearCompactB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input c clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyCompactC.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyCompactC);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteCompactC.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteCompactC);
+            });
+            textViewLinearCongruenceInTwoVariablesClearCompactC.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearCompactC);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input m clipboard button events
+            textViewLinearCongruenceInTwoVariablesCopyCompactM.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyCompactM);
+            });
+            textViewLinearCongruenceInTwoVariablesPasteCompactM.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesPasteCompactM);
+            });
+            textViewLinearCongruenceInTwoVariablesClearCompactM.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesCompactM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearCompactM);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Run button events
             buttonLinearCongruenceInTwoVariablesRun.setOnClickListener(v -> onButtonRun(container, buttonLinearCongruenceInTwoVariablesRun, false));
             buttonLinearCongruenceInTwoVariablesRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
             buttonLinearCongruenceInTwoVariablesRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
             buttonLinearCongruenceInTwoVariablesRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+
+            // Result clipboard button events
             textViewLinearCongruenceInTwoVariablesExpandResult.setOnClickListener(v -> {
                 PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewLinearCongruenceInTwoVariablesTitle.getText().toString(), editTextLinearCongruenceInTwoVariablesResult.getText());
                 popupResult.show();
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesExpandResult);
             });
+            textViewLinearCongruenceInTwoVariablesCopyResult.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesCopyResult);
+            });
+            textViewLinearCongruenceInTwoVariablesClearResult.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextLinearCongruenceInTwoVariablesResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearCongruenceInTwoVariablesClearResult);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Result events
             editTextLinearCongruenceInTwoVariablesResult.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
                     if (s == null || s.toString().isEmpty()) {
@@ -434,12 +630,30 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshBiggerControls();
-        this.refreshHideExampleButtons();
+        refreshInputViewMode();
+        refreshBiggerControls();
+        refreshHideExampleButtons();
+        refreshBiggerResultDisplay();
     }
 
 
-    //region Display
+    //region Refresh UI
+    private void refreshInputViewMode() {
+        try {
+            this.isCompactInputView = UserSettings.getCompactInputView(requireContext());
+            if(isCompactInputView){
+                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutCompactInputView.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.buttonLinearCongruenceInTwoVariablesRunExample1.getVisibility() == View.VISIBLE; // Just check one.
@@ -477,45 +691,74 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyCompactC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteCompactC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearCompactC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyCompactM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesPasteCompactM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearCompactM, biggerControls);
             // Clipboard output buttons
             ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesExpandResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesCopyResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewLinearCongruenceInTwoVariablesClearResult, biggerControls);
-            // Label
+            // Extended input a controls
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticA, biggerControls);
-            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesA, biggerControls);
-            // Label
+            // Extended input b controls
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelB, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticB, biggerControls);
-            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesB, biggerControls);
-            // Label
+            // Extended input c controls
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelC, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticC, biggerControls);
-            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesC, biggerControls);
-            // Label
+            // Extended input m controls
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelM, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticM, biggerControls);
-            // InputGroup
             ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesM, biggerControls);
+            // Compact input a controls
+            ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelCompactA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesCompactA, biggerControls);
+            // Compact input b controls
+            ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelCompactB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesCompactB, biggerControls);
+            // Compact input c controls
+            ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelCompactC, biggerControls);
+            ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesCompactC, biggerControls);
+            // Compact input m controls
+            ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelCompactM, biggerControls);
+            ControlDisplay.setInputFontSize(editTextLinearCongruenceInTwoVariablesCompactM, biggerControls);
             // Buttons
             ControlDisplay.setButtonFontSize(buttonLinearCongruenceInTwoVariablesRun, biggerControls);
             ControlDisplay.setButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonLinearCongruenceInTwoVariablesRunExample3, biggerControls);
-            // Label
+            // Output result
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLinearCongruenceInTwoVariablesLabelElasticResult, biggerControls);
-            // Output
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshBiggerResultDisplay() {
+        try {
+            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+            // Output result
             ControlDisplay.setOutputFontSize(editTextLinearCongruenceInTwoVariablesResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    //endregion Display
+    //endregion Refresh UI
 
 
     //region Callback
@@ -547,7 +790,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 .setIsCompactInputView(isCompactInputView)
                 .setLabel(textViewLinearCongruenceInTwoVariablesLabelA, "a", textViewLinearCongruenceInTwoVariablesLabelElasticA)
                 .setInput(editTextLinearCongruenceInTwoVariablesA)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setCompactControls(textViewLinearCongruenceInTwoVariablesLabelCompactA, editTextLinearCongruenceInTwoVariablesCompactA)
                 .build();
     }
 
@@ -557,7 +800,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 .setIsCompactInputView(isCompactInputView)
                 .setLabel(textViewLinearCongruenceInTwoVariablesLabelB, "b", textViewLinearCongruenceInTwoVariablesLabelElasticB)
                 .setInput(editTextLinearCongruenceInTwoVariablesB)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setCompactControls(textViewLinearCongruenceInTwoVariablesLabelCompactB, editTextLinearCongruenceInTwoVariablesCompactB)
                 .build();
     }
 
@@ -567,7 +810,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 .setIsCompactInputView(isCompactInputView)
                 .setLabel(textViewLinearCongruenceInTwoVariablesLabelC, "c", textViewLinearCongruenceInTwoVariablesLabelElasticC)
                 .setInput(editTextLinearCongruenceInTwoVariablesC)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setCompactControls(textViewLinearCongruenceInTwoVariablesLabelCompactC, editTextLinearCongruenceInTwoVariablesCompactC)
                 .build();
     }
 
@@ -577,7 +820,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 .setIsCompactInputView(isCompactInputView)
                 .setLabel(textViewLinearCongruenceInTwoVariablesLabelM, "m", textViewLinearCongruenceInTwoVariablesLabelElasticM)
                 .setInput(editTextLinearCongruenceInTwoVariablesM)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setCompactControls(textViewLinearCongruenceInTwoVariablesLabelCompactM, editTextLinearCongruenceInTwoVariablesCompactM)
                 .build();
     }
 
@@ -678,8 +921,15 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         editTextLinearCongruenceInTwoVariablesB.clearFocus();
         editTextLinearCongruenceInTwoVariablesC.clearFocus();
         editTextLinearCongruenceInTwoVariablesM.clearFocus();
+        editTextLinearCongruenceInTwoVariablesCompactA.clearFocus();
+        editTextLinearCongruenceInTwoVariablesCompactB.clearFocus();
+        editTextLinearCongruenceInTwoVariablesCompactC.clearFocus();
+        editTextLinearCongruenceInTwoVariablesCompactM.clearFocus();
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
+    }
+    private void resetAllAndSelectTheLastClipboardButtonClicked() {
+        resetAllAndSelectTheLastClipboardButtonClicked(null);
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
@@ -695,6 +945,20 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         textViewLinearCongruenceInTwoVariablesCopyM.setSelected(false);
         textViewLinearCongruenceInTwoVariablesPasteM.setSelected(false);
         textViewLinearCongruenceInTwoVariablesClearM.setSelected(false);
+        //
+        textViewLinearCongruenceInTwoVariablesCopyCompactA.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesPasteCompactA.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesClearCompactA.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesCopyCompactB.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesPasteCompactB.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesClearCompactB.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesCopyCompactC.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesPasteCompactC.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesClearCompactC.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesCopyCompactM.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesPasteCompactM.setSelected(false);
+        textViewLinearCongruenceInTwoVariablesClearCompactM.setSelected(false);
+        //
         textViewLinearCongruenceInTwoVariablesExpandResult.setSelected(false);
         textViewLinearCongruenceInTwoVariablesCopyResult.setSelected(false);
         textViewLinearCongruenceInTwoVariablesClearResult.setSelected(false);
@@ -702,6 +966,9 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         if (textView != null) {
             textView.setSelected(true);
         }
+    }
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
     }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
         // Reset the last button clicked.
@@ -715,10 +982,8 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         }
     }
     private void resetResult(boolean skipLabelResult) {
-        // Reset the last clipboard clicked.
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
-        // Reset the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(null);
+        resetAllAndSelectTheLastClipboardButtonClicked();
+        resetAllAndSelectTheLastButtonClicked();
         //
         if(!skipLabelResult) {
             textViewLinearCongruenceInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result));

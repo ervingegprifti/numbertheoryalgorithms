@@ -33,15 +33,15 @@
                     android:text="@string/label_a"
                     android:labelFor="@+id/EditTextCalculatorA" />
                 <TextView style="@style/TextViewLabelElasticStyle"
-                    android:id="@+id/TextViewCalculatorLabelElasticA"  />
+                    android:id="@+id/TextViewCalculatorLabelElasticA" />
                 <TextView style="@style/ClipboardButtonCopyStyle"
-                    android:id="@+id/TextViewCalculatorCopyA"  />
+                    android:id="@+id/TextViewCalculatorCopyA" />
                 <TextView style="@style/ClipboardButtonPasteStyle"
                     android:id="@+id/TextViewCalculatorPasteA"  />
                 <TextView style="@style/ClipboardButtonClearStyle"
-                    android:id="@+id/TextViewCalculatorClearA"  />
+                    android:id="@+id/TextViewCalculatorClearA" />
             </LinearLayout>
-            <EditText style="@style/EditTextNumberInput"
+            <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextCalculatorA"
                 android:autofillHints=""
                 android:layout_marginBottom="20dp"/>
@@ -53,7 +53,7 @@
                     android:text="@string/label_b"
                     android:labelFor="@+id/EditTextCalculatorB" />
                 <TextView style="@style/TextViewLabelElasticStyle"
-                    android:id="@+id/TextViewCalculatorLabelElasticB"  />
+                    android:id="@+id/TextViewCalculatorLabelElasticB" />
                 <TextView style="@style/ClipboardButtonCopyStyle"
                     android:id="@+id/TextViewCalculatorCopyB" />
                 <TextView style="@style/ClipboardButtonPasteStyle"
@@ -61,7 +61,7 @@
                 <TextView style="@style/ClipboardButtonClearStyle"
                     android:id="@+id/TextViewCalculatorClearB"  />
             </LinearLayout>
-            <EditText style="@style/EditTextNumberInput"
+            <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextCalculatorB"
                 android:autofillHints="" />
         </LinearLayout>
@@ -89,8 +89,7 @@
             </LinearLayout>
 
             <!--Integer integer b:-->
-            <LinearLayout style="@style/RowContainerStyle"
-                android:layout_marginBottom="0dp">
+            <LinearLayout style="@style/RowContainerStyle">
                 <TextView style="@style/TextViewLabelCompactStyle"
                     android:id="@+id/TextViewCalculatorLabelCompactB"
                     android:text="@string/label_b" />

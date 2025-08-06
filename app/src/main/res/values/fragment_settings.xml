@@ -8,7 +8,7 @@
     <string name="settings_compact_input_view">Compact inputGroup view</string>
     <string name="settings_compact_input_view_description">Toggle between Compact and Extended inputGroup view modes.</string>
     <string name="settings_bigger_result_display">Bigger result display</string>
-    <string name="settings_bigger_result_display_description">Increases the size of the result display (only applies to certain algorithms).</string>
+    <string name="settings_bigger_result_display_description">Increases the size of the result display.</string>
     <string name="settings_square_items_result_display">Square items result display</string>
     <string name="settings_square_items_result_display_description">Displays result items as squares (only applies to certain algorithms).</string>
     <!--Clipboard Buttons Configurations-->

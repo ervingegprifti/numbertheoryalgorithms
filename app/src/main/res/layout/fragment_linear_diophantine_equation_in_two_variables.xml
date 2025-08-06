@@ -64,7 +64,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearA"  />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
+			<EditText style="@style/EditTextNumberInputStyle"
 				android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesA"
 				android:autofillHints="" />
 
@@ -88,7 +88,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearB"   />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
+			<EditText style="@style/EditTextNumberInputStyle"
 				android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesB"
 				android:autofillHints="" />
 
@@ -112,7 +112,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearC" />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
+			<EditText style="@style/EditTextNumberInputStyle"
 				android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesC"
 				android:autofillHints="" />
 

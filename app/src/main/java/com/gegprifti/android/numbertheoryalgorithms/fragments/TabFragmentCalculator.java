@@ -38,13 +38,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TabFragmentCalculator extends FragmentBase implements Callback {
     private final static String TAG = TabFragmentCalculator.class.getSimpleName();
-
     static final BigInteger ZERO = BigInteger.ZERO;
     static final BigInteger ONE = BigInteger.ONE;
     static final BigInteger TWO = BigInteger.valueOf(2L);
-    static final BigInteger THREE = BigInteger.valueOf(3L);
-    static final BigInteger FIVE = BigInteger.valueOf(5L);
     BigInteger INTEGER_MAX_VALUE = new BigInteger(Integer.toString(Integer.MAX_VALUE));
+    // Cache view state
+    boolean isCompactInputView = false;
     // Extended input view
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewCalculatorLabelA;
@@ -87,7 +86,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     Button buttonCalculatorFactorial;
     Button buttonCalculatorNextProbablePrime;
     Button buttonCalculatorNextProbableTwinPrime;
-    // Result
+    // Result controls
     TextView textViewCalculatorLabelResult1;
     TextView textViewCalculatorLabelElasticResult1;
     TextView textViewCalculatorCopyResult1;
@@ -100,7 +99,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     TextView textViewCalculatorCopyResult2;
     TextView textViewCalculatorClearResult2;
     EditText editTextCalculatorResult2;
-    boolean isCompactInputView = false;
     // Flags to prevent recursive updates
     AtomicBoolean isUpdatingEditTextCalculatorA = new AtomicBoolean(false);
     AtomicBoolean isUpdatingEditTextCalculatorCompactA = new AtomicBoolean(false);
@@ -170,10 +168,10 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewCalculatorClearResult2 = inflater.findViewById(R.id.TextViewCalculatorClearResult2);
             editTextCalculatorResult2 = inflater.findViewById(R.id.EditTextCalculatorResult2);
 
-            // Constrain extended input integer only
+            // Constrain extended input
             editTextCalculatorA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextCalculatorB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
-            // Constrain compact input integer only
+            // Constrain compact input
             editTextCalculatorCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextCalculatorCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
@@ -557,23 +555,19 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult1, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCalculatorCopyResult2, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult2, biggerControls);
-            // Extended label for input a
+            // Extended input a controls
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticA, biggerControls);
-            // Extended input a
             ControlDisplay.setInputFontSize(editTextCalculatorA, biggerControls);
-            // Extended label for input b
+            // Extended input b controls
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelB, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticB, biggerControls);
-            // Extended input b
             ControlDisplay.setInputFontSize(editTextCalculatorB, biggerControls);
-            // Compact label for input a
+            // Compact input a controls
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelCompactA, biggerControls);
-            // Extended input a
             ControlDisplay.setInputFontSize(editTextCalculatorCompactA, biggerControls);
-            // Extended label for input b
+            // Compact input b controls
             ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelCompactB, biggerControls);
-            // Extended input b
             ControlDisplay.setInputFontSize(editTextCalculatorCompactB, biggerControls);
             // Run buttons
             ControlDisplay.setButtonFontSize(buttonCalculatorAddition, biggerControls);
@@ -606,9 +600,9 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     private void refreshBiggerResultDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
-            // Result1 output
+            // // Output result1
             ControlDisplay.setOutputFontSize(editTextCalculatorResult1, biggerControls);
-            // Result2 output
+            // // Output result2
             ControlDisplay.setOutputFontSize(editTextCalculatorResult2, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);

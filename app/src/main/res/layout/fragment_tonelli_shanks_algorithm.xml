@@ -63,7 +63,7 @@
                     <TextView style="@style/ClipboardButtonClearStyle"
                         android:id="@+id/TextViewTonelliShanksAlgorithmClearA" />
                 </LinearLayout>
-                <EditText android:id="@+id/EditTextTonelliShanksAlgorithmA" style="@style/EditTextNumberInput" android:autofillHints="" />
+                <EditText android:id="@+id/EditTextTonelliShanksAlgorithmA" style="@style/EditTextNumberInputStyle" android:autofillHints="" />
 
                 <!--Big integer p:-->
                 <LinearLayout
@@ -83,7 +83,7 @@
                     <TextView style="@style/ClipboardButtonClearStyle"
                         android:id="@+id/TextViewTonelliShanksAlgorithmClearP" />
                 </LinearLayout>
-                <EditText style="@style/EditTextPositiveNumberInput"
+                <EditText style="@style/EditTextNumberPositiveInputStyle"
                     android:id="@+id/EditTextTonelliShanksAlgorithmP"
                     android:autofillHints="" />
 
