@@ -34,30 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--Expression-->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-            <TextView style="@style/TextViewLabelInputStyle"
-                android:id="@+id/TextViewLabelExpression"
-                android:text="@string/quadratic_form_label_expression" />
-            <TextView style="@style/TextViewLabelElasticStyle"
-                android:id="@+id/TextViewLabelElasticExpression"  />
-            <TextView style="@style/ClipboardButtonCopyStyle"
-                android:id="@+id/TextViewCopyExpression" />
-            <TextView style="@style/ClipboardButtonPasteStyle"
-                android:id="@+id/TextViewPasteExpression"  />
-            <TextView style="@style/ClipboardButtonClearStyle"
-                android:id="@+id/TextViewClearExpression"  />
-        </LinearLayout>
-        <EditText style="@style/EditTextBinaryQuadraticFormExpression"
-            android:id="@+id/EditTextExpression"
-            android:autofillHints="@string/quadratic_form_expression_autofillhints"
-            android:hint="@string/quadratic_form_expression_hint"
-            android:layout_marginBottom="20dp"/>
-
 
         <!--Extended inputGroup view-->
         <LinearLayout style="@style/ColumnContainerStyle"

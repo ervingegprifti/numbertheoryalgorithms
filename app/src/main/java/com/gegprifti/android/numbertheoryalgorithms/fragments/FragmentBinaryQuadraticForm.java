@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,26 +39,73 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class FragmentBinaryQuadraticForm extends FragmentBase implements Callback {
     private final static String TAG = FragmentBinaryQuadraticForm.class.getSimpleName();
-
+    // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
     TextView textViewDocumentationFile;
-    TextView textViewLabelExpression;
-    TextView textViewLabelElasticExpression;
-    TextView textViewCopyExpression;
-    TextView textViewPasteExpression;
-    TextView textViewClearExpression;
-    EditText editTextExpression;
+    // Cache view state
+    boolean isCompactInputView = false;
+    // Extended input view
+    LinearLayout linearLayoutExtendedInputView;
+    TextView textViewLabelB;
+    TextView textViewLabelElasticB;
+    TextView textViewCopyB;
+    TextView textViewPasteB;
+    TextView textViewClearB;
+    EditText editTextB;
+    TextView textViewLabelD;
+    TextView textViewLabelElasticD;
+    TextView textViewCopyD;
+    TextView textViewPasteD;
+    TextView textViewClearD;
+    EditText editTextD;
+    TextView textViewLabelE;
+    TextView textViewLabelElasticE;
+    TextView textViewCopyE;
+    TextView textViewPasteE;
+    TextView textViewClearE;
+    EditText editTextE;
+    TextView textViewLabelF;
+    TextView textViewLabelElasticF;
+    TextView textViewCopyF;
+    TextView textViewPasteF;
+    TextView textViewClearF;
+    EditText editTextF;
+    // Compact input view
+    LinearLayout linearLayoutCompactInputView;
+    TextView textViewLabelCompactB;
+    TextView textViewCopyCompactB;
+    TextView textViewPasteCompactB;
+    TextView textViewClearCompactB;
+    EditText editTextCompactB;
+    TextView textViewLabelCompactD;
+    TextView textViewCopyCompactD;
+    TextView textViewPasteCompactD;
+    TextView textViewClearCompactD;
+    EditText editTextCompactD;
+    TextView textViewLabelCompactE;
+    TextView textViewCopyCompactE;
+    TextView textViewPasteCompactE;
+    TextView textViewClearCompactE;
+    EditText editTextCompactE;
+    TextView textViewLabelCompactF;
+    TextView textViewCopyCompactF;
+    TextView textViewPasteCompactF;
+    TextView textViewClearCompactF;
+    EditText editTextCompactF;
+    // Example run buttons
     LinearLayout linearLayoutExamplesContainer;
     Button buttonRunExample1;
     Button buttonRunExample2;
     Button buttonRunExample3;
     Button buttonRunExample4;
     Button buttonRunExample5;
+    // Run buttons
     Button buttonRun;
     Button buttonRun1;
     Button buttonRun2;
@@ -68,6 +116,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     Button buttonRMinus;
     Button buttonR;
     Button buttonRPlus;
+    // Result controls
     TextView textViewLabelResult;
     TextView textViewLabelElasticResult;
     TextView textViewExpandResult;
@@ -81,10 +130,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     LinearLayout linearLayoutResultGridContainer2;
     LinearLayout linearLayoutStaticColumnHeader2;
     ListView listViewResult2;
+    // Menu
     MenuItem menuItemIncludeTrivialSolutions;
     MenuItem menuItemIncludeOnlyPositiveSolutions;
     MenuItem menuItemIncludeOnlyNegativeSolutions;
-    boolean isCompactInputView = false;
+    // Flags to prevent recursive updates
+    AtomicBoolean isUpdatingEditTextB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextD = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactD = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextE = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactE = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextF = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactF = new AtomicBoolean(false);
 
 
     // Define the parent fragment
@@ -103,34 +161,80 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_binary_quadratic_form, container, false);
+            // Navigation controls
             this.textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
             this.textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
-            this.textViewLabelExpression = inflater.findViewById(R.id.TextViewLabelExpression);
-            this.textViewLabelElasticExpression = inflater.findViewById(R.id.TextViewLabelElasticExpression);
-            this.textViewCopyExpression = inflater.findViewById(R.id.TextViewCopyExpression);
-            this.textViewPasteExpression = inflater.findViewById(R.id.TextViewPasteExpression);
-            this.textViewClearExpression = inflater.findViewById(R.id.TextViewClearExpression);
-            this.editTextExpression = inflater.findViewById(R.id.EditTextExpression);
-            this.buttonM = inflater.findViewById(R.id.ButtonM);
-            this.buttonR = inflater.findViewById(R.id.ButtonR);
+            // Extended input view
+            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
+            textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
+            textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
+            textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
+            textViewClearB = inflater.findViewById(R.id.TextViewClearB);
+            editTextB = inflater.findViewById(R.id.EditTextB);
+            textViewLabelD = inflater.findViewById(R.id.TextViewLabelD);
+            textViewLabelElasticD = inflater.findViewById(R.id.TextViewLabelElasticD);
+            textViewCopyD = inflater.findViewById(R.id.TextViewCopyD);
+            textViewPasteD = inflater.findViewById(R.id.TextViewPasteD);
+            textViewClearD = inflater.findViewById(R.id.TextViewClearD);
+            editTextD = inflater.findViewById(R.id.EditTextD);
+            textViewLabelE = inflater.findViewById(R.id.TextViewLabelE);
+            textViewLabelElasticE = inflater.findViewById(R.id.TextViewLabelElasticE);
+            textViewCopyE = inflater.findViewById(R.id.TextViewCopyE);
+            textViewPasteE = inflater.findViewById(R.id.TextViewPasteE);
+            textViewClearE = inflater.findViewById(R.id.TextViewClearE);
+            editTextE = inflater.findViewById(R.id.EditTextE);
+            textViewLabelF = inflater.findViewById(R.id.TextViewLabelF);
+            textViewLabelElasticF = inflater.findViewById(R.id.TextViewLabelElasticF);
+            textViewCopyF = inflater.findViewById(R.id.TextViewCopyF);
+            textViewPasteF = inflater.findViewById(R.id.TextViewPasteF);
+            textViewClearF = inflater.findViewById(R.id.TextViewClearF);
+            editTextF = inflater.findViewById(R.id.EditTextF);
+            // Compact input view
+            linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
+            textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
+            textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
+            textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
+            editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
+            textViewLabelCompactD = inflater.findViewById(R.id.TextViewLabelCompactD);
+            textViewCopyCompactD = inflater.findViewById(R.id.TextViewCopyCompactD);
+            textViewPasteCompactD = inflater.findViewById(R.id.TextViewPasteCompactD);
+            textViewClearCompactD = inflater.findViewById(R.id.TextViewClearCompactD);
+            editTextCompactD = inflater.findViewById(R.id.EditTextCompactD);
+            textViewLabelCompactE = inflater.findViewById(R.id.TextViewLabelCompactE);
+            textViewCopyCompactE = inflater.findViewById(R.id.TextViewCopyCompactE);
+            textViewPasteCompactE = inflater.findViewById(R.id.TextViewPasteCompactE);
+            textViewClearCompactE = inflater.findViewById(R.id.TextViewClearCompactE);
+            editTextCompactE = inflater.findViewById(R.id.EditTextCompactE);
+            textViewLabelCompactF = inflater.findViewById(R.id.TextViewLabelCompactF);
+            textViewCopyCompactF = inflater.findViewById(R.id.TextViewCopyCompactF);
+            textViewPasteCompactF = inflater.findViewById(R.id.TextViewPasteCompactF);
+            textViewClearCompactF = inflater.findViewById(R.id.TextViewClearCompactF);
+            editTextCompactF = inflater.findViewById(R.id.EditTextCompactF);
+            // Example run buttons
             this.linearLayoutExamplesContainer = inflater.findViewById(R.id.LinearLayoutExamplesContainer);
             this.buttonRunExample1 = inflater.findViewById(R.id.ButtonRunExample1);
             this.buttonRunExample2 = inflater.findViewById(R.id.ButtonRunExample2);
             this.buttonRunExample3 = inflater.findViewById(R.id.ButtonRunExample3);
             this.buttonRunExample4 = inflater.findViewById(R.id.ButtonRunExample4);
             this.buttonRunExample5 = inflater.findViewById(R.id.ButtonRunExample5);
+            // Run buttons
             this.buttonRun = inflater.findViewById(R.id.ButtonRun);
             this.buttonRun1 = inflater.findViewById(R.id.ButtonRun1);
             this.buttonRun2 = inflater.findViewById(R.id.ButtonRun2);
+            this.buttonMMinus = inflater.findViewById(R.id.ButtonMMinus);
+            this.buttonM = inflater.findViewById(R.id.ButtonM);
+            this.buttonMPlus = inflater.findViewById(R.id.ButtonMPlus);
+            this.buttonRMinus = inflater.findViewById(R.id.ButtonRMinus);
+            this.buttonR = inflater.findViewById(R.id.ButtonR);
+            this.buttonRPlus = inflater.findViewById(R.id.ButtonRPlus);
+            // Result controls
             this.textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
             this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
             this.textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
             this.textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
-            this.buttonMMinus = inflater.findViewById(R.id.ButtonMMinus);
-            this.buttonMPlus = inflater.findViewById(R.id.ButtonMPlus);
-            this.buttonRMinus = inflater.findViewById(R.id.ButtonRMinus);
-            this.buttonRPlus = inflater.findViewById(R.id.ButtonRPlus);
             this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             this.linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
             this.editTextResult = inflater.findViewById(R.id.EditTextResult);
@@ -142,7 +246,18 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.linearLayoutStaticColumnHeader2 = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader2);
             this.listViewResult2 = inflater.findViewById(R.id.ListViewResult2);
 
-            // Events
+            // Constrain extended input
+            editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextD.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextE.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextF.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain compact input
+            editTextCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactD.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactE.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactF.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+
+            // Navigation vents
             this.textViewBackToAlgorithms.setOnClickListener(view -> {
                 if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
@@ -150,34 +265,387 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            this.textViewDocumentationFile.setOnClickListener(new View.OnClickListener() {
+            this.textViewDocumentationFile.setOnClickListener(v -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.QUADRATIC_FORM_PDF).show(getParentFragmentManager(), "QUADRATIC_FORM_PDF"));
+
+            // Extended input events
+            editTextB.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View v) {
-                    DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.QUADRATIC_FORM_PDF).show(getParentFragmentManager(), "QUADRATIC_FORM_PDF");
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextB.get()) return; // editTextB is locked
+                    // Other work
+                    String labelText = "b" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelB.setText(labelText);
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactB
+                    isUpdatingEditTextCompactB.set(true); // Lock editTextCompactB
+                    try {
+                        editTextCompactB.setText(s.toString());
+                        // editTextCompactB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactB.set(false); // Unlock editTextCompactB
+                    }
                 }
             });
-            this.textViewCopyExpression.setOnClickListener(new View.OnClickListener() {
+            editTextD.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextExpression);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyExpression);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextD.get()) return; // editTextD is locked
+                    // Other work
+                    String labelText = "d" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelD.setText(labelText);
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactD
+                    isUpdatingEditTextCompactD.set(true); // Lock editTextCompactD
+                    try {
+                        editTextCompactD.setText(s.toString());
+                        // editTextCompactD.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactD.set(false); // Unlock editTextCompactD
+                    }
                 }
             });
-            this.textViewPasteExpression.setOnClickListener(new View.OnClickListener() {
+            editTextE.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View v) {
-                    UIHelper.pasteToEditTextAsExpressionBDEF(requireContext(), editTextExpression);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteExpression);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextE.get()) return; // editTextE is locked
+                    // Other work
+                    String labelText = "e" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelE.setText(labelText);
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactE
+                    isUpdatingEditTextCompactE.set(true); // Lock editTextCompactE
+                    try {
+                        editTextCompactE.setText(s.toString());
+                        // editTextCompactE.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactE.set(false); // Unlock editTextCompactE
+                    }
                 }
             });
-            this.textViewClearExpression.setOnClickListener(new View.OnClickListener() {
+            editTextF.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextExpression);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewClearExpression);
-                    resetAllAndSelectTheLastButtonClicked(null);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextF.get()) return; // editTextF is locked
+                    // Other work
+                    String labelText = "f" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelF.setText(labelText);
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactF
+                    isUpdatingEditTextCompactF.set(true); // Lock editTextCompactF
+                    try {
+                        editTextCompactF.setText(s.toString());
+                        // editTextCompactF.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactF.set(false); // Unlock editTextCompactF
+                    }
                 }
             });
+
+            // Compact input events
+            editTextCompactB.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactB.get()) return; // editTextCompactB is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextB
+                    isUpdatingEditTextB.set(true); // Lock editTextB
+                    try {
+                        editTextB.setText(s.toString());
+                        // editTextB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextB.set(false); // unlock editTextB
+                    }
+                }
+            });
+            editTextCompactD.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactD.get()) return; // editTextCompactD is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextD
+                    isUpdatingEditTextD.set(true); // Lock editTextD
+                    try {
+                        editTextD.setText(s.toString());
+                        // editTextD.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextD.set(false); // unlock editTextD
+                    }
+                }
+            });
+            editTextCompactE.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactE.get()) return; // editTextCompactE is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextE
+                    isUpdatingEditTextE.set(true); // Lock editTextE
+                    try {
+                        editTextE.setText(s.toString());
+                        // editTextE.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextE.set(false); // unlock editTextE
+                    }
+                }
+            });
+            editTextCompactF.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactF.get()) return; // editTextCompactF is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextF
+                    isUpdatingEditTextF.set(true); // Lock editTextF
+                    try {
+                        editTextF.setText(s.toString());
+                        // editTextF.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextF.set(false); // unlock editTextF
+                    }
+                }
+            });
+
+            // Extended input b clipboard button events
+            textViewCopyB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
+            });
+            textViewPasteB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
+            });
+            textViewClearB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input d clipboard button events
+            textViewCopyD.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyD);
+            });
+            textViewPasteD.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteD);
+            });
+            textViewClearD.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearD);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input e clipboard button events
+            textViewCopyE.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyE);
+            });
+            textViewPasteE.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteE);
+            });
+            textViewClearE.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearE);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input f clipboard button events
+            textViewCopyF.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyF);
+            });
+            textViewPasteF.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteF);
+            });
+            textViewClearF.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearF);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input b clipboard button events
+            textViewCopyCompactB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
+            });
+            textViewPasteCompactB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
+            });
+            textViewClearCompactB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input d clipboard button events
+            textViewCopyCompactD.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactD);
+            });
+            textViewPasteCompactD.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactD);
+            });
+            textViewClearCompactD.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactD);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input e clipboard button events
+            textViewCopyCompactE.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactE);
+            });
+            textViewPasteCompactE.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactE);
+            });
+            textViewClearCompactE.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactE);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input f clipboard button events
+            textViewCopyCompactF.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactF);
+            });
+            textViewPasteCompactF.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactF);
+            });
+            textViewClearCompactF.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactF);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Example run button events
+            this.buttonRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            this.buttonRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            this.buttonRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+            this.buttonRunExample4.setOnClickListener(v -> onButtonRunExample4(container));
+            this.buttonRunExample5.setOnClickListener(v -> onButtonRunExample5(container));
+
+            // Run button events
+            this.buttonRun.setOnClickListener(v -> onButtonRun(container, buttonRun, false));
+            this.buttonRun1.setOnClickListener(v -> onButtonRun1(container));
+            this.buttonRun2.setOnClickListener(v -> onButtonRun2(container));
+
+            // Run button events
+            this.buttonMMinus.setOnClickListener(v -> {
+                String mText = buttonM.getText().toString();
+                if (!mText.isEmpty()) {
+                    int m = Integer.parseInt(mText);
+                    if (m <= 1) { // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
+                        buttonM.setText("");
+                    } else {
+                        m = m - 1;
+                        buttonM.setText(String.valueOf(m));
+                    }
+                }
+                calculateFModM();
+            });
+            this.buttonMPlus.setOnClickListener(v -> {
+                String mText = buttonM.getText().toString();
+                if (mText.isEmpty()) {
+                    buttonM.setText("1"); // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
+                } else {
+                    int m = Integer.parseInt(mText);
+                    m = m + 1;
+                    buttonM.setText(String.valueOf(m));
+                }
+                calculateFModM();
+            });
+            this.buttonRMinus.setOnClickListener(v -> {
+                String rText = buttonR.getText().toString();
+                if (!rText.isEmpty()) {
+                    int r = Integer.parseInt(rText);
+                    if (r <= 0) {
+                        buttonR.setText("");
+                    } else {
+                        r -= 1;
+                        buttonR.setText(String.valueOf(r));
+                    }
+                }
+                calculateFModM();
+            });
+            this.buttonRPlus.setOnClickListener(v -> {
+                String rText = buttonR.getText().toString();
+                if (rText.isEmpty()) {
+                    buttonR.setText("0");
+                } else {
+                    String mText = buttonM.getText().toString();
+                    if (mText.isEmpty()) {
+                        buttonR.setText("");
+                    } else {
+                        int m = Integer.parseInt(mText);
+                        int r = Integer.parseInt(rText);
+                        r += 1;
+                        if (r < m) {
+                            buttonR.setText(String.valueOf(r));
+                        }
+                    }
+                }
+                calculateFModM();
+            });
+
+            // Result clipboard button events
             this.textViewExpandResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -201,136 +669,15 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
                 }
             });
-            this.buttonMMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String mText = buttonM.getText().toString();
-                    if (!mText.isEmpty()) {
-                        int m = Integer.parseInt(mText);
-                        if (m <= 1) { // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
-                            buttonM.setText("");
-                        } else {
-                            m = m - 1;
-                            buttonM.setText(String.valueOf(m));
-                        }
-                    }
-                    calculateFModM();
-                }
-            });
-            this.buttonMPlus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String mText = buttonM.getText().toString();
-                    if (mText.isEmpty()) {
-                        buttonM.setText("1"); // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
-                    } else {
-                        int m = Integer.parseInt(mText);
-                        m = m + 1;
-                        buttonM.setText(String.valueOf(m));
-                    }
-                    calculateFModM();
-                }
-            });
-            this.buttonRMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String rText = buttonR.getText().toString();
-                    if (!rText.isEmpty()) {
-                        int r = Integer.parseInt(rText);
-                        if (r <= 0) {
-                            buttonR.setText("");
-                        } else {
-                            r -= 1;
-                            buttonR.setText(String.valueOf(r));
-                        }
-                    }
-                    calculateFModM();
-                }
-            });
-            this.buttonRPlus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String rText = buttonR.getText().toString();
-                    if (rText.isEmpty()) {
-                        buttonR.setText("0");
-                    } else {
-                        String mText = buttonM.getText().toString();
-                        if (mText.isEmpty()) {
-                            buttonR.setText("");
-                        } else {
-                            int m = Integer.parseInt(mText);
-                            int r = Integer.parseInt(rText);
-                            r += 1;
-                            if (r < m) {
-                                buttonR.setText(String.valueOf(r));
-                            }
-                        }
-                    }
-                    calculateFModM();
-                }
-            });
             this.textViewClearResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     UIHelper.clearEditText(requireContext(), editTextResult);
                     resetResult(false);
                     resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
                 }
             });
-            this.editTextExpression.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-                @Override
-                public void afterTextChanged(Editable s) {
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            this.buttonM.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-                @Override
-                public void afterTextChanged(Editable s) {
-                    // Reset the last button clicked.
-                    // ResetAllAndSelectResultButtonClicked(null);
-                }
-            });
-            this.buttonR.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-                @Override
-                public void afterTextChanged(Editable s) {
-                    // Reset the last button clicked.
-                    // ResetAllAndSelectResultButtonClicked(null);
-                }
-            });
-            this.buttonRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
-            this.buttonRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
-            this.buttonRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
-            this.buttonRunExample4.setOnClickListener(v -> onButtonRunExample4(container));
-            this.buttonRunExample5.setOnClickListener(v -> onButtonRunExample5(container));
-            this.buttonRun.setOnClickListener(v -> onButtonRun(container, buttonRun, false));
-            this.buttonRun1.setOnClickListener(v -> onButtonRun1(container));
-            this.buttonRun2.setOnClickListener(v -> onButtonRun2(container));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -393,41 +740,86 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_1) {
-                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_1_expression));
-                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_1_m));
-                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_1_r));
+                String b = "8";
+                String d = "3";
+                String e = "3";
+                String f = "88";
+                String m = "8";
+                String r = "0";
+                this.editTextB.setText(b);
+                this.editTextD.setText(d);
+                this.editTextE.setText(e);
+                this.editTextF.setText(f);
+                this.buttonM.setText(m);
+                this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_2) {
-                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_2_expression));
-                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_2_m));
-                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_2_r));
+                String b = "16";
+                String d = "7";
+                String e = "3";
+                String f = "113";
+                String m = "16";
+                String r = "1";
+                this.editTextB.setText(b);
+                this.editTextD.setText(d);
+                this.editTextE.setText(e);
+                this.editTextF.setText(f);
+                this.buttonM.setText(m);
+                this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_3) {
-                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_3_expression));
-                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_3_m));
-                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_3_r));
+                String b = "8";
+                String d = "7";
+                String e = "7";
+                String f = "83";
+                String m = "8";
+                String r = "3";
+                this.editTextB.setText(b);
+                this.editTextD.setText(d);
+                this.editTextE.setText(e);
+                this.editTextF.setText(f);
+                this.buttonM.setText(m);
+                this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_4) {
-                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_4_expression));
-                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_4_m));
-                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_4_r));
+                String b = "16";
+                String d = "15";
+                String e = "11";
+                String f = "104";
+                String m = "16";
+                String r = "8";
+                this.editTextB.setText(b);
+                this.editTextD.setText(d);
+                this.editTextE.setText(e);
+                this.editTextF.setText(f);
+                this.buttonM.setText(m);
+                this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_5) {
-                this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_5_expression));
-                this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_5_m));
-                this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_5_r));
+                String b = "8";
+                String d = "3";
+                String e = "5";
+                String f = "14";
+                String m = "8";
+                String r = "6";
+                this.editTextB.setText(b);
+                this.editTextD.setText(d);
+                this.editTextE.setText(e);
+                this.editTextF.setText(f);
+                this.buttonM.setText(m);
+                this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
                 resetResult(true);
                 return true;
@@ -446,12 +838,30 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     @Override
     public void onResume() {
         super.onResume();
+        refreshInputViewMode();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
+        refreshBiggerResultDisplay();
     }
 
 
-    //region Display
+    //region Refresh UI
+    private void refreshInputViewMode() {
+        try {
+            this.isCompactInputView = UserSettings.getCompactInputView(requireContext());
+            if(isCompactInputView){
+                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutCompactInputView.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
     private void refreshHideExampleButtons() {
         try {
             boolean exampleButtonsAreVisible = this.linearLayoutExamplesContainer.getVisibility() == View.VISIBLE;
@@ -473,44 +883,92 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewCopyExpression, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPasteExpression, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearExpression, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyF, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteF, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearF, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactF, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactF, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactF, biggerControls);
             // Clipboard output buttons
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelExpression, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticExpression, biggerControls);
-            // InputGroup
-            ControlDisplay.setInputFontSize(this.editTextExpression, biggerControls);
-            // Buttons
+            // Extended input controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelD, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticD, biggerControls);
+            ControlDisplay.setInputFontSize(editTextD, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelE, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticE, biggerControls);
+            ControlDisplay.setInputFontSize(editTextE, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelF, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticF, biggerControls);
+            ControlDisplay.setInputFontSize(editTextF, biggerControls);
+            // Compact input controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactD, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactD, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactE, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactE, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactF, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactF, biggerControls);
+            // Example run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample4, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample5, biggerControls);
+            // Run buttons
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun2, biggerControls);
-            // Buttons.
+            // Run Buttons
             ControlDisplay.setButtonFontSize(buttonMMinus, biggerControls);
             ControlDisplay.setButtonFontSize(buttonM, biggerControls);
             ControlDisplay.setButtonFontSize(buttonMPlus, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRMinus, biggerControls);
             ControlDisplay.setButtonFontSize(buttonR, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRPlus, biggerControls);
-            // Label
+            // Output result
             ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
-            // Output
-            ControlDisplay.setOutputFontSize(this.editTextResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    //endregion Display
+
+
+    private void refreshBiggerResultDisplay() {
+        try {
+            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+            // Output result
+            ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+    //endregion Refresh UI
 
 
     //region Callback
@@ -682,11 +1140,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //region BUTTON ACTIONS
     private void onButtonRunExample1(ViewGroup container) {
         try {
-            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_1_expression));
-            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_1_m));
-            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_1_r));
+            String b = "8";
+            String d = "3";
+            String e = "3";
+            String f = "88";
+            String m = "8";
+            String r = "0";
+            this.editTextB.setText(b);
+            this.editTextD.setText(d);
+            this.editTextE.setText(e);
+            this.editTextF.setText(f);
+            this.buttonM.setText(m);
+            this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
-            //
             onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -694,11 +1160,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample2(ViewGroup container) {
         try {
-            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_2_expression));
-            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_2_m));
-            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_2_r));
+            String b = "16";
+            String d = "7";
+            String e = "3";
+            String f = "113";
+            String m = "16";
+            String r = "1";
+            this.editTextB.setText(b);
+            this.editTextD.setText(d);
+            this.editTextE.setText(e);
+            this.editTextF.setText(f);
+            this.buttonM.setText(m);
+            this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
-            //
             onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -706,11 +1180,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample3(ViewGroup container) {
         try {
-            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_3_expression));
-            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_3_m));
-            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_3_r));
+            String b = "8";
+            String d = "7";
+            String e = "7";
+            String f = "83";
+            String m = "8";
+            String r = "3";
+            this.editTextB.setText(b);
+            this.editTextD.setText(d);
+            this.editTextE.setText(e);
+            this.editTextF.setText(f);
+            this.buttonM.setText(m);
+            this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
-            //
             onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -718,11 +1200,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample4(ViewGroup container) {
         try {
-            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_4_expression));
-            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_4_m));
-            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_4_r));
+            String b = "16";
+            String d = "15";
+            String e = "11";
+            String f = "104";
+            String m = "16";
+            String r = "8";
+            this.editTextB.setText(b);
+            this.editTextD.setText(d);
+            this.editTextE.setText(e);
+            this.editTextF.setText(f);
+            this.buttonM.setText(m);
+            this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
-            //
             onButtonRun(container, buttonRunExample4, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -730,50 +1220,87 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample5(ViewGroup container) {
         try {
-            this.editTextExpression.setText(requireContext().getText(R.string.quadratic_form_example_5_expression));
-            this.buttonM.setText(requireContext().getText(R.string.quadratic_form_example_5_m));
-            this.buttonR.setText(requireContext().getText(R.string.quadratic_form_example_5_r));
+            String b = "8";
+            String d = "3";
+            String e = "5";
+            String f = "14";
+            String m = "8";
+            String r = "6";
+            this.editTextB.setText(b);
+            this.editTextD.setText(d);
+            this.editTextE.setText(e);
+            this.editTextF.setText(f);
+            this.buttonM.setText(m);
+            this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
-            //
             onButtonRun(container, buttonRunExample5, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private InputGroup getInputGroupExpression() {
+
+
+    private InputGroup getInputGroupB() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelExpression, "bxy+dx+ey=f", textViewLabelElasticExpression)
-                .setInput(editTextExpression)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setLabel(textViewLabelB, "b", textViewLabelElasticB)
+                .setInput(editTextB)
+                .setCompactControls(textViewLabelCompactB, editTextCompactB)
                 .build();
     }
+    private InputGroup getInputGroupD() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelD, "d", textViewLabelElasticD)
+                .setInput(editTextD)
+                .setCompactControls(textViewLabelCompactD, editTextCompactD)
+                .build();
+    }
+    private InputGroup getInputGroupE() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelE, "e", textViewLabelElasticE)
+                .setInput(editTextE)
+                .setCompactControls(textViewLabelCompactE, editTextCompactE)
+                .build();
+    }
+    private InputGroup getInputGroupF() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelF, "f", textViewLabelElasticF)
+                .setInput(editTextF)
+                .setCompactControls(textViewLabelCompactF, editTextCompactF)
+                .build();
+    }
+
+
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             resetResult(skipLabelResult);
 
             // Check.
-            InputGroup inputGroupExpression = getInputGroupExpression();
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupExpression);
-            if (expression == null) {
+            InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupD = getInputGroupD();
+            InputGroup inputGroupE = getInputGroupE();
+            InputGroup inputGroupF = getInputGroupF();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
-            String errorMessage = "";
-            if (expression.size() == 6) {
-                // The a, b, c, d, e, f Quadratic Form is not supported here yet.
-                errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
+                return;
             }
-            if (!errorMessage.isEmpty()) {
-                UIHelper.displayError(inputGroupExpression);
-                // Notify before return.
-                UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupE)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupF)) {
                 return;
             }
 
-            BigInteger b = expression.get(0);
-            BigInteger d = expression.get(1);
-            BigInteger e = expression.get(2);
-            BigInteger f = expression.get(3);
+            // Get numbers
+            BigInteger b = new BigInteger(editTextB.getText().toString());
+            BigInteger d = new BigInteger(editTextD.getText().toString());
+            BigInteger e = new BigInteger(editTextE.getText().toString());
+            BigInteger f = new BigInteger(editTextF.getText().toString());
 
             // Check b ≠ 0
             if (b.compareTo(BigInteger.ZERO) == 0) {
@@ -809,27 +1336,28 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(false);
 
             // Check.
-            InputGroup inputGroupExpression = getInputGroupExpression();
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupExpression);
-            if (expression == null) {
+            InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupD = getInputGroupD();
+            InputGroup inputGroupE = getInputGroupE();
+            InputGroup inputGroupF = getInputGroupF();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
-            String errorMessage = "";
-            if (expression.size() == 6) {
-                // The a, b, c, d, e, f Quadratic Form is not supported here yet.
-                errorMessage = "The <b>a, b, c, d, e, f</b> Quadratic Form is not supported here yet.";
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
+                return;
             }
-            if (!errorMessage.isEmpty()) {
-                UIHelper.displayError(inputGroupExpression);
-                // Notify before return.
-                UIHelper.displayTheErrorMessage(requireContext(), errorMessage);
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupE)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupF)) {
                 return;
             }
 
-            BigInteger b = expression.get(0);
-            BigInteger d = expression.get(1);
-            BigInteger e = expression.get(2);
-            BigInteger f = expression.get(3);
+            // Get numbers
+            BigInteger b = new BigInteger(editTextB.getText().toString());
+            BigInteger d = new BigInteger(editTextD.getText().toString());
+            BigInteger e = new BigInteger(editTextE.getText().toString());
+            BigInteger f = new BigInteger(editTextF.getText().toString());
 
             // Check b ≠ 0
             if (b.compareTo(BigInteger.ZERO) == 0) {
@@ -858,33 +1386,30 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(false);
 
             // Check.
-            InputGroup inputGroupExpression = getInputGroupExpression();
-            List<BigInteger> expression = UIHelper.checkInputAndGetQuadraticFormExpression(requireContext(), inputGroupExpression);
-            if (expression == null) {
+            InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupD = getInputGroupD();
+            InputGroup inputGroupE = getInputGroupE();
+            InputGroup inputGroupF = getInputGroupF();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupE)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupF)) {
                 return;
             }
 
-            BigInteger a = null;
-            BigInteger b = null;
-            BigInteger c = null;
-            BigInteger d = null;
-            BigInteger e = null;
-            BigInteger f = null;
-            if (expression.size() == 6) {
-                a = expression.get(0);
-                b = expression.get(1);
-                c = expression.get(2);
-                d = expression.get(3);
-                e = expression.get(4);
-                f = expression.get(5);
-            } else if (expression.size() == 4) {
-                a = BigInteger.ZERO;
-                b = expression.get(0);
-                c = BigInteger.ZERO;
-                d = expression.get(1);
-                e = expression.get(2);
-                f = expression.get(3);
-            }
+            // Get numbers
+            BigInteger a = BigInteger.ZERO;
+            BigInteger b = new BigInteger(editTextB.getText().toString());
+            BigInteger c = BigInteger.ZERO;
+            BigInteger d = new BigInteger(editTextD.getText().toString());
+            BigInteger e = new BigInteger(editTextE.getText().toString());
+            BigInteger f = new BigInteger(editTextF.getText().toString());
 
             setResultVisibilityFromButtonRun2();
 
@@ -1016,15 +1541,48 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
-        editTextExpression.clearFocus();
+        editTextB.clearFocus();
+        editTextD.clearFocus();
+        editTextE.clearFocus();
+        editTextF.clearFocus();
+        editTextCompactB.clearFocus();
+        editTextCompactD.clearFocus();
+        editTextCompactE.clearFocus();
+        editTextCompactF.clearFocus();
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
+    private void resetAllAndSelectTheLastClipboardButtonClicked() {
+        resetAllAndSelectTheLastClipboardButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
-        textViewCopyExpression.setSelected(false);
-        textViewPasteExpression.setSelected(false);
-        textViewClearExpression.setSelected(false);
+        textViewCopyB.setSelected(false);
+        textViewPasteB.setSelected(false);
+        textViewClearB.setSelected(false);
+        textViewCopyD.setSelected(false);
+        textViewPasteD.setSelected(false);
+        textViewClearD.setSelected(false);
+        textViewCopyE.setSelected(false);
+        textViewPasteE.setSelected(false);
+        textViewClearE.setSelected(false);
+        textViewCopyF.setSelected(false);
+        textViewPasteF.setSelected(false);
+        textViewClearF.setSelected(false);
+        //
+        textViewCopyCompactB.setSelected(false);
+        textViewPasteCompactB.setSelected(false);
+        textViewClearCompactB.setSelected(false);
+        textViewCopyCompactD.setSelected(false);
+        textViewPasteCompactD.setSelected(false);
+        textViewClearCompactD.setSelected(false);
+        textViewCopyCompactE.setSelected(false);
+        textViewPasteCompactE.setSelected(false);
+        textViewClearCompactE.setSelected(false);
+        textViewCopyCompactF.setSelected(false);
+        textViewPasteCompactF.setSelected(false);
+        textViewClearCompactF.setSelected(false);
+        //
         textViewExpandResult.setSelected(false);
         textViewCopyResult.setSelected(false);
         textViewClearResult.setSelected(false);
@@ -1032,6 +1590,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         if (textView != null) {
             textView.setSelected(true);
         }
+    }
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
     }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
         // Reset the last button clicked.
@@ -1052,10 +1613,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         }
     }
     private void resetResult(boolean skipLabelResult) {
-        // Reset the last clipboard clicked.
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
-        // Reset the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(null);
+        resetAllAndSelectTheLastClipboardButtonClicked();
+        resetAllAndSelectTheLastButtonClicked();
         //
         if(!skipLabelResult) {
             textViewLabelResult.setText(requireContext().getText(R.string.result));
@@ -1096,5 +1655,4 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.linearLayoutResultGridContainer2.setVisibility(View.VISIBLE);
     }
     //endregion RESULT
-
 }

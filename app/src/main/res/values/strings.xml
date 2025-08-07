@@ -153,21 +153,6 @@
     <string name="quadratic_form_r_hint">r</string>
     <string name="quadratic_form_r_plus">r +</string>
     <string name="quadratic_form_result_representation_f_mod_m_r">representation + f (mod m) = r</string>
-    <string name="quadratic_form_example_1_expression">8, 3, 3, 88</string>
-    <string name="quadratic_form_example_1_m">8</string>
-    <string name="quadratic_form_example_1_r">0</string>
-    <string name="quadratic_form_example_2_expression">16, 7, 3, 113</string>
-    <string name="quadratic_form_example_2_m">16</string>
-    <string name="quadratic_form_example_2_r">1</string>
-    <string name="quadratic_form_example_3_expression">8, 7, 7, 83</string>
-    <string name="quadratic_form_example_3_m">8</string>
-    <string name="quadratic_form_example_3_r">3</string>
-    <string name="quadratic_form_example_4_expression">16, 15, 11, 104</string>
-    <string name="quadratic_form_example_4_m">16</string>
-    <string name="quadratic_form_example_4_r">8</string>
-    <string name="quadratic_form_example_5_expression">8, 3, 5, 14</string>
-    <string name="quadratic_form_example_5_m">8</string>
-    <string name="quadratic_form_example_5_r">6</string>
     <string name="quadratic_form_menu_example_1">E₁ ● 8xy + 3x + 3y = 88</string>
     <string name="quadratic_form_menu_example_2">E₂ ● 16xy + 7x + 3y = 113</string>
     <string name="quadratic_form_menu_example_3">E₃ ● 8xy + 7x + 7y = 83</string>

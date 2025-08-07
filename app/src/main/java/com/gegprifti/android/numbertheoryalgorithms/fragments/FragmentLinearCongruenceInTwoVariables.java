@@ -228,8 +228,8 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                     // Prevent recursive updates
                     if (isUpdatingEditTextA.get()) return; // editTextA is locked
                     // Other work
-                    String linearCongruenceInTwoVariablesLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLabelA.setText(linearCongruenceInTwoVariablesLabelA);
+                    String labelText = "a" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelA.setText(labelText);
                     resetResult(false);
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCompactA
@@ -252,8 +252,8 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                     // Prevent recursive updates
                     if (isUpdatingEditTextB.get()) return; // editTextB is locked
                     // Other work
-                    String linearCongruenceInTwoVariablesLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLabelB.setText(linearCongruenceInTwoVariablesLabelB);
+                    String labelText = "b" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelB.setText(labelText);
                     resetResult(false);
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCompactB
@@ -276,8 +276,8 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                     // Prevent recursive updates
                     if (isUpdatingEditTextC.get()) return; // editTextC is locked
                     // Other work
-                    String linearCongruenceInTwoVariablesLabelB = "c" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLabelC.setText(linearCongruenceInTwoVariablesLabelB);
+                    String labelText = "c" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelC.setText(labelText);
                     resetResult(false);
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCompactC
@@ -300,8 +300,8 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                     // Prevent recursive updates
                     if (isUpdatingEditTextM.get()) return; // editTextM is locked
                     // Other work
-                    String linearCongruenceInTwoVariablesLabelM = "m" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLabelM.setText(linearCongruenceInTwoVariablesLabelM);
+                    String labelText = "m" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelM.setText(labelText);
                     resetResult(false);
                     resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCompactM
@@ -707,36 +707,31 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
-            // Extended input a controls
+            // Extended input controls
             ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
             ControlDisplay.setInputFontSize(editTextA, biggerControls);
-            // Extended input b controls
             ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
             ControlDisplay.setInputFontSize(editTextB, biggerControls);
-            // Extended input c controls
             ControlDisplay.setInputLabelFontSize(textViewLabelC, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticC, biggerControls);
             ControlDisplay.setInputFontSize(editTextC, biggerControls);
-            // Extended input m controls
             ControlDisplay.setInputLabelFontSize(textViewLabelM, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticM, biggerControls);
             ControlDisplay.setInputFontSize(editTextM, biggerControls);
-            // Compact input a controls
+            // Compact input controls
             ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
             ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
-            // Compact input b controls
             ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
             ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
-            // Compact input c controls
             ControlDisplay.setInputLabelFontSize(textViewLabelCompactC, biggerControls);
             ControlDisplay.setInputFontSize(editTextCompactC, biggerControls);
-            // Compact input m controls
             ControlDisplay.setInputLabelFontSize(textViewLabelCompactM, biggerControls);
             ControlDisplay.setInputFontSize(editTextCompactM, biggerControls);
-            // Buttons
+            // Run buttons
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
+            // Example run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
@@ -991,5 +986,4 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         editTextResult.setText("");
     }
     //endregion RESULT
-
 }
