@@ -316,7 +316,11 @@
 
         <LinearLayout
             android:id="@+id/LinearLayoutResultGridContainer1"
-            style="@style/ResultContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:background="@drawable/result_bg"
+            android:gravity="top|start"
             android:visibility="gone">
             <HorizontalScrollView
                 android:scrollbarStyle="outsideInset"
@@ -341,15 +345,19 @@
                         android:scrollbarStyle="insideInset"
                         android:scrollbarSize="3dp"
                         android:smoothScrollbar="true"
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
                     </ListView>
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
 
         <LinearLayout android:id="@+id/LinearLayoutResultGridContainer2"
-            style="@style/ResultContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:background="@drawable/result_bg"
+            android:gravity="top|start"
             android:visibility="gone">
             <HorizontalScrollView
                 android:scrollbarStyle="outsideInset"
@@ -374,8 +382,8 @@
                         android:scrollbarStyle="insideInset"
                         android:scrollbarSize="3dp"
                         android:smoothScrollbar="true"
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
                     </ListView>
                 </LinearLayout>
             </HorizontalScrollView>
