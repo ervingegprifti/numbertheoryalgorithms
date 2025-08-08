@@ -5,42 +5,42 @@
     <group>
         <item
             android:id="@+id/quadratic_form_menu_example_1"
-            android:title="@string/quadratic_form_menu_example_1"
+            android:title="@string/binary_quadratic_form_menu_example_1"
             app:showAsAction="never" />
         <item
             android:id="@+id/quadratic_form_menu_example_2"
-            android:title="@string/quadratic_form_menu_example_2"
+            android:title="@string/binary_quadratic_form_menu_example_2"
             app:showAsAction="never"/>
         <item
             android:id="@+id/quadratic_form_menu_example_3"
-            android:title="@string/quadratic_form_menu_example_3"
+            android:title="@string/binary_quadratic_form_menu_example_3"
             app:showAsAction="never"/>
         <item
             android:id="@+id/quadratic_form_menu_example_4"
-            android:title="@string/quadratic_form_menu_example_4"
+            android:title="@string/binary_quadratic_form_menu_example_4"
             app:showAsAction="never"/>
         <item
             android:id="@+id/quadratic_form_menu_example_5"
-            android:title="@string/quadratic_form_menu_example_5"
+            android:title="@string/binary_quadratic_form_menu_example_5"
             app:showAsAction="never"/>
     </group>
 
     <group>
         <item
             android:id="@+id/quadratic_form_menu_include_trivial_solutions"
-            android:title="@string/quadratic_form_menu_include_trivial_solutions"
+            android:title="@string/binary_quadratic_form_menu_include_trivial_solutions"
             android:checkable="true"
             android:checked="false"
             app:showAsAction="never"/>
         <item
             android:id="@+id/quadratic_form_menu_include_only_positive_solutions"
-            android:title="@string/quadratic_form_menu_include_only_positive_solutions"
+            android:title="@string/binary_quadratic_form_menu_include_only_positive_solutions"
             android:checkable="true"
             android:checked="false"
             app:showAsAction="never"/>
         <item
             android:id="@+id/quadratic_form_menu_include_only_negative_solutions"
-            android:title="@string/quadratic_form_menu_include_only_negative_solutions"
+            android:title="@string/binary_quadratic_form_menu_include_only_negative_solutions"
             android:checkable="true"
             android:checked="false"
             app:showAsAction="never"/>

@@ -867,10 +867,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             boolean exampleButtonsAreVisible = this.linearLayoutExamplesContainer.getVisibility() == View.VISIBLE;
             boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
             if (exampleButtonsAreVisible && hideExampleButtons) {
-                this.buttonRun.setText(requireContext().getText(R.string.quadratic_form_run_short));
+                this.buttonRun.setText(requireContext().getText(R.string.binary_quadratic_form_run_short));
                 this.linearLayoutExamplesContainer.setVisibility(View.GONE);
             } else if (!exampleButtonsAreVisible && !hideExampleButtons) {
-                this.buttonRun.setText(requireContext().getText(R.string.quadratic_form_run_short));
+                this.buttonRun.setText(requireContext().getText(R.string.binary_quadratic_form_run_short));
                 this.linearLayoutExamplesContainer.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
@@ -1637,7 +1637,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.linearLayoutResultGridContainer2.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun1() {
-        textViewLabelResult.setText(requireContext().getText(R.string.representation));
+        textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy));
         this.linearLayoutFModMContainer.setVisibility(View.GONE);
         this.textViewCopyResult.setVisibility(View.GONE);
         this.textViewClearResult.setVisibility(View.VISIBLE);
@@ -1646,7 +1646,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.linearLayoutResultGridContainer2.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun2() {
-        textViewLabelResult.setText(requireContext().getText(R.string.quadratic_form_result_representation_f_mod_m_r));
+        textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy_f_mod_m_r));
         this.linearLayoutFModMContainer.setVisibility(View.VISIBLE);
         this.textViewCopyResult.setVisibility(View.GONE);
         this.textViewClearResult.setVisibility(View.VISIBLE);

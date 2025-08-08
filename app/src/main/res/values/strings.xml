@@ -23,7 +23,6 @@
     <string name="run_example_5">E₅</string>
     <string name="run_example_6">E₆</string>
     <string name="back">back</string>
-    <string name="representation">representation</string>
     <string name="canceling">Canceling&#8230;</string>
     <string name="canceled">Canceled</string>
     <string name="label_a" translatable="false">a</string>
@@ -139,30 +138,28 @@
 
 
 
-    <!-- Fragment Quadratic Form -->
-    <string name="binary_quadratic_form_title">BINARY QUADRATIC FORM</string>
-    <string name="quadratic_form_label_expression">bxy+dx+ey=f</string>
-    <string name="quadratic_form_expression_hint">b, d, e, f</string>
-    <string name="quadratic_form_expression_autofillhints">b, d, e, f</string>
-    <string name="quadratic_form_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tbxy+dx+ey=f</string>
-    <string name="quadratic_form_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as bxy+dx+ey=f</string>
-    <string name="quadratic_form_m_minus">- m</string>
-    <string name="quadratic_form_m_hint">m</string>
-    <string name="quadratic_form_m_plus">m +</string>
-    <string name="quadratic_form_r_minus">- r</string>
-    <string name="quadratic_form_r_hint">r</string>
-    <string name="quadratic_form_r_plus">r +</string>
-    <string name="quadratic_form_result_representation_f_mod_m_r">representation + f (mod m) = r</string>
-    <string name="quadratic_form_menu_example_1">E₁ ● 8xy + 3x + 3y = 88</string>
-    <string name="quadratic_form_menu_example_2">E₂ ● 16xy + 7x + 3y = 113</string>
-    <string name="quadratic_form_menu_example_3">E₃ ● 8xy + 7x + 7y = 83</string>
-    <string name="quadratic_form_menu_example_4">E₄ ● 16xy + 15x + 11y = 104</string>
-    <string name="quadratic_form_menu_example_5">E₅ ● 8xy + 3x + 5y = 14</string>
-    <string name="quadratic_form_menu_solve_configurations">Solve Configurations</string>
-    <string name="quadratic_form_menu_include_trivial_solutions">Trivial solutions</string>
-    <string name="quadratic_form_menu_include_only_positive_solutions">Only positive solutions</string>
-    <string name="quadratic_form_menu_include_only_negative_solutions">Only negative solutions</string>
-    <!-- Fragment Quadratic Form -->
+    <!-- Fragment Binary Quadratic Form -->
+    <string name="binary_quadratic_form_title">bxy+dx+ey=f</string>
+    <string name="binary_quadratic_form_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
+    <string name="binary_quadratic_form_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as bxy+dx+ey=f</string>
+    <string name="binary_quadratic_form_m_minus">- m</string>
+    <string name="binary_quadratic_form_m_hint">m</string>
+    <string name="binary_quadratic_form_m_plus">m +</string>
+    <string name="binary_quadratic_form_r_minus">- r</string>
+    <string name="binary_quadratic_form_r_hint">r</string>
+    <string name="binary_quadratic_form_r_plus">r +</string>
+    <string name="binary_quadratic_form_result_fxy">F(x,y)</string>
+    <string name="binary_quadratic_form_result_fxy_f_mod_m_r">F(x,y) + f (mod m) = r</string>
+    <string name="binary_quadratic_form_menu_example_1">E₁ ● 8xy + 3x + 3y = 88</string>
+    <string name="binary_quadratic_form_menu_example_2">E₂ ● 16xy + 7x + 3y = 113</string>
+    <string name="binary_quadratic_form_menu_example_3">E₃ ● 8xy + 7x + 7y = 83</string>
+    <string name="binary_quadratic_form_menu_example_4">E₄ ● 16xy + 15x + 11y = 104</string>
+    <string name="binary_quadratic_form_menu_example_5">E₅ ● 8xy + 3x + 5y = 14</string>
+    <string name="binary_quadratic_form_menu_solve_configurations">Solve Configurations</string>
+    <string name="binary_quadratic_form_menu_include_trivial_solutions">Trivial solutions</string>
+    <string name="binary_quadratic_form_menu_include_only_positive_solutions">Only positive solutions</string>
+    <string name="binary_quadratic_form_menu_include_only_negative_solutions">Only negative solutions</string>
+    <!-- Fragment Binary Quadratic Form -->
 
 
 
@@ -249,8 +246,8 @@
 
 
     <!-- Fragment Linear Congruence In Two Variables -->
-    <string name="linear_congruence_in_two_variables_title">LINEAR CONGRUENCE in 2vs</string>
-    <string name="linear_congruence_in_two_variables_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tax+by ≡ c (mod m)</string>
+    <string name="linear_congruence_in_two_variables_title">ax+by ≡ c (mod m)</string>
+    <string name="linear_congruence_in_two_variables_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
     <string name="linear_congruence_in_two_variables_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as ax+by ≡ c (mod m)</string>
     <string name="linear_congruence_in_two_variables_example_1_a">4</string>
     <string name="linear_congruence_in_two_variables_example_1_b">20</string>

@@ -218,7 +218,7 @@
             android:layout_gravity="center_horizontal">
             <Button style="@style/ButtonRunStyle"
                 android:id="@+id/ButtonRun"
-                android:text="@string/quadratic_form_run_short"
+                android:text="@string/binary_quadratic_form_run_short"
                 android:layout_marginEnd="10dp"
                 tools:ignore="RtlHardcoded" />
             <Button style="@style/ButtonRunStyle"
@@ -251,30 +251,30 @@
             android:visibility="gone">
             <Button style="@style/ButtonPillLeftStyle"
                 android:id="@+id/ButtonMMinus"
-                android:text="@string/quadratic_form_m_minus"/>
+                android:text="@string/binary_quadratic_form_m_minus"/>
             <Button style="@style/ButtonPillMiddleStyle"
                 android:id="@+id/ButtonM"
                 android:enabled="false"
                 android:textColor="@color/colorPrimary"
                 android:autofillHints=""
-                android:hint="@string/quadratic_form_m_hint" />
+                android:hint="@string/binary_quadratic_form_m_hint" />
             <Button style="@style/ButtonPillRightStyle"
                 android:id="@+id/ButtonMPlus"
-                android:text="@string/quadratic_form_m_plus"
+                android:text="@string/binary_quadratic_form_m_plus"
                 android:layout_marginRight="10dp"
                 tools:ignore="RtlHardcoded" />
             <Button style="@style/ButtonPillLeftStyle"
                 android:id="@+id/ButtonRMinus"
-                android:text="@string/quadratic_form_r_minus"/>
+                android:text="@string/binary_quadratic_form_r_minus"/>
             <Button style="@style/ButtonPillMiddleStyle"
                 android:id="@+id/ButtonR"
                 android:enabled="false"
                 android:textColor="@color/colorPrimary"
                 android:autofillHints=""
-                android:hint="@string/quadratic_form_r_hint" />
+                android:hint="@string/binary_quadratic_form_r_hint" />
             <Button style="@style/ButtonPillRightStyle"
                 android:id="@+id/ButtonRPlus"
-                android:text="@string/quadratic_form_r_plus"/>
+                android:text="@string/binary_quadratic_form_r_plus"/>
         </LinearLayout>
 
         <!--Result-->
