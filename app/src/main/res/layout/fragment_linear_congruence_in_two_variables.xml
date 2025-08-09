@@ -202,11 +202,7 @@
 
 
 			<!--Buttons run-->
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
+			<LinearLayout style="@style/RowContainerStyle">
 				<Button style="@style/ButtonRunStyle"
 					android:id="@+id/ButtonRun"
 					android:text="@string/linear_congruence_in_two_variables_run_short" />

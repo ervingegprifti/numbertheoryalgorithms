@@ -187,12 +187,8 @@
 
 
         <!--Examples-->
-        <LinearLayout android:id="@+id/LinearLayoutExamplesContainer"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal">
+        <LinearLayout style="@style/RowContainerStyle"
+            android:id="@+id/LinearLayoutExamplesContainer">
             <Button style="@style/ButtonExampleFirstStyle"
                 android:id="@+id/ButtonRunExample1"
                 android:text="@string/run_example_1" />
@@ -211,11 +207,7 @@
         </LinearLayout>
 
         <!--Buttons run-->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+        <LinearLayout style="@style/RowContainerStyle">
             <Button style="@style/ButtonRunStyle"
                 android:id="@+id/ButtonRun"
                 android:text="@string/binary_quadratic_form_run_short"
@@ -241,13 +233,8 @@
 
 
         <!--Buttons mods line-->
-        <LinearLayout
+        <LinearLayout style="@style/RowContainerStyle"
             android:id="@+id/LinearLayoutFModMContainer"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:visibility="gone">
             <Button style="@style/ButtonPillLeftStyle"
                 android:id="@+id/ButtonMMinus"
