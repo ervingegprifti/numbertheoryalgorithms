@@ -138,53 +138,6 @@
 
 
 
-    <!-- Fragment Binary Quadratic Form -->
-    <string name="binary_quadratic_form_title">bxy+dx+ey=f</string>
-    <string name="binary_quadratic_form_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
-    <string name="binary_quadratic_form_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as bxy+dx+ey=f</string>
-    <string name="binary_quadratic_form_m_minus">- m</string>
-    <string name="binary_quadratic_form_m_hint">m</string>
-    <string name="binary_quadratic_form_m_plus">m +</string>
-    <string name="binary_quadratic_form_r_minus">- r</string>
-    <string name="binary_quadratic_form_r_hint">r</string>
-    <string name="binary_quadratic_form_r_plus">r +</string>
-    <string name="binary_quadratic_form_result_fxy">F(x,y)</string>
-    <string name="binary_quadratic_form_result_fxy_f_mod_m_r">F(x,y) + f (mod m) = r</string>
-    <string name="binary_quadratic_form_menu_example_1">E₁ ● 8xy + 3x + 3y = 88</string>
-    <string name="binary_quadratic_form_menu_example_2">E₂ ● 16xy + 7x + 3y = 113</string>
-    <string name="binary_quadratic_form_menu_example_3">E₃ ● 8xy + 7x + 7y = 83</string>
-    <string name="binary_quadratic_form_menu_example_4">E₄ ● 16xy + 15x + 11y = 104</string>
-    <string name="binary_quadratic_form_menu_example_5">E₅ ● 8xy + 3x + 5y = 14</string>
-    <string name="binary_quadratic_form_menu_solve_configurations">Solve Configurations</string>
-    <string name="binary_quadratic_form_menu_include_trivial_solutions">Trivial solutions</string>
-    <string name="binary_quadratic_form_menu_include_only_positive_solutions">Only positive solutions</string>
-    <string name="binary_quadratic_form_menu_include_only_negative_solutions">Only negative solutions</string>
-    <!-- Fragment Binary Quadratic Form -->
-
-
-
-
-    <!-- Fragment Euclidean Algorithm -->
-    <string name="euclidean_algorithm_title">EUCLIDEAN ALGORITHM</string>
-    <string name="euclidean_algorithm_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tGCD(a, b)</string>
-    <string name="euclidean_algorithm_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tCompute the GCD of a and b</string>
-    <string name="euclidean_algorithm_example_1_a">9</string>
-    <string name="euclidean_algorithm_example_1_b">33</string>
-    <string name="euclidean_algorithm_example_2_a">33</string>
-    <string name="euclidean_algorithm_example_2_b">9</string>
-    <string name="euclidean_algorithm_example_3_a">9</string>
-    <string name="euclidean_algorithm_example_3_b">18</string>
-    <string name="euclidean_algorithm_example_4_a">18</string>
-    <string name="euclidean_algorithm_example_4_b">9</string>
-    <string name="euclidean_algorithm_menu_example_1">E₁ ● GCD(9, 33)</string>
-    <string name="euclidean_algorithm_menu_example_2">E₂ ● GCD(33, 9)</string>
-    <string name="euclidean_algorithm_menu_example_3">E₃ ● GCD(9, 18)</string>
-    <string name="euclidean_algorithm_menu_example_4">E₄ ● GCD(18, 9)</string>
-    <!-- Fragment Euclidean Algorithm -->
-
-
-
-
     <!-- Fragment Extended Euclidean Algorithm -->
     <string name="extended_euclidean_algorithm_title">EXTENDED EUCLIDEAN ALGORITHM</string>
     <string name="extended_euclidean_algorithm_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tax+by=GCD(a, b)</string>
@@ -243,32 +196,6 @@
     <!-- Fragment Linear Congruence In One Variable -->
 
 
-
-
-    <!-- Fragment Linear Congruence In Two Variables -->
-    <string name="linear_congruence_in_two_variables_title">ax+by ≡ c (mod m)</string>
-    <string name="linear_congruence_in_two_variables_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
-    <string name="linear_congruence_in_two_variables_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as ax+by ≡ c (mod m)</string>
-    <string name="linear_congruence_in_two_variables_example_1_a">4</string>
-    <string name="linear_congruence_in_two_variables_example_1_b">20</string>
-    <string name="linear_congruence_in_two_variables_example_1_c">10</string>
-    <string name="linear_congruence_in_two_variables_example_1_m">16</string>
-    <string name="linear_congruence_in_two_variables_example_2_a">4</string>
-    <string name="linear_congruence_in_two_variables_example_2_b">20</string>
-    <string name="linear_congruence_in_two_variables_example_2_c">10</string>
-    <string name="linear_congruence_in_two_variables_example_2_m">15</string>
-    <string name="linear_congruence_in_two_variables_example_3_a">4</string>
-    <string name="linear_congruence_in_two_variables_example_3_b">20</string>
-    <string name="linear_congruence_in_two_variables_example_3_c">10</string>
-    <string name="linear_congruence_in_two_variables_example_3_m">14</string>
-    <string name="linear_congruence_in_two_variables_menu_example_1">E₁ ● 4x+20y ≡ 10 (mod 16)</string>
-    <string name="linear_congruence_in_two_variables_menu_example_2">E₂ ● 4x+20y ≡ 10 (mod 15)</string>
-    <string name="linear_congruence_in_two_variables_menu_example_3">E₃ ● 4x+20y ≡ 10 (mod 14)</string>
-    <!-- Fragment Linear Congruence In Two Variables -->
-
-
-
-
     <!-- Fragment Tonelli Shanks Algorithm -->
     <string name="tonelli_shanks_algorithm_title">TONELLI SHANKS ALGORITHM</string>
     <string name="tonelli_shanks_algorithm_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tx² ≡ a (mod p)</string>
@@ -283,8 +210,6 @@
     <string name="tonelli_shanks_algorithm_menu_example_2">E₂ ● x² ≡ 5 (mod 23)</string>
     <string name="tonelli_shanks_algorithm_menu_example_3">E₃ ● x² ≡ 2 (mod 3600…)</string>
     <!-- Fragment Tonelli Shanks -->
-
-
 
 
     <!-- Fragment Mod Factors -->

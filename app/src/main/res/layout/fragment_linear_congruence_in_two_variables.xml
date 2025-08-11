@@ -153,6 +153,7 @@
 						android:id="@+id/TextViewClearCompactA" />
 				</LinearLayout>
 
+				<!--InputGroup integer b:-->
 				<LinearLayout style="@style/RowContainerStyle"
 					android:layout_marginBottom="10dp">
 					<TextView style="@style/TextViewLabelCompactStyle"
@@ -169,6 +170,7 @@
 						android:id="@+id/TextViewClearCompactB" />
 				</LinearLayout>
 
+				<!--InputGroup integer c:-->
 				<LinearLayout style="@style/RowContainerStyle"
 					android:layout_marginBottom="10dp">
 					<TextView style="@style/TextViewLabelCompactStyle"
@@ -185,6 +187,7 @@
 						android:id="@+id/TextViewClearCompactC" />
 				</LinearLayout>
 
+				<!--InputGroup integer m:-->
 				<LinearLayout style="@style/RowContainerStyle">
 					<TextView style="@style/TextViewLabelCompactStyle"
 						android:id="@+id/TextViewLabelCompactM"
@@ -218,6 +221,7 @@
 					android:text="@string/run_example_3" />
 			</LinearLayout>
 
+
 			<!--Result-->
 			<LinearLayout
 				android:layout_marginTop="20dp"
@@ -248,7 +252,6 @@
 						android:autofillHints="" />
 				</HorizontalScrollView>
 			</LinearLayout>
-
 		</LinearLayout>
 
 	</ScrollView>
