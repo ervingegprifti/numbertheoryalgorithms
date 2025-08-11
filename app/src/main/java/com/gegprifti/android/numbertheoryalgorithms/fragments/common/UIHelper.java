@@ -184,7 +184,7 @@ public final class UIHelper {
             assert inflater != null;
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.custom_toast_error, null, false);
             TextView text = layout.findViewById(R.id.text);
-            text.setText(Html.fromHtml(message));
+            text.setText(Html.fromHtml(message, Html.FROM_HTML_MODE_LEGACY));
             Toast toast = new Toast(context.getApplicationContext());
             toast.setGravity(Gravity.BOTTOM, 0, 200); // CENTER_VERTICAL
             toast.setDuration(toastLength); // Toast.LENGTH_SHORT or Toast.LENGTH_LONG
@@ -203,7 +203,7 @@ public final class UIHelper {
             assert inflater != null;
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.custom_toast_light, null, false);
             TextView text = layout.findViewById(R.id.text);
-            text.setText(Html.fromHtml(message));
+            text.setText(Html.fromHtml(message, Html.FROM_HTML_MODE_LEGACY));
             Toast toast = new Toast(context.getApplicationContext());
             toast.setGravity(Gravity.BOTTOM, 0, 200); // CENTER_VERTICAL
             toast.setDuration(toastLength); // Toast.LENGTH_SHORT or Toast.LENGTH_LONG
@@ -222,7 +222,7 @@ public final class UIHelper {
             assert inflater != null;
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.custom_toast_dark, null, false);
             TextView text = layout.findViewById(R.id.text);
-            text.setText(Html.fromHtml(message));
+            text.setText(Html.fromHtml(message, Html.FROM_HTML_MODE_LEGACY));
             Toast toast = new Toast(context.getApplicationContext());
             toast.setGravity(Gravity.BOTTOM, 0, 200); // CENTER_VERTICAL
             toast.setDuration(Toast.LENGTH_LONG); // Toast.LENGTH_SHORT or Toast.LENGTH_LONG

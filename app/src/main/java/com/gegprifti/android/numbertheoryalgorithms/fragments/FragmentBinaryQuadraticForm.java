@@ -986,7 +986,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 editTextResult.setText(resultCanceledText);
             } else {
                 String resultAsString = (String)result;
-                CharSequence resultFromHtml = Html.fromHtml(resultAsString);
+                CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
                 editTextResult.setText(resultFromHtml);
             }
         }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="extended_euclidean_algorithm_title">ax+by=GCD(a, b)</string>
+    <string name="extended_euclidean_algorithm_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
+    <string name="extended_euclidean_algorithm_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as ax+by=GCD(a, b)</string>
+    <string name="extended_euclidean_algorithm_example_1_a">7</string>
+    <string name="extended_euclidean_algorithm_example_1_b">21</string>
+    <string name="extended_euclidean_algorithm_example_2_a">7</string>
+    <string name="extended_euclidean_algorithm_example_2_b">32</string>
+    <string name="extended_euclidean_algorithm_example_3_a">6</string>
+    <string name="extended_euclidean_algorithm_example_3_b">10</string>
+    <string name="extended_euclidean_algorithm_menu_example_1">E₁ ● 7x + 21y = GCD(7, 21) = 7</string>
+    <string name="extended_euclidean_algorithm_menu_example_2">E₂ ● 7x + 32y = GCD(7, 32) = 1</string>
+    <string name="extended_euclidean_algorithm_menu_example_3">E₃ ● 6x + 10y = GCD(6, 10) = 2</string>
+</resources>

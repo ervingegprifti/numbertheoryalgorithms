@@ -56,7 +56,7 @@
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextB"
                 android:autofillHints=""
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="10dp" />
 
             <LinearLayout style="@style/RowContainerStyle">
                 <TextView style="@style/TextViewLabelInputStyle"
@@ -75,7 +75,7 @@
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextD"
                 android:autofillHints=""
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="10dp" />
 
             <LinearLayout style="@style/RowContainerStyle">
                 <TextView style="@style/TextViewLabelInputStyle"
@@ -94,7 +94,7 @@
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextE"
                 android:autofillHints=""
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="10dp" />
 
             <LinearLayout style="@style/RowContainerStyle">
                 <TextView style="@style/TextViewLabelInputStyle"

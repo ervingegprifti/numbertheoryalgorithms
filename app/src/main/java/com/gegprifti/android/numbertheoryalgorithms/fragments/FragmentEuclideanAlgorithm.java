@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
@@ -431,8 +430,8 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
-        this.refreshBiggerControls();
-        this.refreshHideExampleButtons();
+        refreshBiggerControls();
+        refreshHideExampleButtons();
         refreshBiggerResultDisplay();
     }
 
@@ -558,7 +557,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                 editTextResult.setText(resultCanceledText);
             } else {
                 String resultAsString = (String)result;
-                CharSequence resultFromHtml = Html.fromHtml(resultAsString);
+                CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
                 editTextResult.setText(resultFromHtml);
             }
         }

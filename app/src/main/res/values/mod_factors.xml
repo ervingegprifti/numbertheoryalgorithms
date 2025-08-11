@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mod_factors_title">MOD FACTORS</string>
+    <string name="mod_factors_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tMod factors</string>
+    <string name="mod_factors_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tMod factors</string>
+    <string name="mod_factors_count_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tCount</string>
+    <string name="mod_factors_count_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tCount</string>
+    <string name="mod_factors_example_1_n">551</string>
+    <string name="mod_factors_example_1_a">8</string>
+    <string name="mod_factors_example_2_n">551</string>
+    <string name="mod_factors_example_2_a">16</string>
+    <string name="mod_factors_example_3_n">551</string>
+    <string name="mod_factors_example_3_a">32</string>
+    <string name="mod_factors_example_4_n">551</string>
+    <string name="mod_factors_example_4_a">6</string>
+    <string name="mod_factors_example_5_n">551</string>
+    <string name="mod_factors_example_5_a">36</string>
+    <string name="mod_factors_example_6_n">551</string>
+    <string name="mod_factors_example_6_a">216</string>
+    <string name="mod_factors_menu_example_1">E₁ ● 551, 8</string>
+    <string name="mod_factors_menu_example_2">E₂ ● 551, 16</string>
+    <string name="mod_factors_menu_example_3">E₃ ● 551, 32</string>
+    <string name="mod_factors_menu_example_4">E₄ ● 551, 6</string>
+    <string name="mod_factors_menu_example_5">E₅ ● 551, 36</string>
+    <string name="mod_factors_menu_example_6">E₆ ● 551, 216</string>
+</resources>

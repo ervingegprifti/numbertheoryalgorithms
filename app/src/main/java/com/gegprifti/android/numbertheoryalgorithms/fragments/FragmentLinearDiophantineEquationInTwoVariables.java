@@ -16,10 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
@@ -32,43 +32,72 @@ import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBase implements Callback {
     private final static String TAG = FragmentLinearDiophantineEquationInTwoVariables.class.getSimpleName();
-
-    TextView textViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms;
-    TextView textViewLinearDiophantineEquationInTwoVariablesTitle;
-    TextView textViewLinearDiophantineEquationInTwoVariablesDocumentationFile;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelA;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelElasticA;
-    TextView textViewLinearDiophantineEquationInTwoVariablesCopyA;
-    TextView textViewLinearDiophantineEquationInTwoVariablesPasteA;
-    TextView textViewLinearDiophantineEquationInTwoVariablesClearA;
-    EditText editTextLinearDiophantineEquationInTwoVariablesA;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelB;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelElasticB;
-    TextView textViewLinearDiophantineEquationInTwoVariablesCopyB;
-    TextView textViewLinearDiophantineEquationInTwoVariablesPasteB;
-    TextView textViewLinearDiophantineEquationInTwoVariablesClearB;
-    EditText editTextLinearDiophantineEquationInTwoVariablesB;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelC;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelElasticC;
-    TextView textViewLinearDiophantineEquationInTwoVariablesCopyC;
-    TextView textViewLinearDiophantineEquationInTwoVariablesPasteC;
-    TextView textViewLinearDiophantineEquationInTwoVariablesClearC;
-    EditText editTextLinearDiophantineEquationInTwoVariablesC;
-    Button buttonLinearDiophantineEquationInTwoVariablesRun;
-    Button buttonLinearDiophantineEquationInTwoVariablesRunExample1;
-    Button buttonLinearDiophantineEquationInTwoVariablesRunExample2;
-    Button buttonLinearDiophantineEquationInTwoVariablesRunExample3;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelResult;
-    TextView textViewLinearDiophantineEquationInTwoVariablesLabelElasticResult;
-    TextView textViewLinearDiophantineEquationInTwoVariablesExpandResult;
-    TextView textViewLinearDiophantineEquationInTwoVariablesCopyResult;
-    TextView textViewLinearDiophantineEquationInTwoVariablesClearResult;
-    EditText editTextLinearDiophantineEquationInTwoVariablesResult;
+    // Navigation controls
+    TextView textViewBackToAlgorithms;
+    TextView textViewTitle;
+    TextView textViewDocumentationFile;
+    // Cache view state
     boolean isCompactInputView = false;
+    // Extended input view
+    LinearLayout linearLayoutExtendedInputView;
+    TextView textViewLabelA;
+    TextView textViewLabelElasticA;
+    TextView textViewCopyA;
+    TextView textViewPasteA;
+    TextView textViewClearA;
+    EditText editTextA;
+    TextView textViewLabelB;
+    TextView textViewLabelElasticB;
+    TextView textViewCopyB;
+    TextView textViewPasteB;
+    TextView textViewClearB;
+    EditText editTextB;
+    TextView textViewLabelC;
+    TextView textViewLabelElasticC;
+    TextView textViewCopyC;
+    TextView textViewPasteC;
+    TextView textViewClearC;
+    EditText editTextC;
+    LinearLayout linearLayoutCompactInputView;
+    TextView textViewLabelCompactA;
+    TextView textViewCopyCompactA;
+    TextView textViewPasteCompactA;
+    TextView textViewClearCompactA;
+    EditText editTextCompactA;
+    TextView textViewLabelCompactB;
+    TextView textViewCopyCompactB;
+    TextView textViewPasteCompactB;
+    TextView textViewClearCompactB;
+    EditText editTextCompactB;
+    TextView textViewLabelCompactC;
+    TextView textViewCopyCompactC;
+    TextView textViewPasteCompactC;
+    TextView textViewClearCompactC;
+    EditText editTextCompactC;
+    // Run buttons
+    Button buttonRun;
+    Button buttonRunExample1;
+    Button buttonRunExample2;
+    Button buttonRunExample3;
+    // Result controls
+    TextView textViewLabelResult;
+    TextView textViewLabelElasticResult;
+    TextView textViewExpandResult;
+    TextView textViewCopyResult;
+    TextView textViewClearResult;
+    EditText editTextResult;
+    // Flags to prevent recursive updates
+    AtomicBoolean isUpdatingEditTextA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextC = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactC = new AtomicBoolean(false);
 
 
     // Define the parent fragment
@@ -87,227 +116,343 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_linear_diophantine_equation_in_two_variables, container, false);
-            textViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms);
-            textViewLinearDiophantineEquationInTwoVariablesTitle = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesTitle);
-            textViewLinearDiophantineEquationInTwoVariablesDocumentationFile = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesDocumentationFile);
-            textViewLinearDiophantineEquationInTwoVariablesLabelA = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelA);
-            textViewLinearDiophantineEquationInTwoVariablesLabelElasticA = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelElasticA);
-            textViewLinearDiophantineEquationInTwoVariablesCopyA = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesCopyA);
-            textViewLinearDiophantineEquationInTwoVariablesPasteA = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesPasteA);
-            textViewLinearDiophantineEquationInTwoVariablesClearA = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesClearA);
-            editTextLinearDiophantineEquationInTwoVariablesA = inflater.findViewById(R.id.EditTextLinearDiophantineEquationInTwoVariablesA);
-            textViewLinearDiophantineEquationInTwoVariablesLabelB = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelB);
-            textViewLinearDiophantineEquationInTwoVariablesLabelElasticB = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelElasticB);
-            textViewLinearDiophantineEquationInTwoVariablesCopyB = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesCopyB);
-            textViewLinearDiophantineEquationInTwoVariablesPasteB = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesPasteB);
-            textViewLinearDiophantineEquationInTwoVariablesClearB = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesClearB);
-            editTextLinearDiophantineEquationInTwoVariablesB = inflater.findViewById(R.id.EditTextLinearDiophantineEquationInTwoVariablesB);
-            textViewLinearDiophantineEquationInTwoVariablesLabelC = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelC);
-            textViewLinearDiophantineEquationInTwoVariablesLabelElasticC = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelElasticC);
-            textViewLinearDiophantineEquationInTwoVariablesCopyC = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesCopyC);
-            textViewLinearDiophantineEquationInTwoVariablesPasteC = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesPasteC);
-            textViewLinearDiophantineEquationInTwoVariablesClearC = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesClearC);
-            editTextLinearDiophantineEquationInTwoVariablesC = inflater.findViewById(R.id.EditTextLinearDiophantineEquationInTwoVariablesC);
-            buttonLinearDiophantineEquationInTwoVariablesRun = inflater.findViewById(R.id.ButtonLinearDiophantineEquationInTwoVariablesRun);
-            buttonLinearDiophantineEquationInTwoVariablesRunExample1 = inflater.findViewById(R.id.ButtonLinearDiophantineEquationInTwoVariablesRunExample1);
-            buttonLinearDiophantineEquationInTwoVariablesRunExample2 = inflater.findViewById(R.id.ButtonLinearDiophantineEquationInTwoVariablesRunExample2);
-            buttonLinearDiophantineEquationInTwoVariablesRunExample3 = inflater.findViewById(R.id.ButtonLinearDiophantineEquationInTwoVariablesRunExample3);
-            textViewLinearDiophantineEquationInTwoVariablesLabelResult = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelResult);
-            textViewLinearDiophantineEquationInTwoVariablesLabelElasticResult = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesLabelElasticResult);
-            textViewLinearDiophantineEquationInTwoVariablesExpandResult = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesExpandResult);
-            textViewLinearDiophantineEquationInTwoVariablesCopyResult = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesCopyResult);
-            textViewLinearDiophantineEquationInTwoVariablesClearResult = inflater.findViewById(R.id.TextViewLinearDiophantineEquationInTwoVariablesClearResult);
-            editTextLinearDiophantineEquationInTwoVariablesResult = inflater.findViewById(R.id.EditTextLinearDiophantineEquationInTwoVariablesResult);
+            // Navigation controls
+            textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
+            textViewTitle = inflater.findViewById(R.id.TextViewTitle);
+            textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
+            // Extended input view
+            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
+            textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
+            textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
+            textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
+            textViewClearA = inflater.findViewById(R.id.TextViewClearA);
+            editTextA = inflater.findViewById(R.id.EditTextA);
+            textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
+            textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
+            textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
+            textViewClearB = inflater.findViewById(R.id.TextViewClearB);
+            editTextB = inflater.findViewById(R.id.EditTextB);
+            textViewLabelC = inflater.findViewById(R.id.TextViewLabelC);
+            textViewLabelElasticC = inflater.findViewById(R.id.TextViewLabelElasticC);
+            textViewCopyC = inflater.findViewById(R.id.TextViewCopyC);
+            textViewPasteC = inflater.findViewById(R.id.TextViewPasteC);
+            textViewClearC = inflater.findViewById(R.id.TextViewClearC);
+            editTextC = inflater.findViewById(R.id.EditTextC);
+            // Compact input view
+            linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
+            textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
+            textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
+            textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
+            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
+            textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
+            textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
+            textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
+            editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
+            textViewLabelCompactC = inflater.findViewById(R.id.TextViewLabelCompactC);
+            textViewCopyCompactC = inflater.findViewById(R.id.TextViewCopyCompactC);
+            textViewPasteCompactC = inflater.findViewById(R.id.TextViewPasteCompactC);
+            textViewClearCompactC = inflater.findViewById(R.id.TextViewClearCompactC);
+            editTextCompactC = inflater.findViewById(R.id.EditTextCompactC);
+            // Run buttons
+            buttonRun = inflater.findViewById(R.id.ButtonRun);
+            buttonRunExample1 = inflater.findViewById(R.id.ButtonRunExample1);
+            buttonRunExample2 = inflater.findViewById(R.id.ButtonRunExample2);
+            buttonRunExample3 = inflater.findViewById(R.id.ButtonRunExample3);
+            // Result controls
+            textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
+            textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
+            textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
+            textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
+            textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
+            editTextResult = inflater.findViewById(R.id.EditTextResult);
 
-            // InputGroup filter integer only
-            editTextLinearDiophantineEquationInTwoVariablesA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
-            editTextLinearDiophantineEquationInTwoVariablesB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
-            editTextLinearDiophantineEquationInTwoVariablesC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain extended input
+            editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain compact input
+            editTextCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Events
-            textViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
+            // Navigation vents
+            textViewBackToAlgorithms.setOnClickListener(view -> {
+                if(tabFragmentAlgorithms != null) {
+                    // Go back to the algorithms main menu
+                    FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                    tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
+                }
+            });
+            textViewDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES_PDF).show(getParentFragmentManager(), "LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES_PDF"));
+
+            // Extended input events
+            editTextA.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View view) {
-                    if(tabFragmentAlgorithms != null) {
-                        // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextA.get()) return; // editTextA is locked
+                    // Other work
+                    String labelText = "a" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelA.setText(labelText);
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactA
+                    isUpdatingEditTextCompactA.set(true); // Lock editTextCompactA
+                    try {
+                        editTextCompactA.setText(s.toString());
+                        // editTextCompactA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactA.set(false); // Unlock editTextCompactA
                     }
                 }
             });
-            textViewLinearDiophantineEquationInTwoVariablesDocumentationFile.setOnClickListener(new View.OnClickListener() {
+            editTextB.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View view) {
-                    DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES_PDF).show(getParentFragmentManager(), "LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES_PDF");
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesCopyA.setOnClickListener(new View.OnClickListener() {
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyA);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesCopyB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyB);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesCopyC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyC);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesCopyResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesCopyResult);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesPasteA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesPasteA);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesPasteB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesPasteB);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesPasteC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesPasteC);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesClearA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesClearB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearB);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesClearC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesC);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearC);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewLinearDiophantineEquationInTwoVariablesClearResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextLinearDiophantineEquationInTwoVariablesResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesClearResult);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            editTextLinearDiophantineEquationInTwoVariablesA.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-                @Override
-                public void afterTextChanged(Editable s)
-                {
-                    String linearDiophantineEquationLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLinearDiophantineEquationInTwoVariablesLabelA.setText(linearDiophantineEquationLabelA);
-                    // Reset
-                    resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            editTextLinearDiophantineEquationInTwoVariablesB.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String linearDiophantineEquationLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLinearDiophantineEquationInTwoVariablesLabelB.setText(linearDiophantineEquationLabelB);
-                    // Reset
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextB.get()) return; // editTextB is locked
+                    // Other work
+                    String labelText = "b" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelB.setText(labelText);
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactB
+                    isUpdatingEditTextCompactB.set(true); // Lock editTextCompactB
+                    try {
+                        editTextCompactB.setText(s.toString());
+                        // editTextCompactB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactB.set(false); // Unlock editTextCompactB
+                    }
                 }
             });
-            editTextLinearDiophantineEquationInTwoVariablesC.addTextChangedListener(new TextWatcher() {
+            editTextC.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String linearDiophantineEquationLabelC = "c" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLinearDiophantineEquationInTwoVariablesLabelC.setText(linearDiophantineEquationLabelC);
-                    // Reset
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextC.get()) return; // editTextC is locked
+                    // Other work
+                    String labelText = "c" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelC.setText(labelText);
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactC
+                    isUpdatingEditTextCompactC.set(true); // Lock editTextCompactC
+                    try {
+                        editTextCompactC.setText(s.toString());
+                        // editTextCompactC.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactC.set(false); // Unlock editTextCompactC
+                    }
                 }
             });
-            buttonLinearDiophantineEquationInTwoVariablesRun.setOnClickListener(v -> onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRun, false));
-            buttonLinearDiophantineEquationInTwoVariablesRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
-            buttonLinearDiophantineEquationInTwoVariablesRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
-            buttonLinearDiophantineEquationInTwoVariablesRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
-            textViewLinearDiophantineEquationInTwoVariablesExpandResult.setOnClickListener(v -> {
-                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewLinearDiophantineEquationInTwoVariablesTitle.getText().toString(), editTextLinearDiophantineEquationInTwoVariablesResult.getText());
+
+            // Compact input events
+            editTextCompactA.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactA.get()) return; // editTextCompactA is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextA
+                    isUpdatingEditTextA.set(true); // Lock editTextA
+                    try {
+                        editTextA.setText(s.toString());
+                        // editTextA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextA.set(false); // unlock editTextA
+                    }
+                }
+            });
+            editTextCompactB.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactB.get()) return; // editTextCompactB is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextB
+                    isUpdatingEditTextB.set(true); // Lock editTextB
+                    try {
+                        editTextB.setText(s.toString());
+                        // editTextB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextB.set(false); // unlock editTextB
+                    }
+                }
+            });
+            editTextCompactC.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactC.get()) return; // editTextCompactC is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextC
+                    isUpdatingEditTextC.set(true); // Lock editTextC
+                    try {
+                        editTextC.setText(s.toString());
+                        // editTextC.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextC.set(false); // unlock editTextC
+                    }
+                }
+            });
+
+            // Extended input a clipboard button events
+            textViewCopyA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
+            });
+            textViewPasteA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
+            });
+            textViewClearA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input b clipboard button events
+            textViewCopyB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
+            });
+            textViewPasteB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
+            });
+            textViewClearB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+            textViewCopyC.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyC);
+            });
+            textViewPasteC.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteC);
+            });
+            textViewClearC.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearC);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input a clipboard button events
+            textViewCopyCompactA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
+            });
+            textViewPasteCompactA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
+            });
+            textViewClearCompactA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input b clipboard button events
+            textViewCopyCompactB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
+            });
+            textViewPasteCompactB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
+            });
+            textViewClearCompactB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input c clipboard button events
+            textViewCopyCompactC.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactC);
+            });
+            textViewPasteCompactC.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactC);
+            });
+            textViewClearCompactC.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactC);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Run button events
+            buttonRun.setOnClickListener(v -> onButtonRun(container, buttonRun, false));
+            buttonRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            buttonRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            buttonRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+
+            // Result clipboard button events
+            textViewExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
                 popupResult.show();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewLinearDiophantineEquationInTwoVariablesExpandResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
             });
-            editTextLinearDiophantineEquationInTwoVariablesResult.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            textViewCopyResult.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
+            });
+            textViewClearResult.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
+                resetAllAndSelectTheLastButtonClicked();
+            });
 
-                }
+            // Result events
+            editTextResult.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
                     if (s == null || s.toString().isEmpty()) {
-                        textViewLinearDiophantineEquationInTwoVariablesExpandResult.setVisibility(View.GONE);
+                        textViewExpandResult.setVisibility(View.GONE);
                     } else {
-                        textViewLinearDiophantineEquationInTwoVariablesExpandResult.setVisibility(View.VISIBLE);
+                        textViewExpandResult.setVisibility(View.VISIBLE);
                     }
                 }
             });
@@ -339,26 +484,26 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             // Handle menu item clicks here based on their ID.
             int id = menuItem.getItemId();
             if (id == R.id.linear_diophantine_equation_menu_example_1) {
-                this.editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_a));
-                this.editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_b));
-                this.editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_c));
-                this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_1));
+                this.editTextA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_a));
+                this.editTextB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_b));
+                this.editTextC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_c));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.linear_diophantine_equation_menu_example_2) {
-                this.editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_a));
-                this.editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_b));
-                this.editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_c));
-                this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_2));
+                this.editTextA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_a));
+                this.editTextB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_b));
+                this.editTextC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_c));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.linear_diophantine_equation_menu_example_3) {
-                this.editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_a));
-                this.editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_b));
-                this.editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_c));
-                this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_3));
+                this.editTextA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_a));
+                this.editTextB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_b));
+                this.editTextC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_c));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
                 return true;
             }
@@ -376,26 +521,44 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     @Override
     public void onResume() {
         super.onResume();
+        refreshInputViewMode();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
+        refreshBiggerResultDisplay();
     }
 
 
     //region Display
+    private void refreshInputViewMode() {
+        try {
+            this.isCompactInputView = UserSettings.getCompactInputView(requireContext());
+            if(isCompactInputView){
+                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutCompactInputView.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
     private void refreshHideExampleButtons() {
         try {
-            boolean exampleButtonsAreVisible = this.buttonLinearDiophantineEquationInTwoVariablesRunExample1.getVisibility() == View.VISIBLE; // Just check one.
+            boolean exampleButtonsAreVisible = this.buttonRunExample1.getVisibility() == View.VISIBLE; // Just check one.
             boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
             if (exampleButtonsAreVisible && hideExampleButtons) {
-                this.buttonLinearDiophantineEquationInTwoVariablesRun.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_run_long));
-                this.buttonLinearDiophantineEquationInTwoVariablesRunExample1.setVisibility(View.GONE);
-                this.buttonLinearDiophantineEquationInTwoVariablesRunExample2.setVisibility(View.GONE);
-                this.buttonLinearDiophantineEquationInTwoVariablesRunExample3.setVisibility(View.GONE);
+                this.buttonRun.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_run_long));
+                this.buttonRunExample1.setVisibility(View.GONE);
+                this.buttonRunExample2.setVisibility(View.GONE);
+                this.buttonRunExample3.setVisibility(View.GONE);
             } else if (!exampleButtonsAreVisible && !hideExampleButtons) {
-                this.buttonLinearDiophantineEquationInTwoVariablesRun.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_run_short));
-                this.buttonLinearDiophantineEquationInTwoVariablesRunExample1.setVisibility(View.VISIBLE);
-                this.buttonLinearDiophantineEquationInTwoVariablesRunExample2.setVisibility(View.VISIBLE);
-                this.buttonLinearDiophantineEquationInTwoVariablesRunExample3.setVisibility(View.VISIBLE);
+                this.buttonRun.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_run_short));
+                this.buttonRunExample1.setVisibility(View.VISIBLE);
+                this.buttonRunExample2.setVisibility(View.VISIBLE);
+                this.buttonRunExample3.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -407,44 +570,65 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyB, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteB, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearB, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyC, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesPasteC, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactC, biggerControls);
             // Clipboard output buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesExpandResult, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesCopyResult, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewLinearDiophantineEquationInTwoVariablesClearResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
+            // Extended input controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelC, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticC, biggerControls);
+            ControlDisplay.setInputFontSize(editTextC, biggerControls);
+            // Compact input controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactC, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactC, biggerControls);
+            // Run buttons
+            ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
+            // Example run buttons
+            ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
             // Label
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelA, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticA, biggerControls);
-            // InputGroup
-            ControlDisplay.setInputFontSize(editTextLinearDiophantineEquationInTwoVariablesA, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelB, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticB, biggerControls);
-            // InputGroup
-            ControlDisplay.setInputFontSize(editTextLinearDiophantineEquationInTwoVariablesB, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelC, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticC, biggerControls);
-            // InputGroup
-            ControlDisplay.setInputFontSize(editTextLinearDiophantineEquationInTwoVariablesC, biggerControls);
-            // Buttons
-            ControlDisplay.setButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRun, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample1, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample2, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonLinearDiophantineEquationInTwoVariablesRunExample3, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelResult, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLinearDiophantineEquationInTwoVariablesLabelElasticResult, biggerControls);
-            // Output
-            ControlDisplay.setOutputFontSize(editTextLinearDiophantineEquationInTwoVariablesResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshBiggerResultDisplay() {
+        try {
+            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+            // Output result
+            ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -464,11 +648,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         if (algorithmName == AlgorithmName.LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES) {
             if (progressStatus == ProgressStatus.CANCELED) {
                 String resultCanceledText = requireContext().getResources().getString(R.string.canceled);
-                editTextLinearDiophantineEquationInTwoVariablesResult.setText(resultCanceledText);
+                editTextResult.setText(resultCanceledText);
             } else {
                 String resultAsString = (String)result;
-                CharSequence resultFromHtml = Html.fromHtml(resultAsString);
-                editTextLinearDiophantineEquationInTwoVariablesResult.setText(resultFromHtml);
+                CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
+                editTextResult.setText(resultFromHtml);
             }
         }
     }
@@ -479,9 +663,9 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     private InputGroup getInputGroupA() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLinearDiophantineEquationInTwoVariablesLabelA, "a", textViewLinearDiophantineEquationInTwoVariablesLabelElasticA)
-                .setInput(editTextLinearDiophantineEquationInTwoVariablesA)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setLabel(textViewLabelA, "a", textViewLabelElasticA)
+                .setInput(editTextA)
+                .setCompactControls(textViewLabelCompactA, editTextCompactA)
                 .build();
     }
 
@@ -489,9 +673,9 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     private InputGroup getInputGroupB() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLinearDiophantineEquationInTwoVariablesLabelB, "b", textViewLinearDiophantineEquationInTwoVariablesLabelElasticB)
-                .setInput(editTextLinearDiophantineEquationInTwoVariablesB)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setLabel(textViewLabelB, "b", textViewLabelElasticB)
+                .setInput(editTextB)
+                .setCompactControls(textViewLabelCompactB, editTextCompactB)
                 .build();
     }
 
@@ -499,9 +683,9 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     private InputGroup getInputGroupC() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLinearDiophantineEquationInTwoVariablesLabelC, "c", textViewLinearDiophantineEquationInTwoVariablesLabelElasticC)
-                .setInput(editTextLinearDiophantineEquationInTwoVariablesC)
-                .setCompactControls(null, null) // TODO +++ remove null when implemented.
+                .setLabel(textViewLabelC, "c", textViewLabelElasticC)
+                .setInput(editTextC)
+                .setCompactControls(textViewLabelCompactC, editTextCompactC)
                 .build();
     }
 
@@ -523,9 +707,9 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextLinearDiophantineEquationInTwoVariablesA.getText().toString());
-            BigInteger b = new BigInteger(editTextLinearDiophantineEquationInTwoVariablesB.getText().toString());
-            BigInteger c = new BigInteger(editTextLinearDiophantineEquationInTwoVariablesC.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
+            BigInteger c = new BigInteger(editTextC.getText().toString());
 
             // Reset result
             resetResult(skipLabelResult);
@@ -545,36 +729,36 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     }
     private void onButtonRunExample1(ViewGroup container) {
         try {
-            editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_a));
-            editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_b));
-            editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_c));
-            this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_1));
+            editTextA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_a));
+            editTextB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_b));
+            editTextC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_1_c));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample1, true);
+            onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void onButtonRunExample2(ViewGroup container) {
         try {
-            editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_a));
-            editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_b));
-            editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_c));
-            this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_2));
+            editTextA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_a));
+            editTextB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_b));
+            editTextC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_2_c));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample2, true);
+            onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void onButtonRunExample3(ViewGroup container) {
         try {
-            editTextLinearDiophantineEquationInTwoVariablesA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_a));
-            editTextLinearDiophantineEquationInTwoVariablesB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_b));
-            editTextLinearDiophantineEquationInTwoVariablesC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_c));
-            this.textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result_example_3));
+            editTextA.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_a));
+            editTextB.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_b));
+            editTextC.setText(requireContext().getText(R.string.linear_diophantine_equation_in_two_variables_example_3_c));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonLinearDiophantineEquationInTwoVariablesRunExample3, true);
+            onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -587,53 +771,69 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
-        editTextLinearDiophantineEquationInTwoVariablesA.clearFocus();
-        editTextLinearDiophantineEquationInTwoVariablesB.clearFocus();
-        editTextLinearDiophantineEquationInTwoVariablesC.clearFocus();
+        editTextA.clearFocus();
+        editTextB.clearFocus();
+        editTextC.clearFocus();
+        editTextCompactA.clearFocus();
+        editTextCompactB.clearFocus();
+        editTextCompactC.clearFocus();
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
+    private void resetAllAndSelectTheLastClipboardButtonClicked() {
+        resetAllAndSelectTheLastClipboardButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
-        textViewLinearDiophantineEquationInTwoVariablesCopyA.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesPasteA.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesClearA.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesCopyB.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesPasteB.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesClearB.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesCopyC.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesPasteC.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesClearC.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesExpandResult.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesCopyResult.setSelected(false);
-        textViewLinearDiophantineEquationInTwoVariablesClearResult.setSelected(false);
+        textViewCopyA.setSelected(false);
+        textViewPasteA.setSelected(false);
+        textViewClearA.setSelected(false);
+        textViewCopyB.setSelected(false);
+        textViewPasteB.setSelected(false);
+        textViewClearB.setSelected(false);
+        textViewCopyC.setSelected(false);
+        textViewPasteC.setSelected(false);
+        textViewClearC.setSelected(false);
+        //
+        textViewCopyCompactA.setSelected(false);
+        textViewPasteCompactA.setSelected(false);
+        textViewClearCompactA.setSelected(false);
+        textViewCopyCompactB.setSelected(false);
+        textViewPasteCompactB.setSelected(false);
+        textViewClearCompactB.setSelected(false);
+        textViewCopyCompactC.setSelected(false);
+        textViewPasteCompactC.setSelected(false);
+        textViewClearCompactC.setSelected(false);
+        //
+        textViewExpandResult.setSelected(false);
+        textViewCopyResult.setSelected(false);
+        textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
             textView.setSelected(true);
         }
     }
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
-        // Reset the last button clicked.
-        buttonLinearDiophantineEquationInTwoVariablesRun.setSelected(false);
-        buttonLinearDiophantineEquationInTwoVariablesRunExample1.setSelected(false);
-        buttonLinearDiophantineEquationInTwoVariablesRunExample2.setSelected(false);
-        buttonLinearDiophantineEquationInTwoVariablesRunExample3.setSelected(false);
+        buttonRun.setSelected(false);
+        buttonRunExample1.setSelected(false);
+        buttonRunExample2.setSelected(false);
+        buttonRunExample3.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
             button.setSelected(true);
         }
     }
     private void resetResult(boolean skipLabelResult) {
-        // Reset the last clipboard clicked.
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
-        // Reset the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(null);
+        resetAllAndSelectTheLastClipboardButtonClicked();
+        resetAllAndSelectTheLastButtonClicked();
         //
         if(!skipLabelResult) {
-            textViewLinearDiophantineEquationInTwoVariablesLabelResult.setText(requireContext().getText(R.string.result));
+            textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
-        editTextLinearDiophantineEquationInTwoVariablesResult.setText("");
+        editTextResult.setText("");
     }
     //endregion RESULT
-
 }

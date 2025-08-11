@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="linear_congruence_in_one_variable_title">ax ≡ b (mod m)</string>
+    <string name="linear_congruence_in_one_variable_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x</string>
+    <string name="linear_congruence_in_one_variable_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x such as ax ≡ b (mod m)</string>
+    <string name="linear_congruence_in_one_variable_example_1_a">7</string>
+    <string name="linear_congruence_in_one_variable_example_1_b">10</string>
+    <string name="linear_congruence_in_one_variable_example_1_m">21</string>
+    <string name="linear_congruence_in_one_variable_example_2_a">7</string>
+    <string name="linear_congruence_in_one_variable_example_2_b">15</string>
+    <string name="linear_congruence_in_one_variable_example_2_m">32</string>
+    <string name="linear_congruence_in_one_variable_example_3_a">6</string>
+    <string name="linear_congruence_in_one_variable_example_3_b">4</string>
+    <string name="linear_congruence_in_one_variable_example_3_m">10</string>
+    <string name="linear_congruence_in_one_variable_menu_example_1">E₁ ● 7x ≡ 10 (mod 21)</string>
+    <string name="linear_congruence_in_one_variable_menu_example_2">E₂ ● 7x ≡ 15 (mod 32)</string>
+    <string name="linear_congruence_in_one_variable_menu_example_3">E₃ ● 6x ≡ 4 (mod 10)</string>
+</resources>

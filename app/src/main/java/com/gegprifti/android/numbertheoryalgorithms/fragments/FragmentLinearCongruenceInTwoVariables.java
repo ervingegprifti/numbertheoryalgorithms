@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
@@ -771,7 +770,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 editTextResult.setText(resultCanceledText);
             } else {
                 String resultAsString = (String)result;
-                CharSequence resultFromHtml = Html.fromHtml(resultAsString);
+                CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
                 editTextResult.setText(resultFromHtml);
             }
         }

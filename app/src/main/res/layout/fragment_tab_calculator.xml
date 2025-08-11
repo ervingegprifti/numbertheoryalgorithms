@@ -44,7 +44,7 @@
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextA"
                 android:autofillHints=""
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="10dp"/>
 
             <!--InputGroup integer b:-->
             <LinearLayout style="@style/RowContainerStyle">
