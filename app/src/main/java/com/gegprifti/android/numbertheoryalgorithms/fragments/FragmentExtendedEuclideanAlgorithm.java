@@ -18,15 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
@@ -35,32 +38,55 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBas
 
 public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements Callback {
     private final static String TAG = FragmentExtendedEuclideanAlgorithm.class.getSimpleName();
-
-    TextView textViewExtendedEuclideanBackToAlgorithms;
-    TextView textViewExtendedEuclideanTitle;
-    TextView textViewExtendedEuclideanDocumentationFile;
-    TextView textViewExtendedEuclideanLabelA;
-    TextView textViewExtendedEuclideanLabelElasticA;
-    TextView textViewExtendedEuclideanCopyA;
-    TextView textViewExtendedEuclideanPasteA;
-    TextView textViewExtendedEuclideanClearA;
-    EditText editTextExtendedEuclideanA;
-    TextView textViewExtendedEuclideanLabelB;
-    TextView textViewExtendedEuclideanLabelElasticB;
-    TextView textViewExtendedEuclideanCopyB;
-    TextView textViewExtendedEuclideanPasteB;
-    TextView textViewExtendedEuclideanClearB;
-    EditText editTextExtendedEuclideanB;
-    Button buttonExtendedEuclideanRun;
-    Button buttonExtendedEuclideanRunExample1;
-    Button buttonExtendedEuclideanRunExample2;
-    Button buttonExtendedEuclideanRunExample3;
-    TextView textViewExtendedEuclideanLabelResult;
-    TextView textViewExtendedEuclideanLabelElasticResult;
-    TextView textViewExtendedEuclideanExpandResult;
-    TextView textViewExtendedEuclideanCopyResult;
-    TextView textViewExtendedEuclideanClearResult;
-    EditText editTextExtendedEuclideanResult;
+    // Navigation controls
+    TextView textViewBackToAlgorithms;
+    TextView textViewTitle;
+    TextView textViewDocumentationFile;
+    // Cache view state
+    boolean isCompactInputView = false;
+    // Extended input view
+    LinearLayout linearLayoutExtendedInputView;
+    TextView textViewLabelA;
+    TextView textViewLabelElasticA;
+    TextView textViewCopyA;
+    TextView textViewPasteA;
+    TextView textViewClearA;
+    EditText editTextA;
+    TextView textViewLabelB;
+    TextView textViewLabelElasticB;
+    TextView textViewCopyB;
+    TextView textViewPasteB;
+    TextView textViewClearB;
+    EditText editTextB;
+    // Compact input view
+    LinearLayout linearLayoutCompactInputView;
+    TextView textViewLabelCompactA;
+    TextView textViewCopyCompactA;
+    TextView textViewPasteCompactA;
+    TextView textViewClearCompactA;
+    EditText editTextCompactA;
+    TextView textViewLabelCompactB;
+    TextView textViewCopyCompactB;
+    TextView textViewPasteCompactB;
+    TextView textViewClearCompactB;
+    EditText editTextCompactB;
+    // Run buttons
+    Button buttonRun;
+    Button buttonRunExample1;
+    Button buttonRunExample2;
+    Button buttonRunExample3;
+    // Result controls
+    TextView textViewLabelResult;
+    TextView textViewLabelElasticResult;
+    TextView textViewExpandResult;
+    TextView textViewCopyResult;
+    TextView textViewClearResult;
+    EditText editTextResult;
+    // Flags to prevent recursive updates
+    AtomicBoolean isUpdatingEditTextA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactB = new AtomicBoolean(false);
 
 
     // Define the parent fragment
@@ -79,200 +105,256 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_extended_euclidean_algorithm, container, false);
-            textViewExtendedEuclideanBackToAlgorithms = inflater.findViewById(R.id.TextViewExtendedEuclideanBackToAlgorithms);
-            textViewExtendedEuclideanTitle = inflater.findViewById(R.id.TextViewExtendedEuclideanTitle);
-            textViewExtendedEuclideanDocumentationFile = inflater.findViewById(R.id.TextViewExtendedEuclideanDocumentationFile);
-            textViewExtendedEuclideanLabelA = inflater.findViewById(R.id.TextViewExtendedEuclideanLabelA);
-            textViewExtendedEuclideanLabelElasticA = inflater.findViewById(R.id.TextViewExtendedEuclideanLabelElasticA);
-            textViewExtendedEuclideanCopyA = inflater.findViewById(R.id.TextViewExtendedEuclideanCopyA);
-            textViewExtendedEuclideanPasteA = inflater.findViewById(R.id.TextViewExtendedEuclideanPasteA);
-            textViewExtendedEuclideanClearA = inflater.findViewById(R.id.TextViewExtendedEuclideanClearA);
-            editTextExtendedEuclideanA = inflater.findViewById(R.id.EditTextExtendedEuclideanA);
-            textViewExtendedEuclideanLabelB = inflater.findViewById(R.id.TextViewExtendedEuclideanLabelB);
-            textViewExtendedEuclideanLabelElasticB = inflater.findViewById(R.id.TextViewExtendedEuclideanLabelElasticB);
-            textViewExtendedEuclideanCopyB = inflater.findViewById(R.id.TextViewExtendedEuclideanCopyB);
-            textViewExtendedEuclideanPasteB = inflater.findViewById(R.id.TextViewExtendedEuclideanPasteB);
-            textViewExtendedEuclideanClearB = inflater.findViewById(R.id.TextViewExtendedEuclideanClearB);
-            editTextExtendedEuclideanB = inflater.findViewById(R.id.EditTextExtendedEuclideanB);
-            buttonExtendedEuclideanRun = inflater.findViewById(R.id.ButtonExtendedEuclideanRun);
-            buttonExtendedEuclideanRunExample1 = inflater.findViewById(R.id.ButtonExtendedEuclideanRunExample1);
-            buttonExtendedEuclideanRunExample2 = inflater.findViewById(R.id.ButtonExtendedEuclideanRunExample2);
-            buttonExtendedEuclideanRunExample3 = inflater.findViewById(R.id.ButtonExtendedEuclideanRunExample3);
-            textViewExtendedEuclideanLabelResult = inflater.findViewById(R.id.TextViewExtendedEuclideanLabelResult);
-            textViewExtendedEuclideanLabelElasticResult = inflater.findViewById(R.id.TextViewExtendedEuclideanLabelElasticResult);
-            textViewExtendedEuclideanExpandResult = inflater.findViewById(R.id.TextViewExtendedEuclideanExpandResult);
-            textViewExtendedEuclideanCopyResult = inflater.findViewById(R.id.TextViewExtendedEuclideanCopyResult);
-            textViewExtendedEuclideanClearResult = inflater.findViewById(R.id.TextViewExtendedEuclideanClearResult);
-            editTextExtendedEuclideanResult = inflater.findViewById(R.id.EditTextExtendedEuclideanResult);
+            // Navigation controls
+            textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
+            textViewTitle = inflater.findViewById(R.id.TextViewTitle);
+            textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
+            // Extended input view
+            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
+            textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
+            textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
+            textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
+            textViewClearA = inflater.findViewById(R.id.TextViewClearA);
+            editTextA = inflater.findViewById(R.id.EditTextA);
+            textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
+            textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
+            textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
+            textViewClearB = inflater.findViewById(R.id.TextViewClearB);
+            editTextB = inflater.findViewById(R.id.EditTextB);
+            // Compact input view
+            linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
+            textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
+            textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
+            textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
+            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
+            textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
+            textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
+            textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
+            editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
+            // Run buttons
+            buttonRun = inflater.findViewById(R.id.ButtonRun);
+            buttonRunExample1 = inflater.findViewById(R.id.ButtonRunExample1);
+            buttonRunExample2 = inflater.findViewById(R.id.ButtonRunExample2);
+            buttonRunExample3 = inflater.findViewById(R.id.ButtonRunExample3);
+            // Result controls
+            textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
+            textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
+            textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
+            textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
+            textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
+            editTextResult = inflater.findViewById(R.id.EditTextResult);
 
-            // Input filter integer only
-            editTextExtendedEuclideanA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
-            editTextExtendedEuclideanB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain extended input
+            editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain compact input
+            editTextCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Events
-            textViewExtendedEuclideanBackToAlgorithms.setOnClickListener(new View.OnClickListener() {
+            // Navigation vents
+            textViewBackToAlgorithms.setOnClickListener(view -> {
+                if(tabFragmentAlgorithms != null) {
+                    // Go back to the algorithms main menu
+                    FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
+                    tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
+                }
+            });
+            textViewDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.EXTENDED_EUCLIDEAN_ALGORITHM_PDF).show(getParentFragmentManager(), "EXTENDED_EUCLIDEAN_ALGORITHM_PDF"));
+
+            // Extended input events
+            editTextA.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View view) {
-                    if(tabFragmentAlgorithms != null) {
-                        // Go back to the algorithms main menu
-                        FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
-                        tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextA.get()) return; // editTextA is locked
+                    // Other work
+                    String labelText = "a" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelA.setText(labelText);
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactA
+                    isUpdatingEditTextCompactA.set(true); // Lock editTextCompactA
+                    try {
+                        editTextCompactA.setText(s.toString());
+                        // editTextCompactA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactA.set(false); // Unlock editTextCompactA
                     }
                 }
             });
-            textViewExtendedEuclideanDocumentationFile.setOnClickListener(new View.OnClickListener() {
+            editTextB.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View view) {
-                    DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.EXTENDED_EUCLIDEAN_ALGORITHM_PDF).show(getParentFragmentManager(), "EXTENDED_EUCLIDEAN_ALGORITHM_PDF");
-                }
-            });
-            textViewExtendedEuclideanCopyA.setOnClickListener(new View.OnClickListener() {
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextExtendedEuclideanA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanCopyA);
-                }
-            });
-            textViewExtendedEuclideanCopyB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextExtendedEuclideanB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanCopyB);
-                }
-            });
-            textViewExtendedEuclideanCopyResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextExtendedEuclideanResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanCopyResult);
-                }
-            });
-            textViewExtendedEuclideanPasteA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextExtendedEuclideanA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanPasteA);
-                }
-            });
-            textViewExtendedEuclideanPasteB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextExtendedEuclideanB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanPasteB);
-                }
-            });
-            textViewExtendedEuclideanClearA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextExtendedEuclideanA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanClearA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewExtendedEuclideanClearB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextExtendedEuclideanB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanClearB);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewExtendedEuclideanClearResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextExtendedEuclideanResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanClearResult);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            editTextExtendedEuclideanA.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String extendedEuclideanLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
-                    textViewExtendedEuclideanLabelA.setText(extendedEuclideanLabelA);
-                    // Reset
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextB.get()) return; // editTextB is locked
+                    // Other work
+                    String labelText = "b" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelB.setText(labelText);
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactB
+                    isUpdatingEditTextCompactB.set(true); // Lock editTextCompactB
+                    try {
+                        editTextCompactB.setText(s.toString());
+                        // editTextCompactB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactB.set(false); // Unlock editTextCompactB
+                    }
                 }
             });
-            editTextExtendedEuclideanB.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
+            // Compact input events
+            editTextCompactA.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String extendedEuclideanLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
-                    textViewExtendedEuclideanLabelB.setText(extendedEuclideanLabelB);
-                    // Reset
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactA.get()) return; // editTextCompactA is locked
+                    // Other work
                     resetResult(false);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextA
+                    isUpdatingEditTextA.set(true); // Lock editTextA
+                    try {
+                        editTextA.setText(s.toString());
+                        // editTextA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextA.set(false); // unlock editTextA
+                    }
                 }
             });
-            buttonExtendedEuclideanRun.setOnClickListener(new View.OnClickListener() {
+            editTextCompactB.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View v) {
-                    onButtonRun(container, buttonExtendedEuclideanRun, false, true);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactB.get()) return; // editTextCompactB is locked
+                    // Other work
+                    resetResult(false);
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextB
+                    isUpdatingEditTextB.set(true); // Lock editTextB
+                    try {
+                        editTextB.setText(s.toString());
+                        // editTextB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextB.set(false); // unlock editTextB
+                    }
                 }
             });
-            buttonExtendedEuclideanRunExample1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample1(container, true);
-                }
-            });
-            buttonExtendedEuclideanRunExample2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample2(container, true);
-                }
-            });
-            buttonExtendedEuclideanRunExample3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRunExample3(container, true);
-                }
-            });
-            textViewExtendedEuclideanExpandResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewExtendedEuclideanTitle.getText().toString(), editTextExtendedEuclideanResult.getText());
-                    popupResult.show();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExtendedEuclideanExpandResult);
-                }
-            });
-            editTextExtendedEuclideanResult.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Extended input a clipboard button events
+            textViewCopyA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
+            });
+            textViewPasteA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
+            });
+            textViewClearA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
 
-                }
+            // Extended input b clipboard button events
+            textViewCopyB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
+            });
+            textViewPasteB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
+            });
+            textViewClearB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input a clipboard button events
+            textViewCopyCompactA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
+            });
+            textViewPasteCompactA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
+            });
+            textViewClearCompactA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input b clipboard button events
+            textViewCopyCompactB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
+            });
+            textViewPasteCompactB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
+            });
+            textViewClearCompactB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Run button events
+            buttonRun.setOnClickListener(v -> onButtonRun(container, buttonRun, false));
+            buttonRunExample1.setOnClickListener(v -> onButtonRunExample1(container));
+            buttonRunExample2.setOnClickListener(v -> onButtonRunExample2(container));
+            buttonRunExample3.setOnClickListener(v -> onButtonRunExample3(container));
+
+            // Result clipboard button events
+            textViewExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
+                popupResult.show();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+            });
+            textViewCopyResult.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
+            });
+            textViewClearResult.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Result events
+            editTextResult.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
                     if (s == null || s.toString().isEmpty()) {
-                        textViewExtendedEuclideanExpandResult.setVisibility(View.GONE);
+                        textViewExpandResult.setVisibility(View.GONE);
                     } else {
-                        textViewExtendedEuclideanExpandResult.setVisibility(View.VISIBLE);
+                        textViewExpandResult.setVisibility(View.VISIBLE);
                     }
                 }
             });
@@ -304,23 +386,23 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             // Handle menu item clicks here based on their ID.
             int id = menuItem.getItemId();
             if (id == R.id.extended_euclidean_algorithm_menu_example_1) {
-                this.editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_a));
-                this.editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_b));
-                this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_1));
+                this.editTextA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_a));
+                this.editTextB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_b));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.extended_euclidean_algorithm_menu_example_2) {
-                this.editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_a));
-                this.editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_b));
-                this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_2));
+                this.editTextA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_a));
+                this.editTextB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_b));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.extended_euclidean_algorithm_menu_example_3) {
-                this.editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_a));
-                this.editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_b));
-                this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_3));
+                this.editTextA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_a));
+                this.editTextB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_b));
+                this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
                 return true;
             }
@@ -338,76 +420,103 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
-        this.refreshBiggerControls();
-        this.refreshHideExampleButtons();
+        refreshInputViewMode();
+        refreshBiggerControls();
+        refreshHideExampleButtons();
+        refreshBiggerResultDisplay();
     }
 
 
     //region Display
-    private void refreshHideExampleButtons() {
+    private void refreshInputViewMode() {
         try {
-            boolean exampleButtonsAreVisible = this.buttonExtendedEuclideanRunExample1.getVisibility() == View.VISIBLE; // Just check one.
-            boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
-            if (exampleButtonsAreVisible && hideExampleButtons) {
-                this.buttonExtendedEuclideanRun.setText(requireContext().getText(R.string.extended_euclidean_algorithm_run_long));
-                this.buttonExtendedEuclideanRunExample1.setVisibility(View.GONE);
-                this.buttonExtendedEuclideanRunExample2.setVisibility(View.GONE);
-                this.buttonExtendedEuclideanRunExample3.setVisibility(View.GONE);
-            } else if (!exampleButtonsAreVisible && !hideExampleButtons) {
-                this.buttonExtendedEuclideanRun.setText(requireContext().getText(R.string.extended_euclidean_algorithm_run_short));
-                this.buttonExtendedEuclideanRunExample1.setVisibility(View.VISIBLE);
-                this.buttonExtendedEuclideanRunExample2.setVisibility(View.VISIBLE);
-                this.buttonExtendedEuclideanRunExample3.setVisibility(View.VISIBLE);
+            this.isCompactInputView = UserSettings.getCompactInputView(requireContext());
+            if(isCompactInputView){
+                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutCompactInputView.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshSmallerClipboardButtons() {
-        try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
 
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanPasteA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearA, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanPasteB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearB, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanExpandResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanCopyResult, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewExtendedEuclideanClearResult, biggerClipboardButtons);
+
+    private void refreshHideExampleButtons() {
+        try {
+            boolean exampleButtonsAreVisible = this.buttonRunExample1.getVisibility() == View.VISIBLE; // Just check one.
+            boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
+            if (exampleButtonsAreVisible && hideExampleButtons) {
+                this.buttonRun.setText(requireContext().getText(R.string.extended_euclidean_algorithm_run_long));
+                this.buttonRunExample1.setVisibility(View.GONE);
+                this.buttonRunExample2.setVisibility(View.GONE);
+                this.buttonRunExample3.setVisibility(View.GONE);
+            } else if (!exampleButtonsAreVisible && !hideExampleButtons) {
+                this.buttonRun.setText(requireContext().getText(R.string.extended_euclidean_algorithm_run_short));
+                this.buttonRunExample1.setVisibility(View.VISIBLE);
+                this.buttonRunExample2.setVisibility(View.VISIBLE);
+                this.buttonRunExample3.setVisibility(View.VISIBLE);
+            }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
+            // Extended input controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextB, biggerControls);
+            // Compact input controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
+            // Run buttons
+            ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
+            // Example run buttons
+            ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
+            // Label
+            ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
 
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelA, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelElasticA, biggerControls);
-            // Input
-            ControlDisplay.setInputFontSize(editTextExtendedEuclideanA, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelB, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelElasticB, biggerControls);
-            // Input
-            ControlDisplay.setInputFontSize(editTextExtendedEuclideanB, biggerControls);
-            // Buttons
-            ControlDisplay.setButtonFontSize(buttonExtendedEuclideanRun, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonExtendedEuclideanRunExample1, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonExtendedEuclideanRunExample2, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonExtendedEuclideanRunExample3, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelResult, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewExtendedEuclideanLabelElasticResult, biggerControls);
-            // Output
-            ControlDisplay.setOutputFontSize(editTextExtendedEuclideanResult, biggerControls);
+
+    private void refreshBiggerResultDisplay() {
+        try {
+            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+            // Output result
+            ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -427,11 +536,11 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         if (algorithmName == AlgorithmName.EXTENDED_EUCLIDEAN_ALGORITHM) {
             if (progressStatus == ProgressStatus.CANCELED) {
                 String resultCanceledText = requireContext().getResources().getString(R.string.canceled);
-                editTextExtendedEuclideanResult.setText(resultCanceledText);
+                editTextResult.setText(resultCanceledText);
             } else {
                 String resultAsString = (String)result;
-                CharSequence resultFromHtml = Html.fromHtml(resultAsString);
-                editTextExtendedEuclideanResult.setText(resultFromHtml);
+                CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
+                editTextResult.setText(resultFromHtml);
             }
         }
     }
@@ -439,19 +548,41 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
 
 
     //region BUTTON ACTIONS
-    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult, boolean displayProgressDialog) {
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelA, "a", textViewLabelElasticA)
+                .setInput(editTextA)
+                .setCompactControls(textViewLabelCompactA, editTextCompactA)
+                .build();
+    }
+
+
+    private InputGroup getInputGroupB() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelB, "b", textViewLabelElasticB)
+                .setInput(editTextB)
+                .setCompactControls(textViewLabelCompactB, editTextCompactB)
+                .build();
+    }
+
+
+    private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanA, textViewExtendedEuclideanLabelA, textViewExtendedEuclideanLabelElasticA, "a", BigInteger.ZERO)) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), inputGroupA, BigInteger.ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextExtendedEuclideanB, textViewExtendedEuclideanLabelB, textViewExtendedEuclideanLabelElasticB, "b", BigInteger.ZERO)) {
+            if(UIHelper.checkInputMustBeGreaterThanMin(requireContext(), inputGroupB, BigInteger.ZERO)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextExtendedEuclideanA.getText().toString());
-            BigInteger b = new BigInteger(editTextExtendedEuclideanB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult(skipLabelResult);
@@ -463,41 +594,43 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.EXTENDED_EUCLIDEAN_ALGORITHM, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample1(ViewGroup container, boolean displayProgressDialog) {
+
+
+    private void onButtonRunExample1(ViewGroup container) {
         try {
             //
-            editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_a));
-            editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_b));
-            this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_1));
+            editTextA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_a));
+            editTextB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_1_b));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
-            onButtonRun(container, buttonExtendedEuclideanRunExample1, true, displayProgressDialog);
+            onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample2(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample2(ViewGroup container) {
         try {
-            editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_a));
-            editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_b));
-            this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_2));
+            editTextA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_a));
+            editTextB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_2_b));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
-            onButtonRun(container, buttonExtendedEuclideanRunExample2, true, displayProgressDialog);
+            onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void onButtonRunExample3(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRunExample3(ViewGroup container) {
         try {
-            editTextExtendedEuclideanA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_a));
-            editTextExtendedEuclideanB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_b));
-            this.textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result_example_3));
+            editTextA.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_a));
+            editTextB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_b));
+            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
-            onButtonRun(container, buttonExtendedEuclideanRunExample3, true, displayProgressDialog);
+            onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -510,33 +643,46 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
-        editTextExtendedEuclideanA.clearFocus();
-        editTextExtendedEuclideanB.clearFocus();
+        editTextA.clearFocus();
+        editTextB.clearFocus();
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
+    private void resetAllAndSelectTheLastClipboardButtonClicked() {
+        resetAllAndSelectTheLastClipboardButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
-        textViewExtendedEuclideanCopyA.setSelected(false);
-        textViewExtendedEuclideanPasteA.setSelected(false);
-        textViewExtendedEuclideanClearA.setSelected(false);
-        textViewExtendedEuclideanCopyB.setSelected(false);
-        textViewExtendedEuclideanPasteB.setSelected(false);
-        textViewExtendedEuclideanClearB.setSelected(false);
-        textViewExtendedEuclideanExpandResult.setSelected(false);
-        textViewExtendedEuclideanCopyResult.setSelected(false);
-        textViewExtendedEuclideanClearResult.setSelected(false);
+        textViewCopyA.setSelected(false);
+        textViewPasteA.setSelected(false);
+        textViewClearA.setSelected(false);
+        textViewCopyB.setSelected(false);
+        textViewPasteB.setSelected(false);
+        textViewClearB.setSelected(false);
+        textViewCopyCompactA.setSelected(false);
+        textViewPasteCompactA.setSelected(false);
+        textViewClearCompactA.setSelected(false);
+        textViewCopyCompactB.setSelected(false);
+        textViewPasteCompactB.setSelected(false);
+        textViewClearCompactB.setSelected(false);
+        //
+        textViewExpandResult.setSelected(false);
+        textViewCopyResult.setSelected(false);
+        textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
             textView.setSelected(true);
         }
     }
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
         // Reset the last button clicked.
-        buttonExtendedEuclideanRun.setSelected(false);
-        buttonExtendedEuclideanRunExample1.setSelected(false);
-        buttonExtendedEuclideanRunExample2.setSelected(false);
-        buttonExtendedEuclideanRunExample3.setSelected(false);
+        buttonRun.setSelected(false);
+        buttonRunExample1.setSelected(false);
+        buttonRunExample2.setSelected(false);
+        buttonRunExample3.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
             button.setSelected(true);
@@ -544,15 +690,14 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     }
     private void resetResult(boolean skipLabelResult) {
         // Reset the last clipboard clicked.
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
+        resetAllAndSelectTheLastClipboardButtonClicked();
         // Reset the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(null);
+        resetAllAndSelectTheLastButtonClicked();
         //
         if(!skipLabelResult) {
-            textViewExtendedEuclideanLabelResult.setText(requireContext().getText(R.string.result));
+            textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
-        editTextExtendedEuclideanResult.setText("");
+        editTextResult.setText("");
     }
     //endregion RESULT
-
 }

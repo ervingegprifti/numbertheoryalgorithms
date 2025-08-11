@@ -60,8 +60,8 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
             }
             result.append("<br>");
 
-            // Input
-            result.append(String.format("<font color='%s'>Input</font><br>", COLOR));
+            // InputGroup
+            result.append(String.format("<font color='%s'>InputGroup</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "b = %s<br>", getNP(b)));
             result.append(String.format(Locale.getDefault(), "d = %s<br>", getNP(d)));
             result.append(String.format(Locale.getDefault(), "e = %s<br>", getNP(e)));

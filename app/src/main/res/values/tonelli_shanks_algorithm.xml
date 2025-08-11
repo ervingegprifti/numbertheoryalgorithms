@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tonelli_shanks_algorithm_title">x² ≡ a (mod p)</string>
+    <string name="tonelli_shanks_algorithm_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x</string>
+    <string name="tonelli_shanks_algorithm_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x such as x² ≡ a (mod p)</string>
+    <string name="tonelli_shanks_algorithm_example_1_a">2</string>
+    <string name="tonelli_shanks_algorithm_example_1_p">23</string>
+    <string name="tonelli_shanks_algorithm_example_2_a">5</string>
+    <string name="tonelli_shanks_algorithm_example_2_p">23</string>
+    <string name="tonelli_shanks_algorithm_example_3_a">2</string>
+    <string name="tonelli_shanks_algorithm_example_3_p">360027784083079948259017962255826129</string>
+    <string name="tonelli_shanks_algorithm_menu_example_1">E₁ ● x² ≡ 2 (mod 23)</string>
+    <string name="tonelli_shanks_algorithm_menu_example_2">E₂ ● x² ≡ 5 (mod 23)</string>
+    <string name="tonelli_shanks_algorithm_menu_example_3">E₃ ● x² ≡ 2 (mod 3600…)</string>
+</resources>

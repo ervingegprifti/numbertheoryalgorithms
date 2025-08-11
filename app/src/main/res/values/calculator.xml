@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--https://stackoverflow.com/questions/8515365/are-there-other-whitespace-codes-like-nbsp-for-half-spaces-em-spaces-en-space-->
+    <!--hair space : &#8202; or &hairsp;-->
+    <string name="calculator_add" translatable="false">a + b</string>
+    <string name="calculator_subtract" translatable="false">a - b</string>
+    <string name="calculator_multiply" translatable="false">a · b</string>
+    <string name="calculator_divide" translatable="false">a / b</string>
+    <string name="calculator_power" translatable="false">aᵇ</string>
+    <string name="calculator_root" translatable="false">ᵇ&#8730;a</string>
+    <string name="calculator_gcd" translatable="false">gcd(|a|, |b|)</string>
+    <string name="calculator_lcm" translatable="false">lcm(a, b)</string>
+    <string name="calculator_mod" translatable="false">a (mod b)</string>
+    <string name="calculator_mod_inverse" translatable="false">a⁻¹ (mod b)</string>
+    <string name="calculator_is_a_prime">is a prime?</string>
+    <string name="calculator_euler_phi">euler\'s <i>ϕ</i>(a)</string>
+    <string name="calculator_factorial">factorial a!</string>
+    <string name="calculator_next_prime_to_a">next prime</string>
+    <string name="calculator_next_twin_prime_to_a">next twin prime</string>
+    <!--Calculator operations label-->
+    <string name="calculator_addition_label_result1">a + b</string>
+    <string name="calculator_subtraction_label_result1">a - b</string>
+    <string name="calculator_multiplication_label_result1">a · b</string>
+    <string name="calculator_division_label_result1">a / b quotient</string>
+    <string name="calculator_division_label_result2">a / b remainder</string>
+    <string name="calculator_power_label_result1">aᵇ</string>
+    <string name="calculator_root_label_result1">root(a, b)</string>
+    <string name="calculator_root_label_result2">a - root(a, b)ᵇ</string>
+    <string name="calculator_gcd_label_result1">gcd(|a|, |b|)</string>
+    <string name="calculator_lcm_label_result1">lcm(a, b)</string>
+    <string name="calculator_mod_label_result1">a (mod b)</string>
+    <string name="calculator_mod_inverse_label_result1">a⁻¹ (mod b)</string>
+    <string name="calculator_a_is_prime_yes">yes</string>
+    <string name="calculator_euler_phi_of_a">euler\'s ϕ(a)</string>
+    <string name="calculator_a_factorial">a!</string>
+    <string name="calculator_a_is_prime_no">no</string>
+    <string name="calculator_next_prime_label_result1">next prime to a</string>
+    <string name="calculator_next_twin_prime_label_result1">next twin prime to a</string>
+    <string name="calculator_next_twin_prime_label_result2">next twin prime to a</string>
+    <!--Fragment tab calculator menu string items-->
+    <!--https://en.wikipedia.org/wiki/RSA_Factoring_Challenge-->
+    <string name="menu_calculator_documentation">Documentation</string>
+    <string name="rsa_100" translatable="false">E₁ ● RSA-100</string>
+    <string name="rsa_576" translatable="false">E₂ ● RSA-576</string>
+    <string name="rsa_768" translatable="false">E₃ ● RSA-768</string>
+    <string name="rsa_1536" translatable="false">E₄ ● RSA-1536</string>
+    <string name="rsa_2048" translatable="false">E₅ ● RSA-2048</string>
+    <string name="more_rsa">More RSA examples&#8230;</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="linear_congruence_in_two_variables_title">ax+by ≡ c (mod m)</string>
+    <string name="linear_congruence_in_two_variables_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
+    <string name="linear_congruence_in_two_variables_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as ax+by ≡ c (mod m)</string>
+    <string name="linear_congruence_in_two_variables_example_1_a">4</string>
+    <string name="linear_congruence_in_two_variables_example_1_b">20</string>
+    <string name="linear_congruence_in_two_variables_example_1_c">10</string>
+    <string name="linear_congruence_in_two_variables_example_1_m">16</string>
+    <string name="linear_congruence_in_two_variables_example_2_a">4</string>
+    <string name="linear_congruence_in_two_variables_example_2_b">20</string>
+    <string name="linear_congruence_in_two_variables_example_2_c">10</string>
+    <string name="linear_congruence_in_two_variables_example_2_m">15</string>
+    <string name="linear_congruence_in_two_variables_example_3_a">4</string>
+    <string name="linear_congruence_in_two_variables_example_3_b">20</string>
+    <string name="linear_congruence_in_two_variables_example_3_c">10</string>
+    <string name="linear_congruence_in_two_variables_example_3_m">14</string>
+    <string name="linear_congruence_in_two_variables_menu_example_1">E₁ ● 4x+20y ≡ 10 (mod 16)</string>
+    <string name="linear_congruence_in_two_variables_menu_example_2">E₂ ● 4x+20y ≡ 10 (mod 15)</string>
+    <string name="linear_congruence_in_two_variables_menu_example_3">E₃ ● 4x+20y ≡ 10 (mod 14)</string>
+</resources>

@@ -7,6 +7,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent" >
 
+	<!--Navigation controls-->
 	<RelativeLayout
 		android:paddingLeft="20dp"
 		android:paddingTop="10dp"
@@ -16,12 +17,12 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 		<TextView style="@style/TextViewBack"
-			android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesBackToAlgorithms"  />
+			android:id="@+id/TextViewBackToAlgorithms"  />
 		<TextView style="@style/TextViewFragmentTitle"
-			android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesTitle"
+			android:id="@+id/TextViewTitle"
 			android:text="@string/linear_diophantine_equation_in_two_variables_title" />
 		<TextView style="@style/TextViewDocumentationFile"
-			android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesDocumentationFile"  />
+			android:id="@+id/TextViewDocumentationFile"  />
 	</RelativeLayout>
 
 	<ScrollView
@@ -45,97 +46,143 @@
 				android:layout_height="0px"
 				tools:ignore="UselessLeaf" />
 
-			<!--Big integer a:-->
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
-				<TextView style="@style/TextViewLabelStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelA"
-					android:text="@string/label_a"
-					android:labelFor="@+id/EditTextLinearDiophantineEquationInTwoVariablesA" />
-				<TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticA"  />
-				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyA" />
-				<TextView style="@style/ClipboardButtonPasteStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesPasteA"  />
-				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearA"  />
-			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
-				android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesA"
-				android:autofillHints="" />
+			<!--Extended inputGroup view-->
+			<LinearLayout style="@style/ColumnContainerStyle"
+				android:id="@+id/LinearLayoutExtendedInputView"
+				android:layout_marginBottom="20dp">
+				<!--InputGroup integer a:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelInputStyle"
+						android:id="@+id/TextViewLabelA"
+						android:text="@string/label_a"
+						android:labelFor="@+id/EditTextA" />
+					<TextView style="@style/TextViewLabelElasticStyle"
+						android:id="@+id/TextViewLabelElasticA"  />
+					<TextView style="@style/ClipboardButtonCopyStyle"
+						android:id="@+id/TextViewCopyA" />
+					<TextView style="@style/ClipboardButtonPasteStyle"
+						android:id="@+id/TextViewPasteA"  />
+					<TextView style="@style/ClipboardButtonClearStyle"
+						android:id="@+id/TextViewClearA"  />
+				</LinearLayout>
+				<EditText style="@style/EditTextNumberInputStyle"
+					android:id="@+id/EditTextA"
+					android:autofillHints=""
+					android:layout_marginBottom="10dp"/>
 
-			<!--Big integer b:-->
-			<LinearLayout
-				android:layout_marginTop="15dp"
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
-				<TextView style="@style/TextViewLabelStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelB"
-					android:text="@string/label_b"
-					android:labelFor="@+id/EditTextLinearDiophantineEquationInTwoVariablesB" />
-				<TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticB"  />
-				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyB" />
-				<TextView style="@style/ClipboardButtonPasteStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesPasteB"  />
-				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearB"   />
-			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
-				android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesB"
-				android:autofillHints="" />
+				<!--InputGroup integer b:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelInputStyle"
+						android:id="@+id/TextViewLabelB"
+						android:text="@string/label_b"
+						android:labelFor="@+id/EditTextB" />
+					<TextView style="@style/TextViewLabelElasticStyle"
+						android:id="@+id/TextViewLabelElasticB"  />
+					<TextView style="@style/ClipboardButtonCopyStyle"
+						android:id="@+id/TextViewCopyB" />
+					<TextView style="@style/ClipboardButtonPasteStyle"
+						android:id="@+id/TextViewPasteB"  />
+					<TextView style="@style/ClipboardButtonClearStyle"
+						android:id="@+id/TextViewClearB"   />
+				</LinearLayout>
+				<EditText style="@style/EditTextNumberInputStyle"
+					android:id="@+id/EditTextB"
+					android:autofillHints=""
+					android:layout_marginBottom="10dp"/>
 
-			<!--Big integer c:-->
-			<LinearLayout
-				android:layout_marginTop="15dp"
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
-				<TextView style="@style/TextViewLabelStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelC"
-					android:text="@string/label_c"
-					android:labelFor="@+id/EditTextLinearDiophantineEquationInTwoVariablesC" />
-				<TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticC" />
-				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyC" />
-				<TextView style="@style/ClipboardButtonPasteStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesPasteC" />
-				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearC" />
+				<!--InputGroup integer c:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelInputStyle"
+						android:id="@+id/TextViewLabelC"
+						android:text="@string/label_c"
+						android:labelFor="@+id/EditTextC" />
+					<TextView style="@style/TextViewLabelElasticStyle"
+						android:id="@+id/TextViewLabelElasticC" />
+					<TextView style="@style/ClipboardButtonCopyStyle"
+						android:id="@+id/TextViewCopyC" />
+					<TextView style="@style/ClipboardButtonPasteStyle"
+						android:id="@+id/TextViewPasteC" />
+					<TextView style="@style/ClipboardButtonClearStyle"
+						android:id="@+id/TextViewClearC" />
+				</LinearLayout>
+				<EditText style="@style/EditTextNumberInputStyle"
+					android:id="@+id/EditTextC"
+					android:autofillHints="" />
 			</LinearLayout>
-			<EditText style="@style/EditTextNumberInput"
-				android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesC"
-				android:autofillHints="" />
+
+
+			<!--Compact inputGroup view-->
+			<LinearLayout style="@style/ColumnContainerStyle"
+				android:id="@+id/LinearLayoutCompactInputView"
+				android:layout_marginBottom="20dp">
+				<!--InputGroup integer a:-->
+				<LinearLayout style="@style/RowContainerStyle"
+					android:layout_marginBottom="10dp">
+					<TextView style="@style/TextViewLabelCompactStyle"
+						android:id="@+id/TextViewLabelCompactA"
+						android:text="@string/label_a" />
+					<EditText style="@style/EditTextNumberInputCompactStyle"
+						android:id="@+id/EditTextCompactA"
+						android:autofillHints="@string/empty" />
+					<TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+						android:id="@+id/TextViewCopyCompactA" />
+					<TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+						android:id="@+id/TextViewPasteCompactA" />
+					<TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+						android:id="@+id/TextViewClearCompactA" />
+				</LinearLayout>
+
+				<!--InputGroup integer b:-->
+				<LinearLayout style="@style/RowContainerStyle"
+					android:layout_marginBottom="10dp">
+					<TextView style="@style/TextViewLabelCompactStyle"
+						android:id="@+id/TextViewLabelCompactB"
+						android:text="@string/label_b" />
+					<EditText style="@style/EditTextNumberInputCompactStyle"
+						android:id="@+id/EditTextCompactB"
+						android:autofillHints="@string/empty" />
+					<TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+						android:id="@+id/TextViewCopyCompactB" />
+					<TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+						android:id="@+id/TextViewPasteCompactB" />
+					<TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+						android:id="@+id/TextViewClearCompactB" />
+				</LinearLayout>
+
+				<!--InputGroup integer c:-->
+				<LinearLayout style="@style/RowContainerStyle">
+					<TextView style="@style/TextViewLabelCompactStyle"
+						android:id="@+id/TextViewLabelCompactC"
+						android:text="@string/label_c" />
+					<EditText style="@style/EditTextNumberInputCompactStyle"
+						android:id="@+id/EditTextCompactC"
+						android:autofillHints="@string/empty" />
+					<TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+						android:id="@+id/TextViewCopyCompactC" />
+					<TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+						android:id="@+id/TextViewPasteCompactC" />
+					<TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+						android:id="@+id/TextViewClearCompactC" />
+				</LinearLayout>
+			</LinearLayout>
+
 
 			<!--Buttons run-->
-			<LinearLayout
-				android:layout_marginTop="20dp"
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal">
+			<LinearLayout style="@style/RowContainerStyle">
 				<Button style="@style/ButtonRunStyle"
-					android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRun"
+					android:id="@+id/ButtonRun"
 					android:text="@string/linear_diophantine_equation_in_two_variables_run_short"  />
 				<Button style="@style/ButtonExampleAfterRunStyle"
-					android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRunExample1"
+					android:id="@+id/ButtonRunExample1"
 					android:text="@string/run_example_1"  />
 				<Button style="@style/ButtonExampleAfterRunStyle"
-					android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRunExample2"
+					android:id="@+id/ButtonRunExample2"
 					android:text="@string/run_example_2"  />
 				<Button style="@style/ButtonExampleAfterRunStyle"
-					android:id="@+id/ButtonLinearDiophantineEquationInTwoVariablesRunExample3"
+					android:id="@+id/ButtonRunExample3"
 					android:text="@string/run_example_3"  />
 			</LinearLayout>
+
 
 			<!--Result-->
 			<LinearLayout
@@ -145,28 +192,28 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal">
 				<TextView style="@style/TextViewLabelResultStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelResult"
+					android:id="@+id/TextViewLabelResult"
 					android:text="@string/result" />
-				<TextView style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesLabelElasticResult" />
-				<TextView style="@style/ClipboardButtonBase.ExpandResult"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesExpandResult" />
+				<TextView style="@style/TextViewLabelElasticStyle"
+					android:id="@+id/TextViewLabelElasticResult" />
+				<TextView style="@style/ClipboardButtonExpandResultStyle"
+					android:id="@+id/TextViewExpandResult" />
 				<TextView style="@style/ClipboardButtonCopyStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesCopyResult" />
+					android:id="@+id/TextViewCopyResult" />
 				<TextView style="@style/ClipboardButtonClearStyle"
-					android:id="@+id/TextViewLinearDiophantineEquationInTwoVariablesClearResult" />
+					android:id="@+id/TextViewClearResult" />
 			</LinearLayout>
 			<LinearLayout style="@style/ResultContainer">
 				<HorizontalScrollView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
 					<EditText style="@style/EditTextResult"
-						android:id="@+id/EditTextLinearDiophantineEquationInTwoVariablesResult"
+						android:id="@+id/EditTextResult"
 						android:typeface="monospace"
 						android:autofillHints="" />
 				</HorizontalScrollView>
 			</LinearLayout>
-
 		</LinearLayout>
+
 	</ScrollView>
 </LinearLayout>

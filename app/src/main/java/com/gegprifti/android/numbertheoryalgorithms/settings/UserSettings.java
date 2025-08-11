@@ -10,28 +10,27 @@ import androidx.preference.PreferenceManager;
  * A helper class to ease user preferences.
  * For consistency in every SwitchPreferenceCompat the default value should be false.
  *
- * @see <a href="https://developer.android.com/guide/topics/ui/settings/use-saved-values">Use saved values </a>
+ * @see <a href="https://developer.android.com/guide/topics/ui/settings/use-saved-values">Use saved values</a>
  */
 public class UserSettings {
+    // UI Configuration.
+    private static final String COMPACT_INPUT_VIEW = "COMPACT_INPUT_VIEW";
+    private static final String BIGGER_CONTROLS = "BIGGER_CONTROLS";
+    private static final String BIGGER_RESULT_DISPLAY = "BIGGER_RESULT_DISPLAY";
+    private static final String SQUARE_RESULT_DISPLAY = "SQUARE_RESULT_DISPLAY";
+
     // Clipboard Buttons Configuration.
     private static final String VIBRATE_ON_CLIPBOARD_BUTTON_CLICK = "VIBRATE_ON_CLIPBOARD_BUTTON_CLICK";
     private static final String NOTIFY_ON_CLIPBOARD_BUTTON_CLICK = "NOTIFY_ON_CLIPBOARD_BUTTON_CLICK";
-
-
-    // UI Configuration.
-    private static final String BIGGER_CONTROLS = "BIGGER_CONTROLS";
-    private static final String BIGGER_CLIPBOARD_BUTTONS = "BIGGER_CLIPBOARD_BUTTONS";
-    private static final String BIGGER_RESULT_DISPLAY = "BIGGER_RESULT_DISPLAY";
-    private static final String SQUARE_RESULT_DISPLAY = "SQUARE_RESULT_DISPLAY";
 
     // Misc Configurations.
     private static final String TAB_SWIPE_GESTURES = "TAB_SWIPE_GESTURES";
     private static final String HIDE_EXAMPLE_BUTTONS = "HIDE_EXAMPLE_BUTTONS";
 
-    // Quadratic Form Menu.
-    private static final String SQF_INCLUDE_TRIVIAL_SOLUTIONS = "SQF_INCLUDE_TRIVIAL_SOLUTIONS";
-    private static final String SQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS = "SQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS";
-    private static final String SQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS = "SQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS";
+    // Binary Quadratic Form Menu.
+    private static final String BQF_INCLUDE_TRIVIAL_SOLUTIONS = "BQF_INCLUDE_TRIVIAL_SOLUTIONS";
+    private static final String BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS";
+    private static final String BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS";
 
     private static SharedPreferences getSharedPreferences(Context context) {
         return (context == null) ? null : PreferenceManager.getDefaultSharedPreferences(context);
@@ -70,13 +69,13 @@ public class UserSettings {
 
 
     // UI Configuration.
-    public static boolean getBiggerControls(Context context) {
-        return getBoolean(context, BIGGER_CONTROLS);
+    public static boolean getCompactInputView(Context context) {
+        return getBoolean(context, COMPACT_INPUT_VIEW);
     }
 
 
-    public static boolean getBiggerClipboardButtons(Context context) {
-        return getBoolean(context, BIGGER_CLIPBOARD_BUTTONS);
+    public static boolean getBiggerControls(Context context) {
+        return getBoolean(context, BIGGER_CONTROLS);
     }
 
 
@@ -102,55 +101,55 @@ public class UserSettings {
 
 
     // Quadratic Form Menu.
-    public static boolean getQFIncludeTrivialSolutions(Context context) {
-        return getBoolean(context, SQF_INCLUDE_TRIVIAL_SOLUTIONS);
+    public static boolean getBQFIncludeTrivialSolutions(Context context) {
+        return getBoolean(context, BQF_INCLUDE_TRIVIAL_SOLUTIONS);
     }
 
 
-    public static void setQFIncludeTrivialSolutions(Context context, boolean value) {
-        setBoolean(context, SQF_INCLUDE_TRIVIAL_SOLUTIONS, value);
+    public static void setBQFIncludeTrivialSolutions(Context context, boolean value) {
+        setBoolean(context, BQF_INCLUDE_TRIVIAL_SOLUTIONS, value);
     }
 
 
-    public static boolean getQFIncludeOnlyPositiveSolutions(Context context) {
-        return getBoolean(context, SQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS);
+    public static boolean getBQFIncludeOnlyPositiveSolutions(Context context) {
+        return getBoolean(context, BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS);
     }
 
 
-    public static void setQFIncludeOnlyPositiveSolutions(Context context, boolean value) {
-        setBoolean(context, SQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS, value);
+    public static void setBQFIncludeOnlyPositiveSolutions(Context context, boolean value) {
+        setBoolean(context, BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS, value);
     }
 
 
-    public static boolean getQFIncludeOnlyNegativeSolutions(Context context) {
-        return getBoolean(context, SQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS);
+    public static boolean getBQFIncludeOnlyNegativeSolutions(Context context) {
+        return getBoolean(context, BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS);
     }
 
 
-    public static void setQFIncludeOnlyNegativeSolutions(Context context, boolean value) {
-        setBoolean(context, SQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS, value);
+    public static void setBQFIncludeOnlyNegativeSolutions(Context context, boolean value) {
+        setBoolean(context, BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS, value);
     }
 
 
     // Reset to default.
     public static void resetToDefault(Context context) {
+        // UI Configuration.
+        setBoolean(context, COMPACT_INPUT_VIEW, false);
+        setBoolean(context, BIGGER_CONTROLS, false);
+        setBoolean(context, BIGGER_RESULT_DISPLAY, false);
+        setBoolean(context, SQUARE_RESULT_DISPLAY, false);
+
         // Clipboard Buttons Configuration.
         setBoolean(context, VIBRATE_ON_CLIPBOARD_BUTTON_CLICK, false);
         setBoolean(context, NOTIFY_ON_CLIPBOARD_BUTTON_CLICK, false);
-
-        // UI Configuration.
-        setBoolean(context, BIGGER_CONTROLS, false);
-        setBoolean(context, BIGGER_CLIPBOARD_BUTTONS, false);
-        setBoolean(context, BIGGER_RESULT_DISPLAY, false);
-        setBoolean(context, SQUARE_RESULT_DISPLAY, false);
 
         // Misc Configurations.
         setBoolean(context, TAB_SWIPE_GESTURES, false);
         setBoolean(context, HIDE_EXAMPLE_BUTTONS, false);
 
         // Quadratic Form Menu.
-        setBoolean(context, SQF_INCLUDE_TRIVIAL_SOLUTIONS, false);
-        setBoolean(context, SQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS, false);
-        setBoolean(context, SQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS, false);
+        setBoolean(context, BQF_INCLUDE_TRIVIAL_SOLUTIONS, false);
+        setBoolean(context, BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS, false);
+        setBoolean(context, BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS, false);
     }
 }

@@ -31,8 +31,8 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
             result.append("(a<b>x</b> + c)(a<b>y</b> + b) = a(a<b>x</b><b>y</b> + b<b>x</b> + c<b>y</b>) + bc = n </font><br>");
             result.append("<br>");
 
-            // Input
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Input</font><br>", COLOR));
+            // InputGroup
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "n = %s<br>", n));
             result.append(String.format(Locale.getDefault(), "a = %s<br>", a));
             result.append("<br>");

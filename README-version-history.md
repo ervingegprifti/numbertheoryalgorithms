@@ -2,10 +2,18 @@
 
 ## New tracked versions
 
+### [3.0.7.1]
+- Implemented the compact input view mode
+- Refactored part of the code
+#### Requirements:
+- Minimum Sdk 31 (Android 12 Snow Cone)
+- Switched from AGP 8.11.1 to 8.12.0
+- Compiled with Android Studio 2025.1.2
+
+
 ### [3.0.7.0] - 2025-07-30
 - Minimum Sdk 31 (Android 12 Snow Cone)
 - Open Source
-
 
 ## Old not tracked versions
 
@@ -51,7 +59,7 @@
 #### Other:
 - Improved the Clipboard Button's behavior by highlighting the last one tapped.
 - Improved the Run Buttons behavior by highlighting the last one tapped.
-- Improved the input validation experience.
+- Improved the inputGroup validation experience.
 - Added a Splash Starting Screen when the application starts.
 - Fixed the extra space in Soft Keyboard.
 - Improved the experience for first-time users by introducing example buttons.
@@ -74,7 +82,7 @@
 #### Other:
 - Improved the Clipboard Button's behavior by highlighting the last one tapped.
 - Improved the Run Buttons behavior by highlighting the last one tapped.
-- Improved the input validation experience.
+- Improved the inputGroup validation experience.
 - Added a Splash Starting Screen when the application starts.
 - Fixed the extra space in Soft Keyboard.
 - Improved the experience for first-time users by introducing example buttons.

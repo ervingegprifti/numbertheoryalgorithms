@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 		<TextView style="@style/TextViewBack"
-            android:id="@+id/TextViewQuadraticFormBackToAlgorithms" />
+            android:id="@+id/TextViewBackToAlgorithms" />
 		<TextView style="@style/TextViewFragmentTitle"
-            android:id="@+id/TextViewQuadraticFormTitle"
-            android:text="@string/quadratic_form_title" />
+            android:id="@+id/TextViewTitle"
+            android:text="@string/binary_quadratic_form_title" />
         <TextView style="@style/TextViewDocumentationFile"
-            android:id="@+id/TextViewQuadraticFormDocumentationFile" />
+            android:id="@+id/TextViewDocumentationFile" />
 	</RelativeLayout>
 
     <LinearLayout
@@ -34,67 +34,187 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--Expression-->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-            <TextView style="@style/TextViewLabelStyle"
-                android:id="@+id/TextViewQuadraticFormLabelExpression"
-                android:text="@string/quadratic_form_label_expression" />
-            <TextView style="@style/TextViewLabelStyle.TextViewLabelElasticStyle"
-                android:id="@+id/TextViewQuadraticFormLabelElasticExpression"  />
-            <TextView style="@style/ClipboardButtonCopyStyle"
-                android:id="@+id/TextViewQuadraticFormCopyExpression" />
-            <TextView style="@style/ClipboardButtonPasteStyle"
-                android:id="@+id/TextViewQuadraticFormPasteExpression"  />
-            <TextView style="@style/ClipboardButtonClearStyle"
-                android:id="@+id/TextViewQuadraticFormClearExpression"  />
+
+        <!--Extended inputGroup view-->
+        <LinearLayout style="@style/ColumnContainerStyle"
+            android:id="@+id/LinearLayoutExtendedInputView"
+            android:layout_marginBottom="20dp">
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelInputStyle"
+                    android:id="@+id/TextViewLabelB"
+                    android:text="@string/label_b"
+                    android:labelFor="@+id/EditTextB" />
+                <TextView style="@style/TextViewLabelElasticStyle"
+                    android:id="@+id/TextViewLabelElasticB" />
+                <TextView style="@style/ClipboardButtonCopyStyle"
+                    android:id="@+id/TextViewCopyB" />
+                <TextView style="@style/ClipboardButtonPasteStyle"
+                    android:id="@+id/TextViewPasteB"  />
+                <TextView style="@style/ClipboardButtonClearStyle"
+                    android:id="@+id/TextViewClearB" />
+            </LinearLayout>
+            <EditText style="@style/EditTextNumberInputStyle"
+                android:id="@+id/EditTextB"
+                android:autofillHints=""
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelInputStyle"
+                    android:id="@+id/TextViewLabelD"
+                    android:text="@string/label_d"
+                    android:labelFor="@+id/EditTextD" />
+                <TextView style="@style/TextViewLabelElasticStyle"
+                    android:id="@+id/TextViewLabelElasticD" />
+                <TextView style="@style/ClipboardButtonCopyStyle"
+                    android:id="@+id/TextViewCopyD" />
+                <TextView style="@style/ClipboardButtonPasteStyle"
+                    android:id="@+id/TextViewPasteD"  />
+                <TextView style="@style/ClipboardButtonClearStyle"
+                    android:id="@+id/TextViewClearD" />
+            </LinearLayout>
+            <EditText style="@style/EditTextNumberInputStyle"
+                android:id="@+id/EditTextD"
+                android:autofillHints=""
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelInputStyle"
+                    android:id="@+id/TextViewLabelE"
+                    android:text="@string/label_e"
+                    android:labelFor="@+id/EditTextE" />
+                <TextView style="@style/TextViewLabelElasticStyle"
+                    android:id="@+id/TextViewLabelElasticE" />
+                <TextView style="@style/ClipboardButtonCopyStyle"
+                    android:id="@+id/TextViewCopyE" />
+                <TextView style="@style/ClipboardButtonPasteStyle"
+                    android:id="@+id/TextViewPasteE"  />
+                <TextView style="@style/ClipboardButtonClearStyle"
+                    android:id="@+id/TextViewClearE" />
+            </LinearLayout>
+            <EditText style="@style/EditTextNumberInputStyle"
+                android:id="@+id/EditTextE"
+                android:autofillHints=""
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelInputStyle"
+                    android:id="@+id/TextViewLabelF"
+                    android:text="@string/label_f"
+                    android:labelFor="@+id/EditTextF" />
+                <TextView style="@style/TextViewLabelElasticStyle"
+                    android:id="@+id/TextViewLabelElasticF" />
+                <TextView style="@style/ClipboardButtonCopyStyle"
+                    android:id="@+id/TextViewCopyF" />
+                <TextView style="@style/ClipboardButtonPasteStyle"
+                    android:id="@+id/TextViewPasteF"  />
+                <TextView style="@style/ClipboardButtonClearStyle"
+                    android:id="@+id/TextViewClearF" />
+            </LinearLayout>
+            <EditText style="@style/EditTextNumberInputStyle"
+                android:id="@+id/EditTextF"
+                android:autofillHints="" />
         </LinearLayout>
-        <EditText style="@style/EditTextQuadraticFormExpression"
-            android:id="@+id/EditTextQuadraticFormExpression"
-            android:autofillHints="@string/quadratic_form_expression_autofillhints"
-            android:hint="@string/quadratic_form_expression_hint"
-            android:layout_marginBottom="20dp"/>
+
+
+        <!--Compact inputGroup view-->
+        <LinearLayout style="@style/ColumnContainerStyle"
+            android:id="@+id/LinearLayoutCompactInputView"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible">
+            <LinearLayout style="@style/RowContainerStyle"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactB"
+                    android:text="@string/label_b" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactB"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactB" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactB" />
+                <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+                    android:id="@+id/TextViewClearCompactB" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/RowContainerStyle"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactD"
+                    android:text="@string/label_d" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactD"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactD" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactD" />
+                <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+                    android:id="@+id/TextViewClearCompactD" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/RowContainerStyle"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactE"
+                    android:text="@string/label_e" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactE"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactE" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactE" />
+                <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+                    android:id="@+id/TextViewClearCompactE" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactF"
+                    android:text="@string/label_f" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactF"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactF" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactF" />
+                <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+                    android:id="@+id/TextViewClearCompactF" />
+            </LinearLayout>
+        </LinearLayout>
+
 
         <!--Examples-->
-        <LinearLayout android:id="@+id/LinearLayoutQuadraticFormExamplesContainer"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal">
+        <LinearLayout style="@style/RowContainerStyle"
+            android:id="@+id/LinearLayoutExamplesContainer">
             <Button style="@style/ButtonExampleFirstStyle"
-                android:id="@+id/ButtonQuadraticFormRunExample1"
+                android:id="@+id/ButtonRunExample1"
                 android:text="@string/run_example_1" />
             <Button style="@style/ButtonExampleStyle"
-                android:id="@+id/ButtonQuadraticFormRunExample2"
+                android:id="@+id/ButtonRunExample2"
                 android:text="@string/run_example_2" />
             <Button style="@style/ButtonExampleStyle"
-                android:id="@+id/ButtonQuadraticFormRunExample3"
+                android:id="@+id/ButtonRunExample3"
                 android:text="@string/run_example_3" />
             <Button style="@style/ButtonExampleStyle"
-                android:id="@+id/ButtonQuadraticFormRunExample4"
+                android:id="@+id/ButtonRunExample4"
                 android:text="@string/run_example_4" />
             <Button style="@style/ButtonExampleLastStyle"
-                android:id="@+id/ButtonQuadraticFormRunExample5"
+                android:id="@+id/ButtonRunExample5"
                 android:text="@string/run_example_5" />
         </LinearLayout>
 
         <!--Buttons run-->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+        <LinearLayout style="@style/RowContainerStyle">
             <Button style="@style/ButtonRunStyle"
-                android:id="@+id/ButtonQuadraticFormRun"
-                android:text="@string/quadratic_form_run_short"
+                android:id="@+id/ButtonRun"
+                android:text="@string/binary_quadratic_form_run_short"
                 android:layout_marginEnd="10dp"
                 tools:ignore="RtlHardcoded" />
             <Button style="@style/ButtonRunStyle"
-                android:id="@+id/ButtonQuadraticFormRun1"
+                android:id="@+id/ButtonRun1"
                 android:fontFamily="@font/fa_solid_900"
                 android:text="@string/fa_grid_1"
                 android:gravity="center"
@@ -103,7 +223,7 @@
                 android:layout_marginEnd="10dp"
                 tools:ignore="RtlHardcoded" />
             <Button style="@style/ButtonRunStyle"
-                android:id="@+id/ButtonQuadraticFormRun2"
+                android:id="@+id/ButtonRun2"
                 android:fontFamily="@font/fa_solid_900"
                 android:text="@string/fa_grid_2"
                 android:gravity="center"
@@ -113,40 +233,35 @@
 
 
         <!--Buttons mods line-->
-        <LinearLayout
-            android:id="@+id/LinearLayoutQuadraticFormFModMContainer"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+        <LinearLayout style="@style/RowContainerStyle"
+            android:id="@+id/LinearLayoutFModMContainer"
             android:visibility="gone">
             <Button style="@style/ButtonPillLeftStyle"
-                android:id="@+id/ButtonQuadraticFormMMinus"
-                android:text="@string/quadratic_form_m_minus"/>
+                android:id="@+id/ButtonMMinus"
+                android:text="@string/binary_quadratic_form_m_minus"/>
             <Button style="@style/ButtonPillMiddleStyle"
-                android:id="@+id/ButtonQuadraticFormM"
+                android:id="@+id/ButtonM"
                 android:enabled="false"
                 android:textColor="@color/colorPrimary"
                 android:autofillHints=""
-                android:hint="@string/quadratic_form_m_hint" />
+                android:hint="@string/binary_quadratic_form_m_hint" />
             <Button style="@style/ButtonPillRightStyle"
-                android:id="@+id/ButtonQuadraticFormMPlus"
-                android:text="@string/quadratic_form_m_plus"
+                android:id="@+id/ButtonMPlus"
+                android:text="@string/binary_quadratic_form_m_plus"
                 android:layout_marginRight="10dp"
                 tools:ignore="RtlHardcoded" />
             <Button style="@style/ButtonPillLeftStyle"
-                android:id="@+id/ButtonQuadraticFormRMinus"
-                android:text="@string/quadratic_form_r_minus"/>
+                android:id="@+id/ButtonRMinus"
+                android:text="@string/binary_quadratic_form_r_minus"/>
             <Button style="@style/ButtonPillMiddleStyle"
-                android:id="@+id/ButtonQuadraticFormR"
+                android:id="@+id/ButtonR"
                 android:enabled="false"
                 android:textColor="@color/colorPrimary"
                 android:autofillHints=""
-                android:hint="@string/quadratic_form_r_hint" />
+                android:hint="@string/binary_quadratic_form_r_hint" />
             <Button style="@style/ButtonPillRightStyle"
-                android:id="@+id/ButtonQuadraticFormRPlus"
-                android:text="@string/quadratic_form_r_plus"/>
+                android:id="@+id/ButtonRPlus"
+                android:text="@string/binary_quadratic_form_r_plus"/>
         </LinearLayout>
 
         <!--Result-->
@@ -157,21 +272,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
             <TextView style="@style/TextViewLabelResultStyle"
-                android:id="@+id/TextViewQuadraticFormLabelResult"
+                android:id="@+id/TextViewLabelResult"
                 android:text="@string/result"
-                android:labelFor="@id/EditTextQuadraticFormResult"  />
-            <TextView style="@style/TextViewLabelResultStyle.TextViewLabelElasticResultStyle"
-                android:id="@+id/TextViewQuadraticFormLabelElasticResult"  />
-            <TextView style="@style/ClipboardButtonBase.ExpandResult"
-                android:id="@+id/TextViewQuadraticFormExpandResult"  />
+                android:labelFor="@id/EditTextResult"  />
+            <TextView style="@style/TextViewLabelElasticStyle"
+                android:id="@+id/TextViewLabelElasticResult"  />
+            <TextView style="@style/ClipboardButtonExpandResultStyle"
+                android:id="@+id/TextViewExpandResult"  />
             <TextView style="@style/ClipboardButtonCopyStyle"
-                android:id="@+id/TextViewQuadraticFormCopyResult" />
+                android:id="@+id/TextViewCopyResult" />
             <TextView style="@style/ClipboardButtonClearStyle"
-                android:id="@+id/TextViewQuadraticFormClearResult"  />
+                android:id="@+id/TextViewClearResult"  />
         </LinearLayout>
 
         <LinearLayout style="@style/ResultContainer"
-            android:id="@+id/LinearLayoutQuadraticFormResultContainer">
+            android:id="@+id/LinearLayoutResultContainer">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -179,7 +294,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText style="@style/EditTextResult"
-                        android:id="@+id/EditTextQuadraticFormResult"
+                        android:id="@+id/EditTextResult"
                         android:typeface="monospace"
                         android:autofillHints="" />
                 </HorizontalScrollView>
@@ -187,8 +302,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/LinearLayoutQuadraticFormResultGridContainer1"
-            style="@style/ResultContainer"
+            android:id="@+id/LinearLayoutResultGridContainer1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:background="@drawable/result_bg"
+            android:gravity="top|start"
             android:visibility="gone">
             <HorizontalScrollView
                 android:scrollbarStyle="outsideInset"
@@ -201,27 +320,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
-                        android:id="@+id/LinearLayoutQuadraticFormStaticColumnHeader1"
+                        android:id="@+id/LinearLayoutStaticColumnHeader1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"/>
                     <ListView
-                        android:id="@+id/ListViewQuadraticFormResult1"
+                        android:id="@+id/ListViewResult1"
                         android:divider="@android:color/transparent"
                         android:listSelector="@android:color/transparent"
                         android:cacheColorHint="@android:color/transparent"
                         android:scrollbarStyle="insideInset"
                         android:scrollbarSize="3dp"
                         android:smoothScrollbar="true"
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
                     </ListView>
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/LinearLayoutQuadraticFormResultGridContainer2"
-            style="@style/ResultContainer"
+        <LinearLayout android:id="@+id/LinearLayoutResultGridContainer2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:background="@drawable/result_bg"
+            android:gravity="top|start"
             android:visibility="gone">
             <HorizontalScrollView
                 android:scrollbarStyle="outsideInset"
@@ -234,20 +357,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
-                        android:id="@+id/LinearLayoutQuadraticFormStaticColumnHeader2"
+                        android:id="@+id/LinearLayoutStaticColumnHeader2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"/>
                     <ListView
-                        android:id="@+id/ListViewQuadraticFormResult2"
+                        android:id="@+id/ListViewResult2"
                         android:divider="@android:color/transparent"
                         android:listSelector="@android:color/transparent"
                         android:cacheColorHint="@android:color/transparent"
                         android:scrollbarStyle="insideInset"
                         android:scrollbarSize="3dp"
                         android:smoothScrollbar="true"
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
                     </ListView>
                 </LinearLayout>
             </HorizontalScrollView>

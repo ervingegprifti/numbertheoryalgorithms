@@ -15,7 +15,7 @@ public class ModInverse extends Algorithm implements StringCalculator {
 
     @Override
     public String calculate() throws InterruptedException {
-        // Input
+        // InputGroup
         BigInteger a = algorithmParameters.getInput1();
         BigInteger b = algorithmParameters.getInput2();
 

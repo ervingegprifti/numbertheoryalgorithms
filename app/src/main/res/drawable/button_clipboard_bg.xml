@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape >
+            <solid android:color="@color/clipboardButtonPressedBg"/>
+            <corners
+                android:bottomLeftRadius="0dp"
+                android:topLeftRadius="5dp"
+                android:topRightRadius="5dp"
+                android:bottomRightRadius="0dp"/>
+        </shape>
+    </item>
+
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="@color/clipboardButtonSelectedBg"/>
+            <corners
+                android:bottomLeftRadius="0dp"
+                android:topLeftRadius="5dp"
+                android:topRightRadius="5dp"
+                android:bottomRightRadius="0dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/clipboardButtonBg"/>
+            <corners
+                android:bottomLeftRadius="0dp"
+                android:topLeftRadius="5dp"
+                android:topRightRadius="5dp"
+                android:bottomRightRadius="0dp"/>
+        </shape>
+    </item>
+
+</selector>

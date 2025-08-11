@@ -44,8 +44,8 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
             result.append(String.format(Locale.getDefault(), "%s<b>x</b> ≡ %s (mod %s)<br>", getNP(a), getNP(b), getNP(m)));
             result.append("<br>");
 
-            // Input
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Input </font><br>", COLOR));
+            // InputGroup
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup </font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "a = %s <br>", a));
             result.append(String.format(Locale.getDefault(), "b = %s <br>", b));
             result.append(String.format(Locale.getDefault(), "m = %s <br>", m));

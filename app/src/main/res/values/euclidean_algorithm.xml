@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="euclidean_algorithm_title">GCD(a, b)</string>
+    <string name="euclidean_algorithm_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tCompute</string>
+    <string name="euclidean_algorithm_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tCompute the GCD of a and b</string>
+    <string name="euclidean_algorithm_example_1_a">9</string>
+    <string name="euclidean_algorithm_example_1_b">33</string>
+    <string name="euclidean_algorithm_example_2_a">33</string>
+    <string name="euclidean_algorithm_example_2_b">9</string>
+    <string name="euclidean_algorithm_example_3_a">9</string>
+    <string name="euclidean_algorithm_example_3_b">18</string>
+    <string name="euclidean_algorithm_example_4_a">18</string>
+    <string name="euclidean_algorithm_example_4_b">9</string>
+    <string name="euclidean_algorithm_menu_example_1">E₁ ● GCD(9, 33)</string>
+    <string name="euclidean_algorithm_menu_example_2">E₂ ● GCD(33, 9)</string>
+    <string name="euclidean_algorithm_menu_example_3">E₃ ● GCD(9, 18)</string>
+    <string name="euclidean_algorithm_menu_example_4">E₄ ● GCD(18, 9)</string>
+</resources>
