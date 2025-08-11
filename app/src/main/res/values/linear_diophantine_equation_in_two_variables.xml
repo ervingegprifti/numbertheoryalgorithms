@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="linear_diophantine_equation_in_two_variables_title">ax+by=c</string>
+    <string name="linear_diophantine_equation_in_two_variables_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
+    <string name="linear_diophantine_equation_in_two_variables_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as ax+by=c</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_1_a">7</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_1_b">-21</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_1_c">10</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_2_a">7</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_2_b">-32</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_2_c">15</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_3_a">6</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_3_b">-10</string>
+    <string name="linear_diophantine_equation_in_two_variables_example_3_c">4</string>
+    <string name="linear_diophantine_equation_in_two_variables_menu_example_1">E₁ ● 7x - 21y = 10</string>
+    <string name="linear_diophantine_equation_in_two_variables_menu_example_2">E₂ ● 7x - 32y = 15</string>
+    <string name="linear_diophantine_equation_in_two_variables_menu_example_3">E₃ ● 6x - 10y = 4</string>
+</resources>

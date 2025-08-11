@@ -39,7 +39,7 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
             result.append("<br>");
 
             //
-            result.append(String.format(Locale.getDefault(),"<font color='%s'>Input </font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(),"<font color='%s'>InputGroup </font><br>", COLOR));
             result.append(String.format(Locale.getDefault(),"%sa = %s<br>", TAB, getNP(a)));
             result.append(String.format(Locale.getDefault(),"%sp = %s<br>", TAB, getNP(p)));
             result.append("<br>");

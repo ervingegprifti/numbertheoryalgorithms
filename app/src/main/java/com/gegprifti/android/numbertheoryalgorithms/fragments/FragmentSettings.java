@@ -72,8 +72,8 @@ public class FragmentSettings extends PreferenceFragmentCompat implements MenuPr
     //endregion MENU
 
     /**
-     * Essential for integrating your Fragment's menu contributions with
-     * the hosting Activity's menu system using the modern, lifecycle-aware MenuProvider API.
+     * Essential for integrating Fragment's menu contributions with
+     * the hosting Activity's menu system using the, lifecycle-aware MenuProvider API.
      */
     private void setupMenuProvider() {
         // Get the MenuHost from the activity

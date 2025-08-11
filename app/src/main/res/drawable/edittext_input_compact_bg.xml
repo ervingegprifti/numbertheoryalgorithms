@@ -4,11 +4,6 @@
         <shape android:shape="rectangle">
             <stroke android:width="1px" android:color="@color/colorInsideTextStrokeBg" />
             <solid android:color="@color/colorInsideTextBg" />
-            <corners
-                android:bottomLeftRadius="2dp"
-                android:topLeftRadius="0dp"
-                android:topRightRadius="2dp"
-                android:bottomRightRadius="2dp" />
         </shape>
     </item>
 </layer-list>

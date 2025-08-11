@@ -16,7 +16,7 @@ public class Power extends Algorithm implements StringCalculator {
 
     @Override
     public String calculate() throws InterruptedException {
-        // Input
+        // InputGroup
         BigInteger a = algorithmParameters.getInput1();
         int b = algorithmParameters.getInput2().intValue(); // 0 <= b >= 2147483647
 

@@ -48,8 +48,8 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> ≡ %s (mod %s)<br>", getNP(a), getNP(b), getNP(c), getNP(m)));
             result.append("<br>");
 
-            // Input
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Input</font><br>", COLOR));
+            // InputGroup
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "a = %s <br>", getNP(a)));
             result.append(String.format(Locale.getDefault(), "b = %s <br>", getNP(b)));
             result.append(String.format(Locale.getDefault(), "c = %s <br>", getNP(c)));

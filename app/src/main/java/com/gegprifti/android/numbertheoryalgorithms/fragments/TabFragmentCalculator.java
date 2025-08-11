@@ -21,69 +21,89 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.gegprifti.android.numbertheoryalgorithms.AboutActivity;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.SettingsActivity;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.settings.ClipboardButtonDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class TabFragmentCalculator extends FragmentBase implements Callback {
     private final static String TAG = TabFragmentCalculator.class.getSimpleName();
-
     static final BigInteger ZERO = BigInteger.ZERO;
     static final BigInteger ONE = BigInteger.ONE;
     static final BigInteger TWO = BigInteger.valueOf(2L);
-    static final BigInteger THREE = BigInteger.valueOf(3L);
-    static final BigInteger FIVE = BigInteger.valueOf(5L);
     BigInteger INTEGER_MAX_VALUE = new BigInteger(Integer.toString(Integer.MAX_VALUE));
-
-    TextView textViewCalculatorLabelA;
-    TextView textViewCalculatorLabelElasticA;
-    TextView textViewCalculatorCopyA;
-    TextView textViewCalculatorPasteA;
-    TextView textViewCalculatorClearA;
-    EditText editTextCalculatorA;
-    TextView textViewCalculatorLabelB;
-    TextView textViewCalculatorLabelElasticB;
-    TextView textViewCalculatorCopyB;
-    TextView textViewCalculatorPasteB;
-    TextView textViewCalculatorClearB;
-    EditText editTextCalculatorB;
-    Button buttonCalculatorAddition;
-    Button buttonCalculatorSubtraction;
-    Button buttonCalculatorMultiplication;
-    Button buttonCalculatorDivision;
-    Button buttonCalculatorPower;
-    Button buttonCalculatorRoot;
-    Button buttonCalculatorGcd;
-    Button buttonCalculatorLcm;
-    Button buttonCalculatorMod;
-    Button buttonCalculatorModInverse;
-    Button buttonCalculatorIsProbablePrime;
-    Button buttonCalculatorEulerPhi;
-    Button buttonCalculatorFactorial;
-    Button buttonCalculatorNextProbablePrime;
-    Button buttonCalculatorNextProbableTwinPrime;
-    TextView textViewCalculatorLabelResult1;
-    TextView textViewCalculatorLabelElasticResult1;
-    TextView textViewCalculatorCopyResult1;
-    TextView textViewCalculatorClearResult1;
-    EditText editTextCalculatorResult1;
-    LinearLayout linearLayoutCalculatorResult2Labels;
-    LinearLayout linearLayoutCalculatorResult2;
-    TextView textViewCalculatorLabelResult2;
-    TextView textViewCalculatorLabelElasticResult2;
-    TextView textViewCalculatorCopyResult2;
-    TextView textViewCalculatorClearResult2;
-    EditText editTextCalculatorResult2;
+    // Cache view state
+    boolean isCompactInputView = false;
+    // Extended input view
+    LinearLayout linearLayoutExtendedInputView;
+    TextView textViewLabelA;
+    TextView textViewLabelElasticA;
+    TextView textViewCopyA;
+    TextView textViewPasteA;
+    TextView textViewClearA;
+    EditText editTextA;
+    TextView textViewLabelB;
+    TextView textViewLabelElasticB;
+    TextView textViewCopyB;
+    TextView textViewPasteB;
+    TextView textViewClearB;
+    EditText editTextB;
+    // Compact input view
+    LinearLayout linearLayoutCompactInputView;
+    TextView textViewLabelCompactA;
+    EditText editTextCompactA;
+    TextView textViewCopyCompactA;
+    TextView textViewPasteCompactA;
+    TextView textViewClearCompactA;
+    TextView textViewLabelCompactB;
+    EditText editTextCompactB;
+    TextView textViewCopyCompactB;
+    TextView textViewPasteCompactB;
+    TextView textViewClearCompactB;
+    // Run buttons
+    Button buttonAddition;
+    Button buttonSubtraction;
+    Button buttonMultiplication;
+    Button buttonDivision;
+    Button buttonPower;
+    Button buttonRoot;
+    Button buttonGcd;
+    Button buttonLcm;
+    Button buttonMod;
+    Button buttonModInverse;
+    Button buttonIsProbablePrime;
+    Button buttonEulerPhi;
+    Button buttonFactorial;
+    Button buttonNextProbablePrime;
+    Button buttonNextProbableTwinPrime;
+    // Result controls
+    TextView textViewLabelResult1;
+    TextView textViewLabelElasticResult1;
+    TextView textViewCopyResult1;
+    TextView textViewClearResult1;
+    EditText editTextResult1;
+    LinearLayout linearLayoutResult2Labels;
+    LinearLayout linearLayoutResult2;
+    TextView textViewLabelResult2;
+    TextView textViewLabelElasticResult2;
+    TextView textViewCopyResult2;
+    TextView textViewClearResult2;
+    EditText editTextResult2;
+    // Flags to prevent recursive updates
+    AtomicBoolean isUpdatingEditTextA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactB = new AtomicBoolean(false);
 
     //region CREATE
     @Nullable
@@ -92,230 +112,265 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 		View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_tab_calculator, container, false);
-            textViewCalculatorLabelA = inflater.findViewById(R.id.TextViewCalculatorLabelA);
-            textViewCalculatorLabelElasticA = inflater.findViewById(R.id.TextViewCalculatorLabelElasticA);
-            textViewCalculatorCopyA = inflater.findViewById(R.id.TextViewCalculatorCopyA);
-            textViewCalculatorPasteA = inflater.findViewById(R.id.TextViewCalculatorPasteA);
-            textViewCalculatorClearA = inflater.findViewById(R.id.TextViewCalculatorClearA);
-            editTextCalculatorA = inflater.findViewById(R.id.EditTextCalculatorA);
-            textViewCalculatorLabelB = inflater.findViewById(R.id.TextViewCalculatorLabelB);
-            textViewCalculatorLabelElasticB = inflater.findViewById(R.id.TextViewCalculatorLabelElasticB);
-            textViewCalculatorCopyB = inflater.findViewById(R.id.TextViewCalculatorCopyB);
-            textViewCalculatorPasteB = inflater.findViewById(R.id.TextViewCalculatorPasteB);
-            textViewCalculatorClearB = inflater.findViewById(R.id.TextViewCalculatorClearB);
-            editTextCalculatorB = inflater.findViewById(R.id.EditTextCalculatorB);
-            buttonCalculatorAddition = inflater.findViewById(R.id.ButtonCalculatorAddition);
-            buttonCalculatorSubtraction = inflater.findViewById(R.id.ButtonCalculatorSubtraction);
-            buttonCalculatorMultiplication = inflater.findViewById(R.id.ButtonCalculatorMultiplication);
-            buttonCalculatorDivision = inflater.findViewById(R.id.ButtonCalculatorDivision);
-            buttonCalculatorPower = inflater.findViewById(R.id.ButtonCalculatorPower);
-            buttonCalculatorRoot = inflater.findViewById(R.id.ButtonCalculatorRoot);
-            buttonCalculatorGcd = inflater.findViewById(R.id.ButtonCalculatorGcd);
-            buttonCalculatorLcm = inflater.findViewById(R.id.ButtonCalculatorLcm);
-            buttonCalculatorMod = inflater.findViewById(R.id.ButtonCalculatorMod);
-            buttonCalculatorModInverse = inflater.findViewById(R.id.ButtonCalculatorModInverse);
-            buttonCalculatorIsProbablePrime = inflater.findViewById(R.id.ButtonCalculatorIsProbablePrime);
-            buttonCalculatorEulerPhi = inflater.findViewById(R.id.ButtonCalculatorEulerPhi);
-            buttonCalculatorFactorial = inflater.findViewById(R.id.ButtonCalculatorFactorial);
-            buttonCalculatorNextProbablePrime = inflater.findViewById(R.id.ButtonCalculatorNextProbablePrime);
-            buttonCalculatorNextProbableTwinPrime = inflater.findViewById(R.id.ButtonCalculatorNextProbableTwinPrime);
-            textViewCalculatorLabelResult1 = inflater.findViewById(R.id.TextViewCalculatorLabelResult1);
-            textViewCalculatorLabelElasticResult1 = inflater.findViewById(R.id.TextViewCalculatorLabelElasticResult1);
-            textViewCalculatorCopyResult1 = inflater.findViewById(R.id.TextViewCalculatorCopyResult1);
-            textViewCalculatorClearResult1 = inflater.findViewById(R.id.TextViewCalculatorClearResult1);
-            editTextCalculatorResult1 = inflater.findViewById(R.id.EditTextCalculatorResult1);
-            linearLayoutCalculatorResult2Labels = inflater.findViewById(R.id.LinearLayoutCalculatorResult2Labels);
-            linearLayoutCalculatorResult2 = inflater.findViewById(R.id.LinearLayoutCalculatorResult2);
-            textViewCalculatorLabelResult2 = inflater.findViewById(R.id.TextViewCalculatorLabelResult2);
-            textViewCalculatorLabelElasticResult2 = inflater.findViewById(R.id.TextViewCalculatorLabelElasticResult2);
-            textViewCalculatorCopyResult2 = inflater.findViewById(R.id.TextViewCalculatorCopyResult2);
-            textViewCalculatorClearResult2 = inflater.findViewById(R.id.TextViewCalculatorClearResult2);
-            editTextCalculatorResult2 = inflater.findViewById(R.id.EditTextCalculatorResult2);
+            // Extended input view
+            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
+            textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
+            textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
+            textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
+            textViewClearA = inflater.findViewById(R.id.TextViewClearA);
+            editTextA = inflater.findViewById(R.id.EditTextA);
+            textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
+            textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
+            textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
+            textViewClearB = inflater.findViewById(R.id.TextViewClearB);
+            editTextB = inflater.findViewById(R.id.EditTextB);
+            // Compact input view
+            linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
+            textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
+            textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
+            textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
+            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
+            textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
+            textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
+            textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
+            editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
+            // Run buttons
+            buttonAddition = inflater.findViewById(R.id.ButtonAddition);
+            buttonSubtraction = inflater.findViewById(R.id.ButtonSubtraction);
+            buttonMultiplication = inflater.findViewById(R.id.ButtonMultiplication);
+            buttonDivision = inflater.findViewById(R.id.ButtonDivision);
+            buttonPower = inflater.findViewById(R.id.ButtonPower);
+            buttonRoot = inflater.findViewById(R.id.ButtonRoot);
+            buttonGcd = inflater.findViewById(R.id.ButtonGcd);
+            buttonLcm = inflater.findViewById(R.id.ButtonLcm);
+            buttonMod = inflater.findViewById(R.id.ButtonMod);
+            buttonModInverse = inflater.findViewById(R.id.ButtonModInverse);
+            buttonIsProbablePrime = inflater.findViewById(R.id.ButtonIsProbablePrime);
+            buttonEulerPhi = inflater.findViewById(R.id.ButtonEulerPhi);
+            buttonFactorial = inflater.findViewById(R.id.ButtonFactorial);
+            buttonNextProbablePrime = inflater.findViewById(R.id.ButtonNextProbablePrime);
+            buttonNextProbableTwinPrime = inflater.findViewById(R.id.ButtonNextProbableTwinPrime);
+            // Result
+            textViewLabelResult1 = inflater.findViewById(R.id.TextViewLabelResult1);
+            textViewLabelElasticResult1 = inflater.findViewById(R.id.TextViewLabelElasticResult1);
+            textViewCopyResult1 = inflater.findViewById(R.id.TextViewCopyResult1);
+            textViewClearResult1 = inflater.findViewById(R.id.TextViewClearResult1);
+            editTextResult1 = inflater.findViewById(R.id.EditTextResult1);
+            linearLayoutResult2Labels = inflater.findViewById(R.id.LinearLayoutResult2Labels);
+            linearLayoutResult2 = inflater.findViewById(R.id.LinearLayoutResult2);
+            textViewLabelResult2 = inflater.findViewById(R.id.TextViewLabelResult2);
+            textViewLabelElasticResult2 = inflater.findViewById(R.id.TextViewLabelElasticResult2);
+            textViewCopyResult2 = inflater.findViewById(R.id.TextViewCopyResult2);
+            textViewClearResult2 = inflater.findViewById(R.id.TextViewClearResult2);
+            editTextResult2 = inflater.findViewById(R.id.EditTextResult2);
 
-            // Input filter integer only
-            editTextCalculatorA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
-            editTextCalculatorB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain extended input
+            editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            // Constrain compact input
+            editTextCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Events
-            buttonCalculatorAddition.setOnClickListener(new View.OnClickListener() {
+            // Extended input events
+            editTextA.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onClick(View v) {
-                    onButtonAddition(container, true);
-                }
-            });
-            buttonCalculatorSubtraction.setOnClickListener(new View.OnClickListener() {
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onClick(View v) { onButtonSubtraction(container, true); }
-            });
-            buttonCalculatorMultiplication.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonMultiplication(container, true); }
-            });
-            buttonCalculatorDivision.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonDivision(container, true); }
-            });
-            buttonCalculatorPower.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonPower(container, true); }
-            });
-            buttonCalculatorRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonRoot(container, true);
-                }
-            });
-            buttonCalculatorIsProbablePrime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonIsProbablePrime(container, true); }
-            });
-            buttonCalculatorEulerPhi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonEulerPhi(container, true); }
-            });
-            buttonCalculatorFactorial.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonFactorial(container, true); }
-            });
-            buttonCalculatorNextProbablePrime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonNextProbablePrime(container, true); }
-            });
-            buttonCalculatorNextProbableTwinPrime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { onButtonNextProbableTwinPrime(container, true); }
-            });
-            buttonCalculatorGcd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonGcd(container, true); }
-            });
-            buttonCalculatorLcm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonLcm(container, true); }
-            });
-            buttonCalculatorMod.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonMod(container, true); }
-            });
-            buttonCalculatorModInverse.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { onButtonModInverse(container, true); }
-            });
-            textViewCalculatorCopyA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyA);
-                }
-            });
-            textViewCalculatorCopyB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyB);
-                }
-            });
-            textViewCalculatorCopyResult1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorResult1);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyResult1);
-                }
-            });
-            textViewCalculatorCopyResult2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextCalculatorResult2);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorCopyResult2);
-                }
-            });
-            textViewCalculatorPasteA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextCalculatorA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteA);
-                }
-            });
-            textViewCalculatorPasteB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.pasteEditText(requireContext(), editTextCalculatorB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorPasteB);
-                }
-            });
-            textViewCalculatorClearA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorA);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewCalculatorClearB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorB);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearB);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewCalculatorClearResult1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorResult1);
-                    resetResult1();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearResult1);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            textViewCalculatorClearResult2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextCalculatorResult2);
-                    resetResult2();
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCalculatorClearResult2);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
-                }
-            });
-            editTextCalculatorA.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextA.get()) return; // editTextA is locked
+                    // Other work
                     String calculatorLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
-                    textViewCalculatorLabelA.setText(calculatorLabelA);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    textViewLabelA.setText(calculatorLabelA);
+                    resetAllAndSelectTheLastClipboardButtonClicked();
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactA
+                    isUpdatingEditTextCompactA.set(true); // Lock editTextCompactA
+                    try {
+                        editTextCompactA.setText(s.toString());
+                        // editTextCompactA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactA.set(false); // Unlock editTextCompactA
+                    }
                 }
             });
-            editTextCalculatorB.addTextChangedListener(new TextWatcher() {
+            editTextB.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextB.get()) return; // editTextB is locked
+                    // Other work
                     String calculatorLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
-                    textViewCalculatorLabelB.setText(calculatorLabelB);
-                    // Reset the last button clicked.
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    textViewLabelB.setText(calculatorLabelB);
+                    resetAllAndSelectTheLastClipboardButtonClicked();
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextCompactB
+                    isUpdatingEditTextCompactB.set(true); // Lock editTextCompactB
+                    try {
+                        editTextCompactB.setText(s.toString());
+                        // editTextCompactB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextCompactB.set(false); // Unlock editTextCompactB
+                    }
                 }
             });
 
+            // Compact input events
+            editTextCompactA.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactA.get()) return; // editTextCompactA is locked
+                    // Other work
+                    resetAllAndSelectTheLastClipboardButtonClicked();
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextA
+                    isUpdatingEditTextA.set(true); // Lock editTextA
+                    try {
+                        editTextA.setText(s.toString());
+                        // editTextA.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextA.set(false); // unlock editTextA
+                    }
+                }
+            });
+            editTextCompactB.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // Prevent recursive updates
+                    if (isUpdatingEditTextCompactB.get()) return; // editTextCompactB is locked
+                    // Other work
+                    resetAllAndSelectTheLastClipboardButtonClicked();
+                    resetAllAndSelectTheLastButtonClicked();
+                    // Sync to editTextB
+                    isUpdatingEditTextB.set(true); // Lock editTextB
+                    try {
+                        editTextB.setText(s.toString());
+                        // editTextB.setSelection(s.length()); // Set cursor to the end
+                    } finally {
+                        isUpdatingEditTextB.set(false); // unlock editTextB
+                    }
+                }
+            });
+
+            // Extended input a clipboard button events
+            textViewCopyA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
+            });
+            textViewPasteA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
+            });
+            textViewClearA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input b clipboard button events
+            textViewCopyB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
+            });
+            textViewPasteB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
+            });
+            textViewClearB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Compact input a clipboard button events
+            textViewCopyCompactA.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
+            });
+            textViewPasteCompactA.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
+            });
+            textViewClearCompactA.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactA);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input b clipboard button events
+            textViewCopyCompactB.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
+            });
+            textViewPasteCompactB.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
+            });
+            textViewClearCompactB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactB);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Run button events
+            buttonAddition.setOnClickListener(v -> onButtonAddition(container));
+            buttonSubtraction.setOnClickListener(v -> onButtonSubtraction(container));
+            buttonMultiplication.setOnClickListener(v -> onButtonMultiplication(container));
+            buttonDivision.setOnClickListener(v -> onButtonDivision(container));
+            buttonPower.setOnClickListener(v -> onButtonPower(container));
+            buttonRoot.setOnClickListener(v -> onButtonRoot(container));
+            buttonIsProbablePrime.setOnClickListener(view -> onButtonIsProbablePrime(container));
+            buttonEulerPhi.setOnClickListener(view -> onButtonEulerPhi(container));
+            buttonFactorial.setOnClickListener(view -> onButtonFactorial(container));
+            buttonNextProbablePrime.setOnClickListener(view -> onButtonNextProbablePrime(container));
+            buttonNextProbableTwinPrime.setOnClickListener(view -> onButtonNextProbableTwinPrime(container));
+            buttonGcd.setOnClickListener(v -> onButtonGcd(container));
+            buttonLcm.setOnClickListener(v -> onButtonLcm(container));
+            buttonMod.setOnClickListener(v -> onButtonMod(container));
+            buttonModInverse.setOnClickListener(v -> onButtonModInverse(container));
+
+            // Result1 clipboard button events
+            textViewCopyResult1.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextResult1);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult1);
+            });
+            textViewClearResult1.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextResult1);
+                resetResult1();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult1);
+                resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Result2 clipboard button events
+            textViewCopyResult2.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextResult2);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult2);
+            });
+            textViewClearResult2.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextResult2);
+                resetResult2();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult2);
+                resetAllAndSelectTheLastButtonClicked();
+            });
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -358,16 +413,16 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             } else if (id == R.id.menu_rsa_100) {
                 String rsa_100_pq = "1522605027922533360535618378132637429718068114961380688657908494580122963258952897654000350692006139";
                 String rsa_100_p = "37975227936943673922808872755445627854565536638199";
-                editTextCalculatorA.setText(rsa_100_pq);
-                editTextCalculatorB.setText(rsa_100_p);
+                editTextA.setText(rsa_100_pq);
+                editTextB.setText(rsa_100_p);
                 // a: 37975227936943673922808872755445627854565536638199
                 // b: 40094690950920881030683735292761468389214899724061
                 // Result: 1522605027922533360535618378132637429718068114961380688657908494580122963258952897654000350692006139
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
-                editTextCalculatorA.clearFocus();
-                editTextCalculatorB.clearFocus();
+                editTextA.clearFocus();
+                editTextB.clearFocus();
                 // Reset result
                 resetResult();
                 setVisibilityToGoneResult2();
@@ -375,16 +430,16 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             } else if (id == R.id.menu_rsa_576) {
                 String rsa_576_pq = "188198812920607963838697239461650439807163563379417382700763356422988859715234665485319060606504743045317388011303396716199692321205734031879550656996221305168759307650257059";
                 String rsa_576_p ="398075086424064937397125500550386491199064362342526708406385189575946388957261768583317";
-                editTextCalculatorA.setText(rsa_576_pq);
-                editTextCalculatorB.setText(rsa_576_p);
+                editTextA.setText(rsa_576_pq);
+                editTextB.setText(rsa_576_p);
                 // a: 398075086424064937397125500550386491199064362342526708406385189575946388957261768583317
                 // b: 472772146107435302536223071973048224632914695302097116459852171130520711256363590397527
                 // Result: 188198812920607963838697239461650439807163563379417382700763356422988859715234665485319060606504743045317388011303396716199692321205734031879550656996221305168759307650257059
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
-                editTextCalculatorA.clearFocus();
-                editTextCalculatorB.clearFocus();
+                editTextA.clearFocus();
+                editTextB.clearFocus();
                 // Reset result
                 resetResult();
                 setVisibilityToGoneResult2();
@@ -392,48 +447,48 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             } else if (id == R.id.menu_rsa_768) {
                 String rsa_768_pq = "1230186684530117755130494958384962720772853569595334792197322452151726400507263657518745202199786469389956474942774063845925192557326303453731548268507917026122142913461670429214311602221240479274737794080665351419597459856902143413";
                 String rsa_768_p = "33478071698956898786044169848212690817704794983713768568912431388982883793878002287614711652531743087737814467999489";
-                editTextCalculatorA.setText(rsa_768_pq);
-                editTextCalculatorB.setText(rsa_768_p);
+                editTextA.setText(rsa_768_pq);
+                editTextB.setText(rsa_768_p);
                 // a: 33478071698956898786044169848212690817704794983713768568912431388982883793878002287614711652531743087737814467999489
                 // b: 36746043666799590428244633799627952632279158164343087642676032283815739666511279233373417143396810270092798736308917
                 // Result: 1230186684530117755130494958384962720772853569595334792197322452151726400507263657518745202199786469389956474942774063845925192557326303453731548268507917026122142913461670429214311602221240479274737794080665351419597459856902143413
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
-                editTextCalculatorA.clearFocus();
-                editTextCalculatorB.clearFocus();
+                editTextA.clearFocus();
+                editTextB.clearFocus();
                 // Reset result
                 resetResult();
                 setVisibilityToGoneResult2();
                 return true;
             } else if (id == R.id.menu_rsa_1536) {
                 String rsa_1536_pq ="1847699703211741474306835620200164403018549338663410171471785774910651696711161249859337684305435744585616061544571794052229717732524660960646946071249623720442022269756756687378427562389508764678440933285157496578843415088475528298186726451339863364931908084671990431874381283363502795470282653297802934916155811881049844908319545009848393775227257052578591944993870073695755688436933812779613089230392569695253261620823676490316036551371447913932347169566988069";
-                editTextCalculatorA.setText(rsa_1536_pq);
-                editTextCalculatorB.setText("");
+                editTextA.setText(rsa_1536_pq);
+                editTextB.setText("");
                 // a:
                 // b:
                 // Result: 1847699703211741474306835620200164403018549338663410171471785774910651696711161249859337684305435744585616061544571794052229717732524660960646946071249623720442022269756756687378427562389508764678440933285157496578843415088475528298186726451339863364931908084671990431874381283363502795470282653297802934916155811881049844908319545009848393775227257052578591944993870073695755688436933812779613089230392569695253261620823676490316036551371447913932347169566988069
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
-                editTextCalculatorA.clearFocus();
-                editTextCalculatorB.clearFocus();
+                editTextA.clearFocus();
+                editTextB.clearFocus();
                 // Reset result
                 resetResult();
                 setVisibilityToGoneResult2();
                 return true;
             } else if (id == R.id.menu_rsa_2048) {
                 String rsa_2048_pq = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216869987549182422433637259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133844143603833904414952634432190114657544454178424020924616515723350778707749817125772467962926386356373289912154831438167899885040445364023527381951378636564391212010397122822120720357";
-                editTextCalculatorA.setText(rsa_2048_pq);
-                editTextCalculatorB.setText("");
+                editTextA.setText(rsa_2048_pq);
+                editTextB.setText("");
                 // a:
                 // b:
                 // Result: 25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216869987549182422433637259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133844143603833904414952634432190114657544454178424020924616515723350778707749817125772467962926386356373289912154831438167899885040445364023527381951378636564391212010397122822120720357
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
-                editTextCalculatorA.clearFocus();
-                editTextCalculatorB.clearFocus();
+                editTextA.clearFocus();
+                editTextB.clearFocus();
                 // Reset result
                 resetResult();
                 setVisibilityToGoneResult2();
@@ -456,79 +511,104 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshSmallerClipboardButtons();
-        this.refreshBiggerControls();
+        refreshInputViewMode();
+        refreshBiggerControls();
+        refreshBiggerResultDisplay();
     }
 
 
-    //region Display
-    private void refreshSmallerClipboardButtons() {
+    //region Refresh UI
+    private void refreshInputViewMode() {
         try {
-            boolean biggerClipboardButtons = UserSettings.getBiggerClipboardButtons(requireContext());
-
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorPasteA, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearA, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorPasteB, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearB, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyResult1, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult1, biggerClipboardButtons);
-            // Clipboard
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorCopyResult2, biggerClipboardButtons);
-            ClipboardButtonDisplay.setClipboardButtonFontSize(textViewCalculatorClearResult2, biggerClipboardButtons);
+            this.isCompactInputView = UserSettings.getCompactInputView(requireContext());
+            if(isCompactInputView){
+                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutCompactInputView.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelA, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticA, biggerControls);
-            // Input
-            ControlDisplay.setInputFontSize(editTextCalculatorA, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelB, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticB, biggerControls);
-            // Input
-            ControlDisplay.setInputFontSize(editTextCalculatorB, biggerControls);
-            // Buttons
-            ControlDisplay.setButtonFontSize(buttonCalculatorAddition, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorSubtraction, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorMultiplication, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorDivision, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorPower, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorRoot, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorGcd, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorLcm, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorMod, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorModInverse, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorIsProbablePrime, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorEulerPhi, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorFactorial, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorNextProbablePrime, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonCalculatorNextProbableTwinPrime, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelResult1, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticResult1, biggerControls);
-            // Output
-            ControlDisplay.setOutputFontSize(editTextCalculatorResult1, biggerControls);
-            // Label
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelResult2, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewCalculatorLabelElasticResult2, biggerControls);
-            // Output
-            ControlDisplay.setOutputFontSize(editTextCalculatorResult2, biggerControls);
+            // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult1, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult1, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult2, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult2, biggerControls);
+            // Extended input a controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextA, biggerControls);
+            // Extended input b controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextB, biggerControls);
+            // Compact input a controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
+            // Compact input b controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
+            // Run buttons
+            ControlDisplay.setButtonFontSize(buttonAddition, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonSubtraction, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonMultiplication, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonDivision, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonPower, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonRoot, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonGcd, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonLcm, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonMod, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonModInverse, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonIsProbablePrime, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonEulerPhi, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonFactorial, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonNextProbablePrime, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonNextProbableTwinPrime, biggerControls);
+            // Result1 label
+            ControlDisplay.setInputLabelFontSize(textViewLabelResult1, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult1, biggerControls);
+            // Result2 label
+            ControlDisplay.setInputLabelFontSize(textViewLabelResult2, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult2, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    //endregion Display
+
+
+    private void refreshBiggerResultDisplay() {
+        try {
+            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+            // // Output result1
+            ControlDisplay.setOutputFontSize(editTextResult1, biggerControls);
+            // // Output result2
+            ControlDisplay.setOutputFontSize(editTextResult2, biggerControls);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+    //endregion Refresh UI
 
 
     //region Callback
@@ -648,253 +728,289 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             result2 = resultCanceledText;
         }
         // Label
-        textViewCalculatorLabelResult1.setText(labelResult1);
-        textViewCalculatorLabelResult2.setText(labelResult2);
+        textViewLabelResult1.setText(labelResult1);
+        textViewLabelResult2.setText(labelResult2);
         // Result
-        editTextCalculatorResult1.setText(result1);
-        editTextCalculatorResult2.setText(result2);
+        editTextResult1.setText(result1);
+        editTextResult2.setText(result2);
     }
     //endregion Callback
 
 
-    //region BUTTON ACTIONS
-    private void onButtonAddition(ViewGroup container, boolean displayProgressDialog) {
+    //region Run buttons
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelA, "a", textViewLabelElasticA)
+                .setInput(editTextA)
+                .setCompactControls(textViewLabelCompactA, editTextCompactA)
+                .build();
+    }
+
+
+    private InputGroup getInputGroupB() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelB, "b", textViewLabelElasticB)
+                .setInput(editTextB)
+                .setCompactControls(textViewLabelCompactB, editTextCompactB)
+                .build();
+    }
+
+
+    private void onButtonAddition(ViewGroup container) {
         try  {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorAddition);
+            beforeActionPerforming(buttonAddition);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_ADDITION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonSubtraction(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonSubtraction(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorSubtraction);
+            beforeActionPerforming(buttonSubtraction);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_SUBTRACTION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonMultiplication(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonMultiplication(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorMultiplication);
+            beforeActionPerforming(buttonMultiplication);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_MULTIPLICATION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonDivision(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonDivision(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), inputGroupB)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToVisibleResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorDivision);
+            beforeActionPerforming(buttonDivision);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_DIVISION, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonPower(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonPower(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ZERO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupB, ZERO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
             // Get numbers
-            final BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            final BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            final BigInteger a = new BigInteger(editTextA.getText().toString());
+            final BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorPower);
+            beforeActionPerforming(buttonPower);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_POWER, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonRoot(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonRoot(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupB, ONE, INTEGER_MAX_VALUE)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToVisibleResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorRoot);
+            beforeActionPerforming(buttonRoot);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_ROOT, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonGcd(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonGcd(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorGcd);
+            beforeActionPerforming(buttonGcd);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_GCD, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonLcm(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonLcm(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b")) {
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             if (a.compareTo(ZERO) == 0 && b.compareTo(ZERO) == 0) {
                 UIHelper.showCustomToastLight(requireContext(), "Not both a and b can be zero!");
@@ -906,200 +1022,209 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorLcm);
+            beforeActionPerforming(buttonLcm);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_LCM, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonMod(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonMod(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupB, ONE)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorMod);
+            beforeActionPerforming(buttonMod);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_MOD, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonModInverse(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonModInverse(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupB, ONE)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorModInverse);
+            beforeActionPerforming(buttonModInverse);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_MOD_INVERSE, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonIsProbablePrime(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonIsProbablePrime(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", TWO)) {
+            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, TWO)) {
                 return;
             }
-            if (UIHelper.checkInputMustBeFilled(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, textViewCalculatorLabelB.getText().toString(), "Must specify the certainty in input <b>%s</b>")) {
+            if (UIHelper.checkInputMustBeFilled(requireContext(), inputGroupB, "Must specify the certainty in input <b>%s</b>")) {
                 return;
             }
-            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), editTextCalculatorB, textViewCalculatorLabelB, textViewCalculatorLabelElasticB, "b", ONE, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupB, ONE, INTEGER_MAX_VALUE)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
-            BigInteger b = new BigInteger(editTextCalculatorB.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorIsProbablePrime);
+            beforeActionPerforming(buttonIsProbablePrime);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_IS_PROBABLE_PRIME, this);
             algorithmParameters.setInput1(a);
             algorithmParameters.setInput2(b);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonEulerPhi(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonEulerPhi(ViewGroup container) {
         try {
             // Check.
-            if (UIHelper.checkInputMustBeGreaterThanMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
+            InputGroup inputGroupA = getInputGroupA();
+            if (UIHelper.checkInputMustBeGreaterThanMin(requireContext(), inputGroupA, ZERO)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorEulerPhi);
+            beforeActionPerforming(buttonEulerPhi);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_EULER_PHI, this);
             algorithmParameters.setInput1(a);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonFactorial(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonFactorial(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", ZERO)) {
+            InputGroup inputGroupA = getInputGroupA();
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, ZERO)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorFactorial);
+            beforeActionPerforming(buttonFactorial);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_FACTORIAL, this);
             algorithmParameters.setInput1(a);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonNextProbablePrime(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonNextProbablePrime(ViewGroup container) {
         try {
             // Check.
-            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a", TWO)) {
+            InputGroup inputGroupA = getInputGroupA();
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, TWO)) {
                 return;
             }
 
             // Get numbers
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
 
             // Reset result
             resetResult();
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorNextProbablePrime);
+            beforeActionPerforming(buttonNextProbablePrime);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_NEXT_PROBABLE_PRIME, this);
             algorithmParameters.setInput1(a);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void onButtonNextProbableTwinPrime(ViewGroup container, boolean displayProgressDialog) {
+    private void onButtonNextProbableTwinPrime(ViewGroup container) {
         try {
             // Make the second result gone.
             setVisibilityToGoneResult2();
@@ -1107,12 +1232,13 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             // (3, 5), (5, 7), (11, 13), (17, 19), (29, 31), (41, 43), (59, 61), (71, 73), (101, 103), (107, 109), (137, 139), ...
 
             // Check.
-            if (UIHelper.checkInputMustBeNumber(requireContext(), editTextCalculatorA, textViewCalculatorLabelA, textViewCalculatorLabelElasticA, "a")) {
+            InputGroup inputGroupA = getInputGroupA();
+            if (UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
 
             // Get the input numbers.
-            BigInteger a = new BigInteger(editTextCalculatorA.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
 
             // Reset result
             resetResult();
@@ -1120,17 +1246,17 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             setVisibilityToVisibleResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonCalculatorNextProbableTwinPrime);
+            beforeActionPerforming(buttonNextProbableTwinPrime);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR, this);
             algorithmParameters.setInput1(a);
-            progressManager.startWork(container, algorithmParameters, displayProgressDialog);
+            progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    //endregion Button actions
+    //endregion Run buttons
 
 
     //region RESULT
@@ -1138,78 +1264,87 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
-        editTextCalculatorA.clearFocus();
-        editTextCalculatorB.clearFocus();
+        editTextA.clearFocus();
+        editTextB.clearFocus();
+        editTextCompactA.clearFocus();
+        editTextCompactB.clearFocus();
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
+    private void resetAllAndSelectTheLastClipboardButtonClicked() {
+        resetAllAndSelectTheLastClipboardButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
-        textViewCalculatorCopyA.setSelected(false);
-        textViewCalculatorPasteA.setSelected(false);
-        textViewCalculatorClearA.setSelected(false);
-        textViewCalculatorCopyB.setSelected(false);
-        textViewCalculatorPasteB.setSelected(false);
-        textViewCalculatorClearB.setSelected(false);
-        textViewCalculatorCopyResult1.setSelected(false);
-        textViewCalculatorClearResult1.setSelected(false);
-        textViewCalculatorCopyResult2.setSelected(false);
-        textViewCalculatorClearResult2.setSelected(false);
+        textViewCopyA.setSelected(false);
+        textViewPasteA.setSelected(false);
+        textViewClearA.setSelected(false);
+        textViewCopyB.setSelected(false);
+        textViewPasteB.setSelected(false);
+        textViewClearB.setSelected(false);
+        //
+        textViewCopyCompactA.setSelected(false);
+        textViewPasteCompactA.setSelected(false);
+        textViewClearCompactA.setSelected(false);
+        textViewCopyCompactB.setSelected(false);
+        textViewPasteCompactB.setSelected(false);
+        textViewClearCompactB.setSelected(false);
+        //
+        textViewCopyResult1.setSelected(false);
+        textViewClearResult1.setSelected(false);
+        textViewCopyResult2.setSelected(false);
+        textViewClearResult2.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
             textView.setSelected(true);
         }
     }
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
+    }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
         // Reset the last button clicked.
-        buttonCalculatorAddition.setSelected(false);
-        buttonCalculatorSubtraction.setSelected(false);
-        buttonCalculatorMultiplication.setSelected(false);
-        buttonCalculatorDivision.setSelected(false);
-        buttonCalculatorPower.setSelected(false);
-        buttonCalculatorRoot.setSelected(false);
-        buttonCalculatorGcd.setSelected(false);
-        buttonCalculatorLcm.setSelected(false);
-        buttonCalculatorMod.setSelected(false);
-        buttonCalculatorModInverse.setSelected(false);
-        buttonCalculatorIsProbablePrime.setSelected(false);
-        buttonCalculatorEulerPhi.setSelected(false);
-        buttonCalculatorFactorial.setSelected(false);
-        buttonCalculatorNextProbablePrime.setSelected(false);
-        buttonCalculatorNextProbableTwinPrime.setSelected(false);
+        buttonAddition.setSelected(false);
+        buttonSubtraction.setSelected(false);
+        buttonMultiplication.setSelected(false);
+        buttonDivision.setSelected(false);
+        buttonPower.setSelected(false);
+        buttonRoot.setSelected(false);
+        buttonGcd.setSelected(false);
+        buttonLcm.setSelected(false);
+        buttonMod.setSelected(false);
+        buttonModInverse.setSelected(false);
+        buttonIsProbablePrime.setSelected(false);
+        buttonEulerPhi.setSelected(false);
+        buttonFactorial.setSelected(false);
+        buttonNextProbablePrime.setSelected(false);
+        buttonNextProbableTwinPrime.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
             button.setSelected(true);
         }
     }
     private void resetResult() {
-        // Reset the last clipboard clicked.
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
-        // Reset the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(null);
-        // Reset the Result1
+        resetAllAndSelectTheLastClipboardButtonClicked();
+        resetAllAndSelectTheLastButtonClicked();
         resetResult1();
-        // Reset the Result2
         resetResult2();
     }
     private void resetResult1() {
-        // Reset the Result1
-        textViewCalculatorLabelResult1.setText(R.string.result);
-        editTextCalculatorResult1.setText("");
+        textViewLabelResult1.setText(R.string.result);
+        editTextResult1.setText("");
     }
     private void resetResult2() {
-        // Reset the Result2
-        textViewCalculatorLabelResult2.setText(R.string.result);
-        editTextCalculatorResult2.setText("");
+        textViewLabelResult2.setText(R.string.result);
+        editTextResult2.setText("");
     }
     private void setVisibilityToGoneResult2() {
-        linearLayoutCalculatorResult2Labels.setVisibility(View.GONE);
-        linearLayoutCalculatorResult2.setVisibility(View.GONE);
+        linearLayoutResult2Labels.setVisibility(View.GONE);
+        linearLayoutResult2.setVisibility(View.GONE);
     }
     private void setVisibilityToVisibleResult2() {
-        linearLayoutCalculatorResult2Labels.setVisibility(View.VISIBLE);
-        linearLayoutCalculatorResult2.setVisibility(View.VISIBLE);
+        linearLayoutResult2Labels.setVisibility(View.VISIBLE);
+        linearLayoutResult2.setVisibility(View.VISIBLE);
     }
     //endregion RESULT
-
 }

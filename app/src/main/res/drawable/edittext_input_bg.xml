@@ -2,13 +2,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <stroke android:width="1px" android:color="@color/errorStroke" />
-            <solid android:color="@color/errorBg" />
+            <stroke android:width="1px" android:color="@color/colorInsideTextStrokeBg" />
+            <solid android:color="@color/colorInsideTextBg" />
             <corners
                 android:bottomLeftRadius="2dp"
                 android:topLeftRadius="0dp"
-                android:topRightRadius="2dp"
-                android:radius="2dp"/>
+                android:topRightRadius="0dp"
+                android:bottomRightRadius="2dp" />
         </shape>
     </item>
 </layer-list>

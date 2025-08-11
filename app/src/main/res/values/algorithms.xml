@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="binary_quadratic_form">Binary Quadratic Form</string>
+    <string name="binary_quadratic_form_description">Solve for <i><b>x,y</b></i> such as <i><b>bxy+dx+ey=f</b></i> where <i><b>b,d,e,f,x,y ∊ ℤ</b></i> with <i><b>b ≠ 0</b></i>.</string>
+    <string name="euclidean_algorithm">Euclidean Algorithm</string>
+    <string name="euclidean_algorithm_description">Compute the Greatest Common Divisor (GCD) of two numbers <i><b>a</b></i> and <i><b>b</b></i>. The GCD is the largest number that divides both <i><b>a</b></i> and <i><b>b</b></i> without leaving a remainder.</string>
+    <string name="extended_euclidean_algorithm">Extended Euclidean Algorithm</string>
+    <string name="extended_euclidean_algorithm_description">Solve for <i><b>x,y</b></i> such as <i><b>ax+by = gcd(a, b)</b></i> where <i><b>a,b ∊ ℕ</b></i>, <i><b>x,y ∊ ℤ</b></i>.</string>
+    <string name="linear_diophantine_equation_in_two_variables">Linear Diophantine Equation In Two Variables</string>
+    <string name="linear_diophantine_equation_in_two_variables_description">Solve for <i><b>x,y</b></i> such as <i><b>ax+by=c</b></i> where <i><b>a,b,c,x,y ∊ ℤ</b></i> with <i><b>a,b ≠ 0</b></i>.</string>
+    <string name="linear_congruence_in_one_variable">Linear Congruence In One Variable</string>
+    <string name="linear_congruence_in_one_variable_description">Solve for <i><b>x</b></i>, a congruence of the form <i><b>ax ≡ b (mod m)</b></i> where <i><b>a,b,x ∊ ℤ</b></i>, <i><b>m ∊ ℕ</b></i>.</string>
+    <string name="linear_congruence_in_two_variables">Linear Congruence In Two Variables</string>
+    <string name="linear_congruence_in_two_variables_description">Solve for <i><b>x,y</b></i> a congruence of the form <i><b>ax+by ≡ c (mod m)</b></i> where <i><b>a,b,c,x,y ∊ ℤ</b></i>, <i><b>m ∊ ℕ</b></i>.</string>
+    <string name="tonelli_shanks_algorithm">Tonelli-Shanks Algorithm</string>
+    <string name="tonelli_shanks_algorithm_description">Solve for <i><b>x</b></i> a congruence of the form <i><b>x² ≡ a (mod p)</b></i>, where <i><b>p ∊ PRIMES</b></i>.</string>
+    <string name="mod_factors">Mod Factors</string>
+    <string name="mod_factors_description">Find <i><b>n ≡ bc (mod a)</b></i> where <i><b>(ax+c)(ay+b) = a(axy+bx+cy)+bc = n</b></i>.</string>
+    <string name="primes_list">Primes List</string>
+    <string name="primes_list_description">List of primes ordered in columns.</string>
+</resources>

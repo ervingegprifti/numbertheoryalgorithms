@@ -35,8 +35,8 @@ public class ModFactors extends Algorithm implements StringCalculator {
             result.append("a(a<b>x</b><b>y</b> + b<b>x</b> + c<b>y</b>) + bc = n <br>");
             result.append("<br>");
 
-            // Input
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Input</font><br>", COLOR));
+            // InputGroup
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "n = %s<br>", getNP(n)));
             result.append(String.format(Locale.getDefault(), "a = %s<br>", getNP(a)));
             result.append("<br>");

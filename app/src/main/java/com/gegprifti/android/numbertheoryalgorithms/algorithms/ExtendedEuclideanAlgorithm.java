@@ -35,8 +35,8 @@ public class ExtendedEuclideanAlgorithm extends Algorithm implements StringCalcu
             output.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> = GCD(%s, %s)<br>", getNP(a), getNP(b), getNP(a), getNP(b)));
             output.append("<br>");
 
-            // Input
-            output.append(String.format(Locale.getDefault(), "<font color='%s'>Input</font><br>", COLOR));
+            // InputGroup
+            output.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
             output.append(String.format(Locale.getDefault(), "a = %s<br>", getNP(a)));
             output.append(String.format(Locale.getDefault(), "b = %s<br>", getNP(b)));
             output.append(String.format(Locale.getDefault(), "GCD(a,b) = %s<br>", a.gcd(b)));

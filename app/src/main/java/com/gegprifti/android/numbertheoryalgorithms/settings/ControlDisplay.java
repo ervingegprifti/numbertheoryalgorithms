@@ -12,11 +12,13 @@ public class ControlDisplay {
     private static final int SMALLER_INPUT_LABEL_FONT_SIZE = 14;
     private static final int SMALLER_INPUT_FONT_SIZE = 14;
     private static final int SMALLER_BUTTON_FONT_SIZE = 14;
+    private static final int SMALLER_CLIPBOARD_BUTTON_FONT_SIZE = 14;
     private static final int SMALLER_OUTPUT_FONT_SIZE = 14;
 
     private static final int BIGGER_INPUT_LABEL_FONT_SIZE = 16;
     private static final int BIGGER_INPUT_FONT_SIZE = 20;
     private static final int BIGGER_BUTTON_FONT_SIZE = 16;
+    private static final int BIGGER_CLIPBOARD_BUTTON_FONT_SIZE = 16;
     private static final int BIGGER_OUTPUT_FONT_SIZE = 20;
 
 
@@ -39,6 +41,13 @@ public class ControlDisplay {
             setFontSize(control, BIGGER_BUTTON_FONT_SIZE);
         } else {
             setFontSize(control, SMALLER_BUTTON_FONT_SIZE);
+        }
+    }
+    public static void setClipboardButtonFontSize(TextView control, Boolean biggerFontSize) {
+        if (biggerFontSize) {
+            setFontSize(control, BIGGER_CLIPBOARD_BUTTON_FONT_SIZE);
+        } else {
+            setFontSize(control, SMALLER_CLIPBOARD_BUTTON_FONT_SIZE);
         }
     }
     public static void setOutputFontSize(EditText control, Boolean biggerFontSize) {
