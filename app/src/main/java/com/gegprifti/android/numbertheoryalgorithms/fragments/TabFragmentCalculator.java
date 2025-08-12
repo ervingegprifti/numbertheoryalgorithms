@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TabFragmentCalculator extends FragmentBase implements Callback {
     private final static String TAG = TabFragmentCalculator.class.getSimpleName();
     static final BigInteger ZERO = BigInteger.ZERO;
-    static final BigInteger ONE = BigInteger.ONE;
+    //static final BigInteger ONE = BigInteger.ONE;
     static final BigInteger TWO = BigInteger.valueOf(2L);
     BigInteger INTEGER_MAX_VALUE = new BigInteger(Integer.toString(Integer.MAX_VALUE));
     // Cache view state
@@ -291,37 +291,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // Extended input a clipboard button events
             textViewMinusA.setOnClickListener(v -> {
-                String textValue = editTextA.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextA.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.subtract(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextA.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                decreaseByOne(editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusA);
             });
             textViewPlusA.setOnClickListener(v -> {
-                String textValue = editTextA.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextA.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.add(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextA.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                increaseByOne(editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
@@ -340,37 +314,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // Extended input b clipboard button events
             textViewMinusB.setOnClickListener(v -> {
-                String textValue = editTextB.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextB.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.subtract(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextB.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                decreaseByOne(editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusB);
             });
             textViewPlusB.setOnClickListener(v -> {
-                String textValue = editTextB.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextB.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.add(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextB.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                increaseByOne(editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
             });
             textViewCopyB.setOnClickListener(v -> {
@@ -389,37 +337,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // Compact input a clipboard button events
             textViewMinusCompactA.setOnClickListener(v -> {
-                String textValue = editTextCompactA.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextCompactA.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.subtract(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextCompactA.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                decreaseByOne(editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactA);
             });
             textViewPlusCompactA.setOnClickListener(v -> {
-                String textValue = editTextCompactA.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextCompactA.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.add(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextCompactA.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                increaseByOne(editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
@@ -438,37 +360,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // Compact input b clipboard button events
             textViewMinusCompactB.setOnClickListener(v -> {
-                String textValue = editTextCompactB.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextCompactB.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.subtract(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextCompactB.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                decreaseByOne(editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactB);
             });
             textViewPlusCompactB.setOnClickListener(v -> {
-                String textValue = editTextCompactB.getText().toString();
-                if (textValue.isEmpty()) {
-                    editTextCompactB.setText("0");
-                } else {
-                    try {
-                        BigInteger value = new BigInteger(textValue);
-                        value = value.add(ONE);
-                        NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                        String formatted = numberFormat.format(value);
-                        editTextCompactB.setText(formatted);
-                    } catch (NumberFormatException ex) {
-                        UIHelper.showCustomToastError(requireContext(), "Input value a not a number");
-                    }
-                }
+                increaseByOne(editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
             });
             textViewCopyCompactB.setOnClickListener(v -> {
