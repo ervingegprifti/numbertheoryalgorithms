@@ -3,25 +3,25 @@
 ## New tracked versions
 
 ### [3.0.7.1]
-- Implemented the compact input view mode
-- Refactored part of the code
+- Implemented the compact input view mode.
+- Implemented show input decrease (-) increase (+) buttons.
+- Refactored part of the code.
 #### Requirements:
-- Minimum Sdk 31 (Android 12 Snow Cone)
-- Switched from AGP 8.11.1 to 8.12.0
-- Compiled with Android Studio 2025.1.2
-
+- Minimum Sdk 31 (Android 12 Snow Cone).
+- Switched from AGP 8.11.1 to 8.12.0.
+- Compiled with Android Studio 2025.1.2.
 
 ### [3.0.7.0] - 2025-07-30
-- Minimum Sdk 31 (Android 12 Snow Cone)
-- Open Source
+- Minimum Sdk 31 (Android 12 Snow Cone).
+- Open Source.
 
 ## Old not tracked versions
 
 ### [3.0.6.3]
-- Improved FragmentQuadraticForm
+- Improved FragmentQuadraticForm.
 
 ### [3.0.5.9]
-- Implemented ABCDEF in FragmentQuadraticForm
+- Implemented ABCDEF in FragmentQuadraticForm.
 
 ### [3.0.5.7]
 - Some bug fixes.
