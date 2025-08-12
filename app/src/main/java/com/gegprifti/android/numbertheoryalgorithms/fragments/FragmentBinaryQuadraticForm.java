@@ -54,24 +54,32 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewLabelB;
     TextView textViewLabelElasticB;
+    TextView textViewMinusB;
+    TextView textViewPlusB;
     TextView textViewCopyB;
     TextView textViewPasteB;
     TextView textViewClearB;
     EditText editTextB;
     TextView textViewLabelD;
     TextView textViewLabelElasticD;
+    TextView textViewMinusD;
+    TextView textViewPlusD;
     TextView textViewCopyD;
     TextView textViewPasteD;
     TextView textViewClearD;
     EditText editTextD;
     TextView textViewLabelE;
     TextView textViewLabelElasticE;
+    TextView textViewMinusE;
+    TextView textViewPlusE;
     TextView textViewCopyE;
     TextView textViewPasteE;
     TextView textViewClearE;
     EditText editTextE;
     TextView textViewLabelF;
     TextView textViewLabelElasticF;
+    TextView textViewMinusF;
+    TextView textViewPlusF;
     TextView textViewCopyF;
     TextView textViewPasteF;
     TextView textViewClearF;
@@ -79,21 +87,29 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     // Compact input view
     LinearLayout linearLayoutCompactInputView;
     TextView textViewLabelCompactB;
+    TextView textViewMinusCompactB;
+    TextView textViewPlusCompactB;
     TextView textViewCopyCompactB;
     TextView textViewPasteCompactB;
     TextView textViewClearCompactB;
     EditText editTextCompactB;
     TextView textViewLabelCompactD;
+    TextView textViewMinusCompactD;
+    TextView textViewPlusCompactD;
     TextView textViewCopyCompactD;
     TextView textViewPasteCompactD;
     TextView textViewClearCompactD;
     EditText editTextCompactD;
     TextView textViewLabelCompactE;
+    TextView textViewMinusCompactE;
+    TextView textViewPlusCompactE;
     TextView textViewCopyCompactE;
     TextView textViewPasteCompactE;
     TextView textViewClearCompactE;
     EditText editTextCompactE;
     TextView textViewLabelCompactF;
+    TextView textViewMinusCompactF;
+    TextView textViewPlusCompactF;
     TextView textViewCopyCompactF;
     TextView textViewPasteCompactF;
     TextView textViewClearCompactF;
@@ -169,24 +185,32 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
             textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewMinusB = inflater.findViewById(R.id.TextViewMinusB);
+            textViewPlusB = inflater.findViewById(R.id.TextViewPlusB);
             textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
             textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
             textViewClearB = inflater.findViewById(R.id.TextViewClearB);
             editTextB = inflater.findViewById(R.id.EditTextB);
             textViewLabelD = inflater.findViewById(R.id.TextViewLabelD);
             textViewLabelElasticD = inflater.findViewById(R.id.TextViewLabelElasticD);
+            textViewMinusD = inflater.findViewById(R.id.TextViewMinusD);
+            textViewPlusD = inflater.findViewById(R.id.TextViewPlusD);
             textViewCopyD = inflater.findViewById(R.id.TextViewCopyD);
             textViewPasteD = inflater.findViewById(R.id.TextViewPasteD);
             textViewClearD = inflater.findViewById(R.id.TextViewClearD);
             editTextD = inflater.findViewById(R.id.EditTextD);
             textViewLabelE = inflater.findViewById(R.id.TextViewLabelE);
             textViewLabelElasticE = inflater.findViewById(R.id.TextViewLabelElasticE);
+            textViewMinusE = inflater.findViewById(R.id.TextViewMinusE);
+            textViewPlusE = inflater.findViewById(R.id.TextViewPlusE);
             textViewCopyE = inflater.findViewById(R.id.TextViewCopyE);
             textViewPasteE = inflater.findViewById(R.id.TextViewPasteE);
             textViewClearE = inflater.findViewById(R.id.TextViewClearE);
             editTextE = inflater.findViewById(R.id.EditTextE);
             textViewLabelF = inflater.findViewById(R.id.TextViewLabelF);
             textViewLabelElasticF = inflater.findViewById(R.id.TextViewLabelElasticF);
+            textViewMinusF = inflater.findViewById(R.id.TextViewMinusF);
+            textViewPlusF = inflater.findViewById(R.id.TextViewPlusF);
             textViewCopyF = inflater.findViewById(R.id.TextViewCopyF);
             textViewPasteF = inflater.findViewById(R.id.TextViewPasteF);
             textViewClearF = inflater.findViewById(R.id.TextViewClearF);
@@ -194,21 +218,29 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Compact input view
             linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
             textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewMinusCompactB = inflater.findViewById(R.id.TextViewMinusCompactB);
+            textViewPlusCompactB = inflater.findViewById(R.id.TextViewPlusCompactB);
             textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
             textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
             textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
             editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
             textViewLabelCompactD = inflater.findViewById(R.id.TextViewLabelCompactD);
+            textViewMinusCompactD = inflater.findViewById(R.id.TextViewMinusCompactD);
+            textViewPlusCompactD = inflater.findViewById(R.id.TextViewPlusCompactD);
             textViewCopyCompactD = inflater.findViewById(R.id.TextViewCopyCompactD);
             textViewPasteCompactD = inflater.findViewById(R.id.TextViewPasteCompactD);
             textViewClearCompactD = inflater.findViewById(R.id.TextViewClearCompactD);
             editTextCompactD = inflater.findViewById(R.id.EditTextCompactD);
             textViewLabelCompactE = inflater.findViewById(R.id.TextViewLabelCompactE);
+            textViewMinusCompactE = inflater.findViewById(R.id.TextViewMinusCompactE);
+            textViewPlusCompactE = inflater.findViewById(R.id.TextViewPlusCompactE);
             textViewCopyCompactE = inflater.findViewById(R.id.TextViewCopyCompactE);
             textViewPasteCompactE = inflater.findViewById(R.id.TextViewPasteCompactE);
             textViewClearCompactE = inflater.findViewById(R.id.TextViewClearCompactE);
             editTextCompactE = inflater.findViewById(R.id.EditTextCompactE);
             textViewLabelCompactF = inflater.findViewById(R.id.TextViewLabelCompactF);
+            textViewMinusCompactF = inflater.findViewById(R.id.TextViewMinusCompactF);
+            textViewPlusCompactF = inflater.findViewById(R.id.TextViewPlusCompactF);
             textViewCopyCompactF = inflater.findViewById(R.id.TextViewCopyCompactF);
             textViewPasteCompactF = inflater.findViewById(R.id.TextViewPasteCompactF);
             textViewClearCompactF = inflater.findViewById(R.id.TextViewClearCompactF);
@@ -456,6 +488,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Extended input b clipboard button events
+            textViewMinusB.setOnClickListener(v -> {
+                decreaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusB);
+            });
+            textViewPlusB.setOnClickListener(v -> {
+                increaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
+            });
             textViewCopyB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
@@ -471,6 +511,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Extended input d clipboard button events
+            textViewMinusD.setOnClickListener(v -> {
+                decreaseByOne(editTextD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusD);
+            });
+            textViewPlusD.setOnClickListener(v -> {
+                increaseByOne(editTextD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusD);
+            });
             textViewCopyD.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextD);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyD);
@@ -486,6 +534,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Extended input e clipboard button events
+            textViewMinusE.setOnClickListener(v -> {
+                decreaseByOne(editTextE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusE);
+            });
+            textViewPlusE.setOnClickListener(v -> {
+                increaseByOne(editTextE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusE);
+            });
             textViewCopyE.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextE);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyE);
@@ -501,6 +557,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Extended input f clipboard button events
+            textViewMinusF.setOnClickListener(v -> {
+                decreaseByOne(editTextF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusF);
+            });
+            textViewPlusF.setOnClickListener(v -> {
+                increaseByOne(editTextF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusF);
+            });
             textViewCopyF.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextF);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyF);
@@ -516,6 +580,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Compact input b clipboard button events
+            textViewMinusCompactB.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactB);
+            });
+            textViewPlusCompactB.setOnClickListener(v -> {
+                increaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
+            });
             textViewCopyCompactB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
@@ -531,6 +603,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Compact input d clipboard button events
+            textViewMinusCompactD.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactD);
+            });
+            textViewPlusCompactD.setOnClickListener(v -> {
+                increaseByOne(editTextCompactD);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactD);
+            });
             textViewCopyCompactD.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactD);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactD);
@@ -546,6 +626,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Compact input e clipboard button events
+            textViewMinusCompactE.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactE);
+            });
+            textViewPlusCompactE.setOnClickListener(v -> {
+                increaseByOne(editTextCompactE);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactE);
+            });
             textViewCopyCompactE.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactE);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactE);
@@ -561,6 +649,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Compact input f clipboard button events
+            textViewMinusCompactF.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactF);
+            });
+            textViewPlusCompactF.setOnClickListener(v -> {
+                increaseByOne(editTextCompactF);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactF);
+            });
             textViewCopyCompactF.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactF);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactF);
@@ -839,8 +935,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
-        this.refreshBiggerControls();
-        this.refreshHideExampleButtons();
+        refreshShowInputDecreaseIncreaseButtons();
+        refreshBiggerControls();
+        refreshHideExampleButtons();
         refreshBiggerResultDisplay();
     }
 
@@ -855,6 +952,50 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             } else {
                 linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshShowInputDecreaseIncreaseButtons() {
+        try {
+            boolean showInputDecreaseIncreaseButtons = UserSettings.getShowInputDecreaseIncreaseButtons(requireContext());
+            if (showInputDecreaseIncreaseButtons) {
+                textViewMinusB.setVisibility(View.VISIBLE);
+                textViewPlusB.setVisibility(View.VISIBLE);
+                textViewMinusCompactB.setVisibility(View.VISIBLE);
+                textViewPlusCompactB.setVisibility(View.VISIBLE);
+                textViewMinusD.setVisibility(View.VISIBLE);
+                textViewPlusD.setVisibility(View.VISIBLE);
+                textViewMinusCompactD.setVisibility(View.VISIBLE);
+                textViewPlusCompactD.setVisibility(View.VISIBLE);
+                textViewMinusE.setVisibility(View.VISIBLE);
+                textViewPlusE.setVisibility(View.VISIBLE);
+                textViewMinusCompactE.setVisibility(View.VISIBLE);
+                textViewPlusCompactE.setVisibility(View.VISIBLE);
+                textViewMinusF.setVisibility(View.VISIBLE);
+                textViewPlusF.setVisibility(View.VISIBLE);
+                textViewMinusCompactF.setVisibility(View.VISIBLE);
+                textViewPlusCompactF.setVisibility(View.VISIBLE);
+            } else {
+                textViewMinusB.setVisibility(View.GONE);
+                textViewPlusB.setVisibility(View.GONE);
+                textViewMinusCompactB.setVisibility(View.GONE);
+                textViewPlusCompactB.setVisibility(View.GONE);
+                textViewMinusD.setVisibility(View.GONE);
+                textViewPlusD.setVisibility(View.GONE);
+                textViewMinusCompactD.setVisibility(View.GONE);
+                textViewPlusCompactD.setVisibility(View.GONE);
+                textViewMinusE.setVisibility(View.GONE);
+                textViewPlusE.setVisibility(View.GONE);
+                textViewMinusCompactE.setVisibility(View.GONE);
+                textViewPlusCompactE.setVisibility(View.GONE);
+                textViewMinusF.setVisibility(View.GONE);
+                textViewPlusF.setVisibility(View.GONE);
+                textViewMinusCompactF.setVisibility(View.GONE);
+                textViewPlusCompactF.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -883,27 +1024,44 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusD, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyD, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteD, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusE, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyE, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteE, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusF, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusF, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyF, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteF, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearF, biggerControls);
+            //
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactD, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactD, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactD, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactD, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactE, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactE, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactE, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactE, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactF, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactF, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactF, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactF, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactF, biggerControls);
@@ -1557,28 +1715,44 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
+        textViewMinusB.setSelected(false);
+        textViewPlusB.setSelected(false);
         textViewCopyB.setSelected(false);
         textViewPasteB.setSelected(false);
         textViewClearB.setSelected(false);
+        textViewMinusD.setSelected(false);
+        textViewPlusD.setSelected(false);
         textViewCopyD.setSelected(false);
         textViewPasteD.setSelected(false);
         textViewClearD.setSelected(false);
+        textViewMinusE.setSelected(false);
+        textViewPlusE.setSelected(false);
         textViewCopyE.setSelected(false);
         textViewPasteE.setSelected(false);
         textViewClearE.setSelected(false);
+        textViewMinusF.setSelected(false);
+        textViewPlusF.setSelected(false);
         textViewCopyF.setSelected(false);
         textViewPasteF.setSelected(false);
         textViewClearF.setSelected(false);
         //
+        textViewMinusCompactB.setSelected(false);
+        textViewPlusCompactB.setSelected(false);
         textViewCopyCompactB.setSelected(false);
         textViewPasteCompactB.setSelected(false);
         textViewClearCompactB.setSelected(false);
+        textViewMinusCompactD.setSelected(false);
+        textViewPlusCompactD.setSelected(false);
         textViewCopyCompactD.setSelected(false);
         textViewPasteCompactD.setSelected(false);
         textViewClearCompactD.setSelected(false);
+        textViewMinusCompactE.setSelected(false);
+        textViewPlusCompactE.setSelected(false);
         textViewCopyCompactE.setSelected(false);
         textViewPasteCompactE.setSelected(false);
         textViewClearCompactE.setSelected(false);
+        textViewMinusCompactF.setSelected(false);
+        textViewPlusCompactF.setSelected(false);
         textViewCopyCompactF.setSelected(false);
         textViewPasteCompactF.setSelected(false);
         textViewClearCompactF.setSelected(false);

@@ -46,6 +46,10 @@
                     android:labelFor="@+id/EditTextB" />
                 <TextView style="@style/TextViewLabelElasticStyle"
                     android:id="@+id/TextViewLabelElasticB" />
+                <TextView style="@style/ClipboardButtonMinusStyle"
+                    android:id="@+id/TextViewMinusB" />
+                <TextView style="@style/ClipboardButtonPlusStyle"
+                    android:id="@+id/TextViewPlusB" />
                 <TextView style="@style/ClipboardButtonCopyStyle"
                     android:id="@+id/TextViewCopyB" />
                 <TextView style="@style/ClipboardButtonPasteStyle"
@@ -65,6 +69,10 @@
                     android:labelFor="@+id/EditTextD" />
                 <TextView style="@style/TextViewLabelElasticStyle"
                     android:id="@+id/TextViewLabelElasticD" />
+                <TextView style="@style/ClipboardButtonMinusStyle"
+                    android:id="@+id/TextViewMinusD" />
+                <TextView style="@style/ClipboardButtonPlusStyle"
+                    android:id="@+id/TextViewPlusD" />
                 <TextView style="@style/ClipboardButtonCopyStyle"
                     android:id="@+id/TextViewCopyD" />
                 <TextView style="@style/ClipboardButtonPasteStyle"
@@ -84,6 +92,10 @@
                     android:labelFor="@+id/EditTextE" />
                 <TextView style="@style/TextViewLabelElasticStyle"
                     android:id="@+id/TextViewLabelElasticE" />
+                <TextView style="@style/ClipboardButtonMinusStyle"
+                    android:id="@+id/TextViewMinusE" />
+                <TextView style="@style/ClipboardButtonPlusStyle"
+                    android:id="@+id/TextViewPlusE" />
                 <TextView style="@style/ClipboardButtonCopyStyle"
                     android:id="@+id/TextViewCopyE" />
                 <TextView style="@style/ClipboardButtonPasteStyle"
@@ -103,6 +115,10 @@
                     android:labelFor="@+id/EditTextF" />
                 <TextView style="@style/TextViewLabelElasticStyle"
                     android:id="@+id/TextViewLabelElasticF" />
+                <TextView style="@style/ClipboardButtonMinusStyle"
+                    android:id="@+id/TextViewMinusF" />
+                <TextView style="@style/ClipboardButtonPlusStyle"
+                    android:id="@+id/TextViewPlusF" />
                 <TextView style="@style/ClipboardButtonCopyStyle"
                     android:id="@+id/TextViewCopyF" />
                 <TextView style="@style/ClipboardButtonPasteStyle"
@@ -129,6 +145,10 @@
                 <EditText style="@style/EditTextNumberInputCompactStyle"
                     android:id="@+id/EditTextCompactB"
                     android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactB" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactB" />
                 <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
                     android:id="@+id/TextViewCopyCompactB" />
                 <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
@@ -145,6 +165,10 @@
                 <EditText style="@style/EditTextNumberInputCompactStyle"
                     android:id="@+id/EditTextCompactD"
                     android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactD" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactD" />
                 <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
                     android:id="@+id/TextViewCopyCompactD" />
                 <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
@@ -161,6 +185,10 @@
                 <EditText style="@style/EditTextNumberInputCompactStyle"
                     android:id="@+id/EditTextCompactE"
                     android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactE" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactE" />
                 <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
                     android:id="@+id/TextViewCopyCompactE" />
                 <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
@@ -176,6 +204,10 @@
                 <EditText style="@style/EditTextNumberInputCompactStyle"
                     android:id="@+id/EditTextCompactF"
                     android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactF" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactF" />
                 <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
                     android:id="@+id/TextViewCopyCompactF" />
                 <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"

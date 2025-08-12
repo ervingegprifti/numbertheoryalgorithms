@@ -617,15 +617,24 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            //
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
@@ -1360,14 +1369,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         textViewCopyA.setSelected(false);
         textViewPasteA.setSelected(false);
         textViewClearA.setSelected(false);
-        textViewMinusCompactA.setSelected(false);
-        textViewPlusCompactA.setSelected(false);
+        textViewMinusB.setSelected(false);
+        textViewPlusB.setSelected(false);
         textViewCopyB.setSelected(false);
         textViewPasteB.setSelected(false);
         textViewClearB.setSelected(false);
         //
-        textViewMinusB.setSelected(false);
-        textViewPlusB.setSelected(false);
+        textViewMinusCompactA.setSelected(false);
+        textViewPlusCompactA.setSelected(false);
         textViewCopyCompactA.setSelected(false);
         textViewPasteCompactA.setSelected(false);
         textViewClearCompactA.setSelected(false);
