@@ -33,15 +33,12 @@ import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class TabFragmentCalculator extends FragmentBase implements Callback {
     private final static String TAG = TabFragmentCalculator.class.getSimpleName();
     static final BigInteger ZERO = BigInteger.ZERO;
-    //static final BigInteger ONE = BigInteger.ONE;
     static final BigInteger TWO = BigInteger.valueOf(2L);
     BigInteger INTEGER_MAX_VALUE = new BigInteger(Integer.toString(Integer.MAX_VALUE));
     // Cache view state

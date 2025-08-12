@@ -51,12 +51,16 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewLabelA;
     TextView textViewLabelElasticA;
+    TextView textViewMinusA;
+    TextView textViewPlusA;
     TextView textViewCopyA;
     TextView textViewPasteA;
     TextView textViewClearA;
     EditText editTextA;
     TextView textViewLabelP;
     TextView textViewLabelElasticP;
+    TextView textViewMinusP;
+    TextView textViewPlusP;
     TextView textViewCopyP;
     TextView textViewPasteP;
     TextView textViewClearP;
@@ -64,15 +68,19 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     // Compact input view
     LinearLayout linearLayoutCompactInputView;
     TextView textViewLabelCompactA;
+    EditText editTextCompactA;
+    TextView textViewMinusCompactA;
+    TextView textViewPlusCompactA;
     TextView textViewCopyCompactA;
     TextView textViewPasteCompactA;
     TextView textViewClearCompactA;
-    EditText editTextCompactA;
     TextView textViewLabelCompactP;
+    EditText editTextCompactP;
+    TextView textViewMinusCompactP;
+    TextView textViewPlusCompactP;
     TextView textViewCopyCompactP;
     TextView textViewPasteCompactP;
     TextView textViewClearCompactP;
-    EditText editTextCompactP;
     // Run buttons
     Button buttonRun;
     Button buttonRunExample1;
@@ -120,12 +128,16 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
             textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
+            textViewPlusA = inflater.findViewById(R.id.TextViewPlusA);
             textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
             textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
             textViewClearA = inflater.findViewById(R.id.TextViewClearA);
             editTextA = inflater.findViewById(R.id.EditTextA);
             textViewLabelP = inflater.findViewById(R.id.TextViewLabelP);
             textViewLabelElasticP = inflater.findViewById(R.id.TextViewLabelElasticP);
+            textViewMinusP = inflater.findViewById(R.id.TextViewMinusP);
+            textViewPlusP = inflater.findViewById(R.id.TextViewPlusP);
             textViewCopyP = inflater.findViewById(R.id.TextViewCopyP);
             textViewPasteP = inflater.findViewById(R.id.TextViewPasteP);
             textViewClearP = inflater.findViewById(R.id.TextViewClearP);
@@ -133,15 +145,19 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             // Compact input view
             linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
             textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
+            textViewMinusCompactA = inflater.findViewById(R.id.TextViewMinusCompactA);
+            textViewPlusCompactA = inflater.findViewById(R.id.TextViewPlusCompactA);
             textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
             textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
             textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
-            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
             textViewLabelCompactP = inflater.findViewById(R.id.TextViewLabelCompactP);
+            editTextCompactP = inflater.findViewById(R.id.EditTextCompactP);
+            textViewMinusCompactP = inflater.findViewById(R.id.TextViewMinusCompactP);
+            textViewPlusCompactP = inflater.findViewById(R.id.TextViewPlusCompactP);
             textViewCopyCompactP = inflater.findViewById(R.id.TextViewCopyCompactP);
             textViewPasteCompactP = inflater.findViewById(R.id.TextViewPasteCompactP);
             textViewClearCompactP = inflater.findViewById(R.id.TextViewClearCompactP);
-            editTextCompactP = inflater.findViewById(R.id.EditTextCompactP);
             // Run buttons
             buttonRun = inflater.findViewById(R.id.ButtonRun);
             buttonRunExample1 = inflater.findViewById(R.id.ButtonRunExample1);
@@ -269,6 +285,14 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             });
 
             // Extended input a clipboard button events
+            textViewMinusA.setOnClickListener(v -> {
+                decreaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusA);
+            });
+            textViewPlusA.setOnClickListener(v -> {
+                increaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
+            });
             textViewCopyA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
@@ -284,6 +308,14 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             });
 
             // Extended input p clipboard button events
+            textViewMinusP.setOnClickListener(v -> {
+                decreaseByOne(editTextP);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusP);
+            });
+            textViewPlusP.setOnClickListener(v -> {
+                increaseByOne(editTextP);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusP);
+            });
             textViewCopyP.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyP);
@@ -299,6 +331,14 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             });
 
             // Compact input a clipboard button events
+            textViewMinusCompactA.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactA);
+            });
+            textViewPlusCompactA.setOnClickListener(v -> {
+                increaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
+            });
             textViewCopyCompactA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
@@ -314,6 +354,14 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             });
 
             // Compact input p clipboard button events
+            textViewMinusCompactP.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactP);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactP);
+            });
+            textViewPlusCompactP.setOnClickListener(v -> {
+                increaseByOne(editTextCompactP);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactP);
+            });
             textViewCopyCompactP.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactP);
@@ -435,6 +483,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
+        refreshShowInputDecreaseIncreaseButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
         refreshBiggerResultDisplay();
@@ -451,6 +500,34 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             } else {
                 linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshShowInputDecreaseIncreaseButtons() {
+        try {
+            boolean showInputDecreaseIncreaseButtons = UserSettings.getShowInputDecreaseIncreaseButtons(requireContext());
+            if (showInputDecreaseIncreaseButtons) {
+                textViewMinusA.setVisibility(View.VISIBLE);
+                textViewPlusA.setVisibility(View.VISIBLE);
+                textViewMinusCompactA.setVisibility(View.VISIBLE);
+                textViewPlusCompactA.setVisibility(View.VISIBLE);
+                textViewMinusP.setVisibility(View.VISIBLE);
+                textViewPlusP.setVisibility(View.VISIBLE);
+                textViewMinusCompactP.setVisibility(View.VISIBLE);
+                textViewPlusCompactP.setVisibility(View.VISIBLE);
+            } else {
+                textViewMinusA.setVisibility(View.GONE);
+                textViewPlusA.setVisibility(View.GONE);
+                textViewMinusCompactA.setVisibility(View.GONE);
+                textViewPlusCompactA.setVisibility(View.GONE);
+                textViewMinusP.setVisibility(View.GONE);
+                textViewPlusP.setVisibility(View.GONE);
+                textViewMinusCompactP.setVisibility(View.GONE);
+                textViewPlusCompactP.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -483,15 +560,23 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusP, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusP, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyP, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteP, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearP, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactP, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactP, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactP, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactP, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactP, biggerControls);
@@ -666,21 +751,30 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
+        textViewMinusA.setSelected(false);
+        textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
         textViewPasteA.setSelected(false);
         textViewClearA.setSelected(false);
+        textViewMinusP.setSelected(false);
+        textViewPlusP.setSelected(false);
         textViewCopyP.setSelected(false);
         textViewPasteP.setSelected(false);
         textViewClearP.setSelected(false);
-        textViewExpandResult.setSelected(false);
-        textViewCopyResult.setSelected(false);
-        textViewClearResult.setSelected(false);
+        textViewMinusCompactA.setSelected(false);
+        textViewPlusCompactA.setSelected(false);
         textViewCopyCompactA.setSelected(false);
         textViewPasteCompactA.setSelected(false);
         textViewClearCompactA.setSelected(false);
+        textViewMinusCompactP.setSelected(false);
+        textViewPlusCompactP.setSelected(false);
         textViewCopyCompactP.setSelected(false);
         textViewPasteCompactP.setSelected(false);
         textViewClearCompactP.setSelected(false);
+        //
+        textViewExpandResult.setSelected(false);
+        textViewCopyResult.setSelected(false);
+        textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
             textView.setSelected(true);
