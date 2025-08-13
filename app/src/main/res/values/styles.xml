@@ -362,7 +362,24 @@
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:clickable">false</item>
-        <!--<item name="android:layout_marginBottom">10dp</item>-->
+    </style>
+
+
+    <style name="EditTextHistoryStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">#00FFFFFF</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:inputType">none</item>
+        <item name="android:editable">false</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:clickable">false</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
 

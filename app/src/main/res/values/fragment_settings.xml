@@ -15,6 +15,8 @@
     <string name="settings_show_input_decrease_increase_buttons_description">Show buttons to decrease (–) or increase (+) the input value by one.</string>
     <string name="settings_show_temporary_field_in_calculator">Show temporary field</string>
     <string name="settings_show_temporary_field_in_calculator_description">Show temporary field in calculator for intermediate result storage.</string>
+    <string name="settings_enable_results_history_in_calculator">Enable results history</string>
+    <string name="settings_enable_results_history_in_calculator_description">Enable history of calculator operation results.</string>
     <!--Clipboard Buttons Configurations-->
     <string name="settings_preference_category_clipboard">Clipboard Buttons Configurations</string>
     <string name="settings_vibrate_on_clipboard_button_click">Vibrate on button tap</string>
