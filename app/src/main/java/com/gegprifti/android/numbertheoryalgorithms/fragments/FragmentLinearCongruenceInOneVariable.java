@@ -40,7 +40,6 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewDocumentationFile;
     // Cache view state
     boolean isCompactInputView = false;
     // Extended input view
@@ -132,7 +131,6 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             // Navigation controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
             // Extended input view
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
@@ -212,7 +210,6 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_CONGRUENCE_IN_ONE_VARIABLE_PDF).show(getParentFragmentManager(), "LINEAR_CONGRUENCE_IN_ONE_VARIABLE_PDF"));
 
             // Extended input events
             editTextA.addTextChangedListener(new TextWatcher() {
@@ -580,6 +577,10 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 this.editTextM.setText(requireContext().getText(R.string.linear_congruence_in_one_variable_example_3_m));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
+                return true;
+            }
+            if (id == R.id.menu_documentation) {
+                DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_CONGRUENCE_IN_ONE_VARIABLE_PDF).show(getParentFragmentManager(), "LINEAR_CONGRUENCE_IN_ONE_VARIABLE_PDF");
                 return true;
             }
         } catch (Exception ex) {

@@ -27,7 +27,7 @@ import java.nio.file.Files;
 public class DialogFragmentPdfViewer extends DialogFragment {
     private static final String ARG_PDF_FILE_PATH = "pdf_file_path";
     public final static String CALCULATOR_PDF = "documentation/Calculator.pdf";
-    public final static String QUADRATIC_FORM_PDF = "documentation/SimpleQuadraticForm.pdf";
+    public final static String BINARY_QUADRATIC_FORM_PDF = "documentation/SimpleQuadraticForm.pdf";
     public final static String EUCLIDEAN_ALGORITHM_PDF = "documentation/EuclideanAlgorithm.pdf";
     public final static String EXTENDED_EUCLIDEAN_ALGORITHM_PDF = "documentation/ExtendedEuclideanAlgorithm.pdf";
     public final static String LINEAR_CONGRUENCE_IN_ONE_VARIABLE_PDF = "documentation/LinearCongruenceInOneVariable.pdf";

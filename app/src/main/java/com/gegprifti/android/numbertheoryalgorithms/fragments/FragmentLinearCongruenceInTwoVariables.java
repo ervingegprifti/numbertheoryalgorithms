@@ -40,7 +40,6 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
     // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewDocumentationFile;
     // Cache view state
     boolean isCompactInputView = false;
     // Extended input view
@@ -149,7 +148,6 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             // Navigation controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
             // Extended input view
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
@@ -246,7 +244,6 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF).show(getParentFragmentManager(), "LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF"));
 
             // Extended input events
             editTextA.addTextChangedListener(new TextWatcher() {
@@ -709,6 +706,10 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 this.editTextM.setText(requireContext().getText(R.string.linear_congruence_in_two_variables_example_3_m));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
+                return true;
+            }
+            if (id == R.id.menu_documentation) {
+                DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF).show(getParentFragmentManager(), "LINEAR_CONGRUENCE_IN_TWO_VARIABLES_PDF");
                 return true;
             }
         } catch (Exception ex) {

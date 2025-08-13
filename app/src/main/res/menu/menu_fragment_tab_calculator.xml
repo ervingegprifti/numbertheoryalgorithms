@@ -36,10 +36,9 @@
 
     <group android:id="@+id/menu_group_calculator_documentation">
         <item
-            android:id="@+id/menu_calculator_documentation"
+            android:id="@+id/menu_documentation"
             android:title="@string/menu_calculator_documentation"
             android:icon="@drawable/ic_baseline_docs_24"
-            android:orderInCategory="102"
             app:showAsAction="ifRoom" />
     </group>
 </menu>
