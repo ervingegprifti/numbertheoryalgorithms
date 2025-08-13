@@ -192,7 +192,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
             <TextView style="@style/TextViewLabelResultStyle"
-                android:id="@+id/TextViewLabelResult1" android:text="@string/result" />
+                android:id="@+id/TextViewLabelResult1"
+                android:text="@string/result" />
             <TextView style="@style/TextViewLabelElasticStyle"
                 android:id="@+id/TextViewLabelElasticResult1" />
             <TextView style="@style/ClipboardButtonCopyStyle"
@@ -208,11 +209,12 @@
                 android:id="@+id/EditTextResult1" />
         </LinearLayout>
 
+
         <!--Result 2-->
         <LinearLayout
             android:id="@+id/LinearLayoutResult2Labels"
             android:visibility="gone"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -235,6 +237,35 @@
             <EditText style="@style/EditTextResult"
                 android:id="@+id/EditTextResult2" />
         </LinearLayout>
+
+
+        <!--Temporary-->
+        <LinearLayout style="@style/ColumnContainerStyle"
+            android:id="@+id/LinearLayoutTemporaryField"
+            android:layout_marginTop="20dp">
+            <!--TempGroup-->
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelResultStyle"
+                    android:id="@+id/TextViewLabelTemp"
+                    android:text="@string/temp" />
+                <TextView style="@style/TextViewLabelElasticStyle"
+                    android:id="@+id/TextViewLabelElasticTemp" />
+                <TextView style="@style/ClipboardButtonCopyStyle"
+                    android:id="@+id/TextViewCopyTemp" />
+                <TextView style="@style/ClipboardButtonPasteStyle"
+                    android:id="@+id/TextViewPasteTemp" />
+                <TextView style="@style/ClipboardButtonClearStyle"
+                    android:id="@+id/TextViewClearTemp" />
+            </LinearLayout>
+            <LinearLayout style="@style/ResultContainer"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText style="@style/EditTextResult"
+                    android:id="@+id/EditTextTemp" />
+            </LinearLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 </ScrollView>
