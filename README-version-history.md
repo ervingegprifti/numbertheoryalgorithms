@@ -2,10 +2,11 @@
 
 ## New tracked versions
 
-### [3.0.7.1]
-- Added temporary field in calculator for intermediate result storage.
+### [3.0.8.0]
 - Added compact input view mode.
+- Added temporary field in calculator for intermediate result storage.
 - Added input decrease (-) increase (+) buttons.
+- Added a double-tap event on the result to expand it, despite the expand button.
 - Refactored part of the code.
 
 #### Requirements:
