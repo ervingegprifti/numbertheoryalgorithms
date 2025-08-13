@@ -7,6 +7,7 @@
 - Added compact input view mode.
 - Added input decrease (-) increase (+) buttons.
 - Refactored part of the code.
+
 #### Requirements:
 - Minimum Sdk 31 (Android 12 Snow Cone).
 - Switched from AGP 8.11.1 to 8.12.0.

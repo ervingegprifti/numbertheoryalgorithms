@@ -625,9 +625,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
 
             // Result clipboard button events
             textViewExpandResult.setOnClickListener(v -> {
-                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
-                popupResult.show();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+                expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextResult);
@@ -654,6 +652,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                     }
                 }
             });
+            initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -661,6 +660,20 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         return inflater;
     }
     //endregion CREATE
+
+
+    @Override
+    protected void fireOnDoubleTap(View view) {
+        if (view == editTextResult){
+            expandResult();
+            resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+        }
+    }
+    private void expandResult() {
+        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
+        popupResult.show();
+        resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+    }
 
 
     //region MENU

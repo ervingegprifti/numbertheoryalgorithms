@@ -159,7 +159,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     AtomicBoolean isUpdatingEditTextF = new AtomicBoolean(false);
     AtomicBoolean isUpdatingEditTextCompactF = new AtomicBoolean(false);
 
-
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
     //public TabFragmentAlgorithms getFragmentTabAlgorithms() { return tabFragmentAlgorithms; }
@@ -168,6 +167,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     // Important
     // All Fragment classes you create must have a public, no-arg constructor.
     // In general, the best practice is to simply never define any constructors at all and rely on Java to generate the default constructor for you.
+
 
     //region CREATE
     @Nullable
@@ -739,38 +739,23 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Result clipboard button events
-            this.textViewExpandResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (linearLayoutResultContainer.getVisibility() == View.VISIBLE) {
-                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
-                        popupResult.show();
-                    } else if (linearLayoutResultGridContainer1.getVisibility() == View.VISIBLE) {
-                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader1, listViewResult1);
-                        popupResult.show();
-                    } else if (linearLayoutResultGridContainer2.getVisibility() == View.VISIBLE) {
-                        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader2, listViewResult2);
-                        popupResult.show();
-                    }
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
-                }
+            this.textViewExpandResult.setOnClickListener(v -> {
+                expandResult();
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
             });
-            this.textViewCopyResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.copyEditText(requireContext(), editTextResult);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
-                }
+            this.textViewCopyResult.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
             });
-            this.textViewClearResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UIHelper.clearEditText(requireContext(), editTextResult);
-                    resetResult(false);
-                    resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
-                    resetAllAndSelectTheLastButtonClicked();
-                }
+            this.textViewClearResult.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextResult);
+                resetResult(false);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
+                resetAllAndSelectTheLastButtonClicked();
             });
+
+            // Result events
+            initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -778,6 +763,27 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         return inflater;
     }
     //endregion CREATE
+
+
+    @Override
+    protected void fireOnDoubleTap(View view) {
+        if (view == editTextResult){
+            expandResult();
+            resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+        }
+    }
+    private void expandResult() {
+        if (linearLayoutResultContainer.getVisibility() == View.VISIBLE) {
+            PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
+            popupResult.show();
+        } else if (linearLayoutResultGridContainer1.getVisibility() == View.VISIBLE) {
+            PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader1, listViewResult1);
+            popupResult.show();
+        } else if (linearLayoutResultGridContainer2.getVisibility() == View.VISIBLE) {
+            PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader2, listViewResult2);
+            popupResult.show();
+        }
+    }
 
 
     // region MENU

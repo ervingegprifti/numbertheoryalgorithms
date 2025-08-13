@@ -16,9 +16,9 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 		<TextView style="@style/TextViewBack"
-			android:id="@+id/TextViewPrimesListBackToAlgorithms"  />
+			android:id="@+id/TextViewBackToAlgorithms"  />
 		<TextView style="@style/TextViewFragmentTitle"
-			android:id="@+id/TextViewPrimesListTitle"
+			android:id="@+id/TextViewTitle"
 			android:text="@string/primes_list_title"  />
 	</RelativeLayout>
 
@@ -45,18 +45,18 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal">
 			<TextView style="@style/TextViewLabelNoBgStyle"
-				android:id="@+id/TextViewPrimesListLabelColumns"
+				android:id="@+id/TextViewLabelColumns"
 				android:gravity="center_horizontal"
 				android:layout_marginLeft="0dp"
 				android:text="@string/primes_list_columns"
-				android:labelFor="@+id/ButtonPrimesListColumns"
+				android:labelFor="@+id/ButtonColumns"
 				tools:ignore="RtlHardcoded" />
 			<TextView style="@style/TextViewLabelNoBgStyle"
-				android:id="@+id/TextViewPrimesListLabelNumbers"
+				android:id="@+id/TextViewLabelNumbers"
 				android:gravity="center_horizontal"
 				android:layout_marginLeft="0dp"
 				android:text="@string/primes_list_numbers"
-				android:labelFor="@+id/ButtonPrimesListRun"
+				android:labelFor="@+id/ButtonRun"
 				tools:ignore="RtlHardcoded" />
 		</LinearLayout>
 
@@ -66,30 +66,30 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			<Button style="@style/ButtonPillLeftStyle"
-				android:id="@+id/ButtonPrimesListColumnsMinus"
+				android:id="@+id/ButtonColumnsMinus"
 				android:text="@string/primes_list_no_of_columns_minus"/>
 			<Button style="@style/ButtonPillMiddleStyle"
-				android:id="@+id/ButtonPrimesListColumns"
+				android:id="@+id/ButtonColumns"
 				android:text="@string/primes_list_columns_6"
 				android:enabled="false"
 				android:textColor="@color/colorPrimary"
 				android:autofillHints="" />
 			<Button style="@style/ButtonPillRightStyle"
-				android:id="@+id/ButtonPrimesListColumnsPlus"
+				android:id="@+id/ButtonColumnsPlus"
 				android:text="@string/primes_list_no_of_columns_plus"
 				android:layout_marginRight="5dp"
 				tools:ignore="RtlHardcoded" />
 			<Button style="@style/ButtonPillLeftStyle"
-				android:id="@+id/ButtonPrimesListNumbersMinus"
+				android:id="@+id/ButtonNumbersMinus"
 				android:text="@string/primes_list_numbers_minus"
 				android:layout_marginLeft="5dp"
 				android:layout_marginRight="1px"
 				tools:ignore="RtlHardcoded" />
 			<Button style="@style/ButtonPillMiddleStyle"
-				android:id="@+id/ButtonPrimesListRun"
+				android:id="@+id/ButtonRun"
 				android:text="@string/primes_list_numbers_100" />
 			<Button style="@style/ButtonPillRightStyle"
-				android:id="@+id/ButtonPrimesListNumbersPlus"
+				android:id="@+id/ButtonNumbersPlus"
 				android:text="@string/primes_list_numbers_plus"
 				android:layout_marginLeft="1px"
 				tools:ignore="RtlHardcoded" />
@@ -103,13 +103,13 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal">
 			<TextView style="@style/TextViewLabelResultStyle"
-				android:id="@+id/TextViewPrimesListLabelResult" android:text="@string/result" />
+				android:id="@+id/TextViewLabelResult" android:text="@string/result" />
 			<TextView style="@style/TextViewLabelElasticStyle"
-				android:id="@+id/TextViewPrimesListLabelElasticResult" />
+				android:id="@+id/TextViewLabelElasticResult" />
 			<TextView style="@style/ClipboardButtonExpandResultStyle"
-				android:id="@+id/TextViewPrimesListExpandResult" />
+				android:id="@+id/TextViewExpandResult" />
 			<TextView style="@style/ClipboardButtonClearStyle"
-				android:id="@+id/TextViewPrimesListClearResult" />
+				android:id="@+id/TextViewClearResult" />
 		</LinearLayout>
 
 		<LinearLayout style="@style/ResultContainer">
@@ -124,12 +124,12 @@
 					android:layout_height="wrap_content"
 					android:orientation="vertical">
 					<LinearLayout
-						android:id="@+id/LinearLayoutPrimesListStaticColumnHeader"
+						android:id="@+id/LinearLayoutStaticColumnHeader"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:orientation="horizontal"/>
 					<ListView
-						android:id="@+id/ListViewPrimesListResult"
+						android:id="@+id/ListViewResult"
 						android:divider="@android:color/transparent"
 						android:listSelector="@android:color/transparent"
 						android:cacheColorHint="@android:color/transparent"
