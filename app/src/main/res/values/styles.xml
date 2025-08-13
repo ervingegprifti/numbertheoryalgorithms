@@ -43,6 +43,14 @@
         <item name="android:text">@string/fa_expand</item>
         <item name="android:visibility">gone</item>
     </style>
+    <style name="ClipboardButtonMinusStyle" parent="ClipboardButtonStyle">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:text">@string/fa_minus</item>
+    </style>
+    <style name="ClipboardButtonPlusStyle" parent="ClipboardButtonStyle">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:text">@string/fa_plus</item>
+    </style>
     <style name="ClipboardButtonCopyStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
         <!--<item name="android:text">@string/clipboard_copy</item>-->
@@ -133,8 +141,14 @@
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:fontFamily">@font/fa_solid_900</item>
     </style>
+    <style name="ClipboardButtonMinusMiddleCompactStyle" parent="ClipboardButtonMiddleCompactStyle">
+        <item name="android:text">@string/fa_minus</item>
+    </style>
+    <style name="ClipboardButtonPlusMiddleCompactStyle" parent="ClipboardButtonMiddleCompactStyle">
+        <item name="android:text">@string/fa_plus</item>
+    </style>
     <style name="ClipboardButtonCopyMiddleCompactStyle" parent="ClipboardButtonMiddleCompactStyle">
-<!--        <item name="android:text">@string/clipboard_copy</item>-->
+        <!--        <item name="android:text">@string/clipboard_copy</item>-->
         <item name="android:text">@string/fa_copy</item>
     </style>
     <style name="ClipboardButtonPasteMiddleCompactStyle" parent="ClipboardButtonMiddleCompactStyle">

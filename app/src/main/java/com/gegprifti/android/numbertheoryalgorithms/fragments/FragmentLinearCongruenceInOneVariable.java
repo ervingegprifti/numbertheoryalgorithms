@@ -47,18 +47,24 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewLabelA;
     TextView textViewLabelElasticA;
+    TextView textViewMinusA;
+    TextView textViewPlusA;
     TextView textViewCopyA;
     TextView textViewPasteA;
     TextView textViewClearA;
     EditText editTextA;
     TextView textViewLabelB;
     TextView textViewLabelElasticB;
+    TextView textViewMinusB;
+    TextView textViewPlusB;
     TextView textViewCopyB;
     TextView textViewPasteB;
     TextView textViewClearB;
     EditText editTextB;
     TextView textViewLabelM;
     TextView textViewLabelElasticM;
+    TextView textViewMinusM;
+    TextView textViewPlusM;
     TextView textViewCopyM;
     TextView textViewPasteM;
     TextView textViewClearM;
@@ -66,20 +72,26 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     // Compact input view
     LinearLayout linearLayoutCompactInputView;
     TextView textViewLabelCompactA;
+    EditText editTextCompactA;
+    TextView textViewMinusCompactA;
+    TextView textViewPlusCompactA;
     TextView textViewCopyCompactA;
     TextView textViewPasteCompactA;
     TextView textViewClearCompactA;
-    EditText editTextCompactA;
     TextView textViewLabelCompactB;
+    EditText editTextCompactB;
+    TextView textViewMinusCompactB;
+    TextView textViewPlusCompactB;
     TextView textViewCopyCompactB;
     TextView textViewPasteCompactB;
     TextView textViewClearCompactB;
-    EditText editTextCompactB;
     TextView textViewLabelCompactM;
+    EditText editTextCompactM;
+    TextView textViewMinusCompactM;
+    TextView textViewPlusCompactM;
     TextView textViewCopyCompactM;
     TextView textViewPasteCompactM;
     TextView textViewClearCompactM;
-    EditText editTextCompactM;
     // Run buttons
     Button buttonRun;
     Button buttonRunExample1;
@@ -125,18 +137,24 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
             textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
+            textViewPlusA = inflater.findViewById(R.id.TextViewPlusA);
             textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
             textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
             textViewClearA = inflater.findViewById(R.id.TextViewClearA);
             editTextA = inflater.findViewById(R.id.EditTextA);
             textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
             textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewMinusB = inflater.findViewById(R.id.TextViewMinusB);
+            textViewPlusB = inflater.findViewById(R.id.TextViewPlusB);
             textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
             textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
             textViewClearB = inflater.findViewById(R.id.TextViewClearB);
             editTextB = inflater.findViewById(R.id.EditTextB);
             textViewLabelM = inflater.findViewById(R.id.TextViewLabelM);
             textViewLabelElasticM = inflater.findViewById(R.id.TextViewLabelElasticM);
+            textViewMinusM = inflater.findViewById(R.id.TextViewMinusM);
+            textViewPlusM = inflater.findViewById(R.id.TextViewPlusM);
             textViewCopyM = inflater.findViewById(R.id.TextViewCopyM);
             textViewPasteM = inflater.findViewById(R.id.TextViewPasteM);
             textViewClearM = inflater.findViewById(R.id.TextViewClearM);
@@ -144,16 +162,22 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             // Compact input view
             linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
             textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            textViewMinusCompactA = inflater.findViewById(R.id.TextViewMinusCompactA);
+            textViewPlusCompactA = inflater.findViewById(R.id.TextViewPlusCompactA);
             textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
             textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
             textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
             editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
             textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewMinusCompactB = inflater.findViewById(R.id.TextViewMinusCompactB);
+            textViewPlusCompactB = inflater.findViewById(R.id.TextViewPlusCompactB);
             textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
             textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
             textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
             editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
             textViewLabelCompactM = inflater.findViewById(R.id.TextViewLabelCompactM);
+            textViewMinusCompactM = inflater.findViewById(R.id.TextViewMinusCompactM);
+            textViewPlusCompactM = inflater.findViewById(R.id.TextViewPlusCompactM);
             textViewCopyCompactM = inflater.findViewById(R.id.TextViewCopyCompactM);
             textViewPasteCompactM = inflater.findViewById(R.id.TextViewPasteCompactM);
             textViewClearCompactM = inflater.findViewById(R.id.TextViewClearCompactM);
@@ -333,6 +357,14 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             });
 
             // Extended input a clipboard button events
+            textViewMinusA.setOnClickListener(v -> {
+                decreaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusA);
+            });
+            textViewPlusA.setOnClickListener(v -> {
+                increaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
+            });
             textViewCopyA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
@@ -348,6 +380,14 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             });
 
             // Extended input b clipboard button events
+            textViewMinusB.setOnClickListener(v -> {
+                decreaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusB);
+            });
+            textViewPlusB.setOnClickListener(v -> {
+                increaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
+            });
             textViewCopyB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
@@ -363,6 +403,14 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             });
 
             // Extended input m clipboard button events
+            textViewMinusM.setOnClickListener(v -> {
+                decreaseByOne(editTextM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusM);
+            });
+            textViewPlusM.setOnClickListener(v -> {
+                increaseByOne(editTextM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusM);
+            });
             textViewCopyM.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextM);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyM);
@@ -378,6 +426,14 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             });
 
             // Compact input a clipboard button events
+            textViewMinusCompactA.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactA);
+            });
+            textViewPlusCompactA.setOnClickListener(v -> {
+                increaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
+            });
             textViewCopyCompactA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
@@ -393,6 +449,14 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             });
 
             // Compact input b clipboard button events
+            textViewMinusCompactB.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactB);
+            });
+            textViewPlusCompactB.setOnClickListener(v -> {
+                increaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
+            });
             textViewCopyCompactB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
@@ -408,6 +472,14 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             });
 
             // Compact input m clipboard button events
+            textViewMinusCompactM.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactM);
+            });
+            textViewPlusCompactM.setOnClickListener(v -> {
+                increaseByOne(editTextCompactM);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactM);
+            });
             textViewCopyCompactM.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactM);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactM);
@@ -525,6 +597,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
+        refreshShowInputDecreaseIncreaseButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
         refreshBiggerResultDisplay();
@@ -541,6 +614,42 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             } else {
                 linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshShowInputDecreaseIncreaseButtons() {
+        try {
+            boolean showInputDecreaseIncreaseButtons = UserSettings.getShowInputDecreaseIncreaseButtons(requireContext());
+            if (showInputDecreaseIncreaseButtons) {
+                textViewMinusA.setVisibility(View.VISIBLE);
+                textViewPlusA.setVisibility(View.VISIBLE);
+                textViewMinusCompactA.setVisibility(View.VISIBLE);
+                textViewPlusCompactA.setVisibility(View.VISIBLE);
+                textViewMinusB.setVisibility(View.VISIBLE);
+                textViewPlusB.setVisibility(View.VISIBLE);
+                textViewMinusCompactB.setVisibility(View.VISIBLE);
+                textViewPlusCompactB.setVisibility(View.VISIBLE);
+                textViewMinusM.setVisibility(View.VISIBLE);
+                textViewPlusM.setVisibility(View.VISIBLE);
+                textViewMinusCompactM.setVisibility(View.VISIBLE);
+                textViewPlusCompactM.setVisibility(View.VISIBLE);
+            } else {
+                textViewMinusA.setVisibility(View.GONE);
+                textViewPlusA.setVisibility(View.GONE);
+                textViewMinusCompactA.setVisibility(View.GONE);
+                textViewPlusCompactA.setVisibility(View.GONE);
+                textViewMinusB.setVisibility(View.GONE);
+                textViewPlusB.setVisibility(View.GONE);
+                textViewMinusCompactB.setVisibility(View.GONE);
+                textViewPlusCompactB.setVisibility(View.GONE);
+                textViewMinusM.setVisibility(View.GONE);
+                textViewPlusM.setVisibility(View.GONE);
+                textViewMinusCompactM.setVisibility(View.GONE);
+                textViewPlusCompactM.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -573,21 +682,33 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactM, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactM, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactM, biggerControls);
@@ -794,22 +915,34 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
+        textViewMinusA.setSelected(false);
+        textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
         textViewPasteA.setSelected(false);
         textViewClearA.setSelected(false);
+        textViewMinusB.setSelected(false);
+        textViewPlusB.setSelected(false);
         textViewCopyB.setSelected(false);
         textViewPasteB.setSelected(false);
         textViewClearB.setSelected(false);
+        textViewMinusM.setSelected(false);
+        textViewPlusM.setSelected(false);
         textViewCopyM.setSelected(false);
         textViewPasteM.setSelected(false);
         textViewClearM.setSelected(false);
         //
+        textViewMinusCompactA.setSelected(false);
+        textViewPlusCompactA.setSelected(false);
         textViewCopyCompactA.setSelected(false);
         textViewPasteCompactA.setSelected(false);
         textViewClearCompactA.setSelected(false);
+        textViewMinusCompactB.setSelected(false);
+        textViewPlusCompactB.setSelected(false);
         textViewCopyCompactB.setSelected(false);
         textViewPasteCompactB.setSelected(false);
         textViewClearCompactB.setSelected(false);
+        textViewMinusCompactM.setSelected(false);
+        textViewPlusCompactM.setSelected(false);
         textViewCopyCompactM.setSelected(false);
         textViewPasteCompactM.setSelected(false);
         textViewClearCompactM.setSelected(false);

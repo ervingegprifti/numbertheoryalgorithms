@@ -47,38 +47,51 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewLabelA;
     TextView textViewLabelElasticA;
+    TextView textViewMinusA;
+    TextView textViewPlusA;
     TextView textViewCopyA;
     TextView textViewPasteA;
     TextView textViewClearA;
     EditText editTextA;
     TextView textViewLabelB;
     TextView textViewLabelElasticB;
+    TextView textViewMinusB;
+    TextView textViewPlusB;
     TextView textViewCopyB;
     TextView textViewPasteB;
     TextView textViewClearB;
     EditText editTextB;
     TextView textViewLabelC;
     TextView textViewLabelElasticC;
+    TextView textViewMinusC;
+    TextView textViewPlusC;
     TextView textViewCopyC;
     TextView textViewPasteC;
     TextView textViewClearC;
     EditText editTextC;
+    // Compact input view
     LinearLayout linearLayoutCompactInputView;
     TextView textViewLabelCompactA;
+    EditText editTextCompactA;
+    TextView textViewMinusCompactA;
+    TextView textViewPlusCompactA;
     TextView textViewCopyCompactA;
     TextView textViewPasteCompactA;
     TextView textViewClearCompactA;
-    EditText editTextCompactA;
     TextView textViewLabelCompactB;
+    EditText editTextCompactB;
+    TextView textViewMinusCompactB;
+    TextView textViewPlusCompactB;
     TextView textViewCopyCompactB;
     TextView textViewPasteCompactB;
     TextView textViewClearCompactB;
-    EditText editTextCompactB;
     TextView textViewLabelCompactC;
+    EditText editTextCompactC;
+    TextView textViewMinusCompactC;
+    TextView textViewPlusCompactC;
     TextView textViewCopyCompactC;
     TextView textViewPasteCompactC;
     TextView textViewClearCompactC;
-    EditText editTextCompactC;
     // Run buttons
     Button buttonRun;
     Button buttonRunExample1;
@@ -124,18 +137,24 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
             textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
+            textViewPlusA = inflater.findViewById(R.id.TextViewPlusA);
             textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
             textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
             textViewClearA = inflater.findViewById(R.id.TextViewClearA);
             editTextA = inflater.findViewById(R.id.EditTextA);
             textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
             textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewMinusB = inflater.findViewById(R.id.TextViewMinusB);
+            textViewPlusB = inflater.findViewById(R.id.TextViewPlusB);
             textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
             textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
             textViewClearB = inflater.findViewById(R.id.TextViewClearB);
             editTextB = inflater.findViewById(R.id.EditTextB);
             textViewLabelC = inflater.findViewById(R.id.TextViewLabelC);
             textViewLabelElasticC = inflater.findViewById(R.id.TextViewLabelElasticC);
+            textViewMinusC = inflater.findViewById(R.id.TextViewMinusC);
+            textViewPlusC = inflater.findViewById(R.id.TextViewPlusC);
             textViewCopyC = inflater.findViewById(R.id.TextViewCopyC);
             textViewPasteC = inflater.findViewById(R.id.TextViewPasteC);
             textViewClearC = inflater.findViewById(R.id.TextViewClearC);
@@ -143,16 +162,22 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             // Compact input view
             linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
             textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            textViewMinusCompactA = inflater.findViewById(R.id.TextViewMinusCompactA);
+            textViewPlusCompactA = inflater.findViewById(R.id.TextViewPlusCompactA);
             textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
             textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
             textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
             editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
             textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewMinusCompactB = inflater.findViewById(R.id.TextViewMinusCompactB);
+            textViewPlusCompactB = inflater.findViewById(R.id.TextViewPlusCompactB);
             textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
             textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
             textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
             editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
             textViewLabelCompactC = inflater.findViewById(R.id.TextViewLabelCompactC);
+            textViewMinusCompactC = inflater.findViewById(R.id.TextViewMinusCompactC);
+            textViewPlusCompactC = inflater.findViewById(R.id.TextViewPlusCompactC);
             textViewCopyCompactC = inflater.findViewById(R.id.TextViewCopyCompactC);
             textViewPasteCompactC = inflater.findViewById(R.id.TextViewPasteCompactC);
             textViewClearCompactC = inflater.findViewById(R.id.TextViewClearCompactC);
@@ -332,6 +357,14 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             });
 
             // Extended input a clipboard button events
+            textViewMinusA.setOnClickListener(v -> {
+                decreaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusA);
+            });
+            textViewPlusA.setOnClickListener(v -> {
+                increaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
+            });
             textViewCopyA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
@@ -347,6 +380,14 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             });
 
             // Extended input b clipboard button events
+            textViewMinusB.setOnClickListener(v -> {
+                decreaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusB);
+            });
+            textViewPlusB.setOnClickListener(v -> {
+                increaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
+            });
             textViewCopyB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
@@ -359,6 +400,16 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 UIHelper.clearEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearB);
                 resetAllAndSelectTheLastButtonClicked();
+            });
+
+            // Extended input c clipboard button events
+            textViewMinusC.setOnClickListener(v -> {
+                decreaseByOne(editTextC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusC);
+            });
+            textViewPlusC.setOnClickListener(v -> {
+                increaseByOne(editTextC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusC);
             });
             textViewCopyC.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextC);
@@ -375,6 +426,14 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             });
 
             // Compact input a clipboard button events
+            textViewMinusCompactA.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactA);
+            });
+            textViewPlusCompactA.setOnClickListener(v -> {
+                increaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
+            });
             textViewCopyCompactA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
@@ -390,6 +449,14 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             });
 
             // Compact input b clipboard button events
+            textViewMinusCompactB.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactB);
+            });
+            textViewPlusCompactB.setOnClickListener(v -> {
+                increaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
+            });
             textViewCopyCompactB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
@@ -405,6 +472,14 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             });
 
             // Compact input c clipboard button events
+            textViewMinusCompactC.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactC);
+            });
+            textViewPlusCompactC.setOnClickListener(v -> {
+                increaseByOne(editTextCompactC);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactC);
+            });
             textViewCopyCompactC.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactC);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactC);
@@ -522,6 +597,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
+        refreshShowInputDecreaseIncreaseButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
         refreshBiggerResultDisplay();
@@ -538,6 +614,42 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             } else {
                 linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshShowInputDecreaseIncreaseButtons() {
+        try {
+            boolean showInputDecreaseIncreaseButtons = UserSettings.getShowInputDecreaseIncreaseButtons(requireContext());
+            if (showInputDecreaseIncreaseButtons) {
+                textViewMinusA.setVisibility(View.VISIBLE);
+                textViewPlusA.setVisibility(View.VISIBLE);
+                textViewMinusCompactA.setVisibility(View.VISIBLE);
+                textViewPlusCompactA.setVisibility(View.VISIBLE);
+                textViewMinusB.setVisibility(View.VISIBLE);
+                textViewPlusB.setVisibility(View.VISIBLE);
+                textViewMinusCompactB.setVisibility(View.VISIBLE);
+                textViewPlusCompactB.setVisibility(View.VISIBLE);
+                textViewMinusC.setVisibility(View.VISIBLE);
+                textViewPlusC.setVisibility(View.VISIBLE);
+                textViewMinusCompactC.setVisibility(View.VISIBLE);
+                textViewPlusCompactC.setVisibility(View.VISIBLE);
+            } else {
+                textViewMinusA.setVisibility(View.GONE);
+                textViewPlusA.setVisibility(View.GONE);
+                textViewMinusCompactA.setVisibility(View.GONE);
+                textViewPlusCompactA.setVisibility(View.GONE);
+                textViewMinusB.setVisibility(View.GONE);
+                textViewPlusB.setVisibility(View.GONE);
+                textViewMinusCompactB.setVisibility(View.GONE);
+                textViewPlusCompactB.setVisibility(View.GONE);
+                textViewMinusC.setVisibility(View.GONE);
+                textViewPlusC.setVisibility(View.GONE);
+                textViewMinusCompactC.setVisibility(View.GONE);
+                textViewPlusCompactC.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -570,21 +682,33 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusC, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyC, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteC, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactC, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactC, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactC, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactC, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactC, biggerControls);
@@ -785,22 +909,34 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
+        textViewMinusA.setSelected(false);
+        textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
         textViewPasteA.setSelected(false);
         textViewClearA.setSelected(false);
+        textViewMinusB.setSelected(false);
+        textViewPlusB.setSelected(false);
         textViewCopyB.setSelected(false);
         textViewPasteB.setSelected(false);
         textViewClearB.setSelected(false);
+        textViewMinusC.setSelected(false);
+        textViewPlusC.setSelected(false);
         textViewCopyC.setSelected(false);
         textViewPasteC.setSelected(false);
         textViewClearC.setSelected(false);
         //
+        textViewMinusCompactA.setSelected(false);
+        textViewPlusCompactA.setSelected(false);
         textViewCopyCompactA.setSelected(false);
         textViewPasteCompactA.setSelected(false);
         textViewClearCompactA.setSelected(false);
+        textViewMinusCompactB.setSelected(false);
+        textViewPlusCompactB.setSelected(false);
         textViewCopyCompactB.setSelected(false);
         textViewPasteCompactB.setSelected(false);
         textViewClearCompactB.setSelected(false);
+        textViewMinusCompactC.setSelected(false);
+        textViewPlusCompactC.setSelected(false);
         textViewCopyCompactC.setSelected(false);
         textViewPasteCompactC.setSelected(false);
         textViewClearCompactC.setSelected(false);

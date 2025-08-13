@@ -49,12 +49,16 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewLabelN;
     TextView textViewLabelElasticN;
+    TextView textViewMinusN;
+    TextView textViewPlusN;
     TextView textViewCopyN;
     TextView textViewPasteN;
     TextView textViewClearN;
     EditText editTextN;
     TextView textViewLabelA;
     TextView textViewLabelElasticA;
+    TextView textViewMinusA;
+    TextView textViewPlusA;
     TextView textViewCopyA;
     TextView textViewPasteA;
     TextView textViewClearA;
@@ -62,15 +66,19 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     // Compact input view
     LinearLayout linearLayoutCompactInputView;
     TextView textViewLabelCompactN;
+    EditText editTextCompactN;
+    TextView textViewMinusCompactN;
+    TextView textViewPlusCompactN;
     TextView textViewCopyCompactN;
     TextView textViewPasteCompactN;
     TextView textViewClearCompactN;
-    EditText editTextCompactN;
     TextView textViewLabelCompactA;
+    EditText editTextCompactA;
+    TextView textViewMinusCompactA;
+    TextView textViewPlusCompactA;
     TextView textViewCopyCompactA;
     TextView textViewPasteCompactA;
     TextView textViewClearCompactA;
-    EditText editTextCompactA;
     // Example run buttons
     LinearLayout linearLayoutExamplesContainer;
     Button buttonRunExample1;
@@ -120,12 +128,16 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelN = inflater.findViewById(R.id.TextViewLabelN);
             textViewLabelElasticN = inflater.findViewById(R.id.TextViewLabelElasticN);
+            textViewMinusN = inflater.findViewById(R.id.TextViewMinusN);
+            textViewPlusN = inflater.findViewById(R.id.TextViewPlusN);
             textViewCopyN = inflater.findViewById(R.id.TextViewCopyN);
             textViewPasteN = inflater.findViewById(R.id.TextViewPasteN);
             textViewClearN = inflater.findViewById(R.id.TextViewClearN);
             editTextN = inflater.findViewById(R.id.EditTextN);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
             textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
+            textViewPlusA = inflater.findViewById(R.id.TextViewPlusA);
             textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
             textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
             textViewClearA = inflater.findViewById(R.id.TextViewClearA);
@@ -133,15 +145,19 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Compact input view
             linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
             textViewLabelCompactN = inflater.findViewById(R.id.TextViewLabelCompactN);
+            editTextCompactN = inflater.findViewById(R.id.EditTextCompactN);
+            textViewMinusCompactN = inflater.findViewById(R.id.TextViewMinusCompactN);
+            textViewPlusCompactN = inflater.findViewById(R.id.TextViewPlusCompactN);
             textViewCopyCompactN = inflater.findViewById(R.id.TextViewCopyCompactN);
             textViewPasteCompactN = inflater.findViewById(R.id.TextViewPasteCompactN);
             textViewClearCompactN = inflater.findViewById(R.id.TextViewClearCompactN);
-            editTextCompactN = inflater.findViewById(R.id.EditTextCompactN);
             textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
+            textViewMinusCompactA = inflater.findViewById(R.id.TextViewMinusCompactA);
+            textViewPlusCompactA = inflater.findViewById(R.id.TextViewPlusCompactA);
             textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
             textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
             textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
-            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
             // Example run buttons
             this.linearLayoutExamplesContainer = inflater.findViewById(R.id.LinearLayoutExamplesContainer);
             this.buttonRunExample1 = inflater.findViewById(R.id.ButtonRunExample1);
@@ -275,6 +291,14 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             });
 
             // Extended input n clipboard button events
+            textViewMinusN.setOnClickListener(v -> {
+                decreaseByOne(editTextN);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusN);
+            });
+            textViewPlusN.setOnClickListener(v -> {
+                increaseByOne(editTextN);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusN);
+            });
             textViewCopyN.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextN);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyN);
@@ -290,6 +314,14 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             });
 
             // Extended input a clipboard button events
+            textViewMinusA.setOnClickListener(v -> {
+                decreaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusA);
+            });
+            textViewPlusA.setOnClickListener(v -> {
+                increaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
+            });
             textViewCopyA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
@@ -304,7 +336,15 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastButtonClicked();
             });
 
-            // Compact input b clipboard button events
+            // Compact input n clipboard button events
+            textViewMinusCompactN.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactN);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactN);
+            });
+            textViewPlusCompactN.setOnClickListener(v -> {
+                increaseByOne(editTextCompactN);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactN);
+            });
             textViewCopyCompactN.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactN);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactN);
@@ -320,6 +360,14 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             });
 
             // Compact input a clipboard button events
+            textViewMinusCompactA.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactA);
+            });
+            textViewPlusCompactA.setOnClickListener(v -> {
+                increaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
+            });
             textViewCopyCompactA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
@@ -461,6 +509,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
+        refreshShowInputDecreaseIncreaseButtons();
         this.refreshBiggerControls();
         this.refreshHideExampleButtons();
         refreshBiggerResultDisplay();
@@ -477,6 +526,34 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             } else {
                 linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshShowInputDecreaseIncreaseButtons() {
+        try {
+            boolean showInputDecreaseIncreaseButtons = UserSettings.getShowInputDecreaseIncreaseButtons(requireContext());
+            if (showInputDecreaseIncreaseButtons) {
+                textViewMinusN.setVisibility(View.VISIBLE);
+                textViewPlusN.setVisibility(View.VISIBLE);
+                textViewMinusCompactN.setVisibility(View.VISIBLE);
+                textViewPlusCompactN.setVisibility(View.VISIBLE);
+                textViewMinusA.setVisibility(View.VISIBLE);
+                textViewPlusA.setVisibility(View.VISIBLE);
+                textViewMinusCompactA.setVisibility(View.VISIBLE);
+                textViewPlusCompactA.setVisibility(View.VISIBLE);
+            } else {
+                textViewMinusN.setVisibility(View.GONE);
+                textViewPlusN.setVisibility(View.GONE);
+                textViewMinusCompactN.setVisibility(View.GONE);
+                textViewPlusCompactN.setVisibility(View.GONE);
+                textViewMinusA.setVisibility(View.GONE);
+                textViewPlusA.setVisibility(View.GONE);
+                textViewMinusCompactA.setVisibility(View.GONE);
+                textViewPlusCompactA.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -505,15 +582,23 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusN, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearN, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactN, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactN, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
@@ -763,15 +848,23 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
+        textViewMinusN.setSelected(false);
+        textViewPlusN.setSelected(false);
         textViewCopyN.setSelected(false);
         textViewPasteN.setSelected(false);
         textViewClearN.setSelected(false);
+        textViewMinusA.setSelected(false);
+        textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
         textViewPasteA.setSelected(false);
         textViewClearA.setSelected(false);
+        textViewMinusCompactN.setSelected(false);
+        textViewPlusCompactN.setSelected(false);
         textViewCopyCompactN.setSelected(false);
         textViewPasteCompactN.setSelected(false);
         textViewClearCompactN.setSelected(false);
+        textViewMinusCompactA.setSelected(false);
+        textViewPlusCompactA.setSelected(false);
         textViewCopyCompactA.setSelected(false);
         textViewPasteCompactA.setSelected(false);
         textViewClearCompactA.setSelected(false);

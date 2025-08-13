@@ -21,4 +21,6 @@
     <string name="fa_paste" translatable="false">&#xf0ea;</string>
     <string name="fa_clipboard" translatable="false">&#xf328;</string>
     <string name="fa_eraser" translatable="false">&#xf12d;</string>
+    <string name="fa_minus" translatable="false">&#xf068;</string>
+    <string name="fa_plus" translatable="false">&#x2b;</string>
 </resources>
