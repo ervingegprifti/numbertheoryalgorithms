@@ -267,6 +267,33 @@
         </LinearLayout>
 
 
+        <!--History-->
+        <LinearLayout style="@style/ColumnContainerStyle"
+            android:id="@+id/LinearLayoutHistory"
+            android:layout_marginTop="20dp">
+            <!--HistoryGroup-->
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelResultStyle"
+                    android:id="@+id/TextViewLabelHistory"
+                    android:text="@string/history" />
+                <TextView style="@style/TextViewLabelElasticStyle"
+                    android:id="@+id/TextViewLabelElasticHistory" />
+                <TextView style="@style/ClipboardButtonCopyStyle"
+                    android:id="@+id/TextViewCopyHistory" />
+                <TextView style="@style/ClipboardButtonClearStyle"
+                    android:id="@+id/TextViewClearHistory" />
+            </LinearLayout>
+            <LinearLayout style="@style/ResultContainer">
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText style="@style/EditTextHistoryStyle"
+                        android:id="@+id/EditTextHistory"
+                        android:autofillHints=""/>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
 

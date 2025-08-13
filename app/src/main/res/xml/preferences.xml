@@ -47,6 +47,13 @@
             app:defaultValue="false"
             app:icon="@drawable/ic_baseline_outline_assignment_24"
             app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="ENABLE_RESULTS_HISTORY_IN_CALCULATOR"
+            app:title="@string/settings_enable_results_history_in_calculator"
+            app:summary="@string/settings_enable_results_history_in_calculator_description"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_outline_clock_arrow_up_24"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
 
 
