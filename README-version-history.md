@@ -3,8 +3,9 @@
 ## New tracked versions
 
 ### [3.0.7.1]
-- Implemented the compact input view mode.
-- Implemented show input decrease (-) increase (+) buttons.
+- Added temporary field in calculator for intermediate result storage.
+- Added compact input view mode.
+- Added input decrease (-) increase (+) buttons.
 - Refactored part of the code.
 #### Requirements:
 - Minimum Sdk 31 (Android 12 Snow Cone).
