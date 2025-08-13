@@ -20,4 +20,12 @@
             android:title="@string/euclidean_algorithm_menu_example_4"
             app:showAsAction="never"/>
     </group>
+
+    <group android:id="@+id/menu_group_calculator_documentation">
+        <item
+            android:id="@+id/menu_documentation"
+            android:title="@string/menu_calculator_documentation"
+            android:icon="@drawable/ic_baseline_docs_24"
+            app:showAsAction="ifRoom" />
+    </group>
 </menu>

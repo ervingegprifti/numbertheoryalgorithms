@@ -21,8 +21,6 @@
 		<TextView style="@style/TextViewFragmentTitle"
             android:id="@+id/TextViewTitle"
             android:text="@string/mod_factors_title" />
-        <TextView style="@style/TextViewDocumentationFile"
-            android:id="@+id/TextViewDocumentationFile" />
 	</RelativeLayout>
 
     <ScrollView

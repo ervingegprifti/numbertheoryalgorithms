@@ -20,8 +20,6 @@
             android:id="@+id/TextViewBackToAlgorithms" />
 		<TextView style="@style/TextViewFragmentTitle"
             android:id="@+id/TextViewTitle" android:text="@string/tonelli_shanks_algorithm_title" />
-        <TextView style="@style/TextViewDocumentationFile"
-            android:id="@+id/TextViewDocumentationFile" />
 	</RelativeLayout>
 
     <ScrollView

@@ -454,7 +454,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 Intent intent = new Intent(requireActivity(), AboutActivity.class);
                 startActivity(intent);
                 return true;
-            } else if (id == R.id.menu_calculator_documentation) {
+            } else if (id == R.id.menu_documentation) {
                 DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.CALCULATOR_PDF).show(getParentFragmentManager(), "CALCULATOR_PDF");
                 return true;
             } else if (id == R.id.menu_rsa_100) {
