@@ -21,8 +21,6 @@
         <TextView style="@style/TextViewFragmentTitle"
 			android:id="@+id/TextViewTitle"
 			android:text="@string/extended_euclidean_algorithm_title" />
-        <TextView style="@style/TextViewDocumentationFile"
-			android:id="@+id/TextViewDocumentationFile" />
 	</RelativeLayout>
 
 	<ScrollView

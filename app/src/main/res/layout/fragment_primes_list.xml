@@ -20,8 +20,6 @@
 		<TextView style="@style/TextViewFragmentTitle"
 			android:id="@+id/TextViewPrimesListTitle"
 			android:text="@string/primes_list_title"  />
-		<TextView style="@style/TextViewDocumentationFile"
-			android:id="@+id/TextViewPrimesListDocumentationFile"  />
 	</RelativeLayout>
 
 	<LinearLayout

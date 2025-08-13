@@ -47,7 +47,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewDocumentationFile;
     // Cache view state
     boolean isCompactInputView = false;
     // Extended input view
@@ -180,7 +179,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Navigation controls
             this.textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            this.textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
             // Extended input view
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
@@ -297,7 +295,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            this.textViewDocumentationFile.setOnClickListener(v -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.QUADRATIC_FORM_PDF).show(getParentFragmentManager(), "QUADRATIC_FORM_PDF"));
 
             // Extended input events
             editTextB.addTextChangedListener(new TextWatcher() {
@@ -787,7 +784,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
         try {
-            menuInflater.inflate(R.menu.menu_fragment_quadratic_form, menu);
+            menuInflater.inflate(R.menu.menu_fragment_binary_quadratic_form, menu);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -918,6 +915,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
                 resetResult(true);
+                return true;
+            }
+            if (id == R.id.menu_documentation) {
+                DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.BINARY_QUADRATIC_FORM_PDF).show(getParentFragmentManager(), "BINARY_QUADRATIC_FORM_PDF");
                 return true;
             }
         } catch (Exception ex) {

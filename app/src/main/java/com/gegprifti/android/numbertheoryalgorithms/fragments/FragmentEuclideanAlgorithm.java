@@ -40,7 +40,6 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
     // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewDocumentationFile;
     // Cache view state
     boolean isCompactInputView = false;
     // Extended input view
@@ -116,7 +115,6 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             // Navigation controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
             // Extended input view
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
@@ -180,7 +178,6 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.EUCLIDEAN_ALGORITHM_PDF).show(getParentFragmentManager(), "EUCLIDEAN_ALGORITHM_PDF"));
 
             // Extended input events
             editTextA.addTextChangedListener(new TextWatcher() {
@@ -461,6 +458,10 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                 this.editTextB.setText(requireContext().getText(R.string.euclidean_algorithm_example_4_b));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
                 resetResult(true);
+                return true;
+            }
+            if (id == R.id.menu_documentation) {
+                DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.EUCLIDEAN_ALGORITHM_PDF).show(getParentFragmentManager(), "EUCLIDEAN_ALGORITHM_PDF");
                 return true;
             }
         } catch (Exception ex) {

@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
@@ -41,7 +40,6 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewDocumentationFile;
     // Cache view state
     boolean isCompactInputView = false;
     // Extended input view
@@ -116,7 +114,6 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             // Navigation controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
             // Extended input view
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
@@ -179,7 +176,6 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.EXTENDED_EUCLIDEAN_ALGORITHM_PDF).show(getParentFragmentManager(), "EXTENDED_EUCLIDEAN_ALGORITHM_PDF"));
 
             // Extended input events
             editTextA.addTextChangedListener(new TextWatcher() {
@@ -452,6 +448,10 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 this.editTextB.setText(requireContext().getText(R.string.extended_euclidean_algorithm_example_3_b));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
+                return true;
+            }
+            if (id == R.id.menu_documentation) {
+                DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.EXTENDED_EUCLIDEAN_ALGORITHM_PDF).show(getParentFragmentManager(), "EXTENDED_EUCLIDEAN_ALGORITHM_PDF");
                 return true;
             }
         } catch (Exception ex) {

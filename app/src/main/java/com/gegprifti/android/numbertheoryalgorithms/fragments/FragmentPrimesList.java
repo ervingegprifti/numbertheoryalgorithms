@@ -39,7 +39,6 @@ import java.util.List;
 
 public class FragmentPrimesList extends FragmentBase implements Callback {
     private final static String TAG = FragmentPrimesList.class.getSimpleName();
-
     private TextView textViewPrimesListTitle;
     private TextView textViewPrimesListLabelColumns;
     private TextView textViewPrimesListLabelNumbers;
@@ -81,7 +80,6 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
             TextView textViewPrimesListBackToAlgorithms = inflater.findViewById(R.id.TextViewPrimesListBackToAlgorithms);
             this.textViewPrimesListTitle = inflater.findViewById(R.id.TextViewPrimesListTitle);
-            TextView textViewPrimesListDocumentationFile = inflater.findViewById(R.id.TextViewPrimesListDocumentationFile);
             this.textViewPrimesListLabelColumns = inflater.findViewById(R.id.TextViewPrimesListLabelColumns);
             this.textViewPrimesListLabelNumbers = inflater.findViewById(R.id.TextViewPrimesListLabelNumbers);
             this.buttonPrimesListColumnsMinus = inflater.findViewById(R.id.ButtonPrimesListColumnsMinus);
@@ -105,7 +103,6 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewPrimesListDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.PRIMES_LIST_PDF).show(getParentFragmentManager(), "PRIMES_LIST_PDF"));
             buttonPrimesListColumnsMinus.setOnClickListener(view -> {
                 String textValue = buttonPrimesListColumns.getText().toString();
                 if (textValue.isEmpty()) {
@@ -208,11 +205,11 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     //region MENU
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-        //try {
-        //    menuInflater.inflate(R.menu.menu_to_inflate_here, menu);
-        //} catch (Exception ex) {
-        //    Log.e(TAG, "" + ex);
-        //}
+        try {
+            menuInflater.inflate(R.menu.menu_fragment_primes_list, menu);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
     }
 
     @Override
@@ -220,8 +217,16 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
-        // Handle menu item clicks here based on their ID.
+        try {
+            // Handle menu item clicks here based on their ID.
+            int id = menuItem.getItemId();
+            if (id == R.id.menu_documentation) {
+                DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.PRIMES_LIST_PDF).show(getParentFragmentManager(), "PRIMES_LIST_PDF");
+                return true;
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
 
         // If the menu item was not handled by this fragment, return false
         // so that the hosting Activity or other MenuProviders can handle it.
@@ -398,15 +403,11 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
     //region RESULT
     private void beforeActionPerforming(Button button) {
-        // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
-        // Clear the focus.
         buttonPrimesListColumns.clearFocus();
-        // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
-        // Reset the last clipboard clicked.
         textViewPrimesListExpandResult.setSelected(false);
         textViewPrimesListClearResult.setSelected(false);
         // Select he last clipboard clicked.
@@ -415,7 +416,6 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         }
     }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
-        // Reset the last button clicked.
         buttonPrimesListColumnsMinus.setSelected(false);
         buttonPrimesListColumnsPlus.setSelected(false);
         buttonPrimesListNumbersMinus.setSelected(false);
@@ -430,14 +430,10 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         }
     }
     private void resetResult() {
-        // Reset the last clipboard clicked.
         resetAllAndSelectTheLastClipboardButtonClicked(null);
-        // Reset the last button clicked.
         resetAllAndSelectTheLastButtonClicked(null);
-        //
         linearLayoutPrimesListStaticColumnHeader.removeAllViews();
         listViewPrimesListResult.setAdapter(null);
     }
     //endregion RESULT
-
 }

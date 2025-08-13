@@ -42,7 +42,6 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewDocumentationFile;
     // Cache view state
     boolean isCompactInputView = false;
     // Extended input view
@@ -123,7 +122,6 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Navigation controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            textViewDocumentationFile = inflater.findViewById(R.id.TextViewDocumentationFile);
             // Extended input view
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelN = inflater.findViewById(R.id.TextViewLabelN);
@@ -192,7 +190,6 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewDocumentationFile.setOnClickListener(view -> DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.MOD_FACTORS_PDF).show(getParentFragmentManager(), "MOD_FACTORS_PDF"));
 
             // Extended input events
             editTextN.addTextChangedListener(new TextWatcher() {
@@ -492,6 +489,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_6_a));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_6));
                 resetResult(true);
+                return true;
+            }
+            if (id == R.id.menu_documentation) {
+                DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.MOD_FACTORS_PDF).show(getParentFragmentManager(), "MOD_FACTORS_PDF");
                 return true;
             }
         } catch (Exception ex) {
