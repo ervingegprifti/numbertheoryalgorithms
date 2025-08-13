@@ -122,19 +122,13 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             });
             this.buttonPrimesListColumns.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
                 @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
                 @Override
                 public void afterTextChanged(Editable editable) {
                     resetResult();
-                    // Reset the last clipboard button clicked.
                     resetAllAndSelectTheLastClipboardButtonClicked(null);
-                    // Reset the last button clicked.
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
@@ -169,19 +163,13 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             this.buttonPrimesListRun.setOnClickListener(view -> onButtonRun(container, buttonPrimesListRun));
             this.buttonPrimesListRun.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
                     resetResult();
-                    // Reset the last clipboard button clicked.
                     resetAllAndSelectTheLastClipboardButtonClicked(null);
-                    // Reset the last button clicked.
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
@@ -207,7 +195,6 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             textViewPrimesListClearResult.setOnClickListener(view -> {
                 this.resetResult();
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPrimesListClearResult);
-                // Reset the last button clicked.
                 resetAllAndSelectTheLastButtonClicked(null);
             });
         } catch (Exception ex) {

@@ -1,11 +1,14 @@
 package com.gegprifti.android.numbertheoryalgorithms.fragments.common;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuHost;
@@ -15,8 +18,13 @@ import androidx.lifecycle.Lifecycle;
 
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressManager;
 
+import java.math.BigInteger;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 
 public abstract class FragmentBase extends Fragment implements MenuProvider {
+    protected static final BigInteger ONE = BigInteger.ONE;
     protected ProgressManager progressManager;
 
 
@@ -51,5 +59,47 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
         MenuHost menuHost = requireActivity();
         // Add this Fragment as the MenuProvider
         menuHost.addMenuProvider(this, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+    }
+
+
+    /**
+     * Decrease the integer value by one.
+     * @param editText The edit text to decrease the integer value by one.
+     */
+    protected void decreaseByOne(EditText editText) {
+        String textValue = editText.getText().toString();
+        if (textValue.isEmpty()) {
+            editText.setText("0");
+        } else {
+            try {
+                BigInteger value = new BigInteger(textValue);
+                value = value.subtract(ONE);
+                String newTextValue = value.toString();
+                editText.setText(newTextValue);
+            } catch (NumberFormatException ex) {
+                UIHelper.showCustomToastError(requireContext(), "Input value not a number");
+            }
+        }
+    }
+
+
+    /**
+     * Increase the integer value by one.
+     * @param editText The edit text to increase the integer value by one.
+     */
+    protected void increaseByOne(EditText editText) {
+        String textValue = editText.getText().toString();
+        if (textValue.isEmpty()) {
+            editText.setText("0");
+        } else {
+            try {
+                BigInteger value = new BigInteger(textValue);
+                value = value.add(ONE);
+                String newTextValue = value.toString();
+                editText.setText(newTextValue);
+            } catch (NumberFormatException ex) {
+                UIHelper.showCustomToastError(requireContext(), "Input value not a number");
+            }
+        }
     }
 }

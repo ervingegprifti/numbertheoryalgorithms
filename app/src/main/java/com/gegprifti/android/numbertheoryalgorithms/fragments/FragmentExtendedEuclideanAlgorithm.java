@@ -48,12 +48,16 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewLabelA;
     TextView textViewLabelElasticA;
+    TextView textViewMinusA;
+    TextView textViewPlusA;
     TextView textViewCopyA;
     TextView textViewPasteA;
     TextView textViewClearA;
     EditText editTextA;
     TextView textViewLabelB;
     TextView textViewLabelElasticB;
+    TextView textViewMinusB;
+    TextView textViewPlusB;
     TextView textViewCopyB;
     TextView textViewPasteB;
     TextView textViewClearB;
@@ -61,15 +65,19 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     // Compact input view
     LinearLayout linearLayoutCompactInputView;
     TextView textViewLabelCompactA;
+    EditText editTextCompactA;
+    TextView textViewMinusCompactA;
+    TextView textViewPlusCompactA;
     TextView textViewCopyCompactA;
     TextView textViewPasteCompactA;
     TextView textViewClearCompactA;
-    EditText editTextCompactA;
     TextView textViewLabelCompactB;
+    EditText editTextCompactB;
+    TextView textViewMinusCompactB;
+    TextView textViewPlusCompactB;
     TextView textViewCopyCompactB;
     TextView textViewPasteCompactB;
     TextView textViewClearCompactB;
-    EditText editTextCompactB;
     // Run buttons
     Button buttonRun;
     Button buttonRunExample1;
@@ -113,12 +121,16 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
             textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
+            textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
+            textViewPlusA = inflater.findViewById(R.id.TextViewPlusA);
             textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
             textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
             textViewClearA = inflater.findViewById(R.id.TextViewClearA);
             editTextA = inflater.findViewById(R.id.EditTextA);
             textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
             textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewMinusB = inflater.findViewById(R.id.TextViewMinusB);
+            textViewPlusB = inflater.findViewById(R.id.TextViewPlusB);
             textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
             textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
             textViewClearB = inflater.findViewById(R.id.TextViewClearB);
@@ -126,11 +138,15 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             // Compact input view
             linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
             textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            textViewMinusCompactA = inflater.findViewById(R.id.TextViewMinusCompactA);
+            textViewPlusCompactA = inflater.findViewById(R.id.TextViewPlusCompactA);
             textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
             textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
             textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
             editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
             textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            textViewMinusCompactB = inflater.findViewById(R.id.TextViewMinusCompactB);
+            textViewPlusCompactB = inflater.findViewById(R.id.TextViewPlusCompactB);
             textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
             textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
             textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
@@ -262,6 +278,14 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             });
 
             // Extended input a clipboard button events
+            textViewMinusA.setOnClickListener(v -> {
+                decreaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusA);
+            });
+            textViewPlusA.setOnClickListener(v -> {
+                increaseByOne(editTextA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
+            });
             textViewCopyA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
@@ -277,6 +301,14 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             });
 
             // Extended input b clipboard button events
+            textViewMinusB.setOnClickListener(v -> {
+                decreaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusB);
+            });
+            textViewPlusB.setOnClickListener(v -> {
+                increaseByOne(editTextB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
+            });
             textViewCopyB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
@@ -292,6 +324,14 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             });
 
             // Compact input a clipboard button events
+            textViewMinusCompactA.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactA);
+            });
+            textViewPlusCompactA.setOnClickListener(v -> {
+                increaseByOne(editTextCompactA);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
+            });
             textViewCopyCompactA.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
@@ -307,6 +347,14 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             });
 
             // Compact input b clipboard button events
+            textViewMinusCompactB.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactB);
+            });
+            textViewPlusCompactB.setOnClickListener(v -> {
+                increaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
+            });
             textViewCopyCompactB.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
@@ -421,6 +469,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     public void onResume() {
         super.onResume();
         refreshInputViewMode();
+        refreshShowInputDecreaseIncreaseButtons();
         refreshBiggerControls();
         refreshHideExampleButtons();
         refreshBiggerResultDisplay();
@@ -437,6 +486,34 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             } else {
                 linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshShowInputDecreaseIncreaseButtons() {
+        try {
+            boolean showInputDecreaseIncreaseButtons = UserSettings.getShowInputDecreaseIncreaseButtons(requireContext());
+            if (showInputDecreaseIncreaseButtons) {
+                textViewMinusA.setVisibility(View.VISIBLE);
+                textViewPlusA.setVisibility(View.VISIBLE);
+                textViewMinusCompactA.setVisibility(View.VISIBLE);
+                textViewPlusCompactA.setVisibility(View.VISIBLE);
+                textViewMinusB.setVisibility(View.VISIBLE);
+                textViewPlusB.setVisibility(View.VISIBLE);
+                textViewMinusCompactB.setVisibility(View.VISIBLE);
+                textViewPlusCompactB.setVisibility(View.VISIBLE);
+            } else {
+                textViewMinusA.setVisibility(View.GONE);
+                textViewPlusA.setVisibility(View.GONE);
+                textViewMinusCompactA.setVisibility(View.GONE);
+                textViewPlusCompactA.setVisibility(View.GONE);
+                textViewMinusB.setVisibility(View.GONE);
+                textViewPlusB.setVisibility(View.GONE);
+                textViewMinusCompactB.setVisibility(View.GONE);
+                textViewPlusCompactB.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -469,15 +546,23 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
@@ -653,15 +738,23 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
         // Reset the last clipboard clicked.
+        textViewMinusA.setSelected(false);
+        textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
         textViewPasteA.setSelected(false);
         textViewClearA.setSelected(false);
+        textViewMinusB.setSelected(false);
+        textViewPlusB.setSelected(false);
         textViewCopyB.setSelected(false);
         textViewPasteB.setSelected(false);
         textViewClearB.setSelected(false);
+        textViewMinusCompactA.setSelected(false);
+        textViewPlusCompactA.setSelected(false);
         textViewCopyCompactA.setSelected(false);
         textViewPasteCompactA.setSelected(false);
         textViewClearCompactA.setSelected(false);
+        textViewMinusCompactB.setSelected(false);
+        textViewPlusCompactB.setSelected(false);
         textViewCopyCompactB.setSelected(false);
         textViewPasteCompactB.setSelected(false);
         textViewClearCompactB.setSelected(false);

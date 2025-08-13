@@ -33,6 +33,13 @@
             app:defaultValue="false"
             app:icon="@drawable/ic_baseline_crop_square_24"
             app:iconSpaceReserved="true" />
+        <SwitchPreferenceCompat
+            app:key="SHOW_INPUT_DECREASE_INCREASE_BUTTONS"
+            app:title="@string/settings_show_input_decrease_increase_buttons"
+            app:summary="@string/settings_show_input_decrease_increase_buttons_description"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_outline_arrows_outward_24"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
 
 

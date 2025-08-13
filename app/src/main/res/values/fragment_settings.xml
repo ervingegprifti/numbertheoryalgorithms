@@ -11,6 +11,8 @@
     <string name="settings_bigger_result_display_description">Increases the size of the result display.</string>
     <string name="settings_square_items_result_display">Square items result display</string>
     <string name="settings_square_items_result_display_description">Displays result items as squares (only applies to certain algorithms).</string>
+    <string name="settings_show_input_decrease_increase_buttons">Show input (–)/(+) buttons</string>
+    <string name="settings_show_input_decrease_increase_buttons_description">Show buttons to decrease (–) or increase (+) the input value by one.</string>
     <!--Clipboard Buttons Configurations-->
     <string name="settings_preference_category_clipboard">Clipboard Buttons Configurations</string>
     <string name="settings_vibrate_on_clipboard_button_click">Vibrate on button tap</string>
