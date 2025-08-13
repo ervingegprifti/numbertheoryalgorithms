@@ -376,9 +376,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
 
             // Result clipboard button events
             textViewExpandResult.setOnClickListener(v -> {
-                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
-                popupResult.show();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+                expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextResult);
@@ -405,6 +403,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                     }
                 }
             });
+            initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -412,6 +411,20 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
         return inflater;
     }
     //endregion CREATE
+
+
+    @Override
+    protected void fireOnDoubleTap(View view) {
+        if (view == editTextResult){
+            expandResult();
+            resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+        }
+    }
+    private void expandResult() {
+        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
+        popupResult.show();
+        resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+    }
 
 
     //region MENU

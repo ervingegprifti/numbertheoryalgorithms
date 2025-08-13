@@ -39,22 +39,21 @@ import java.util.List;
 
 public class FragmentPrimesList extends FragmentBase implements Callback {
     private final static String TAG = FragmentPrimesList.class.getSimpleName();
-    private TextView textViewPrimesListTitle;
-    private TextView textViewPrimesListLabelColumns;
-    private TextView textViewPrimesListLabelNumbers;
-    private Button buttonPrimesListColumnsMinus;
-    private Button buttonPrimesListColumns;
-    private Button buttonPrimesListColumnsPlus;
-    private Button buttonPrimesListNumbersMinus;
-    private Button buttonPrimesListRun;
-    private Button buttonPrimesListNumbersPlus;
-    private TextView textViewPrimesListLabelResult;
-    private TextView textViewPrimesListLabelElasticResult;
-    private TextView textViewPrimesListExpandResult;
-    private TextView textViewPrimesListClearResult;
-    private LinearLayout linearLayoutPrimesListStaticColumnHeader;
-    private ListView listViewPrimesListResult;
-    boolean isCompactInputView = false;
+    private TextView textViewTitle;
+    private TextView textViewLabelColumns;
+    private TextView textViewLabelNumbers;
+    private Button buttonColumnsMinus;
+    private Button buttonColumns;
+    private Button buttonColumnsPlus;
+    private Button buttonNumbersMinus;
+    private Button buttonRun;
+    private Button buttonNumbersPlus;
+    private TextView textViewLabelResult;
+    private TextView textViewLabelElasticResult;
+    private TextView textViewExpandResult;
+    private TextView textViewClearResult;
+    private LinearLayout linearLayoutStaticColumnHeader;
+    private ListView listViewResult;
 
 
     // Define the parent fragment
@@ -78,46 +77,46 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
             inflater = layoutInflater.inflate(R.layout.fragment_primes_list, container, false);
 
-            TextView textViewPrimesListBackToAlgorithms = inflater.findViewById(R.id.TextViewPrimesListBackToAlgorithms);
-            this.textViewPrimesListTitle = inflater.findViewById(R.id.TextViewPrimesListTitle);
-            this.textViewPrimesListLabelColumns = inflater.findViewById(R.id.TextViewPrimesListLabelColumns);
-            this.textViewPrimesListLabelNumbers = inflater.findViewById(R.id.TextViewPrimesListLabelNumbers);
-            this.buttonPrimesListColumnsMinus = inflater.findViewById(R.id.ButtonPrimesListColumnsMinus);
-            this.buttonPrimesListColumns = inflater.findViewById(R.id.ButtonPrimesListColumns);
-            this.buttonPrimesListColumnsPlus = inflater.findViewById(R.id.ButtonPrimesListColumnsPlus);
-            this.buttonPrimesListNumbersMinus = inflater.findViewById(R.id.ButtonPrimesListNumbersMinus);
-            this.buttonPrimesListRun = inflater.findViewById(R.id.ButtonPrimesListRun);
-            this.buttonPrimesListNumbersPlus = inflater.findViewById(R.id.ButtonPrimesListNumbersPlus);
-            this.textViewPrimesListLabelResult = inflater.findViewById(R.id.TextViewPrimesListLabelResult);
-            this.textViewPrimesListLabelElasticResult = inflater.findViewById(R.id.TextViewPrimesListLabelElasticResult);
-            this.textViewPrimesListExpandResult = inflater.findViewById(R.id.TextViewPrimesListExpandResult);
-            this.textViewPrimesListClearResult = inflater.findViewById(R.id.TextViewPrimesListClearResult);
-            this.linearLayoutPrimesListStaticColumnHeader = inflater.findViewById(R.id.LinearLayoutPrimesListStaticColumnHeader);
-            this.listViewPrimesListResult = inflater.findViewById(R.id.ListViewPrimesListResult);
+            TextView textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
+            this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
+            this.textViewLabelColumns = inflater.findViewById(R.id.TextViewLabelColumns);
+            this.textViewLabelNumbers = inflater.findViewById(R.id.TextViewLabelNumbers);
+            this.buttonColumnsMinus = inflater.findViewById(R.id.ButtonColumnsMinus);
+            this.buttonColumns = inflater.findViewById(R.id.ButtonColumns);
+            this.buttonColumnsPlus = inflater.findViewById(R.id.ButtonColumnsPlus);
+            this.buttonNumbersMinus = inflater.findViewById(R.id.ButtonNumbersMinus);
+            this.buttonRun = inflater.findViewById(R.id.ButtonRun);
+            this.buttonNumbersPlus = inflater.findViewById(R.id.ButtonNumbersPlus);
+            this.textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
+            this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
+            this.textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
+            this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
+            this.linearLayoutStaticColumnHeader = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader);
+            this.listViewResult = inflater.findViewById(R.id.ListViewResult);
 
             // Events
-            textViewPrimesListBackToAlgorithms.setOnClickListener(view -> {
+            textViewBackToAlgorithms.setOnClickListener(view -> {
                 if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
                     FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            buttonPrimesListColumnsMinus.setOnClickListener(view -> {
-                String textValue = buttonPrimesListColumns.getText().toString();
+            buttonColumnsMinus.setOnClickListener(view -> {
+                String textValue = buttonColumns.getText().toString();
                 if (textValue.isEmpty()) {
-                    buttonPrimesListColumns.setText("1");
+                    buttonColumns.setText("1");
                 } else {
                     int value = Integer.parseInt(textValue);
                     if (value <= 1) {
-                        buttonPrimesListColumns.setText("1");
+                        buttonColumns.setText("1");
                     } else {
                         value -= 1;
-                        buttonPrimesListColumns.setText(String.valueOf(value));
+                        buttonColumns.setText(String.valueOf(value));
                     }
                 }
             });
-            this.buttonPrimesListColumns.addTextChangedListener(new TextWatcher() {
+            this.buttonColumns.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
                 @Override
@@ -129,36 +128,36 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            buttonPrimesListColumnsPlus.setOnClickListener(view -> {
-                String textValue = buttonPrimesListColumns.getText().toString();
+            buttonColumnsPlus.setOnClickListener(view -> {
+                String textValue = buttonColumns.getText().toString();
                 if (textValue.isEmpty()) {
-                    buttonPrimesListColumns.setText("1");
+                    buttonColumns.setText("1");
                 } else {
                     int value = Integer.parseInt(textValue);
                     if (value < Integer.MAX_VALUE) {
                         value += 1;
-                        buttonPrimesListColumns.setText(String.valueOf(value));
+                        buttonColumns.setText(String.valueOf(value));
                     } else {
-                        buttonPrimesListColumns.setText(String.valueOf(Integer.MAX_VALUE));
+                        buttonColumns.setText(String.valueOf(Integer.MAX_VALUE));
                     }
                 }
             });
-            buttonPrimesListNumbersMinus.setOnClickListener(view -> {
-                String textValue = buttonPrimesListRun.getText().toString();
+            buttonNumbersMinus.setOnClickListener(view -> {
+                String textValue = buttonRun.getText().toString();
                 if (textValue.isEmpty()) {
-                    buttonPrimesListRun.setText(String.valueOf(numbersDefault));
+                    buttonRun.setText(String.valueOf(numbersDefault));
                 } else {
                     int value = Integer.parseInt(textValue);
                     if (value <= numbersDefault) {
-                        buttonPrimesListRun.setText(String.valueOf(numbersDefault));
+                        buttonRun.setText(String.valueOf(numbersDefault));
                     } else {
                         value -= numbersDefault;
-                        buttonPrimesListRun.setText(String.valueOf(value));
+                        buttonRun.setText(String.valueOf(value));
                     }
                 }
             });
-            this.buttonPrimesListRun.setOnClickListener(view -> onButtonRun(container, buttonPrimesListRun));
-            this.buttonPrimesListRun.addTextChangedListener(new TextWatcher() {
+            this.buttonRun.setOnClickListener(view -> onButtonRun(container, buttonRun));
+            this.buttonRun.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
@@ -170,28 +169,28 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                     resetAllAndSelectTheLastButtonClicked(null);
                 }
             });
-            buttonPrimesListNumbersPlus.setOnClickListener(view -> {
-                String textValue = buttonPrimesListRun.getText().toString();
+            buttonNumbersPlus.setOnClickListener(view -> {
+                String textValue = buttonRun.getText().toString();
                 if (textValue.isEmpty()) {
-                    buttonPrimesListRun.setText(String.valueOf(numbersDefault));
+                    buttonRun.setText(String.valueOf(numbersDefault));
                 } else {
                     int value = Integer.parseInt(textValue);
                     if (value < Integer.MAX_VALUE - numbersDefault) {
                         value += numbersDefault;
-                        buttonPrimesListRun.setText(String.valueOf(value));
+                        buttonRun.setText(String.valueOf(value));
                     } else {
-                        buttonPrimesListRun.setText(String.valueOf(Integer.MAX_VALUE));
+                        buttonRun.setText(String.valueOf(Integer.MAX_VALUE));
                     }
                 }
             });
-            textViewPrimesListExpandResult.setOnClickListener(v -> {
-                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewPrimesListTitle.getText().toString(), linearLayoutPrimesListStaticColumnHeader, listViewPrimesListResult);
+            textViewExpandResult.setOnClickListener(v -> {
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader, listViewResult);
                 popupResult.show();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPrimesListExpandResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
             });
-            textViewPrimesListClearResult.setOnClickListener(view -> {
+            textViewClearResult.setOnClickListener(view -> {
                 this.resetResult();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPrimesListClearResult);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
                 resetAllAndSelectTheLastButtonClicked(null);
             });
         } catch (Exception ex) {
@@ -201,6 +200,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         return inflater;
     }
     //endregion CREATE
+
 
     //region MENU
     @Override
@@ -244,23 +244,21 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
     //region Callback
     public void callbackResult(AlgorithmName algorithmName, Object result, ProgressStatus progressStatus) {
-        // This is to prevent the error: Non-fatal Exception: java.lang.IllegalStateException: Fragment FragmentPrimesList{94d7331} (36e8cdd6-9d00-4c2a-bd07-ab5550e2c88b) not attached to a context.
-        // java.lang.IllegalStateException: Fragment not attached to Activity -> https://stackoverflow.com/questions/28672883/java-lang-illegalstateexception-fragment-not-attached-to-activity
         Activity activity = getActivity();
         if (activity == null || !this.isAdded()) {
             return;
         }
         if (algorithmName == AlgorithmName.PRIMES_LIST) {
             if (progressStatus == ProgressStatus.CANCELED) {
-                cancelPrimesListShowResult(listViewPrimesListResult);
+                cancelShowResult(listViewResult);
             } else {
                 @SuppressWarnings("unchecked")
                 List<List<RowItem>> plResultList = (List<List<RowItem>>)result;
-                showResultPrimesList(plResultList);
+                showResult(plResultList);
             }
         }
     }
-    private void cancelPrimesListShowResult(ListView listView) {
+    private void cancelShowResult(ListView listView) {
         ArrayList<String> listItems=new ArrayList<>();
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(requireContext(), R.layout.row_item_canceled, R.id.RowItemCanceled, listItems);
@@ -268,7 +266,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         listItems.add(requireContext().getResources().getString(R.string.canceled));
         adapter.notifyDataSetChanged();
     }
-    private void showResultPrimesList(List<List<RowItem>> rows) {
+    private void showResult(List<List<RowItem>> rows) {
         try {
             if(rows == null || rows.isEmpty()) {
                 return;
@@ -308,14 +306,14 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
             // Set the listview row space.
             if(biggerResultDisplay) {
-                listViewPrimesListResult.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
+                listViewResult.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
             } else {
-                listViewPrimesListResult.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
+                listViewResult.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutPrimesListStaticColumnHeader, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
-            listViewPrimesListResult.setAdapter(adapter);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
+            listViewResult.setAdapter(adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -330,21 +328,21 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             // Clipboard input buttons
 
             // Clipboard output buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewPrimesListExpandResult, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPrimesListClearResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
             // Labels.
-            ControlDisplay.setInputLabelFontSize(this.textViewPrimesListLabelColumns, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewPrimesListLabelNumbers, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelColumns, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelNumbers, biggerControls);
             // Buttons.
-            ControlDisplay.setButtonFontSize(this.buttonPrimesListColumnsMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonPrimesListColumns, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonPrimesListColumnsPlus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonPrimesListNumbersMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonPrimesListRun, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonPrimesListNumbersPlus, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonColumnsMinus, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonColumns, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonColumnsPlus, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonNumbersMinus, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonRun, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonNumbersPlus, biggerControls);
             // Labels.
-            ControlDisplay.setInputLabelFontSize(this.textViewPrimesListLabelResult, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewPrimesListLabelElasticResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -356,7 +354,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     private void onButtonRun(ViewGroup container, Button button) {
         try {
             // Check
-            String numbersString = buttonPrimesListRun.getText().toString();
+            String numbersString = buttonRun.getText().toString();
             BigInteger numbers;
             try {
                 numbers = new BigInteger(numbersString);
@@ -366,7 +364,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             }
 
             // Check
-            String columnsString = buttonPrimesListColumns.getText().toString();
+            String columnsString = buttonColumns.getText().toString();
             BigInteger columns;
             try {
                 if(columnsString.isEmpty()) {
@@ -404,36 +402,36 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     //region RESULT
     private void beforeActionPerforming(Button button) {
         UIHelper.hideSoftKeyBoard(requireActivity());
-        buttonPrimesListColumns.clearFocus();
+        buttonColumns.clearFocus();
         resetAllAndSelectTheLastButtonClicked(button);
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
-        textViewPrimesListExpandResult.setSelected(false);
-        textViewPrimesListClearResult.setSelected(false);
+        textViewExpandResult.setSelected(false);
+        textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
             textView.setSelected(true);
         }
     }
     private void resetAllAndSelectTheLastButtonClicked(Button button) {
-        buttonPrimesListColumnsMinus.setSelected(false);
-        buttonPrimesListColumnsPlus.setSelected(false);
-        buttonPrimesListNumbersMinus.setSelected(false);
-        buttonPrimesListRun.setSelected(false);
-        buttonPrimesListNumbersPlus.setSelected(false);
+        buttonColumnsMinus.setSelected(false);
+        buttonColumnsPlus.setSelected(false);
+        buttonNumbersMinus.setSelected(false);
+        buttonRun.setSelected(false);
+        buttonNumbersPlus.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
             button.setSelected(true);
-            textViewPrimesListExpandResult.setVisibility(View.VISIBLE);
+            textViewExpandResult.setVisibility(View.VISIBLE);
         } else {
-            textViewPrimesListExpandResult.setVisibility(View.GONE);
+            textViewExpandResult.setVisibility(View.GONE);
         }
     }
     private void resetResult() {
         resetAllAndSelectTheLastClipboardButtonClicked(null);
         resetAllAndSelectTheLastButtonClicked(null);
-        linearLayoutPrimesListStaticColumnHeader.removeAllViews();
-        listViewPrimesListResult.setAdapter(null);
+        linearLayoutStaticColumnHeader.removeAllViews();
+        listViewResult.setAdapter(null);
     }
     //endregion RESULT
 }
