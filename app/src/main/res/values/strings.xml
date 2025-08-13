@@ -17,6 +17,7 @@
     <string name="please_wait">Please wait while this might take some time.</string>
     <string name="result">result</string>
     <string name="temp">temp</string>
+    <string name="history">history</string>
     <string name="run_example_1">E₁</string>
     <string name="run_example_2">E₂</string>
     <string name="run_example_3">E₃</string>
