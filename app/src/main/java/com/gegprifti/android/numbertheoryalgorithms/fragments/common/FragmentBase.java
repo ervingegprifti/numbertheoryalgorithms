@@ -1,6 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.fragments.common;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -73,9 +74,8 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
             try {
                 BigInteger value = new BigInteger(textValue);
                 value = value.subtract(ONE);
-                NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                String formatted = numberFormat.format(value);
-                editText.setText(formatted);
+                String newTextValue = value.toString();
+                editText.setText(newTextValue);
             } catch (NumberFormatException ex) {
                 UIHelper.showCustomToastError(requireContext(), "Input value not a number");
             }
@@ -95,9 +95,8 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
             try {
                 BigInteger value = new BigInteger(textValue);
                 value = value.add(ONE);
-                NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-                String formatted = numberFormat.format(value);
-                editText.setText(formatted);
+                String newTextValue = value.toString();
+                editText.setText(newTextValue);
             } catch (NumberFormatException ex) {
                 UIHelper.showCustomToastError(requireContext(), "Input value not a number");
             }
