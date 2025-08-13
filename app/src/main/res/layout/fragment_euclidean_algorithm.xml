@@ -185,7 +185,7 @@
 				<TextView style="@style/ClipboardButtonClearStyle"
 					android:id="@+id/TextViewClearResult" />
 			</LinearLayout>
-			<LinearLayout style="@style/ResultContainer" >
+			<LinearLayout style="@style/ResultContainer">
 				<HorizontalScrollView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">

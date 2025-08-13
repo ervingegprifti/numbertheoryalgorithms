@@ -19,6 +19,8 @@ public class UserSettings {
     private static final String BIGGER_RESULT_DISPLAY = "BIGGER_RESULT_DISPLAY";
     private static final String SQUARE_RESULT_DISPLAY = "SQUARE_RESULT_DISPLAY";
     private static final String SHOW_INPUT_DECREASE_INCREASE_BUTTONS = "SHOW_INPUT_DECREASE_INCREASE_BUTTONS";
+    private static final String SHOW_TEMPORARY_FIELD_IN_CALCULATOR = "SHOW_TEMPORARY_FIELD_IN_CALCULATOR";
+    private static final String ENABLE_RESULTS_HISTORY_IN_CALCULATOR = "ENABLE_RESULTS_HISTORY_IN_CALCULATOR";
 
     // Clipboard Buttons Configuration.
     private static final String VIBRATE_ON_CLIPBOARD_BUTTON_CLICK = "VIBRATE_ON_CLIPBOARD_BUTTON_CLICK";
@@ -95,6 +97,16 @@ public class UserSettings {
     }
 
 
+    public static boolean getShowTemporaryFieldInCalculator(Context context) {
+        return getBoolean(context, SHOW_TEMPORARY_FIELD_IN_CALCULATOR);
+    }
+
+
+    public static boolean getEnableResultsHistoryInCalculator(Context context) {
+        return getBoolean(context, ENABLE_RESULTS_HISTORY_IN_CALCULATOR);
+    }
+
+
     // Misc Configurations.
     public static boolean getTabSwipeGestures(Context context) {
         return getBoolean(context, TAB_SWIPE_GESTURES);
@@ -145,6 +157,8 @@ public class UserSettings {
         setBoolean(context, BIGGER_RESULT_DISPLAY, false);
         setBoolean(context, SQUARE_RESULT_DISPLAY, false);
         setBoolean(context, SHOW_INPUT_DECREASE_INCREASE_BUTTONS, false);
+        setBoolean(context, SHOW_TEMPORARY_FIELD_IN_CALCULATOR, false);
+        setBoolean(context, ENABLE_RESULTS_HISTORY_IN_CALCULATOR, false);
 
         // Clipboard Buttons Configuration.
         setBoolean(context, VIBRATE_ON_CLIPBOARD_BUTTON_CLICK, false);

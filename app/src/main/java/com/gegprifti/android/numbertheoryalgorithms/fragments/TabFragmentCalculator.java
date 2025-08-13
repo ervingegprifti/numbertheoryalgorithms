@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -32,7 +34,10 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -41,8 +46,9 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     static final BigInteger ZERO = BigInteger.ZERO;
     static final BigInteger TWO = BigInteger.valueOf(2L);
     BigInteger INTEGER_MAX_VALUE = new BigInteger(Integer.toString(Integer.MAX_VALUE));
-    // Cache view state
+    // Cache settings flags
     boolean isCompactInputView = false;
+    boolean enableResultsHistory = false;
     // Extended input view
     LinearLayout linearLayoutExtendedInputView;
     TextView textViewLabelA;
@@ -106,6 +112,21 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     TextView textViewCopyResult2;
     TextView textViewClearResult2;
     EditText editTextResult2;
+    // Temp controls
+    LinearLayout linearLayoutTemporaryField;
+    TextView textViewLabelTemp;
+    TextView textViewLabelElasticTemp;
+    TextView textViewCopyTemp;
+    TextView textViewPasteTemp;
+    TextView textViewClearTemp;
+    EditText editTextTemp;
+    // History controls
+    LinearLayout linearLayoutHistory;
+    TextView textViewLabelHistory;
+    TextView textViewLabelElasticHistory;
+    TextView textViewCopyHistory;
+    TextView textViewClearHistory;
+    EditText editTextHistory;
     // Flags to prevent recursive updates
     AtomicBoolean isUpdatingEditTextA = new AtomicBoolean(false);
     AtomicBoolean isUpdatingEditTextCompactA = new AtomicBoolean(false);
@@ -182,7 +203,19 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewCopyResult2 = inflater.findViewById(R.id.TextViewCopyResult2);
             textViewClearResult2 = inflater.findViewById(R.id.TextViewClearResult2);
             editTextResult2 = inflater.findViewById(R.id.EditTextResult2);
-
+            linearLayoutTemporaryField = inflater.findViewById(R.id.LinearLayoutTemporaryField);
+            textViewLabelTemp = inflater.findViewById(R.id.TextViewLabelTemp);
+            textViewLabelElasticTemp = inflater.findViewById(R.id.TextViewLabelElasticTemp);
+            textViewCopyTemp = inflater.findViewById(R.id.TextViewCopyTemp);
+            textViewPasteTemp = inflater.findViewById(R.id.TextViewPasteTemp);
+            textViewClearTemp = inflater.findViewById(R.id.TextViewClearTemp);
+            editTextTemp = inflater.findViewById(R.id.EditTextTemp);
+            linearLayoutHistory = inflater.findViewById(R.id.LinearLayoutHistory);
+            textViewLabelHistory = inflater.findViewById(R.id.TextViewLabelHistory);
+            textViewLabelElasticHistory = inflater.findViewById(R.id.TextViewLabelElasticHistory);
+            textViewCopyHistory = inflater.findViewById(R.id.TextViewCopyHistory);
+            textViewClearHistory = inflater.findViewById(R.id.TextViewClearHistory);
+            editTextHistory = inflater.findViewById(R.id.EditTextHistory);
             // Constrain extended input
             editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -418,6 +451,40 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult2);
                 resetAllAndSelectTheLastButtonClicked();
             });
+
+            // Temp events
+            textViewCopyTemp.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextTemp);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyTemp);
+            });
+            textViewPasteTemp.setOnClickListener(v -> {
+                UIHelper.pasteEditText(requireContext(), editTextTemp);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteTemp);
+            });
+            textViewClearTemp.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextTemp);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearTemp);
+            });
+
+            // History events
+            textViewCopyHistory.setOnClickListener(v -> {
+                UIHelper.copyEditText(requireContext(), editTextHistory);
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyHistory);
+            });
+            textViewClearHistory.setOnClickListener(v -> {
+                if (editTextHistory.getText() != null && !editTextHistory.getText().toString().isEmpty()) {
+                    AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                            .setTitle("Clear results history?")
+                            .setMessage("Are you sure you want to clear the results history?")
+                            .setPositiveButton("Yes", (dialogInterface, which) -> {
+                                UIHelper.clearEditText(requireContext(), editTextHistory);
+                            })
+                            .setNegativeButton("No", null) // Dismiss
+                            .show();
+                    Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.colorYellow);
+                }
+                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearHistory);
+            });
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -562,6 +629,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         refreshShowInputDecreaseIncreaseButtons();
         refreshBiggerControls();
         refreshBiggerResultDisplay();
+        refreshShowTemporaryField();
+        refreshEnableResultsHistory();
     }
 
 
@@ -613,47 +682,40 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-            // Clipboard input buttons
+            // Extended input a
+            ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
-            //
+            ControlDisplay.setInputFontSize(editTextA, biggerControls);
+            // Compact input a
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            // Extended input b
+            ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextB, biggerControls);
+            // Compact input b
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
-            // Clipboard output buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult1, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearResult1, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult2, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearResult2, biggerControls);
-            // Extended input a controls
-            ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
-            ControlDisplay.setInputFontSize(editTextA, biggerControls);
-            // Extended input b controls
-            ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
-            ControlDisplay.setInputFontSize(editTextB, biggerControls);
-            // Compact input a controls
-            ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
-            ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
-            // Compact input b controls
-            ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
-            ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
             // Run buttons
             ControlDisplay.setButtonFontSize(buttonAddition, biggerControls);
             ControlDisplay.setButtonFontSize(buttonSubtraction, biggerControls);
@@ -670,12 +732,22 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             ControlDisplay.setButtonFontSize(buttonFactorial, biggerControls);
             ControlDisplay.setButtonFontSize(buttonNextProbablePrime, biggerControls);
             ControlDisplay.setButtonFontSize(buttonNextProbableTwinPrime, biggerControls);
-            // Result1 label
+            // Output result1
             ControlDisplay.setInputLabelFontSize(textViewLabelResult1, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult1, biggerControls);
-            // Result2 label
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult1, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult1, biggerControls);
+            // Output result2
             ControlDisplay.setInputLabelFontSize(textViewLabelResult2, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult2, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyResult2, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult2, biggerControls);
+            // Temp
+            ControlDisplay.setInputLabelFontSize(textViewLabelTemp, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticTemp, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyTemp, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteTemp, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearTemp, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -685,10 +757,38 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     private void refreshBiggerResultDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
-            // // Output result1
             ControlDisplay.setOutputFontSize(editTextResult1, biggerControls);
-            // // Output result2
             ControlDisplay.setOutputFontSize(editTextResult2, biggerControls);
+            ControlDisplay.setOutputFontSize(editTextTemp, biggerControls);
+            ControlDisplay.setOutputFontSize(editTextHistory, biggerControls);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshShowTemporaryField() {
+        try {
+            boolean showTemporaryField = UserSettings.getShowTemporaryFieldInCalculator(requireContext());
+            if (showTemporaryField) {
+                linearLayoutTemporaryField.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutTemporaryField.setVisibility(View.GONE);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    private void refreshEnableResultsHistory() {
+        try {
+            enableResultsHistory = UserSettings.getEnableResultsHistoryInCalculator(requireContext());
+            if (enableResultsHistory) {
+                linearLayoutHistory.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutHistory.setVisibility(View.GONE);
+            }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -699,31 +799,31 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     //region Callback
     @Override
     public void callbackResult(AlgorithmName algorithmName, Object result, ProgressStatus progressStatus) {
-        // This is to prevent the error: Non-fatal Exception: java.lang.IllegalStateException: Fragment FragmentPrimesList{94d7331} (36e8cdd6-9d00-4c2a-bd07-ab5550e2c88b) not attached to a context.
-        // java.lang.IllegalStateException: Fragment not attached to Activity -> https://stackoverflow.com/questions/28672883/java-lang-illegalstateexception-fragment-not-attached-to-activity
         Activity activity = getActivity();
         if (activity == null || !this.isAdded()) {
             return;
         }
-        // Label
-        String labelResultText = requireContext().getResources().getString(R.string.result);
-        String labelResult1 = labelResultText;
-        String labelResult2 = labelResultText;
-        // Result
+        // Inputs
+        String a = editTextA.getText().toString();
+        String b = editTextB.getText().toString();
+        // Results text
+        String operationResult1 = null;
+        String operationResult2 = null;
+        // Results
         String result1 = null;
         String result2 = null;
         //
         switch (algorithmName) {
-            case CALCULATOR_ADDITION:
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_addition_label_result1) + UIHelper.getNrOfDigits((String)result);
+            case CALCULATOR_ADDITION :
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_addition_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
-            case CALCULATOR_SUBTRACTION:
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_subtraction_label_result1) + UIHelper.getNrOfDigits((String)result);
+            case CALCULATOR_SUBTRACTION :
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_subtraction_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MULTIPLICATION :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_multiplication_label_result1) + UIHelper.getNrOfDigits((String)result);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_multiplication_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_DIVISION :
@@ -732,14 +832,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     quotient_remainder = ((String)result).split("_"); // quotient_remainder
                 }
                 // Result 1
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_division_label_result1) + UIHelper.getNrOfDigits(quotient_remainder[0]);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_division_label_result1) + UIHelper.getNrOfDigits(quotient_remainder[0]);
                 result1 = quotient_remainder[0];
                 // Result 2
-                labelResult2 = requireContext().getResources().getString(R.string.calculator_division_label_result2) + UIHelper.getNrOfDigits(quotient_remainder[1]);
+                operationResult2 = requireContext().getResources().getString(R.string.calculator_division_label_result2) + UIHelper.getNrOfDigits(quotient_remainder[1]);
                 result2 = quotient_remainder[1];
                 break;
             case CALCULATOR_POWER :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_power_label_result1) + UIHelper.getNrOfDigits((String)result);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_power_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_ROOT :
@@ -748,30 +848,30 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     root_remainder = ((String)result).split("_"); // root_remainder
                 }
                 // Result 1
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_root_label_result1) + UIHelper.getNrOfDigits(root_remainder[0]);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_root_label_result1) + UIHelper.getNrOfDigits(root_remainder[0]);
                 result1 = root_remainder[0];
                 // Result 2
-                labelResult2 = requireContext().getResources().getString(R.string.calculator_root_label_result2) + UIHelper.getNrOfDigits(root_remainder[1]);
+                operationResult2 = requireContext().getResources().getString(R.string.calculator_root_label_result2) + UIHelper.getNrOfDigits(root_remainder[1]);
                 result2 = root_remainder[1];
                 break;
             case CALCULATOR_GCD :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_gcd_label_result1) + UIHelper.getNrOfDigits((String)result);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_gcd_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_LCM :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_lcm_label_result1) + UIHelper.getNrOfDigits((String)result);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_lcm_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MOD :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_mod_label_result1) + UIHelper.getNrOfDigits((String)result);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_mod_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MOD_INVERSE :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_mod_inverse_label_result1) + UIHelper.getNrOfDigits((String)result);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_mod_inverse_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_IS_PROBABLE_PRIME :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_is_a_prime);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_is_a_prime);
                 if(result.equals("1")) {
                     result = requireContext().getResources().getString(R.string.calculator_a_is_prime_yes);
                 } else {
@@ -780,30 +880,39 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 result1 = (String)result;
                 break;
             case CALCULATOR_EULER_PHI :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_euler_phi_of_a) + UIHelper.getNrOfDigits((String)result);
+                b = null;
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_euler_phi_of_a) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_FACTORIAL :
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_a_factorial) + UIHelper.getNrOfDigits((String)result);
+                b = null;
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_a_factorial) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
-            case CALCULATOR_NEXT_PROBABLE_PRIME:
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_prime_label_result1) + UIHelper.getNrOfDigits((String)result);
+            case CALCULATOR_NEXT_PROBABLE_PRIME :
+                b = null;
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_next_prime_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR :
+                b = null;
                 String[] twin_prime_pair = new String[] {null, null};
                 if (result != null && !(((String)result).isEmpty())) {
                     twin_prime_pair = ((String)result).split("_"); // prime1_prime2
                 }
                 // Result 1
-                labelResult1 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result1) + UIHelper.getNrOfDigits((String)twin_prime_pair[0]);
+                operationResult1 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result1) + UIHelper.getNrOfDigits((String)twin_prime_pair[0]);
                 result1 = twin_prime_pair[0];
                 // Result 2
-                labelResult2 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result2) + UIHelper.getNrOfDigits((String)twin_prime_pair[1]);
+                operationResult2 = requireContext().getResources().getString(R.string.calculator_next_twin_prime_label_result2) + UIHelper.getNrOfDigits((String)twin_prime_pair[1]);
                 result2 = twin_prime_pair[1];
                 break;
             default:
+                String labelResultText = requireContext().getResources().getString(R.string.result);
+                operationResult1 = labelResultText + "₁";
+                operationResult2 = labelResultText + "₂";
+                result1 = "";
+                result2 = "";
                 break;
         }
         // Check if canceled
@@ -812,12 +921,48 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             result1 = resultCanceledText;
             result2 = resultCanceledText;
         }
-        // Label
-        textViewLabelResult1.setText(labelResult1);
-        textViewLabelResult2.setText(labelResult2);
-        // Result
+        // Label text
+        textViewLabelResult1.setText(operationResult1);
+        textViewLabelResult2.setText(operationResult2);
+        // Result value
         editTextResult1.setText(result1);
         editTextResult2.setText(result2);
+        // Results history
+        writeResultsHistory(a, b, operationResult1, operationResult2, result1, result2);
+    }
+    private void writeResultsHistory(String a, String b, String operationResult1, String operationResult2, String result1, String result2) {
+        try {
+            if (enableResultsHistory) {
+                String resultHistory = getResultHistory(a, b, operationResult1, operationResult2, result1, result2);
+                String newResultHistory;
+                String oldResultHistory = editTextHistory.getText().toString();
+                if (oldResultHistory.isEmpty()){
+                    newResultHistory = resultHistory;
+                } else {
+                    newResultHistory = resultHistory + "\n\n" + oldResultHistory;
+                }
+                editTextHistory.setText(newResultHistory);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+    @NonNull
+    private static String getResultHistory(String a, String b, String operationResult1, String operationResult2, String result1, String result2) {
+        StringBuilder resultHistory = new StringBuilder();
+        resultHistory.append("a: ").append(a).append("\n");
+        if(b != null && !b.isEmpty()) {
+            resultHistory.append("b: ").append(b).append("\n");
+        }
+        resultHistory.append("o: ").append(operationResult1).append("\n");
+        if(result2 == null || result2.isEmpty() || result2.equalsIgnoreCase("Canceled")){
+            resultHistory.append("r: ").append(result1);
+        } else {
+            resultHistory.append("r: ").append(result1).append("\n");
+            resultHistory.append("o: ").append(operationResult2).append("\n");
+            resultHistory.append("r: ").append(result2);
+        }
+        return resultHistory.toString();
     }
     //endregion Callback
 
@@ -1360,7 +1505,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         resetAllAndSelectTheLastClipboardButtonClicked(null);
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
-        // Reset the last clipboard clicked.
+        //
         textViewMinusA.setSelected(false);
         textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
@@ -1387,6 +1532,13 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         textViewClearResult1.setSelected(false);
         textViewCopyResult2.setSelected(false);
         textViewClearResult2.setSelected(false);
+        //
+        textViewCopyTemp.setSelected(false);
+        textViewPasteTemp.setSelected(false);
+        textViewClearTemp.setSelected(false);
+        //
+        textViewCopyHistory.setSelected(false);
+        textViewClearHistory.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
             textView.setSelected(true);
