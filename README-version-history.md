@@ -7,6 +7,7 @@
 - Added temporary field in calculator for intermediate result storage.
 - Added input decrease (-) increase (+) buttons.
 - Added a double-tap event on the result to expand it, despite the expand button.
+- Added results history in the calculator.
 - Refactored part of the code.
 
 #### Requirements:
