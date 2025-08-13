@@ -381,9 +381,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
 
             // Result clipboard button events
             textViewExpandResult.setOnClickListener(v -> {
-                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
-                popupResult.show();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+                expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
                 UIHelper.copyEditText(requireContext(), editTextResult);
@@ -411,6 +409,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                     }
                 }
             });
+            initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -418,6 +417,20 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
         return inflater;
     }
     //endregion CREATE
+
+
+    @Override
+    protected void fireOnDoubleTap(View view) {
+        if (view == editTextResult){
+            expandResult();
+            resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+        }
+    }
+    private void expandResult() {
+        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
+        popupResult.show();
+        resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+    }
 
 
     //region MENU
