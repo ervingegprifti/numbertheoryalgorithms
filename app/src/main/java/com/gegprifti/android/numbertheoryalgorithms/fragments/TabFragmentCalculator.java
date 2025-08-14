@@ -112,11 +112,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     Button buttonMod;
     Button buttonModInverse;
     Button buttonModularPower;
-    Button buttonIsProbablePrime;
+    Button buttonIsPrime;
     Button buttonEulerPhi;
     Button buttonFactorial;
-    Button buttonNextProbablePrime;
-    Button buttonNextProbableTwinPrime;
+    Button buttonNextPrime;
+    Button buttonNextTwinPrimes;
     // Result controls
     TextView textViewLabelResult1;
     TextView textViewLabelElasticResult1;
@@ -223,11 +223,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             buttonMod = inflater.findViewById(R.id.ButtonMod);
             buttonModInverse = inflater.findViewById(R.id.ButtonModInverse);
             buttonModularPower = inflater.findViewById(R.id.ButtonModularPower);
-            buttonIsProbablePrime = inflater.findViewById(R.id.ButtonIsProbablePrime);
+            buttonIsPrime = inflater.findViewById(R.id.ButtonIsPrime);
             buttonEulerPhi = inflater.findViewById(R.id.ButtonEulerPhi);
             buttonFactorial = inflater.findViewById(R.id.ButtonFactorial);
-            buttonNextProbablePrime = inflater.findViewById(R.id.ButtonNextProbablePrime);
-            buttonNextProbableTwinPrime = inflater.findViewById(R.id.ButtonNextProbableTwinPrime);
+            buttonNextPrime = inflater.findViewById(R.id.ButtonNextPrime);
+            buttonNextTwinPrimes = inflater.findViewById(R.id.ButtonNextTwinPrimes);
             // Result
             textViewLabelResult1 = inflater.findViewById(R.id.TextViewLabelResult1);
             textViewLabelElasticResult1 = inflater.findViewById(R.id.TextViewLabelElasticResult1);
@@ -538,11 +538,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             buttonDivision.setOnClickListener(v -> onButtonDivision(container));
             buttonPower.setOnClickListener(v -> onButtonPower(container));
             buttonRoot.setOnClickListener(v -> onButtonRoot(container));
-            buttonIsProbablePrime.setOnClickListener(view -> onButtonIsProbablePrime(container));
+            buttonIsPrime.setOnClickListener(view -> onButtonIsPrime(container));
             buttonEulerPhi.setOnClickListener(view -> onButtonEulerPhi(container));
             buttonFactorial.setOnClickListener(view -> onButtonFactorial(container));
-            buttonNextProbablePrime.setOnClickListener(view -> onButtonNextProbablePrime(container));
-            buttonNextProbableTwinPrime.setOnClickListener(view -> onButtonNextProbableTwinPrime(container));
+            buttonNextPrime.setOnClickListener(view -> onButtonNextPrime(container));
+            buttonNextTwinPrimes.setOnClickListener(view -> onButtonNextTwinPrimes(container));
             buttonGcd.setOnClickListener(v -> onButtonGcd(container));
             buttonLcm.setOnClickListener(v -> onButtonLcm(container));
             buttonMod.setOnClickListener(v -> onButtonMod(container));
@@ -872,11 +872,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             ControlDisplay.setButtonFontSize(buttonMod, biggerControls);
             ControlDisplay.setButtonFontSize(buttonModInverse, biggerControls);
             ControlDisplay.setButtonFontSize(buttonModularPower, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonIsProbablePrime, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonIsPrime, biggerControls);
             ControlDisplay.setButtonFontSize(buttonEulerPhi, biggerControls);
             ControlDisplay.setButtonFontSize(buttonFactorial, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonNextProbablePrime, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonNextProbableTwinPrime, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonNextPrime, biggerControls);
+            ControlDisplay.setButtonFontSize(buttonNextTwinPrimes, biggerControls);
             // Output result1
             ControlDisplay.setInputLabelFontSize(textViewLabelResult1, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult1, biggerControls);
@@ -961,18 +961,22 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         //
         switch (algorithmName) {
             case CALCULATOR_ADDITION:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_addition_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_SUBTRACTION:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_subtraction_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MULTIPLICATION:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_multiplication_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_DIVISION:
+                c = null;
                 String[] quotient_remainder = new String[] {null, null};
                 if (result != null && !(((String)result).isEmpty())) {
                     quotient_remainder = ((String)result).split("_"); // quotient_remainder
@@ -985,10 +989,12 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 result2 = quotient_remainder[1];
                 break;
             case CALCULATOR_POWER:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_power_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_ROOT:
+                c = null;
                 String[] root_remainder = new String[] {null, null};
                 if (result != null && !(((String)result).isEmpty())) {
                     root_remainder = ((String)result).split("_"); // root_remainder
@@ -1001,18 +1007,22 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 result2 = root_remainder[1];
                 break;
             case CALCULATOR_GCD:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_gcd_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_LCM:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_lcm_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_MOD:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_mod_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
-            case CALCULATOR_MOD_INVERSE :
+            case CALCULATOR_MOD_INVERSE:
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_mod_inverse_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
@@ -1021,6 +1031,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 result1 = (String)result;
                 break;
             case CALCULATOR_IS_PROBABLE_PRIME :
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_is_a_prime);
                 if(result.equals("1")) {
                     result = requireContext().getResources().getString(R.string.calculator_a_is_prime_yes);
@@ -1031,21 +1042,25 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 break;
             case CALCULATOR_EULER_PHI :
                 b = null;
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_euler_phi_of_a) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_FACTORIAL :
                 b = null;
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_a_factorial) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_NEXT_PROBABLE_PRIME :
                 b = null;
+                c = null;
                 operationResult1 = requireContext().getResources().getString(R.string.calculator_next_prime_label_result1) + UIHelper.getNrOfDigits((String)result);
                 result1 = (String)result;
                 break;
             case CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR :
                 b = null;
+                c = null;
                 String[] twin_prime_pair = new String[] {null, null};
                 if (result != null && !(((String)result).isEmpty())) {
                     twin_prime_pair = ((String)result).split("_"); // prime1_prime2
@@ -1120,6 +1135,29 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     //endregion Callback
 
 
+    //region Show/Hide input groups
+    private void showInputGroupC() {
+        if (isCompactInputView) {
+            if (linearLayoutRowContainerCompactC.getVisibility() == View.GONE) {
+                linearLayoutRowContainerCompactC.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (linearLayoutRowContainerC.getVisibility() == View.GONE) {
+                linearLayoutRowContainerC.setVisibility(View.VISIBLE);
+            }
+            if (editTextC.getVisibility() == View.GONE) {
+                editTextC.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+    private void hideInputGroupC() {
+        linearLayoutRowContainerC.setVisibility(View.GONE);
+        editTextC.setVisibility(View.GONE);
+        linearLayoutRowContainerCompactC.setVisibility(View.GONE);
+    }
+    //endregion Show/Hide input groups
+
+
     //region Run buttons
     private InputGroup getInputGroupA() {
         return new InputGroup.Builder()
@@ -1129,8 +1167,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 .setCompactControls(textViewLabelCompactA, editTextCompactA)
                 .build();
     }
-
-
     private InputGroup getInputGroupB() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
@@ -1139,8 +1175,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 .setCompactControls(textViewLabelCompactB, editTextCompactB)
                 .build();
     }
-
-
     private InputGroup getInputGroupC() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
@@ -1153,12 +1187,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonAddition(ViewGroup container) {
         try  {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
@@ -1187,12 +1223,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonSubtraction(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
@@ -1221,12 +1259,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonMultiplication(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
@@ -1255,12 +1295,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonDivision(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeOtherThanZero(requireContext(), inputGroupB)) {
                 return;
             }
@@ -1289,12 +1331,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonPower(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupB, ZERO, INTEGER_MAX_VALUE)) {
                 return;
             }
@@ -1323,12 +1367,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonRoot(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, ZERO)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupB, ONE, INTEGER_MAX_VALUE)) {
                 return;
             }
@@ -1357,12 +1403,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonGcd(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
@@ -1391,12 +1439,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonLcm(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
@@ -1430,12 +1480,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonMod(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupB, ONE)) {
                 return;
             }
@@ -1464,12 +1516,14 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonModInverse(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupB, ONE)) {
                 return;
             }
@@ -1498,16 +1552,18 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonModularPower(ViewGroup container) {
         try {
+            showInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
-            InputGroup inputGroupC = getInputGroupC();
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupB, ONE)) {
                 return;
             }
+            InputGroup inputGroupC = getInputGroupC();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupC, ONE)) {
                 return;
             }
@@ -1536,14 +1592,16 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     }
 
 
-    private void onButtonIsProbablePrime(ViewGroup container) {
+    private void onButtonIsPrime(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
-            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, TWO)) {
                 return;
             }
+            InputGroup inputGroupB = getInputGroupB();
             if (UIHelper.checkInputMustBeFilled(requireContext(), inputGroupB, "Must specify the certainty in input <b>%s</b>")) {
                 return;
             }
@@ -1560,7 +1618,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonIsProbablePrime);
+            beforeActionPerforming(buttonIsPrime);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_IS_PROBABLE_PRIME, this);
@@ -1575,6 +1633,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonEulerPhi(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
             if (UIHelper.checkInputMustBeGreaterThanMin(requireContext(), inputGroupA, ZERO)) {
@@ -1603,6 +1663,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     private void onButtonFactorial(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, ZERO)) {
@@ -1629,8 +1691,10 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     }
 
 
-    private void onButtonNextProbablePrime(ViewGroup container) {
+    private void onButtonNextPrime(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Check.
             InputGroup inputGroupA = getInputGroupA();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, TWO)) {
@@ -1645,7 +1709,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             setVisibilityToGoneResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonNextProbablePrime);
+            beforeActionPerforming(buttonNextPrime);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_NEXT_PROBABLE_PRIME, this);
@@ -1657,12 +1721,17 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     }
 
 
-    private void onButtonNextProbableTwinPrime(ViewGroup container) {
+    /**
+     * (3, 5), (5, 7), (11, 13), (17, 19), (29, 31), (41, 43), (59, 61), (71, 73), (101, 103), (107, 109), (137, 139), ...
+     *
+     * @param container
+     */
+    private void onButtonNextTwinPrimes(ViewGroup container) {
         try {
+            hideInputGroupC();
+
             // Make the second result gone.
             setVisibilityToGoneResult2();
-
-            // (3, 5), (5, 7), (11, 13), (17, 19), (29, 31), (41, 43), (59, 61), (71, 73), (101, 103), (107, 109), (137, 139), ...
 
             // Check.
             InputGroup inputGroupA = getInputGroupA();
@@ -1679,7 +1748,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             setVisibilityToVisibleResult2();
 
             // Before action performing.
-            beforeActionPerforming(buttonNextProbableTwinPrime);
+            beforeActionPerforming(buttonNextTwinPrimes);
 
             // Perform action.
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.CALCULATOR_NEXT_PROBABLE_TWIN_PRIME_PAIR, this);
@@ -1707,7 +1776,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     private void resetAllAndSelectTheLastButtonClicked() {
         resetAllAndSelectTheLastButtonClicked(null);
     }
-    private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
+    private void resetAllAndSelectTheLastButtonClicked(View view) {
         textViewMinusA.setSelected(false);
         textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
@@ -1752,11 +1821,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         buttonModInverse.setSelected(false);
         buttonModularPower.setSelected(false);
         buttonMod.setSelected(false);
-        buttonIsProbablePrime.setSelected(false);
+        buttonIsPrime.setSelected(false);
         buttonEulerPhi.setSelected(false);
         buttonFactorial.setSelected(false);
-        buttonNextProbablePrime.setSelected(false);
-        buttonNextProbableTwinPrime.setSelected(false);
+        buttonNextPrime.setSelected(false);
+        buttonNextTwinPrimes.setSelected(false);
         //
         textViewCopyResult1.setSelected(false);
         textViewClearResult1.setSelected(false);
@@ -1770,9 +1839,9 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         textViewCopyHistory.setSelected(false);
         textViewClearHistory.setSelected(false);
         // Select the last button clicked.
-        if (textView != null) {
+        if (view != null) {
             UIHelper.vibrateOnButtonTap(requireContext());
-            textView.setSelected(true);
+            view.setSelected(true);
         }
     }
     private void resetResult() {

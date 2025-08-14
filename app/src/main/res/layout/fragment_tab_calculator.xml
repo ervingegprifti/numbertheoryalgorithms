@@ -76,7 +76,8 @@
             <!--InputGroup integer c:-->
             <LinearLayout style="@style/RowContainerStyle"
                 android:id="@+id/RowContainerC"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
                 <TextView style="@style/TextViewLabelInputStyle"
                     android:id="@+id/TextViewLabelC"
                     android:text="@string/label_c"
@@ -96,7 +97,8 @@
             </LinearLayout>
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextC"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -126,8 +128,7 @@
             </LinearLayout>
 
             <!--Integer integer b:-->
-            <LinearLayout style="@style/RowContainerStyle"
-                android:layout_marginBottom="10dp">
+            <LinearLayout style="@style/RowContainerStyle">
                 <TextView style="@style/TextViewLabelCompactStyle"
                     android:id="@+id/TextViewLabelCompactB"
                     android:text="@string/label_b" />
@@ -148,7 +149,9 @@
 
             <!--Integer integer c:-->
             <LinearLayout style="@style/RowContainerStyle"
-                android:id="@+id/RowContainerCompactC">
+                android:id="@+id/RowContainerCompactC"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
                 <TextView style="@style/TextViewLabelCompactStyle"
                     android:id="@+id/TextViewLabelCompactC"
                     android:text="@string/label_c" />
@@ -223,13 +226,13 @@
         <!--Buttons forth line-->
         <LinearLayout style="@style/RowContainerStyle">
             <Button style="@style/CalculatorButtonStyle"
-                android:id="@+id/ButtonIsProbablePrime"
+                android:id="@+id/ButtonIsPrime"
                 android:text="@string/calculator_is_a_prime" />
             <Button style="@style/CalculatorButtonStyle"
-                android:id="@+id/ButtonNextProbablePrime"
+                android:id="@+id/ButtonNextPrime"
                 android:text="@string/calculator_next_prime_to_a" />
             <Button style="@style/CalculatorButtonLastStyle"
-                android:id="@+id/ButtonNextProbableTwinPrime"
+                android:id="@+id/ButtonNextTwinPrimes"
                 android:text="@string/calculator_next_twin_prime_to_a" />
         </LinearLayout>
 
