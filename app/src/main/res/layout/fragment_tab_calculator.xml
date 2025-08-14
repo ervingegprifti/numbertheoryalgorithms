@@ -71,11 +71,12 @@
             </LinearLayout>
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextB"
-                android:autofillHints=""
-                android:layout_marginBottom="10dp"/>
+                android:autofillHints="" />
 
             <!--InputGroup integer c:-->
-            <LinearLayout style="@style/RowContainerStyle">
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/RowContainerC"
+                android:layout_marginTop="10dp">
                 <TextView style="@style/TextViewLabelInputStyle"
                     android:id="@+id/TextViewLabelC"
                     android:text="@string/label_c"
@@ -146,7 +147,8 @@
             </LinearLayout>
 
             <!--Integer integer c:-->
-            <LinearLayout style="@style/RowContainerStyle">
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/RowContainerCompactC">
                 <TextView style="@style/TextViewLabelCompactStyle"
                     android:id="@+id/TextViewLabelCompactC"
                     android:text="@string/label_c" />

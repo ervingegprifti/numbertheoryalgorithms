@@ -67,6 +67,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     TextView textViewPasteB;
     TextView textViewClearB;
     EditText editTextB;
+    LinearLayout linearLayoutRowContainerC;
     TextView textViewLabelC;
     TextView textViewLabelElasticC;
     TextView textViewMinusC;
@@ -91,6 +92,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     TextView textViewCopyCompactB;
     TextView textViewPasteCompactB;
     TextView textViewClearCompactB;
+    LinearLayout linearLayoutRowContainerCompactC;
     TextView textViewLabelCompactC;
     EditText editTextCompactC;
     TextView textViewMinusCompactC;
@@ -176,6 +178,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
             textViewClearB = inflater.findViewById(R.id.TextViewClearB);
             editTextB = inflater.findViewById(R.id.EditTextB);
+            linearLayoutRowContainerC = inflater.findViewById(R.id.RowContainerC);
             textViewLabelC = inflater.findViewById(R.id.TextViewLabelC);
             textViewLabelElasticC = inflater.findViewById(R.id.TextViewLabelElasticC);
             textViewMinusC = inflater.findViewById(R.id.TextViewMinusC);
@@ -200,6 +203,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
             textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
             editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
+            linearLayoutRowContainerCompactC = inflater.findViewById(R.id.RowContainerCompactC);
             textViewLabelCompactC = inflater.findViewById(R.id.TextViewLabelCompactC);
             textViewMinusCompactC = inflater.findViewById(R.id.TextViewMinusCompactC);
             textViewPlusCompactC = inflater.findViewById(R.id.TextViewPlusCompactC);
