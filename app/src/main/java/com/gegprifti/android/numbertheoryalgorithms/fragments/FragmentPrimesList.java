@@ -410,6 +410,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             textView.setSelected(true);
         }
     }
@@ -421,6 +422,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         buttonNumbersPlus.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             button.setSelected(true);
             textViewExpandResult.setVisibility(View.VISIBLE);
         } else {
