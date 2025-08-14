@@ -297,11 +297,11 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusN);
             });
             textViewCopyN.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextN);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextN);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyN);
             });
             textViewPasteN.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextN);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextN);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteN);
             });
             textViewClearN.setOnClickListener(v -> {
@@ -320,11 +320,11 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextA);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
             });
             textViewPasteA.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextA);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
             });
             textViewClearA.setOnClickListener(v -> {
@@ -343,11 +343,11 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactN);
             });
             textViewCopyCompactN.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextCompactN);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactN);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactN);
             });
             textViewPasteCompactN.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextCompactN);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactN);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactN);
             });
             textViewClearCompactN.setOnClickListener(v -> {
@@ -366,11 +366,11 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextCompactA);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
             });
             textViewPasteCompactA.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextCompactA);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
             });
             textViewClearCompactA.setOnClickListener(v -> {
@@ -396,7 +396,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextResult);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
             });
             textViewClearResult.setOnClickListener(v -> {

@@ -291,11 +291,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextA);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
             });
             textViewPasteA.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextA);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
             });
             textViewClearA.setOnClickListener(v -> {
@@ -314,11 +314,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusP);
             });
             textViewCopyP.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextP);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyP);
             });
             textViewPasteP.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextP);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteP);
             });
             textViewClearP.setOnClickListener(v -> {
@@ -337,11 +337,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextCompactA);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
             });
             textViewPasteCompactA.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextCompactA);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
             });
             textViewClearCompactA.setOnClickListener(v -> {
@@ -360,11 +360,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactP);
             });
             textViewCopyCompactP.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextCompactP);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactP);
             });
             textViewPasteCompactP.setOnClickListener(v -> {
-                UIHelper.pasteEditText(requireContext(), editTextCompactP);
+                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactP);
             });
             textViewClearCompactP.setOnClickListener(v -> {
@@ -384,7 +384,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
-                UIHelper.copyEditText(requireContext(), editTextResult);
+                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
             });
             textViewClearResult.setOnClickListener(v -> {
