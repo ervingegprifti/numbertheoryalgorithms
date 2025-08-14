@@ -2,19 +2,19 @@
 
 ## New tracked versions
 
-### [3.0.8.0]
+### [3.0.8.0] - 2025-08-14
 - Added compact input view mode.
-- Added temporary field in calculator for intermediate result storage.
+- Added a temporary field in the calculator for intermediate result storage.
 - Added input decrease (-) increase (+) buttons.
 - Added a double-tap event on the result to expand it, despite the expand button.
 - Added results history in the calculator.
 - Added modular power in the calculator.
-- Unified vibrate on button tap.
+- Unified vibration on button tap.
 - Removed the notify on button tap since buttons them-self indicate that.
 - Refactored part of the code.
 
 #### Requirements:
-- Minimum Sdk 31 (Android 12 Snow Cone).
+- Minimum SDK 31 (Android 12 Snow Cone).
 - Switched from AGP 8.11.1 to 8.12.0.
 - Compiled with Android Studio 2025.1.2.
 
