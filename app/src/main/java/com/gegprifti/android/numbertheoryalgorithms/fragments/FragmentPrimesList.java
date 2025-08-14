@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
@@ -124,8 +125,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                 @Override
                 public void afterTextChanged(Editable editable) {
                     resetResult();
-                    resetAllAndSelectTheLastClipboardButtonClicked(null);
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
                 }
             });
             buttonColumnsPlus.setOnClickListener(view -> {
@@ -165,8 +165,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                 @Override
                 public void afterTextChanged(Editable s) {
                     resetResult();
-                    resetAllAndSelectTheLastClipboardButtonClicked(null);
-                    resetAllAndSelectTheLastButtonClicked(null);
+                    resetAllAndSelectTheLastButtonClicked();
                 }
             });
             buttonNumbersPlus.setOnClickListener(view -> {
@@ -186,12 +185,11 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             textViewExpandResult.setOnClickListener(v -> {
                 PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader, listViewResult);
                 popupResult.show();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+                resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
             });
             textViewClearResult.setOnClickListener(view -> {
                 this.resetResult();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
-                resetAllAndSelectTheLastButtonClicked(null);
+                resetAllAndSelectTheLastButtonClicked(textViewClearResult);
             });
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -263,6 +261,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(requireContext(), R.layout.row_item_canceled, R.id.RowItemCanceled, listItems);
         listView.setAdapter(adapter);
+        setListViewAdapter(listView, adapter);
         listItems.add(requireContext().getResources().getString(R.string.canceled));
         adapter.notifyDataSetChanged();
     }
@@ -313,9 +312,17 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
 
             // Create and set the adapter.
             GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
-            listViewResult.setAdapter(adapter);
+            setListViewAdapter(listViewResult, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
+        }
+    }
+    private void setListViewAdapter(ListView listView, ListAdapter listAdapter) {
+        listView.setAdapter(listAdapter);
+        if (listAdapter == null) {
+            textViewExpandResult.setVisibility(View.GONE);
+        } else {
+            textViewExpandResult.setVisibility(View.VISIBLE);
         }
     }
     //endregion Callback
@@ -405,35 +412,28 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         buttonColumns.clearFocus();
         resetAllAndSelectTheLastButtonClicked(button);
     }
-    private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
+    }
+    private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
         textViewExpandResult.setSelected(false);
         textViewClearResult.setSelected(false);
-        // Select he last clipboard clicked.
-        if (textView != null) {
-            UIHelper.vibrateOnButtonTap(requireContext());
-            textView.setSelected(true);
-        }
-    }
-    private void resetAllAndSelectTheLastButtonClicked(Button button) {
+        //
         buttonColumnsMinus.setSelected(false);
         buttonColumnsPlus.setSelected(false);
         buttonNumbersMinus.setSelected(false);
         buttonRun.setSelected(false);
         buttonNumbersPlus.setSelected(false);
-        // Select he last button clicked.
-        if (button != null) {
+        // Select the last button clicked.
+        if (textView != null) {
             UIHelper.vibrateOnButtonTap(requireContext());
-            button.setSelected(true);
-            textViewExpandResult.setVisibility(View.VISIBLE);
-        } else {
-            textViewExpandResult.setVisibility(View.GONE);
+            textView.setSelected(true);
         }
     }
     private void resetResult() {
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
-        resetAllAndSelectTheLastButtonClicked(null);
+        resetAllAndSelectTheLastButtonClicked();
         linearLayoutStaticColumnHeader.removeAllViews();
-        listViewResult.setAdapter(null);
+        setListViewAdapter(listViewResult, null);
     }
     //endregion RESULT
 }
