@@ -236,7 +236,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     String calculatorLabelA = "a" + UIHelper.getNrOfDigits(s.toString());
                     textViewLabelA.setText(calculatorLabelA);
                     resetAllAndSelectTheLastClipboardButtonClicked();
-                    resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCompactA
                     isUpdatingEditTextCompactA.set(true); // Lock editTextCompactA
                     try {
@@ -260,7 +259,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     String calculatorLabelB = "b" + UIHelper.getNrOfDigits(s.toString());
                     textViewLabelB.setText(calculatorLabelB);
                     resetAllAndSelectTheLastClipboardButtonClicked();
-                    resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextCompactB
                     isUpdatingEditTextCompactB.set(true); // Lock editTextCompactB
                     try {
@@ -284,7 +282,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     if (isUpdatingEditTextCompactA.get()) return; // editTextCompactA is locked
                     // Other work
                     resetAllAndSelectTheLastClipboardButtonClicked();
-                    resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextA
                     isUpdatingEditTextA.set(true); // Lock editTextA
                     try {
@@ -306,7 +303,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                     if (isUpdatingEditTextCompactB.get()) return; // editTextCompactB is locked
                     // Other work
                     resetAllAndSelectTheLastClipboardButtonClicked();
-                    resetAllAndSelectTheLastButtonClicked();
                     // Sync to editTextB
                     isUpdatingEditTextB.set(true); // Lock editTextB
                     try {
@@ -338,7 +334,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewClearA.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearA);
-                resetAllAndSelectTheLastButtonClicked();
             });
 
             // Extended input b clipboard button events
@@ -361,7 +356,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewClearB.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearB);
-                resetAllAndSelectTheLastButtonClicked();
             });
 
             // Compact input a clipboard button events
@@ -384,7 +378,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewClearCompactA.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactA);
-                resetAllAndSelectTheLastButtonClicked();
             });
 
             // Compact input b clipboard button events
@@ -407,7 +400,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewClearCompactB.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactB);
-                resetAllAndSelectTheLastButtonClicked();
             });
 
             // Run button events
@@ -436,7 +428,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 UIHelper.clearEditText(requireContext(), editTextResult1);
                 resetResult1();
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult1);
-                resetAllAndSelectTheLastButtonClicked();
             });
 
             // Result2 clipboard button events
@@ -448,7 +439,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 UIHelper.clearEditText(requireContext(), editTextResult2);
                 resetResult2();
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult2);
-                resetAllAndSelectTheLastButtonClicked();
             });
 
             // Temp events
@@ -532,7 +522,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b: 40094690950920881030683735292761468389214899724061
                 // Result: 1522605027922533360535618378132637429718068114961380688657908494580122963258952897654000350692006139
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastClipboardButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextA.clearFocus();
                 editTextB.clearFocus();
@@ -549,7 +539,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b: 472772146107435302536223071973048224632914695302097116459852171130520711256363590397527
                 // Result: 188198812920607963838697239461650439807163563379417382700763356422988859715234665485319060606504743045317388011303396716199692321205734031879550656996221305168759307650257059
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastClipboardButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextA.clearFocus();
                 editTextB.clearFocus();
@@ -566,7 +556,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b: 36746043666799590428244633799627952632279158164343087642676032283815739666511279233373417143396810270092798736308917
                 // Result: 1230186684530117755130494958384962720772853569595334792197322452151726400507263657518745202199786469389956474942774063845925192557326303453731548268507917026122142913461670429214311602221240479274737794080665351419597459856902143413
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastClipboardButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextA.clearFocus();
                 editTextB.clearFocus();
@@ -582,7 +572,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b:
                 // Result: 1847699703211741474306835620200164403018549338663410171471785774910651696711161249859337684305435744585616061544571794052229717732524660960646946071249623720442022269756756687378427562389508764678440933285157496578843415088475528298186726451339863364931908084671990431874381283363502795470282653297802934916155811881049844908319545009848393775227257052578591944993870073695755688436933812779613089230392569695253261620823676490316036551371447913932347169566988069
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastClipboardButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextA.clearFocus();
                 editTextB.clearFocus();
@@ -598,7 +588,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 // b:
                 // Result: 25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784406918290641249515082189298559149176184502808489120072844992687392807287776735971418347270261896375014971824691165077613379859095700097330459748808428401797429100642458691817195118746121515172654632282216869987549182422433637259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133844143603833904414952634432190114657544454178424020924616515723350778707749817125772467962926386356373289912154831438167899885040445364023527381951378636564391212010397122822120720357
                 // Reset the last button clicked.
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastClipboardButtonClicked();
                 UIHelper.hideSoftKeyBoard(requireActivity());
                 editTextA.clearFocus();
                 editTextB.clearFocus();
@@ -1490,21 +1480,18 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
     //region RESULT
     private void beforeActionPerforming(Button button) {
-        // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextA.clearFocus();
         editTextB.clearFocus();
         editTextCompactA.clearFocus();
         editTextCompactB.clearFocus();
-        // Select the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(button);
+        resetAllAndSelectTheLastClipboardButtonClicked(button);
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked() {
         resetAllAndSelectTheLastClipboardButtonClicked(null);
     }
     private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
-        //
         textViewMinusA.setSelected(false);
         textViewPlusA.setSelected(false);
         textViewCopyA.setSelected(false);
@@ -1527,28 +1514,6 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         textViewPasteCompactB.setSelected(false);
         textViewClearCompactB.setSelected(false);
         //
-        textViewCopyResult1.setSelected(false);
-        textViewClearResult1.setSelected(false);
-        textViewCopyResult2.setSelected(false);
-        textViewClearResult2.setSelected(false);
-        //
-        textViewCopyTemp.setSelected(false);
-        textViewPasteTemp.setSelected(false);
-        textViewClearTemp.setSelected(false);
-        //
-        textViewCopyHistory.setSelected(false);
-        textViewClearHistory.setSelected(false);
-        // Select he last clipboard clicked.
-        if (textView != null) {
-            UIHelper.vibrateOnButtonTap(requireContext());
-            textView.setSelected(true);
-        }
-    }
-    private void resetAllAndSelectTheLastButtonClicked() {
-        resetAllAndSelectTheLastButtonClicked(null);
-    }
-    private void resetAllAndSelectTheLastButtonClicked(Button button) {
-        // Reset the last button clicked.
         buttonAddition.setSelected(false);
         buttonSubtraction.setSelected(false);
         buttonMultiplication.setSelected(false);
@@ -1564,15 +1529,26 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         buttonFactorial.setSelected(false);
         buttonNextProbablePrime.setSelected(false);
         buttonNextProbableTwinPrime.setSelected(false);
-        // Select he last button clicked.
-        if (button != null) {
+        //
+        textViewCopyResult1.setSelected(false);
+        textViewClearResult1.setSelected(false);
+        textViewCopyResult2.setSelected(false);
+        textViewClearResult2.setSelected(false);
+        //
+        textViewCopyTemp.setSelected(false);
+        textViewPasteTemp.setSelected(false);
+        textViewClearTemp.setSelected(false);
+        //
+        textViewCopyHistory.setSelected(false);
+        textViewClearHistory.setSelected(false);
+        // Select the last button clicked.
+        if (textView != null) {
             UIHelper.vibrateOnButtonTap(requireContext());
-            button.setSelected(true);
+            textView.setSelected(true);
         }
     }
     private void resetResult() {
         resetAllAndSelectTheLastClipboardButtonClicked();
-        resetAllAndSelectTheLastButtonClicked();
         resetResult1();
         resetResult2();
     }

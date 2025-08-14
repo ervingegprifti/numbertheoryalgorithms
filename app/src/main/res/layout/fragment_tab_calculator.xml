@@ -48,7 +48,7 @@
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextA"
                 android:autofillHints=""
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
             <!--InputGroup integer b:-->
             <LinearLayout style="@style/RowContainerStyle">
@@ -71,6 +71,30 @@
             </LinearLayout>
             <EditText style="@style/EditTextNumberInputStyle"
                 android:id="@+id/EditTextB"
+                android:autofillHints=""
+                android:layout_marginBottom="10dp"/>
+
+            <!--InputGroup integer c:-->
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelInputStyle"
+                    android:id="@+id/TextViewLabelC"
+                    android:text="@string/label_c"
+                    android:labelFor="@+id/EditTextC" />
+                <TextView style="@style/TextViewLabelElasticStyle"
+                    android:id="@+id/TextViewLabelElasticC" />
+                <TextView style="@style/ClipboardButtonMinusStyle"
+                    android:id="@+id/TextViewMinusC" />
+                <TextView style="@style/ClipboardButtonPlusStyle"
+                    android:id="@+id/TextViewPlusC" />
+                <TextView style="@style/ClipboardButtonCopyStyle"
+                    android:id="@+id/TextViewCopyC" />
+                <TextView style="@style/ClipboardButtonPasteStyle"
+                    android:id="@+id/TextViewPasteC"  />
+                <TextView style="@style/ClipboardButtonClearStyle"
+                    android:id="@+id/TextViewClearC"  />
+            </LinearLayout>
+            <EditText style="@style/EditTextNumberInputStyle"
+                android:id="@+id/EditTextC"
                 android:autofillHints="" />
         </LinearLayout>
 
@@ -87,7 +111,7 @@
                     android:text="@string/label_a" />
                 <EditText style="@style/EditTextNumberInputCompactStyle"
                     android:id="@+id/EditTextCompactA"
-                    android:autofillHints="@string/empty" />
+                    android:autofillHints="" />
                 <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
                     android:id="@+id/TextViewMinusCompactA" />
                 <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
@@ -101,13 +125,14 @@
             </LinearLayout>
 
             <!--Integer integer b:-->
-            <LinearLayout style="@style/RowContainerStyle">
+            <LinearLayout style="@style/RowContainerStyle"
+                android:layout_marginBottom="10dp">
                 <TextView style="@style/TextViewLabelCompactStyle"
                     android:id="@+id/TextViewLabelCompactB"
                     android:text="@string/label_b" />
                 <EditText style="@style/EditTextNumberInputCompactStyle"
                     android:id="@+id/EditTextCompactB"
-                    android:autofillHints="@string/empty" />
+                    android:autofillHints="" />
                 <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
                     android:id="@+id/TextViewMinusCompactB" />
                 <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
@@ -118,6 +143,26 @@
                     android:id="@+id/TextViewPasteCompactB" />
                 <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
                     android:id="@+id/TextViewClearCompactB" />
+            </LinearLayout>
+
+            <!--Integer integer c:-->
+            <LinearLayout style="@style/RowContainerStyle">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactC"
+                    android:text="@string/label_c" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactC"
+                    android:autofillHints="" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactC" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactC" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactC" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactC" />
+                <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+                    android:id="@+id/TextViewClearCompactC" />
             </LinearLayout>
         </LinearLayout>
 
@@ -150,8 +195,11 @@
                 android:id="@+id/ButtonFactorial"
                 android:text="@string/calculator_factorial" />
             <Button style="@style/CalculatorButtonStyle"
-                android:id="@+id/ButtonGcd"
-                android:text="@string/calculator_gcd" />
+                android:id="@+id/ButtonEulerPhi"
+                android:text="@string/calculator_euler_phi" />
+            <Button style="@style/CalculatorButtonStyle"
+                android:id="@+id/ButtonMod"
+                android:text="@string/calculator_mod" />
             <Button style="@style/CalculatorButtonLastStyle"
                 android:id="@+id/ButtonLcm"
                 android:text="@string/calculator_lcm" />
@@ -160,14 +208,14 @@
         <!--Buttons third line-->
         <LinearLayout style="@style/RowContainerStyle">
             <Button style="@style/CalculatorButtonStyle"
-                android:id="@+id/ButtonMod"
-                android:text="@string/calculator_mod" />
+                android:id="@+id/ButtonGcd"
+                android:text="@string/calculator_gcd" />
             <Button style="@style/CalculatorButtonStyle"
                 android:id="@+id/ButtonModInverse"
                 android:text="@string/calculator_mod_inverse" />
             <Button style="@style/CalculatorButtonLastStyle"
-                android:id="@+id/ButtonEulerPhi"
-                android:text="@string/calculator_euler_phi" />
+                android:id="@+id/ButtonModularPower"
+                android:text="@string/calculator_modular_power" />
         </LinearLayout>
 
         <!--Buttons forth line-->
