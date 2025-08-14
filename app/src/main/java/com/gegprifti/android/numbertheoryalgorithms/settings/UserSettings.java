@@ -15,25 +15,26 @@ import androidx.preference.PreferenceManager;
 public class UserSettings {
     // UI Configuration.
     private static final String COMPACT_INPUT_VIEW = "COMPACT_INPUT_VIEW";
+    private static final String SHOW_INPUT_DECREASE_INCREASE_BUTTONS = "SHOW_INPUT_DECREASE_INCREASE_BUTTONS";
     private static final String BIGGER_CONTROLS = "BIGGER_CONTROLS";
     private static final String BIGGER_RESULT_DISPLAY = "BIGGER_RESULT_DISPLAY";
     private static final String SQUARE_RESULT_DISPLAY = "SQUARE_RESULT_DISPLAY";
-    private static final String SHOW_INPUT_DECREASE_INCREASE_BUTTONS = "SHOW_INPUT_DECREASE_INCREASE_BUTTONS";
+
     private static final String SHOW_TEMPORARY_FIELD_IN_CALCULATOR = "SHOW_TEMPORARY_FIELD_IN_CALCULATOR";
     private static final String ENABLE_RESULTS_HISTORY_IN_CALCULATOR = "ENABLE_RESULTS_HISTORY_IN_CALCULATOR";
 
-    // Clipboard Buttons Configuration.
-    private static final String VIBRATE_ON_CLIPBOARD_BUTTON_CLICK = "VIBRATE_ON_CLIPBOARD_BUTTON_CLICK";
-    private static final String NOTIFY_ON_CLIPBOARD_BUTTON_CLICK = "NOTIFY_ON_CLIPBOARD_BUTTON_CLICK";
-
-    // Misc Configurations.
-    private static final String TAB_SWIPE_GESTURES = "TAB_SWIPE_GESTURES";
+    // Button Configurations
+    private static final String VIBRATE_ON_BUTTON_CLICK = "VIBRATE_ON_BUTTON_CLICK";
     private static final String HIDE_EXAMPLE_BUTTONS = "HIDE_EXAMPLE_BUTTONS";
 
-    // Binary Quadratic Form Menu.
+    // Misc Configurations
+    private static final String TAB_SWIPE_GESTURES = "TAB_SWIPE_GESTURES";
+
+    // Binary Quadratic Form Menu
     private static final String BQF_INCLUDE_TRIVIAL_SOLUTIONS = "BQF_INCLUDE_TRIVIAL_SOLUTIONS";
     private static final String BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS";
     private static final String BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS";
+
 
     private static SharedPreferences getSharedPreferences(Context context) {
         return (context == null) ? null : PreferenceManager.getDefaultSharedPreferences(context);
@@ -60,18 +61,7 @@ public class UserSettings {
     }
 
 
-    // Clipboard Buttons Configuration.
-    public static boolean getVibrateOnClipboardButtonClick(Context context) {
-        return getBoolean(context, VIBRATE_ON_CLIPBOARD_BUTTON_CLICK);
-    }
-
-
-    public static boolean getNotifyOnClipboardButtonClick(Context context) {
-        return getBoolean(context, NOTIFY_ON_CLIPBOARD_BUTTON_CLICK);
-    }
-
-
-    // UI Configuration.
+    // Input Output UI Configurations
     public static boolean getCompactInputView(Context context) {
         return getBoolean(context, COMPACT_INPUT_VIEW);
     }
@@ -107,9 +97,9 @@ public class UserSettings {
     }
 
 
-    // Misc Configurations.
-    public static boolean getTabSwipeGestures(Context context) {
-        return getBoolean(context, TAB_SWIPE_GESTURES);
+    // Button Configurations
+    public static boolean getVibrateOnClipboardButtonClick(Context context) {
+        return getBoolean(context, VIBRATE_ON_BUTTON_CLICK);
     }
 
 
@@ -118,7 +108,13 @@ public class UserSettings {
     }
 
 
-    // Quadratic Form Menu.
+    // Misc Configurations.
+    public static boolean getTabSwipeGestures(Context context) {
+        return getBoolean(context, TAB_SWIPE_GESTURES);
+    }
+
+
+    // Binary Quadratic Form Menu
     public static boolean getBQFIncludeTrivialSolutions(Context context) {
         return getBoolean(context, BQF_INCLUDE_TRIVIAL_SOLUTIONS);
     }
@@ -151,24 +147,23 @@ public class UserSettings {
 
     // Reset to default.
     public static void resetToDefault(Context context) {
-        // UI Configuration.
+        // Input Output UI Configuration.
         setBoolean(context, COMPACT_INPUT_VIEW, false);
+        setBoolean(context, SHOW_INPUT_DECREASE_INCREASE_BUTTONS, false);
         setBoolean(context, BIGGER_CONTROLS, false);
         setBoolean(context, BIGGER_RESULT_DISPLAY, false);
         setBoolean(context, SQUARE_RESULT_DISPLAY, false);
-        setBoolean(context, SHOW_INPUT_DECREASE_INCREASE_BUTTONS, false);
         setBoolean(context, SHOW_TEMPORARY_FIELD_IN_CALCULATOR, false);
         setBoolean(context, ENABLE_RESULTS_HISTORY_IN_CALCULATOR, false);
 
-        // Clipboard Buttons Configuration.
-        setBoolean(context, VIBRATE_ON_CLIPBOARD_BUTTON_CLICK, false);
-        setBoolean(context, NOTIFY_ON_CLIPBOARD_BUTTON_CLICK, false);
-
-        // Misc Configurations.
-        setBoolean(context, TAB_SWIPE_GESTURES, false);
+        // Button Configurations
+        setBoolean(context, VIBRATE_ON_BUTTON_CLICK, false);
         setBoolean(context, HIDE_EXAMPLE_BUTTONS, false);
 
-        // Quadratic Form Menu.
+        // Misc Configurations
+        setBoolean(context, TAB_SWIPE_GESTURES, false);
+
+        // Binary Quadratic Form Menu
         setBoolean(context, BQF_INCLUDE_TRIVIAL_SOLUTIONS, false);
         setBoolean(context, BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS, false);
         setBoolean(context, BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS, false);

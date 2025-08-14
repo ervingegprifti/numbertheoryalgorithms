@@ -51,15 +51,6 @@ public final class UIHelper {
     private final static String TAG = UIHelper.class.getSimpleName();
 
 
-    public static boolean isStatusBarVisible(FragmentActivity fragmentActivity) {
-        Rect rectangle = new Rect();
-        View decorView = fragmentActivity.getWindow().getDecorView();
-        decorView.getWindowVisibleDisplayFrame(rectangle);
-        int statusBarHeight = rectangle.top;
-        return statusBarHeight != 0;
-    }
-
-
     //region Full Screen
     public static  void setFullScreenImmersive(@NonNull Activity activity) {
         Window window = activity.getWindow();
@@ -259,18 +250,31 @@ public final class UIHelper {
 
 
     //region Copy Paste Clear
+
+    /**
+     * This is to clear the text of the editText
+     *
+     * @param context
+     * @param editText
+     */
     public static void clearEditText(Context context, EditText editText) {
-        // This is to clear the text of the editText
         try {
             editText.setText("");
             editText.requestFocus();
-            notifyOnClipboardButtonClick(context, "cleared");
+            vibrateOnButtonClick(context);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    public static void copyEditText(Context context, EditText editText) {
-        // This is to copy the text from the editText to clipboard
+
+
+    /**
+     * This is to copy the text from the editText to clipboard
+     *
+     * @param context
+     * @param editText
+     */
+    public static void copyEditTextToClipboard(Context context, EditText editText) {
         try {
             // Source: https://developer.android.com/guide/topics/text/copy-paste.html
             String textToCopy = "";
@@ -287,13 +291,20 @@ public final class UIHelper {
             }
             clipboardManager.setPrimaryClip(clipData);
             editText.clearFocus();
-            notifyOnClipboardButtonClick(context, "copied");
+            vibrateOnButtonClick(context);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    public static void copyTextToClipboard(Context context, String textToCopyToClipboard) {
-        // This is to copy the some text to clipboard
+
+
+    /**
+     * This is to copy this text to clipboard
+     *
+     * @param context
+     * @param textToCopyToClipboard
+     */
+    public static void copyThisTextToClipboard(Context context, String textToCopyToClipboard) {
         try {
             // Source: https://developer.android.com/guide/topics/text/copy-paste.html
             if(textToCopyToClipboard.isEmpty()) {
@@ -316,8 +327,15 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
-    public static void pasteEditText(Context context, EditText editText) {
-        // This is to paste the text into the editText from clipboard
+
+
+    /**
+     * This is to paste the text into the editText from clipboard
+     *
+     * @param context
+     * @param editText
+     */
+    public static void pasteTextToEditTextFromClipboard(Context context, EditText editText) {
         try {
             // Source: https://developer.android.com/guide/topics/text/copy-paste.html
             ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -335,9 +353,9 @@ public final class UIHelper {
 
             // Examines the item on the clipboard. If getText() does not return null, the clip item contains the text.
             if (!(clipboardManager.hasPrimaryClip())) {
-                notifyOnClipboardButtonClick(context, "nothing to paste");
+                vibrateOnButtonClick(context);
             } else if (!(clipboardManager.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN))) {
-                notifyOnClipboardButtonClick(context, "not a number");
+                vibrateOnButtonClick(context);
             } else {
                 // Clipboard contains plain text.
                 String pasteData = "";
@@ -347,34 +365,7 @@ public final class UIHelper {
                 editText.setText(pasteData);
             }
             editText.clearFocus();
-            notifyOnClipboardButtonClick(context, "pasted");
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-    public static void pasteToEditTextAsExpressionBDEF(Context context, EditText editText) {
-        // This is to paste the text into the editText from clipboard
-        try {
-            // Source: https://developer.android.com/guide/topics/text/copy-paste.html
-            ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-            if (clipboardManager == null) {
-                return;
-            }
-            // Examines the item on the clipboard. If getText() does not return null, the clip item contains the text.
-            ClipData.Item item = clipboardManager.getPrimaryClip().getItemAt(0);
-            if(item == null) {
-                return;
-            }
-            if (!(clipboardManager.hasPrimaryClip())) {
-                notifyOnClipboardButtonClick(context, "nothing to paste");
-            } else if (!(clipboardManager.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN))) {
-                notifyOnClipboardButtonClick(context, "not a b, d, e, f expression");
-            } else {
-                // Clipboard contains plain text.
-                String pasteData = item.getText().toString(); // Gets the clipboard as text.
-                editText.setText(pasteData);
-            }
-            notifyOnClipboardButtonClick(context, "pasted");
+            vibrateOnButtonClick(context);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -382,8 +373,13 @@ public final class UIHelper {
     //endregion Copy Paste Clear
 
 
+    /**
+     * Validate BigInteger number
+     *
+     * @param str
+     * @return
+     */
     private static boolean isBigInteger(String str) {
-        // Validate the number
         try {
             BigInteger bigInteger = new BigInteger(str);
             return true;
@@ -391,8 +387,15 @@ public final class UIHelper {
             return false;
         }
     }
-    public static String getAppVersionName(Context context) {
-        // Get the app version
+
+
+    /**
+     * Get the app version.
+     *
+     * @param context
+     * @return
+     */
+    public static String getAppVersion(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             if(packageInfo != null) {
@@ -407,8 +410,13 @@ public final class UIHelper {
     }
 
 
+    /**
+     * Used to start an action view intent
+     *
+     * @param context
+     * @param url
+     */
     public static void openWith(Context context, String url) {
-        // Used to start an action view intent
         try {
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -418,6 +426,7 @@ public final class UIHelper {
             Log.e(TAG, "" + ex);
         }
     }
+
 
     public static void sendEmail(Context context, String recipient, String subject, String body) {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
@@ -453,15 +462,11 @@ public final class UIHelper {
     }
 
 
-    public  static void notifyOnClipboardButtonClick(Context context, String message) {
+    public  static void vibrateOnButtonClick(Context context) {
         try {
             boolean vibrateOnClipboardButtonClick = UserSettings.getVibrateOnClipboardButtonClick(context);
-            boolean notifyOnClipboardButtonClick = UserSettings.getNotifyOnClipboardButtonClick(context);
             if (vibrateOnClipboardButtonClick) {
                 vibrate(context);
-            }
-            if (notifyOnClipboardButtonClick) {
-                showCustomToastLight(context, message, Toast.LENGTH_SHORT);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -841,180 +846,6 @@ public final class UIHelper {
     }
 
 
-    public static List<BigInteger> checkInputAndGetQuadraticFormExpression(Context context, InputGroup inputGroup) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
-
-        List<BigInteger> returnValue = new ArrayList<>();
-        String errorMessage = "";
-        // Check.
-        if (UIHelper.checkInputMustBeFilled(context, inputGroup)) {
-            return null;
-        }
-        try {
-            String expression = editText.getText().toString();
-            expression = expression.replace(" ", "");
-            String[] numbers = expression.split(",");
-            if (numbers.length == 6) {
-                returnValue = checkInputAndGetExpressionABCDEF(context, inputGroup);
-            } else if (numbers.length == 4) {
-                returnValue = checkInputAndGetExpressionBDEF(context, inputGroup);
-            } else {
-                errorMessage = "The value in expression must be of the form of <b>b, d, e, f</b> or <b>a, b, c, d, e, f</b>";
-            }
-        } catch (Exception ex) {
-            errorMessage = "The value in expression must be of the form of <b>b, d, e, f</b> or <b>a, b, c, d, e, f</b>";
-        }
-        if (errorMessage.isEmpty()) {
-            return returnValue;
-        } else {
-            displayError(inputGroup);
-            // Notify before return.
-            UIHelper.displayTheErrorMessage(context, errorMessage);
-            return null;
-        }
-    }
-
-
-    /**
-     * <p>Check the input must be in the form of a, b, c, d, e, f.
-     * <p><b>checkInputMustBeFilled<br>
-     * checkInputAndGetExpressionABCDEF</b>
-     * @param context
-     * @param inputGroup
-     * @return The list of a, b, c, d, e, f integers, null otherwise.
-     */
-    public static List<BigInteger> checkInputAndGetExpressionABCDEF(Context context, InputGroup inputGroup) {
-        TextView label = inputGroup.label;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
-
-        List<BigInteger> returnValue = new ArrayList<>();
-        String errorMessage = "";
-        try {
-            String expression = editText.getText().toString();
-            expression = expression.replace(" ", "");
-            String[] numbers = expression.split(",");
-            if (numbers.length == 6) {
-                for (int i = 0; i < numbers.length; i++) {
-                    String number = numbers[i];
-                    number = number.replace(" ", "");
-                    String numberRepresentative = "";
-                    if (i == 0) {
-                        numberRepresentative = "a";
-                    } else if (i == 1) {
-                        numberRepresentative = "b";
-                    } else if (i == 2) {
-                        numberRepresentative = "c";
-                    } else if (i == 3) {
-                        numberRepresentative = "d";
-                    } else if (i == 4) {
-                        numberRepresentative = "e";
-                    } else if (i == 5) {
-                        numberRepresentative = "f";
-                    }
-                    try {
-                        if (number.isEmpty()) {
-                            errorMessage = String.format(Locale.getDefault(), "The number <b>%s</b> in expression must be filled", numberRepresentative);
-                            break;
-                        } else {
-                            returnValue.add(new BigInteger(number));
-                        }
-                    } catch (Exception ex) {
-                        errorMessage = String.format(Locale.getDefault(), "The number <b>%s</b> in expression must be whole number", numberRepresentative);
-                        break;
-                    }
-                }
-            } else {
-                errorMessage = "The value in expression must be of the form of <b>a, b, c, d, e, f</b>";
-            }
-        } catch (Exception ex) {
-            errorMessage = "The value in expression must be of the form of <b>a, b, c, d, e, f</b>";
-        }
-
-        if (errorMessage.isEmpty()) {
-            return returnValue;
-        } else {
-            displayError(inputGroup);
-            // Notify before return.
-            UIHelper.displayTheErrorMessage(context, errorMessage);
-            return null;
-        }
-    }
-
-
-    /**
-     * <p>Check the input must be in the form of b, d, e, f.
-     * <p><b>checkInputMustBeFilled<br>
-     * checkInputAndGetExpressionBDEF</b>
-     * @param context The context.
-     * @param inputGroup
-     * @return The list of b, d, e, f integers, null otherwise.
-     */
-    public static List<BigInteger> checkInputAndGetExpressionBDEF(Context context, InputGroup inputGroup) {
-        TextView label = inputGroup.label;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
-
-        List<BigInteger> returnValue = new ArrayList<>();
-        String errorMessage = "";
-        // Check.
-        try {
-            String expression = editText.getText().toString();
-            expression = expression.replace(" ", "");
-            String[] numbers = expression.split(",");
-            if (numbers.length == 4) {
-                for (int i = 0; i < numbers.length; i++) {
-                    String number = numbers[i];
-                    number = number.replace(" ", "");
-                    String numberRepresentative = "";
-                    if (i == 0) {
-                        numberRepresentative = "b";
-                    } else if (i == 1) {
-                        numberRepresentative = "d";
-                    } else if (i == 2) {
-                        numberRepresentative = "e";
-                    } else if (i == 3) {
-                        numberRepresentative = "f";
-                    }
-                    try {
-                        if (number.isEmpty()) {
-                            errorMessage = String.format(Locale.getDefault(), "The number <b>%s</b> in expression must be filled", numberRepresentative);
-                            break;
-                        } else {
-                            returnValue.add(new BigInteger(number));
-                        }
-                    } catch (Exception ex) {
-                        errorMessage = String.format(Locale.getDefault(), "The number <b>%s</b> in expression must be whole number", numberRepresentative);
-                        break;
-                    }
-                }
-            } else {
-                errorMessage = "The value in expression must be of the form of <b>b, d, e, f</b>";
-            }
-        } catch (Exception ex) {
-            errorMessage = "The value in expression must be of the form of <b>b, d, e, f</b>";
-        }
-
-        if (errorMessage.isEmpty()) {
-            return returnValue;
-        } else {
-            displayError(inputGroup);
-            // Notify before return.
-            UIHelper.displayTheErrorMessage(context, errorMessage);
-            return null;
-        }
-    }
-
-
-
-
-
-
-
-
 
     public static InputFilter inputFilterIntegerOnly = new InputFilter() {
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -1080,5 +911,4 @@ public final class UIHelper {
         }
         return characterCounter;
     }
-
 }
