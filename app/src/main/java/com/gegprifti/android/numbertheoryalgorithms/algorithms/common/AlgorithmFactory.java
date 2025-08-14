@@ -22,6 +22,7 @@ public class AlgorithmFactory {
         registry.put(AlgorithmName.CALCULATOR_LCM, Lcm::new);
         registry.put(AlgorithmName.CALCULATOR_MOD, Mod::new);
         registry.put(AlgorithmName.CALCULATOR_MOD_INVERSE, ModInverse::new);
+        registry.put(AlgorithmName.CALCULATOR_MODULAR_POWER, ModularPower::new);
         registry.put(AlgorithmName.CALCULATOR_IS_PROBABLE_PRIME, IsProbablePrime::new);
         registry.put(AlgorithmName.CALCULATOR_EULER_PHI, EulerPhi::new);
         registry.put(AlgorithmName.CALCULATOR_FACTORIAL, Factorial::new);

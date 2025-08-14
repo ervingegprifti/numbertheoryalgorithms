@@ -11,10 +11,11 @@
     <string name="calculator_gcd" translatable="false">gcd(|a|, |b|)</string>
     <string name="calculator_lcm" translatable="false">lcm(a, b)</string>
     <string name="calculator_mod" translatable="false">a (mod b)</string>
+    <string name="calculator_modular_power" translatable="false">aᵇ (mod c)</string>
     <string name="calculator_mod_inverse" translatable="false">a⁻¹ (mod b)</string>
     <string name="calculator_is_a_prime">is a prime?</string>
-    <string name="calculator_euler_phi">euler\'s <i>ϕ</i>(a)</string>
-    <string name="calculator_factorial">factorial a!</string>
+    <string name="calculator_euler_phi"><i>ϕ</i>(a)</string>
+    <string name="calculator_factorial">a!</string>
     <string name="calculator_next_prime_to_a">next prime</string>
     <string name="calculator_next_twin_prime_to_a">next twin prime</string>
     <!--Calculator operations label-->
@@ -30,6 +31,7 @@
     <string name="calculator_lcm_label_result1">lcm(a, b)</string>
     <string name="calculator_mod_label_result1">a (mod b)</string>
     <string name="calculator_mod_inverse_label_result1">a⁻¹ (mod b)</string>
+    <string name="calculator_modular_power_label_result1">aᵇ (mod c)</string>
     <string name="calculator_a_is_prime_yes">yes</string>
     <string name="calculator_euler_phi_of_a">euler\'s ϕ(a)</string>
     <string name="calculator_a_factorial">a!</string>
