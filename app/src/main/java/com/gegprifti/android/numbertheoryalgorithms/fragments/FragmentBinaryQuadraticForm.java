@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -487,185 +488,177 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Extended input b clipboard button events
             textViewMinusB.setOnClickListener(v -> {
                 decreaseByOne(editTextB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusB);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusB);
             });
             textViewPlusB.setOnClickListener(v -> {
                 increaseByOne(editTextB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusB);
             });
             textViewCopyB.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyB);
             });
             textViewPasteB.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteB);
             });
             textViewClearB.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearB);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearB);
             });
 
             // Extended input d clipboard button events
             textViewMinusD.setOnClickListener(v -> {
                 decreaseByOne(editTextD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusD);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusD);
             });
             textViewPlusD.setOnClickListener(v -> {
                 increaseByOne(editTextD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusD);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusD);
             });
             textViewCopyD.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyD);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyD);
             });
             textViewPasteD.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteD);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteD);
             });
             textViewClearD.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearD);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearD);
             });
 
             // Extended input e clipboard button events
             textViewMinusE.setOnClickListener(v -> {
                 decreaseByOne(editTextE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusE);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusE);
             });
             textViewPlusE.setOnClickListener(v -> {
                 increaseByOne(editTextE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusE);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusE);
             });
             textViewCopyE.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyE);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyE);
             });
             textViewPasteE.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteE);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteE);
             });
             textViewClearE.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearE);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearE);
             });
 
             // Extended input f clipboard button events
             textViewMinusF.setOnClickListener(v -> {
                 decreaseByOne(editTextF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusF);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusF);
             });
             textViewPlusF.setOnClickListener(v -> {
                 increaseByOne(editTextF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusF);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusF);
             });
             textViewCopyF.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyF);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyF);
             });
             textViewPasteF.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteF);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteF);
             });
             textViewClearF.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearF);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearF);
             });
 
             // Compact input b clipboard button events
             textViewMinusCompactB.setOnClickListener(v -> {
                 decreaseByOne(editTextCompactB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactB);
             });
             textViewPlusCompactB.setOnClickListener(v -> {
                 increaseByOne(editTextCompactB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactB);
             });
             textViewCopyCompactB.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactB);
             });
             textViewPasteCompactB.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactB);
             });
             textViewClearCompactB.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactB);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactB);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearCompactB);
             });
 
             // Compact input d clipboard button events
             textViewMinusCompactD.setOnClickListener(v -> {
                 decreaseByOne(editTextCompactD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactD);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactD);
             });
             textViewPlusCompactD.setOnClickListener(v -> {
                 increaseByOne(editTextCompactD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactD);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactD);
             });
             textViewCopyCompactD.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactD);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactD);
             });
             textViewPasteCompactD.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactD);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactD);
             });
             textViewClearCompactD.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactD);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactD);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearCompactD);
             });
 
             // Compact input e clipboard button events
             textViewMinusCompactE.setOnClickListener(v -> {
                 decreaseByOne(editTextCompactE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactE);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactE);
             });
             textViewPlusCompactE.setOnClickListener(v -> {
                 increaseByOne(editTextCompactE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactE);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactE);
             });
             textViewCopyCompactE.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactE);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactE);
             });
             textViewPasteCompactE.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactE);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactE);
             });
             textViewClearCompactE.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactE);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactE);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearCompactE);
             });
 
             // Compact input f clipboard button events
             textViewMinusCompactF.setOnClickListener(v -> {
                 decreaseByOne(editTextCompactF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactF);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactF);
             });
             textViewPlusCompactF.setOnClickListener(v -> {
                 increaseByOne(editTextCompactF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactF);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactF);
             });
             textViewCopyCompactF.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactF);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactF);
             });
             textViewPasteCompactF.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactF);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactF);
             });
             textViewClearCompactF.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactF);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactF);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearCompactF);
             });
 
             // Example run button events
@@ -741,21 +734,34 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Result clipboard button events
             this.textViewExpandResult.setOnClickListener(v -> {
                 expandResult();
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+                resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
             });
             this.textViewCopyResult.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyResult);
             });
             this.textViewClearResult.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextResult);
                 resetResult(false);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearResult);
             });
 
             // Result events
             initDoubleTapDetector(editTextResult);
+            editTextResult.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s == null || s.length() == 0){
+                        textViewExpandResult.setVisibility(View.GONE);
+                    } else {
+                        textViewExpandResult.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -769,7 +775,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     protected void fireOnDoubleTap(View view) {
         if (view == editTextResult){
             expandResult();
-            resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+            resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
         }
     }
     private void expandResult() {
@@ -1180,7 +1186,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         ArrayList<String> listItems=new ArrayList<>();
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(requireContext(), R.layout.row_item_canceled, R.id.RowItemCanceled, listItems);
-        listView.setAdapter(adapter);
+        setListViewAdapter(listView, adapter);
         listItems.add(requireContext().getResources().getString(R.string.canceled));
         adapter.notifyDataSetChanged();
     }
@@ -1239,7 +1245,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Create and set the adapter.
             GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader1, rows, rowItemWidth, rowItemWidths, rowItemHeight, null, biggerResultDisplay);
-            listViewResult1.setAdapter(adapter);
+            setListViewAdapter(listViewResult1, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1294,9 +1300,17 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Create and set the adapter.
             GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader2, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
             showResultFModM2(adapter, m, r);
-            listViewResult2.setAdapter(adapter);
+            setListViewAdapter(listViewResult2, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
+        }
+    }
+    private void setListViewAdapter(ListView listView, ListAdapter listAdapter) {
+        listView.setAdapter(listAdapter);
+        if (listAdapter == null) {
+            textViewExpandResult.setVisibility(View.GONE);
+        } else {
+            textViewExpandResult.setVisibility(View.VISIBLE);
         }
     }
     //endregion Callback
@@ -1717,11 +1731,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
-    private void resetAllAndSelectTheLastClipboardButtonClicked() {
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
     }
-    private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
-        // Reset the last clipboard clicked.
+    private void resetAllAndSelectTheLastButtonClicked(View view) {
+        //
         textViewMinusB.setSelected(false);
         textViewPlusB.setSelected(false);
         textViewCopyB.setSelected(false);
@@ -1764,20 +1778,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         textViewPasteCompactF.setSelected(false);
         textViewClearCompactF.setSelected(false);
         //
-        textViewExpandResult.setSelected(false);
-        textViewCopyResult.setSelected(false);
-        textViewClearResult.setSelected(false);
-        // Select he last clipboard clicked.
-        if (textView != null) {
-            UIHelper.vibrateOnButtonTap(requireContext());
-            textView.setSelected(true);
-        }
-    }
-    private void resetAllAndSelectTheLastButtonClicked() {
-        resetAllAndSelectTheLastButtonClicked(null);
-    }
-    private void resetAllAndSelectTheLastButtonClicked(Button button) {
-        // Reset the last button clicked.
         buttonRunExample1.setSelected(false);
         buttonRunExample2.setSelected(false);
         buttonRunExample3.setSelected(false);
@@ -1786,17 +1786,17 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         buttonRun.setSelected(false);
         buttonRun1.setSelected(false);
         buttonRun2.setSelected(false);
+        //
+        textViewExpandResult.setSelected(false);
+        textViewCopyResult.setSelected(false);
+        textViewClearResult.setSelected(false);
         // Select the last button clicked.
-        if (button != null) {
+        if (view != null) {
             UIHelper.vibrateOnButtonTap(requireContext());
-            button.setSelected(true);
-            textViewExpandResult.setVisibility(View.VISIBLE);
-        } else {
-            textViewExpandResult.setVisibility(View.GONE);
+            view.setSelected(true);
         }
     }
     private void resetResult(boolean skipLabelResult) {
-        resetAllAndSelectTheLastClipboardButtonClicked();
         resetAllAndSelectTheLastButtonClicked();
         //
         if(!skipLabelResult) {
@@ -1805,8 +1805,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.editTextResult.setText("");
         this.linearLayoutStaticColumnHeader1.removeAllViews();
         this.linearLayoutStaticColumnHeader2.removeAllViews();
-        this.listViewResult1.setAdapter(null);
-        this.listViewResult2.setAdapter(null);
+        setListViewAdapter(listViewResult1, null);
+        setListViewAdapter(listViewResult2, null);
     }
     private void setResultVisibilityFromButtonRun(boolean skipLabelResult) {
         if(!skipLabelResult) {
