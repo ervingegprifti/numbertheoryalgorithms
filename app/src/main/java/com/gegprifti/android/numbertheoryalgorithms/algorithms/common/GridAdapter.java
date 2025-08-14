@@ -170,7 +170,7 @@ public class GridAdapter extends BaseAdapter {
 
 
         if (!rowItem.getIsHeader() && rowItem.getValue() != null && !rowItem.getValue().isEmpty()) {
-            textView.setOnClickListener(view -> UIHelper.copyThisTextToClipboard(context, rowItem.getValue()));
+            textView.setOnClickListener(view -> UIHelper.copyTextIntoClipboard(context, rowItem.getValue()));
         } else {
             textView.setOnClickListener(null);
         }

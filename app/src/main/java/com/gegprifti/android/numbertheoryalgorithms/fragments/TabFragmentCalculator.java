@@ -328,11 +328,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
             });
             textViewPasteA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
             });
             textViewClearA.setOnClickListener(v -> {
@@ -351,11 +351,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
             });
             textViewCopyB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
             });
             textViewPasteB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
             });
             textViewClearB.setOnClickListener(v -> {
@@ -374,11 +374,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
             });
             textViewPasteCompactA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
             });
             textViewClearCompactA.setOnClickListener(v -> {
@@ -397,11 +397,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
             });
             textViewCopyCompactB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
             });
             textViewPasteCompactB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
             });
             textViewClearCompactB.setOnClickListener(v -> {
@@ -429,7 +429,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // Result1 clipboard button events
             textViewCopyResult1.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult1);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult1);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult1);
             });
             textViewClearResult1.setOnClickListener(v -> {
@@ -441,7 +441,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // Result2 clipboard button events
             textViewCopyResult2.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult2);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult2);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult2);
             });
             textViewClearResult2.setOnClickListener(v -> {
@@ -453,11 +453,11 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // Temp events
             textViewCopyTemp.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextTemp);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextTemp);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyTemp);
             });
             textViewPasteTemp.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextTemp);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextTemp);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteTemp);
             });
             textViewClearTemp.setOnClickListener(v -> {
@@ -467,7 +467,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 
             // History events
             textViewCopyHistory.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextHistory);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextHistory);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyHistory);
             });
             textViewClearHistory.setOnClickListener(v -> {
@@ -1540,6 +1540,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         textViewClearHistory.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             textView.setSelected(true);
         }
     }
@@ -1565,6 +1566,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         buttonNextProbableTwinPrime.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             button.setSelected(true);
         }
     }

@@ -291,11 +291,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
             });
             textViewPasteA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
             });
             textViewClearA.setOnClickListener(v -> {
@@ -314,11 +314,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusP);
             });
             textViewCopyP.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextP);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyP);
             });
             textViewPasteP.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextP);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteP);
             });
             textViewClearP.setOnClickListener(v -> {
@@ -337,11 +337,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
             });
             textViewPasteCompactA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
             });
             textViewClearCompactA.setOnClickListener(v -> {
@@ -360,11 +360,11 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactP);
             });
             textViewCopyCompactP.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactP);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactP);
             });
             textViewPasteCompactP.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactP);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactP);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactP);
             });
             textViewClearCompactP.setOnClickListener(v -> {
@@ -384,7 +384,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
             });
             textViewClearResult.setOnClickListener(v -> {
@@ -791,6 +791,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
         textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             textView.setSelected(true);
         }
     }
@@ -805,6 +806,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
         buttonRunExample3.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             button.setSelected(true);
         }
     }

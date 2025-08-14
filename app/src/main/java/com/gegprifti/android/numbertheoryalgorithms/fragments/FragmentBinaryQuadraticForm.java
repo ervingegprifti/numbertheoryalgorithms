@@ -494,11 +494,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
             });
             textViewCopyB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
             });
             textViewPasteB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
             });
             textViewClearB.setOnClickListener(v -> {
@@ -517,11 +517,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusD);
             });
             textViewCopyD.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextD);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextD);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyD);
             });
             textViewPasteD.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextD);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextD);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteD);
             });
             textViewClearD.setOnClickListener(v -> {
@@ -540,11 +540,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusE);
             });
             textViewCopyE.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextE);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextE);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyE);
             });
             textViewPasteE.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextE);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextE);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteE);
             });
             textViewClearE.setOnClickListener(v -> {
@@ -563,11 +563,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusF);
             });
             textViewCopyF.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextF);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextF);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyF);
             });
             textViewPasteF.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextF);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextF);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteF);
             });
             textViewClearF.setOnClickListener(v -> {
@@ -586,11 +586,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
             });
             textViewCopyCompactB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
             });
             textViewPasteCompactB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
             });
             textViewClearCompactB.setOnClickListener(v -> {
@@ -609,11 +609,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactD);
             });
             textViewCopyCompactD.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactD);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactD);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactD);
             });
             textViewPasteCompactD.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactD);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactD);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactD);
             });
             textViewClearCompactD.setOnClickListener(v -> {
@@ -632,11 +632,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactE);
             });
             textViewCopyCompactE.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactE);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactE);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactE);
             });
             textViewPasteCompactE.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactE);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactE);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactE);
             });
             textViewClearCompactE.setOnClickListener(v -> {
@@ -655,11 +655,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactF);
             });
             textViewCopyCompactF.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactF);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactF);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactF);
             });
             textViewPasteCompactF.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactF);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactF);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactF);
             });
             textViewClearCompactF.setOnClickListener(v -> {
@@ -744,7 +744,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
             });
             this.textViewCopyResult.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
             });
             this.textViewClearResult.setOnClickListener(v -> {
@@ -1769,6 +1769,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             textView.setSelected(true);
         }
     }
@@ -1787,6 +1788,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         buttonRun2.setSelected(false);
         // Select the last button clicked.
         if (button != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             button.setSelected(true);
             textViewExpandResult.setVisibility(View.VISIBLE);
         } else {
