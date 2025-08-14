@@ -290,93 +290,89 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Extended input n clipboard button events
             textViewMinusN.setOnClickListener(v -> {
                 decreaseByOne(editTextN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusN);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusN);
             });
             textViewPlusN.setOnClickListener(v -> {
                 increaseByOne(editTextN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusN);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusN);
             });
             textViewCopyN.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyN);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyN);
             });
             textViewPasteN.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteN);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteN);
             });
             textViewClearN.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearN);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearN);
             });
 
             // Extended input a clipboard button events
             textViewMinusA.setOnClickListener(v -> {
                 decreaseByOne(editTextA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusA);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusA);
             });
             textViewPlusA.setOnClickListener(v -> {
                 increaseByOne(editTextA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyA);
             });
             textViewPasteA.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteA);
             });
             textViewClearA.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearA);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearA);
             });
 
             // Compact input n clipboard button events
             textViewMinusCompactN.setOnClickListener(v -> {
                 decreaseByOne(editTextCompactN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactN);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactN);
             });
             textViewPlusCompactN.setOnClickListener(v -> {
                 increaseByOne(editTextCompactN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactN);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactN);
             });
             textViewCopyCompactN.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactN);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactN);
             });
             textViewPasteCompactN.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactN);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactN);
             });
             textViewClearCompactN.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactN);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactN);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearCompactN);
             });
 
             // Compact input a clipboard button events
             textViewMinusCompactA.setOnClickListener(v -> {
                 decreaseByOne(editTextCompactA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewMinusCompactA);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactA);
             });
             textViewPlusCompactA.setOnClickListener(v -> {
                 increaseByOne(editTextCompactA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactA);
             });
             textViewPasteCompactA.setOnClickListener(v -> {
                 UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactA);
             });
             textViewClearCompactA.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextCompactA);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearCompactA);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearCompactA);
             });
 
             // Example run button events
@@ -397,12 +393,11 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             });
             textViewCopyResult.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyResult);
             });
             textViewClearResult.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextResult);
-                resetAllAndSelectTheLastClipboardButtonClicked(textViewClearResult);
-                resetAllAndSelectTheLastButtonClicked();
+                resetAllAndSelectTheLastButtonClicked(textViewClearResult);
             });
 
             // Result events
@@ -413,7 +408,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    if (s == null || s.toString().isEmpty()) {
+                    if (s == null || s.length() == 0) {
                         textViewExpandResult.setVisibility(View.GONE);
                     } else {
                         textViewExpandResult.setVisibility(View.VISIBLE);
@@ -434,13 +429,13 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     protected void fireOnDoubleTap(View view) {
         if (view == editTextResult){
             expandResult();
-            resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+            resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
         }
     }
     private void expandResult() {
         PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
         popupResult.show();
-        resetAllAndSelectTheLastClipboardButtonClicked(textViewExpandResult);
+        resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
     }
 
 
@@ -857,11 +852,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
-    private void resetAllAndSelectTheLastClipboardButtonClicked() {
-        resetAllAndSelectTheLastClipboardButtonClicked(null);
+    private void resetAllAndSelectTheLastButtonClicked() {
+        resetAllAndSelectTheLastButtonClicked(null);
     }
-    private void resetAllAndSelectTheLastClipboardButtonClicked(TextView textView) {
-        // Reset the last clipboard clicked.
+    private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
         textViewMinusN.setSelected(false);
         textViewPlusN.setSelected(false);
         textViewCopyN.setSelected(false);
@@ -883,20 +877,6 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         textViewPasteCompactA.setSelected(false);
         textViewClearCompactA.setSelected(false);
         //
-        textViewExpandResult.setSelected(false);
-        textViewCopyResult.setSelected(false);
-        textViewClearResult.setSelected(false);
-        // Select he last clipboard clicked.
-        if (textView != null) {
-            UIHelper.vibrateOnButtonTap(requireContext());
-            textView.setSelected(true);
-        }
-    }
-    private void resetAllAndSelectTheLastButtonClicked() {
-        resetAllAndSelectTheLastButtonClicked(null);
-    }
-    private void resetAllAndSelectTheLastButtonClicked(Button button) {
-        // Reset the last button clicked.
         buttonRunExample1.setSelected(false);
         buttonRunExample2.setSelected(false);
         buttonRunExample3.setSelected(false);
@@ -905,16 +885,17 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         buttonRunExample6.setSelected(false);
         buttonRun.setSelected(false);
         buttonCountRun.setSelected(false);
+        //
+        textViewExpandResult.setSelected(false);
+        textViewCopyResult.setSelected(false);
+        textViewClearResult.setSelected(false);
         // Select he last button clicked.
-        if (button != null) {
+        if (textView != null) {
             UIHelper.vibrateOnButtonTap(requireContext());
-            button.setSelected(true);
+            textView.setSelected(true);
         }
     }
     private void resetResult(boolean skipLabelResult) {
-        // Reset the last clipboard clicked.
-        resetAllAndSelectTheLastClipboardButtonClicked();
-        // Reset the last button clicked.
         resetAllAndSelectTheLastButtonClicked();
         //
         if(!skipLabelResult) {
