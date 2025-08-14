@@ -44,7 +44,7 @@ public class AboutActivity extends AppCompatActivity {
             CardView cardViewSplashScreen = findViewById(R.id.CardViewSplashScreen);
             CardView cardViewThirdPartyLicenses = findViewById(R.id.CardViewThirdPartyLicenses);
 
-            String versionName = UIHelper.getAppVersionName(this);
+            String versionName = UIHelper.getAppVersion(this);
             textViewAppVersion.setText(versionName);
 
             // Events

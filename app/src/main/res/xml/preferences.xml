@@ -58,23 +58,22 @@
 
 
     <PreferenceCategory
-        app:title="@string/settings_preference_category_clipboard"
+        app:title="@string/settings_preference_category_button_configurations"
         app:iconSpaceReserved="false">
         <SwitchPreferenceCompat
-            app:key="VIBRATE_ON_CLIPBOARD_BUTTON_CLICK"
-            app:title="@string/settings_vibrate_on_clipboard_button_click"
-            app:summary="@string/settings_vibrate_on_clipboard_button_click_description"
+            app:key="VIBRATE_ON_BUTTON_CLICK"
+            app:title="@string/settings_vibrate_on_button_click"
+            app:summary="@string/settings_vibrate_on_button_click_description"
             app:defaultValue="false"
             app:icon="@drawable/ic_baseline_vibration_24"
             app:iconSpaceReserved="true" />
         <SwitchPreferenceCompat
-            app:key="NOTIFY_ON_CLIPBOARD_BUTTON_CLICK"
-            app:title="@string/settings_notify_on_clipboard_button_click"
-            app:summary="@string/settings_notify_on_clipboard_button_click_description"
+            app:key="HIDE_EXAMPLE_BUTTONS"
+            app:title="@string/settings_hide_example_buttons"
+            app:summary="@string/settings_hide_example_buttons_description"
             app:defaultValue="false"
-            app:icon="@drawable/ic_baseline_message_24"
-            app:iconSpaceReserved="true"
-            app:allowDividerBelow="true" />
+            app:icon="@drawable/ic_baseline_visibility_24"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
 
 
@@ -88,13 +87,5 @@
             app:defaultValue="false"
             app:icon="@drawable/ic_baseline_swap_horiz_24"
             app:iconSpaceReserved="true" />
-        <SwitchPreferenceCompat
-            app:key="HIDE_EXAMPLE_BUTTONS"
-            app:title="@string/settings_hide_example_buttons"
-            app:summary="@string/settings_hide_example_buttons_description"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_baseline_visibility_24"
-            app:iconSpaceReserved="true" />
     </PreferenceCategory>
-
 </PreferenceScreen>
