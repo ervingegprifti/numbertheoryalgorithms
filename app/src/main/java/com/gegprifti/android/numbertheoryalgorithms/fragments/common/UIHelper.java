@@ -12,10 +12,10 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
@@ -24,6 +24,8 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.FragmentActivity;
+
+import android.os.VibratorManager;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -42,8 +44,6 @@ import android.widget.Toast;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -250,31 +250,13 @@ public final class UIHelper {
 
 
     //region Copy Paste Clear
-
     /**
-     * This is to clear the text of the editText
+     * Copy the text from the editText into clipboard.
      *
      * @param context
      * @param editText
      */
-    public static void clearEditText(Context context, EditText editText) {
-        try {
-            editText.setText("");
-            editText.requestFocus();
-            vibrateOnButtonClick(context);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-
-
-    /**
-     * This is to copy the text from the editText to clipboard
-     *
-     * @param context
-     * @param editText
-     */
-    public static void copyEditTextToClipboard(Context context, EditText editText) {
+    public static void copyTextFromEditTextIntoClipboard(Context context, EditText editText) {
         try {
             // Source: https://developer.android.com/guide/topics/text/copy-paste.html
             String textToCopy = "";
@@ -291,7 +273,6 @@ public final class UIHelper {
             }
             clipboardManager.setPrimaryClip(clipData);
             editText.clearFocus();
-            vibrateOnButtonClick(context);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -299,16 +280,16 @@ public final class UIHelper {
 
 
     /**
-     * This is to copy this text to clipboard
+     * Copy this text into clipboard.
      *
      * @param context
      * @param textToCopyToClipboard
      */
-    public static void copyThisTextToClipboard(Context context, String textToCopyToClipboard) {
+    public static void copyTextIntoClipboard(Context context, String textToCopyToClipboard) {
         try {
+            vibrateOnButtonTap(context);
             // Source: https://developer.android.com/guide/topics/text/copy-paste.html
             if(textToCopyToClipboard.isEmpty()) {
-                vibrate(context);
                 showCustomToastLight(context, "Nothing to copy", Toast.LENGTH_SHORT);
             } else {
                 ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -320,7 +301,6 @@ public final class UIHelper {
                     return;
                 }
                 clipboardManager.setPrimaryClip(clipData);
-                vibrate(context);
                 showCustomToastLight(context, textToCopyToClipboard + " copied", Toast.LENGTH_SHORT);
             }
         } catch (Exception ex) {
@@ -330,12 +310,12 @@ public final class UIHelper {
 
 
     /**
-     * This is to paste the text into the editText from clipboard
+     * Paste the text from the clipboard into the EditText.
      *
      * @param context
      * @param editText
      */
-    public static void pasteTextToEditTextFromClipboard(Context context, EditText editText) {
+    public static void pasteTextFromClipboardIntoEditText(Context context, EditText editText) {
         try {
             // Source: https://developer.android.com/guide/topics/text/copy-paste.html
             ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -353,9 +333,9 @@ public final class UIHelper {
 
             // Examines the item on the clipboard. If getText() does not return null, the clip item contains the text.
             if (!(clipboardManager.hasPrimaryClip())) {
-                vibrateOnButtonClick(context);
+
             } else if (!(clipboardManager.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN))) {
-                vibrateOnButtonClick(context);
+
             } else {
                 // Clipboard contains plain text.
                 String pasteData = "";
@@ -365,7 +345,22 @@ public final class UIHelper {
                 editText.setText(pasteData);
             }
             editText.clearFocus();
-            vibrateOnButtonClick(context);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+
+
+    /**
+     * This is to clear the text of the editText
+     *
+     * @param context
+     * @param editText
+     */
+    public static void clearEditText(Context context, EditText editText) {
+        try {
+            editText.setText("");
+            editText.requestFocus();
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -462,7 +457,7 @@ public final class UIHelper {
     }
 
 
-    public  static void vibrateOnButtonClick(Context context) {
+    public  static void vibrateOnButtonTap(Context context) {
         try {
             boolean vibrateOnClipboardButtonClick = UserSettings.getVibrateOnClipboardButtonClick(context);
             if (vibrateOnClipboardButtonClick) {
@@ -475,17 +470,18 @@ public final class UIHelper {
 
 
     /**
-     * Vibrates the device.
+     * Vibrates the device for a short duration.
      * <p>
      * Make sure to add the following permission to your `AndroidManifest.xml` file: <br>
-     * <b>&lt;uses-permission android:name="android.permission.VIBRATE"/&gt;</b>
+     * Requires: &lt;uses-permission android:name="android.permission.VIBRATE" /&gt;
      *
-     * @param context The Context used to access system services (e.g., VIBRATOR_SERVICE).
+     * @param context The Context used to access system services.
      */
     private static  void vibrate(Context context) {
-        Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-        if(vibrator != null) {
-            vibrator.vibrate(50);
+        VibratorManager vibratorManager = (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+        if (vibratorManager != null) {
+            Vibrator vibrator = vibratorManager.getDefaultVibrator();
+            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
         }
     }
 

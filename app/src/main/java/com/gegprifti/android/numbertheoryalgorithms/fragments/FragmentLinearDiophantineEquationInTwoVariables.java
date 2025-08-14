@@ -363,11 +363,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
             });
             textViewPasteA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
             });
             textViewClearA.setOnClickListener(v -> {
@@ -386,11 +386,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
             });
             textViewCopyB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
             });
             textViewPasteB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
             });
             textViewClearB.setOnClickListener(v -> {
@@ -409,11 +409,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusC);
             });
             textViewCopyC.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextC);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextC);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyC);
             });
             textViewPasteC.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextC);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextC);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteC);
             });
             textViewClearC.setOnClickListener(v -> {
@@ -432,11 +432,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
             });
             textViewPasteCompactA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
             });
             textViewClearCompactA.setOnClickListener(v -> {
@@ -455,11 +455,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
             });
             textViewCopyCompactB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
             });
             textViewPasteCompactB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
             });
             textViewClearCompactB.setOnClickListener(v -> {
@@ -478,11 +478,11 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactC);
             });
             textViewCopyCompactC.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactC);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactC);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactC);
             });
             textViewPasteCompactC.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactC);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactC);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactC);
             });
             textViewClearCompactC.setOnClickListener(v -> {
@@ -502,7 +502,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
             });
             textViewClearResult.setOnClickListener(v -> {
@@ -960,6 +960,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             textView.setSelected(true);
         }
     }
@@ -973,6 +974,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         buttonRunExample3.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             button.setSelected(true);
         }
     }

@@ -8,6 +8,7 @@
 - Added input decrease (-) increase (+) buttons.
 - Added a double-tap event on the result to expand it, despite the expand button.
 - Added results history in the calculator.
+- Unified vibrate on button tap.
 - Removed the notify on button tap since buttons them-self indicate that.
 - Refactored part of the code.
 

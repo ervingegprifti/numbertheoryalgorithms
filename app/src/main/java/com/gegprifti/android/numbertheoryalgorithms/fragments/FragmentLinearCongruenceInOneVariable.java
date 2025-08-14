@@ -363,11 +363,11 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusA);
             });
             textViewCopyA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyA);
             });
             textViewPasteA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteA);
             });
             textViewClearA.setOnClickListener(v -> {
@@ -386,11 +386,11 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusB);
             });
             textViewCopyB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyB);
             });
             textViewPasteB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteB);
             });
             textViewClearB.setOnClickListener(v -> {
@@ -409,11 +409,11 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusM);
             });
             textViewCopyM.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextM);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextM);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyM);
             });
             textViewPasteM.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextM);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextM);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteM);
             });
             textViewClearM.setOnClickListener(v -> {
@@ -432,11 +432,11 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactA);
             });
             textViewCopyCompactA.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactA);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactA);
             });
             textViewPasteCompactA.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactA);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactA);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactA);
             });
             textViewClearCompactA.setOnClickListener(v -> {
@@ -455,11 +455,11 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactB);
             });
             textViewCopyCompactB.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactB);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactB);
             });
             textViewPasteCompactB.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactB);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactB);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactB);
             });
             textViewClearCompactB.setOnClickListener(v -> {
@@ -478,11 +478,11 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPlusCompactM);
             });
             textViewCopyCompactM.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextCompactM);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactM);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyCompactM);
             });
             textViewPasteCompactM.setOnClickListener(v -> {
-                UIHelper.pasteTextToEditTextFromClipboard(requireContext(), editTextCompactM);
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactM);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewPasteCompactM);
             });
             textViewClearCompactM.setOnClickListener(v -> {
@@ -502,7 +502,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 expandResult();
             });
             textViewCopyResult.setOnClickListener(v -> {
-                UIHelper.copyEditTextToClipboard(requireContext(), editTextResult);
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastClipboardButtonClicked(textViewCopyResult);
             });
             textViewClearResult.setOnClickListener(v -> {
@@ -966,6 +966,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
         textViewClearResult.setSelected(false);
         // Select he last clipboard clicked.
         if (textView != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             textView.setSelected(true);
         }
     }
@@ -979,6 +980,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
         buttonRunExample3.setSelected(false);
         // Select he last button clicked.
         if (button != null) {
+            UIHelper.vibrateOnButtonTap(requireContext());
             button.setSelected(true);
         }
     }
