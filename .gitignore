@@ -89,3 +89,4 @@ app/src/main/assets/documentation/*.sls
 app/src/main/assets/documentation/*.tmp
 app/src/main/assets/documentation/*.thm
 app/src/main/assets/documentation/*.xdy
+/app/release
