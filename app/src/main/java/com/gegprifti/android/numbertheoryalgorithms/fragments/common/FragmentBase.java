@@ -75,15 +75,15 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
         String textValue = editText.getText().toString();
         if (textValue.isEmpty()) {
             editText.setText("0");
-        } else {
-            try {
-                BigInteger value = new BigInteger(textValue);
-                value = value.subtract(ONE);
-                String newTextValue = value.toString();
-                editText.setText(newTextValue);
-            } catch (NumberFormatException ex) {
-                UIHelper.showCustomToastError(requireContext(), "Input value not a number");
-            }
+            textValue = editText.getText().toString();
+        }
+        try {
+            BigInteger value = new BigInteger(textValue);
+            value = value.subtract(ONE);
+            String newTextValue = value.toString();
+            editText.setText(newTextValue);
+        } catch (NumberFormatException ex) {
+            UIHelper.showCustomToastError(requireContext(), "Input value not a number");
         }
     }
 
@@ -96,15 +96,15 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
         String textValue = editText.getText().toString();
         if (textValue.isEmpty()) {
             editText.setText("0");
-        } else {
-            try {
-                BigInteger value = new BigInteger(textValue);
-                value = value.add(ONE);
-                String newTextValue = value.toString();
-                editText.setText(newTextValue);
-            } catch (NumberFormatException ex) {
-                UIHelper.showCustomToastError(requireContext(), "Input value not a number");
-            }
+            textValue = editText.getText().toString();
+        }
+        try {
+            BigInteger value = new BigInteger(textValue);
+            value = value.add(ONE);
+            String newTextValue = value.toString();
+            editText.setText(newTextValue);
+        } catch (NumberFormatException ex) {
+            UIHelper.showCustomToastError(requireContext(), "Input value not a number");
         }
     }
 
