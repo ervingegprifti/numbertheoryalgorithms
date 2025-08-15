@@ -3,6 +3,7 @@ An Android app that offers a collection of basic number theory algorithms, desig
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ervingegprifti/numbertheoryalgorithms)
 ![GitHub all releases](https://img.shields.io/github/downloads/ervingegprifti/numbertheoryalgorithms/total)
+![License](https://img.shields.io/github/license/ervingegprifti/numbertheoryalgorithms)
 
 ## Install
 
