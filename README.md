@@ -4,11 +4,10 @@ An Android app that offers a collection of basic number theory algorithms, desig
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ervingegprifti/numbertheoryalgorithms)
 ![GitHub all releases](https://img.shields.io/github/downloads/ervingegprifti/numbertheoryalgorithms/total)
 ![License](https://img.shields.io/github/license/ervingegprifti/numbertheoryalgorithms)
-![Java Version](https://img.shields.io/badge/java-17-blue?style=for-the-badge)
-![Docs](https://img.shields.io/badge/docs-online-brightgreen?style=for-the-badge)
-
-
 ![GitHub Repo stars](https://img.shields.io/github/stars/ervingegprifti/numbertheoryalgorithms?style=social)
+
+![Docs](https://img.shields.io/badge/docs-online-brightgreen?style=for-the-badge)
+![Java Version](https://img.shields.io/badge/java-17-blue?style=for-the-badge)
 ![Contributors](https://img.shields.io/github/contributors/ervingegprifti/numbertheoryalgorithms?style=for-the-badge)
 
 ## Install
