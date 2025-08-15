@@ -1,5 +1,5 @@
 # Number Theory Algorithms
-An Android app that offers a collection of basic number theory algorithms, designed for quick and easy calculations. It is useful for students studying number theory, as well as enthusiasts seeking a convenient tool to explore mathematical problems on the go.
+An Android app with basic number theory algorithms for quick calculations—for students and math enthusiasts.
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ervingegprifti/numbertheoryalgorithms)
 ![GitHub all releases](https://img.shields.io/github/downloads/ervingegprifti/numbertheoryalgorithms/total)
