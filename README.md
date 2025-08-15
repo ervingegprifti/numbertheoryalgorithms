@@ -6,7 +6,7 @@ An Android app that offers a collection of basic number theory algorithms, desig
 ![License](https://img.shields.io/github/license/ervingegprifti/numbertheoryalgorithms)
 ![GitHub Repo stars](https://img.shields.io/github/stars/ervingegprifti/numbertheoryalgorithms?style=social)
 
-![Docs](https://img.shields.io/badge/docs-online-brightgreen?style=for-the-badge)
+[![Docs](https://img.shields.io/badge/docs-online-brightgreen?style=for-the-badge)](https://github.com/ervingegprifti/numbertheoryalgorithms/tree/main/docs)
 ![Java Version](https://img.shields.io/badge/java-17-blue?style=for-the-badge)
 ![Contributors](https://img.shields.io/github/contributors/ervingegprifti/numbertheoryalgorithms?style=for-the-badge)
 
