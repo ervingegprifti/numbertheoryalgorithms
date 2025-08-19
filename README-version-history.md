@@ -2,6 +2,9 @@
 
 ## New tracked versions
 
+### [3.0.8.1]
+- Improved Primes List UI/UX
+
 ### [3.0.8.0] - 2025-08-14
 - Added compact input view mode.
 - Added a temporary field in the calculator for intermediate result storage.

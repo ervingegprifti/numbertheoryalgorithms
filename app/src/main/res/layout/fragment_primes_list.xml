@@ -39,6 +39,7 @@
 			android:layout_height="0px"
 			tools:ignore="UselessLeaf" />
 
+		<!--Labels-->
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
@@ -70,10 +71,8 @@
 				android:text="@string/primes_list_no_of_columns_minus"/>
 			<Button style="@style/ButtonPillMiddleStyle"
 				android:id="@+id/ButtonColumns"
-				android:text="@string/primes_list_columns_6"
 				android:enabled="false"
-				android:textColor="@color/colorPrimary"
-				android:autofillHints="" />
+				android:textColor="@color/colorPrimary" />
 			<Button style="@style/ButtonPillRightStyle"
 				android:id="@+id/ButtonColumnsPlus"
 				android:text="@string/primes_list_no_of_columns_plus"
@@ -86,8 +85,9 @@
 				android:layout_marginRight="1px"
 				tools:ignore="RtlHardcoded" />
 			<Button style="@style/ButtonPillMiddleStyle"
-				android:id="@+id/ButtonRun"
-				android:text="@string/primes_list_numbers_100" />
+				android:id="@+id/ButtonNumbers"
+				android:enabled="false"
+				android:textColor="@color/colorPrimary" />
 			<Button style="@style/ButtonPillRightStyle"
 				android:id="@+id/ButtonNumbersPlus"
 				android:text="@string/primes_list_numbers_plus"

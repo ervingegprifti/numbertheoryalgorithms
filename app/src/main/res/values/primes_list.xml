@@ -6,7 +6,5 @@
     <string name="primes_list_numbers" translatable="true">numbers</string>
     <string name="primes_list_no_of_columns_plus" translatable="false">+</string>
     <string name="primes_list_numbers_minus" translatable="false">- 1k</string>
-    <string name="primes_list_numbers_100" translatable="false">1000</string>
-    <string name="primes_list_columns_6" translatable="false">6</string>
     <string name="primes_list_numbers_plus" translatable="false">1k +</string>
 </resources>
