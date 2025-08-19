@@ -25,8 +25,8 @@ public class PrimesList extends Algorithm implements GridCalculator {
     @Override
     public List<List<RowItem>> calculate() throws InterruptedException {
         try {
-            int maxOfNumbers = algorithmParameters.getInput1().intValue();
-            int nrOfColumns = algorithmParameters.getInput2().intValue();
+            int nrOfColumns = algorithmParameters.getInput1().intValue();
+            int maxOfNumbers = algorithmParameters.getInput2().intValue();
 
             List<List<RowItem>> rows = new ArrayList<>();
             List<RowItem> row;
