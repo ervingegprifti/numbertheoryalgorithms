@@ -9,6 +9,7 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentPrimesList
 public class ViewModelPrimesList extends ViewModel {
     private final MutableLiveData<String> columnsText = new MutableLiveData<>(String.valueOf(FragmentPrimesList.COLUMNS_DEFAULT_VALUE));
     private final MutableLiveData<String> numbersText = new MutableLiveData<>(String.valueOf(FragmentPrimesList.NUMBERS_DEFAULT_VALUE));
+    private final MutableLiveData<Boolean> biggerControls = new MutableLiveData<>(false);
 
 
     public LiveData<String> getColumnsButtonText() {
@@ -21,6 +22,11 @@ public class ViewModelPrimesList extends ViewModel {
     }
 
 
+    public LiveData<Boolean> getBiggerControls() {
+        return biggerControls;
+    }
+
+
     public void setColumnsButtonText(String text) {
         columnsText.setValue(text);
     }
@@ -28,5 +34,13 @@ public class ViewModelPrimesList extends ViewModel {
 
     public void setNumbersButtonText(String text) {
         numbersText.setValue(text);
+    }
+
+
+    public void setBiggerControls(boolean value) {
+        Boolean currentValue = biggerControls.getValue();
+        if (currentValue == null || currentValue != value) {
+            biggerControls.setValue(value);
+        }
     }
 }

@@ -949,9 +949,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         super.onResume();
         refreshInputViewMode();
         refreshShowInputDecreaseIncreaseButtons();
-        refreshBiggerControls();
+        refreshControlsDisplay();
         refreshHideExampleButtons();
-        refreshBiggerResultDisplay();
+        refreshResultDisplay();
     }
 
 
@@ -1033,7 +1033,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
 
 
-    private void refreshBiggerControls() {
+    private void refreshControlsDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
@@ -1130,7 +1130,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
 
 
-    private void refreshBiggerResultDisplay() {
+    private void refreshResultDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
             // Output result
