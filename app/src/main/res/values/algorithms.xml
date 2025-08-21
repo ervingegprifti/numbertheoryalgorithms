@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="binary_quadratic_form">Binary Quadratic Form</string>
-    <string name="binary_quadratic_form_description">Solve for <i><b>x,y</b></i> such as <i><b>bxy+dx+ey=f</b></i> where <i><b>b,d,e,f,x,y ∊ ℤ</b></i> with <i><b>b ≠ 0</b></i>.</string>
+    <string name="binary_quadratic_form_description">Solve for <i><b>x,y</b></i> such as <i><b>axy+bx+cy=d</b></i> where <i><b>a,b,c,d,x,y ∊ ℤ</b></i> with <i><b>a ≠ 0</b></i>.</string>
     <string name="euclidean_algorithm">Euclidean Algorithm</string>
     <string name="euclidean_algorithm_description">Compute the Greatest Common Divisor (GCD) of two numbers <i><b>a</b></i> and <i><b>b</b></i>. The GCD is the largest number that divides both <i><b>a</b></i> and <i><b>b</b></i> without leaving a remainder.</string>
     <string name="extended_euclidean_algorithm">Extended Euclidean Algorithm</string>
