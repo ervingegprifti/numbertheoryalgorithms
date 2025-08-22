@@ -845,16 +845,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_1) {
-                String b = "8";
-                String d = "3";
-                String e = "3";
-                String f = "88";
+                String a = "8";
+                String b = "3";
+                String c = "3";
+                String d = "88";
                 String m = "8";
                 String r = "0";
-                this.editTextA.setText(b);
-                this.editTextB.setText(d);
-                this.editTextC.setText(e);
-                this.editTextD.setText(f);
+                this.editTextA.setText(a);
+                this.editTextB.setText(b);
+                this.editTextC.setText(c);
+                this.editTextD.setText(d);
                 this.buttonM.setText(m);
                 this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
@@ -862,16 +862,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_2) {
-                String b = "16";
-                String d = "7";
-                String e = "3";
-                String f = "113";
+                String a = "16";
+                String b = "7";
+                String c = "3";
+                String d = "113";
                 String m = "16";
                 String r = "1";
-                this.editTextA.setText(b);
-                this.editTextB.setText(d);
-                this.editTextC.setText(e);
-                this.editTextD.setText(f);
+                this.editTextA.setText(a);
+                this.editTextB.setText(b);
+                this.editTextC.setText(c);
+                this.editTextD.setText(d);
                 this.buttonM.setText(m);
                 this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
@@ -879,16 +879,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_3) {
-                String b = "8";
-                String d = "7";
-                String e = "7";
-                String f = "83";
+                String a = "8";
+                String b = "7";
+                String c = "7";
+                String d = "83";
                 String m = "8";
                 String r = "3";
-                this.editTextA.setText(b);
-                this.editTextB.setText(d);
-                this.editTextC.setText(e);
-                this.editTextD.setText(f);
+                this.editTextA.setText(a);
+                this.editTextB.setText(b);
+                this.editTextC.setText(c);
+                this.editTextD.setText(d);
                 this.buttonM.setText(m);
                 this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
@@ -896,16 +896,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_4) {
-                String b = "16";
-                String d = "15";
-                String e = "11";
-                String f = "104";
+                String a = "16";
+                String b = "15";
+                String c = "11";
+                String d = "104";
                 String m = "16";
                 String r = "8";
-                this.editTextA.setText(b);
-                this.editTextB.setText(d);
-                this.editTextC.setText(e);
-                this.editTextD.setText(f);
+                this.editTextA.setText(a);
+                this.editTextB.setText(b);
+                this.editTextC.setText(c);
+                this.editTextD.setText(d);
                 this.buttonM.setText(m);
                 this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
@@ -913,16 +913,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 return true;
             }
             if (id == R.id.quadratic_form_menu_example_5) {
-                String b = "8";
-                String d = "3";
-                String e = "5";
-                String f = "14";
+                String a = "8";
+                String b = "3";
+                String c = "5";
+                String d = "14";
                 String m = "8";
                 String r = "6";
-                this.editTextA.setText(b);
-                this.editTextB.setText(d);
-                this.editTextC.setText(e);
-                this.editTextD.setText(f);
+                this.editTextA.setText(a);
+                this.editTextB.setText(b);
+                this.editTextC.setText(c);
+                this.editTextD.setText(d);
                 this.buttonM.setText(m);
                 this.buttonR.setText(r);
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
@@ -1319,16 +1319,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //region BUTTON ACTIONS
     private void onButtonRunExample1(ViewGroup container) {
         try {
-            String b = "8";
-            String d = "3";
-            String e = "3";
-            String f = "88";
+            String a = "8";
+            String b = "3";
+            String c = "3";
+            String d = "88";
             String m = "8";
             String r = "0";
-            this.editTextA.setText(b);
-            this.editTextB.setText(d);
-            this.editTextC.setText(e);
-            this.editTextD.setText(f);
+            this.editTextA.setText(a);
+            this.editTextB.setText(b);
+            this.editTextC.setText(c);
+            this.editTextD.setText(d);
             this.buttonM.setText(m);
             this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
@@ -1339,16 +1339,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample2(ViewGroup container) {
         try {
-            String b = "16";
-            String d = "7";
-            String e = "3";
-            String f = "113";
+            String a = "16";
+            String b = "7";
+            String c = "3";
+            String d = "113";
             String m = "16";
             String r = "1";
-            this.editTextA.setText(b);
-            this.editTextB.setText(d);
-            this.editTextC.setText(e);
-            this.editTextD.setText(f);
+            this.editTextA.setText(a);
+            this.editTextB.setText(b);
+            this.editTextC.setText(c);
+            this.editTextD.setText(d);
             this.buttonM.setText(m);
             this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
@@ -1359,16 +1359,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample3(ViewGroup container) {
         try {
-            String b = "8";
-            String d = "7";
-            String e = "7";
-            String f = "83";
+            String a = "8";
+            String b = "7";
+            String c = "7";
+            String d = "83";
             String m = "8";
             String r = "3";
-            this.editTextA.setText(b);
-            this.editTextB.setText(d);
-            this.editTextC.setText(e);
-            this.editTextD.setText(f);
+            this.editTextA.setText(a);
+            this.editTextB.setText(b);
+            this.editTextC.setText(c);
+            this.editTextD.setText(d);
             this.buttonM.setText(m);
             this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
@@ -1379,16 +1379,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample4(ViewGroup container) {
         try {
-            String b = "16";
-            String d = "15";
-            String e = "11";
-            String f = "104";
+            String a = "16";
+            String b = "15";
+            String c = "11";
+            String d = "104";
             String m = "16";
             String r = "8";
-            this.editTextA.setText(b);
-            this.editTextB.setText(d);
-            this.editTextC.setText(e);
-            this.editTextD.setText(f);
+            this.editTextA.setText(a);
+            this.editTextB.setText(b);
+            this.editTextC.setText(c);
+            this.editTextD.setText(d);
             this.buttonM.setText(m);
             this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
@@ -1399,16 +1399,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void onButtonRunExample5(ViewGroup container) {
         try {
-            String b = "8";
-            String d = "3";
-            String e = "5";
-            String f = "14";
+            String a = "8";
+            String b = "3";
+            String c = "5";
+            String d = "14";
             String m = "8";
             String r = "6";
-            this.editTextA.setText(b);
-            this.editTextB.setText(d);
-            this.editTextC.setText(e);
-            this.editTextD.setText(f);
+            this.editTextA.setText(a);
+            this.editTextB.setText(b);
+            this.editTextC.setText(c);
+            this.editTextD.setText(d);
             this.buttonM.setText(m);
             this.buttonR.setText(r);
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
@@ -1419,34 +1419,34 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
 
 
+    private InputGroup getInputGroupA() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelA, "a", textViewLabelElasticA)
+                .setInput(editTextA)
+                .setCompactControls(textViewLabelCompactA, editTextCompactA)
+                .build();
+    }
     private InputGroup getInputGroupB() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelA, "b", textViewLabelElasticA)
-                .setInput(editTextA)
-                .setCompactControls(textViewLabelCompactA, editTextCompactA)
+                .setLabel(textViewLabelB, "b", textViewLabelElasticB)
+                .setInput(editTextB)
+                .setCompactControls(textViewLabelCompactB, editTextCompactB)
+                .build();
+    }
+    private InputGroup getInputGroupC() {
+        return new InputGroup.Builder()
+                .setIsCompactInputView(isCompactInputView)
+                .setLabel(textViewLabelC, "c", textViewLabelElasticC)
+                .setInput(editTextC)
+                .setCompactControls(textViewLabelCompactC, editTextCompactC)
                 .build();
     }
     private InputGroup getInputGroupD() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelB, "d", textViewLabelElasticB)
-                .setInput(editTextB)
-                .setCompactControls(textViewLabelCompactB, editTextCompactB)
-                .build();
-    }
-    private InputGroup getInputGroupE() {
-        return new InputGroup.Builder()
-                .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelC, "e", textViewLabelElasticC)
-                .setInput(editTextC)
-                .setCompactControls(textViewLabelCompactC, editTextCompactC)
-                .build();
-    }
-    private InputGroup getInputGroupF() {
-        return new InputGroup.Builder()
-                .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelD, "f", textViewLabelElasticD)
+                .setLabel(textViewLabelD, "d", textViewLabelElasticD)
                 .setInput(editTextD)
                 .setCompactControls(textViewLabelCompactD, editTextCompactD)
                 .build();
@@ -1458,32 +1458,32 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(skipLabelResult);
 
             // Check.
+            InputGroup inputGroupA = getInputGroupA();
             InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupC = getInputGroupC();
             InputGroup inputGroupD = getInputGroupD();
-            InputGroup inputGroupE = getInputGroupE();
-            InputGroup inputGroupF = getInputGroupF();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
+                return;
+            }
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
                 return;
             }
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupE)) {
-                return;
-            }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupF)) {
-                return;
-            }
 
             // Get numbers
-            BigInteger b = new BigInteger(editTextA.getText().toString());
-            BigInteger d = new BigInteger(editTextB.getText().toString());
-            BigInteger e = new BigInteger(editTextC.getText().toString());
-            BigInteger f = new BigInteger(editTextD.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
+            BigInteger c = new BigInteger(editTextC.getText().toString());
+            BigInteger d = new BigInteger(editTextD.getText().toString());
 
-            // Check b ≠ 0
-            if (b.compareTo(BigInteger.ZERO) == 0) {
-                UIHelper.showCustomToastLight(requireContext(), "The value of b must be other than 0");
+            // Check a ≠ 0
+            if (a.compareTo(BigInteger.ZERO) == 0) {
+                UIHelper.showCustomToastLight(requireContext(), "The value of a must be other than 0");
                 return;
             }
 
@@ -1498,10 +1498,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Perform the quadratic form
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.BINARY_QUADRATIC_FORM, this);
-            algorithmParameters.setInput1(b);
-            algorithmParameters.setInput2(d);
-            algorithmParameters.setInput3(e);
-            algorithmParameters.setInput4(f);
+            algorithmParameters.setInput1(a);
+            algorithmParameters.setInput2(b);
+            algorithmParameters.setInput3(c);
+            algorithmParameters.setInput4(d);
             algorithmParameters.setIncludeTrivialSolutions(includeTrivialSolutions);
             algorithmParameters.setIncludeOnlyPositiveSolutions(includeOnlyPositiveSolutions);
             algorithmParameters.setIncludeOnlyNegativeSolutions(includeOnlyNegativeSolutions);
@@ -1515,31 +1515,31 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(false);
 
             // Check.
+            InputGroup inputGroupA = getInputGroupA();
             InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupC = getInputGroupC();
             InputGroup inputGroupD = getInputGroupD();
-            InputGroup inputGroupE = getInputGroupE();
-            InputGroup inputGroupF = getInputGroupF();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
+                return;
+            }
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
                 return;
             }
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupE)) {
-                return;
-            }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupF)) {
-                return;
-            }
 
             // Get numbers
-            BigInteger b = new BigInteger(editTextA.getText().toString());
-            BigInteger d = new BigInteger(editTextB.getText().toString());
-            BigInteger e = new BigInteger(editTextC.getText().toString());
-            BigInteger f = new BigInteger(editTextD.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
+            BigInteger c = new BigInteger(editTextC.getText().toString());
+            BigInteger d = new BigInteger(editTextD.getText().toString());
 
-            // Check b ≠ 0
-            if (b.compareTo(BigInteger.ZERO) == 0) {
+            // Check a ≠ 0
+            if (a.compareTo(BigInteger.ZERO) == 0) {
                 UIHelper.showCustomToastLight(requireContext(), "The value of b must be other than 0");
                 return;
             }
@@ -1551,10 +1551,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Perform the quadratic form
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.BINARY_QUADRATIC_FORM_1, this);
-            algorithmParameters.setInput1(b);
-            algorithmParameters.setInput2(d);
-            algorithmParameters.setInput3(e);
-            algorithmParameters.setInput4(f);
+            algorithmParameters.setInput1(a);
+            algorithmParameters.setInput2(b);
+            algorithmParameters.setInput3(c);
+            algorithmParameters.setInput4(d);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -1565,30 +1565,28 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             resetResult(false);
 
             // Check.
+            InputGroup inputGroupA = getInputGroupA();
             InputGroup inputGroupB = getInputGroupB();
+            InputGroup inputGroupC = getInputGroupC();
             InputGroup inputGroupD = getInputGroupD();
-            InputGroup inputGroupE = getInputGroupE();
-            InputGroup inputGroupF = getInputGroupF();
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
+                return;
+            }
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
+                return;
+            }
+            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
                 return;
             }
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupE)) {
-                return;
-            }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupF)) {
-                return;
-            }
 
             // Get numbers
-            BigInteger a = BigInteger.ZERO;
-            BigInteger b = new BigInteger(editTextA.getText().toString());
-            BigInteger c = BigInteger.ZERO;
-            BigInteger d = new BigInteger(editTextB.getText().toString());
-            BigInteger e = new BigInteger(editTextC.getText().toString());
-            BigInteger f = new BigInteger(editTextD.getText().toString());
+            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
+            BigInteger c = new BigInteger(editTextC.getText().toString());
+            BigInteger d = new BigInteger(editTextD.getText().toString());
 
             setResultVisibilityFromButtonRun2();
 
@@ -1601,8 +1599,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             algorithmParameters.setInput2(b);
             algorithmParameters.setInput3(c);
             algorithmParameters.setInput4(d);
-            algorithmParameters.setInput5(e);
-            algorithmParameters.setInput6(f);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
