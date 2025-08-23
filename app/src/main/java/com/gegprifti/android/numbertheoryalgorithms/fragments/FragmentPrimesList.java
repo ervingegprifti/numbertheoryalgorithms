@@ -6,8 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,13 +20,15 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.viewmodel.ViewModelPrimesList;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
@@ -42,27 +46,21 @@ import java.util.List;
 
 public class FragmentPrimesList extends FragmentBase implements Callback {
     private final static String TAG = FragmentPrimesList.class.getSimpleName();
-    // Default values
     public final static int COLUMNS_DEFAULT_VALUE = 6;
-    public final static int NUMBERS_DEFAULT_VALUE = 500;
-    //
+    // Navigation controls
     private TextView textViewTitle;
-    private TextView textViewLabelColumns;
-    private TextView textViewLabelNumbers;
-    private Button buttonColumnsMinus;
-    private Button buttonColumns;
-    private Button buttonColumnsPlus;
-    private Button buttonNumbersMinus;
-    private Button buttonNumbers;
-    private Button buttonNumbersPlus;
+    // Compact input view controls
+    TextView textViewLabelCompactK;
+    EditText editTextCompactK;
+    TextView textViewMinusCompactK;
+    TextView textViewPlusCompactK;
+    // Result controls
     private TextView textViewLabelResult;
     private TextView textViewLabelElasticResult;
     private TextView textViewExpandResult;
     private TextView textViewClearResult;
     private LinearLayout linearLayoutStaticColumnHeader;
     private ListView listViewResult;
-    //
-    private ViewModelPrimesList viewModelPrimesList;
     private ListAdapter listAdapter;
 
     // Define the parent fragment
@@ -81,16 +79,15 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_primes_list, container, false);
+            // Navigation controls
             TextView textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            this.textViewLabelColumns = inflater.findViewById(R.id.TextViewLabelColumns);
-            this.textViewLabelNumbers = inflater.findViewById(R.id.TextViewLabelNumbers);
-            this.buttonColumnsMinus = inflater.findViewById(R.id.ButtonColumnsMinus);
-            this.buttonColumns = inflater.findViewById(R.id.ButtonColumns);
-            this.buttonColumnsPlus = inflater.findViewById(R.id.ButtonColumnsPlus);
-            this.buttonNumbersMinus = inflater.findViewById(R.id.ButtonNumbersMinus);
-            this.buttonNumbers = inflater.findViewById(R.id.ButtonNumbers);
-            this.buttonNumbersPlus = inflater.findViewById(R.id.ButtonNumbersPlus);
+            // Compact input view
+            textViewLabelCompactK = inflater.findViewById(R.id.TextViewLabelCompactK);
+            editTextCompactK = inflater.findViewById(R.id.EditTextCompactK);
+            textViewMinusCompactK = inflater.findViewById(R.id.TextViewMinusCompactK);
+            textViewPlusCompactK = inflater.findViewById(R.id.TextViewPlusCompactK);
+            // Result controls
             this.textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
             this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
             this.textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
@@ -98,16 +95,15 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             this.linearLayoutStaticColumnHeader = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader);
             this.listViewResult = inflater.findViewById(R.id.ListViewResult);
 
-            // Restore values from the view model
-            viewModelPrimesList = new ViewModelProvider(requireActivity()).get(ViewModelPrimesList.class);
-            viewModelPrimesList.getColumnsButtonText().observe(getViewLifecycleOwner(), text -> {
-                buttonColumns.setText(text);
-            });
-            viewModelPrimesList.getNumbersButtonText().observe(getViewLifecycleOwner(), text -> {
-                buttonNumbers.setText(text);
-            });
+            // Constrain compact input
+            editTextCompactK.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Events
+            // Initial values
+            if (editTextCompactK.getText() == null || editTextCompactK.getText().length() == 0) {
+                editTextCompactK.setText(String.valueOf(COLUMNS_DEFAULT_VALUE));
+            }
+
+            // Navigation vents
             textViewBackToAlgorithms.setOnClickListener(view -> {
                 if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
@@ -115,74 +111,29 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            buttonColumnsMinus.setOnClickListener(view -> {
-                String textValue = buttonColumns.getText().toString();
-                if (textValue.isEmpty()) {
-                    buttonColumns.setText(String.valueOf(COLUMNS_DEFAULT_VALUE));
-                } else {
-                    int value = Integer.parseInt(textValue);
-                    if (value <= 1) {
-                        buttonColumns.setText("1");
-                    } else {
-                        value -= 1;
-                        buttonColumns.setText(String.valueOf(value));
-                    }
+
+            // Compact input events
+            editTextCompactK.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // TODO +++
                 }
-                textValue = buttonColumns.getText().toString();
-                viewModelPrimesList.setColumnsButtonText(textValue);
-                run(container, buttonColumnsMinus);
             });
-            buttonColumnsPlus.setOnClickListener(view -> {
-                String textValue = buttonColumns.getText().toString();
-                if (textValue.isEmpty()) {
-                    buttonColumns.setText(String.valueOf(COLUMNS_DEFAULT_VALUE));
-                } else {
-                    int value = Integer.parseInt(textValue);
-                    if (value < Integer.MAX_VALUE) {
-                        value += 1;
-                        buttonColumns.setText(String.valueOf(value));
-                    } else {
-                        buttonColumns.setText(String.valueOf(Integer.MAX_VALUE));
-                    }
-                }
-                textValue = buttonColumns.getText().toString();
-                viewModelPrimesList.setColumnsButtonText(textValue);
-                run(container, buttonColumnsPlus);
+
+            // Compact input k button events
+            textViewMinusCompactK.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactK);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactK);
             });
-            buttonNumbersMinus.setOnClickListener(view -> {
-                String textValue = buttonNumbers.getText().toString();
-                if (textValue.isEmpty()) {
-                    buttonNumbers.setText(String.valueOf(NUMBERS_DEFAULT_VALUE));
-                } else {
-                    int value = Integer.parseInt(textValue);
-                    if (value <= NUMBERS_DEFAULT_VALUE) {
-                        buttonNumbers.setText(String.valueOf(NUMBERS_DEFAULT_VALUE));
-                    } else {
-                        value -= NUMBERS_DEFAULT_VALUE;
-                        buttonNumbers.setText(String.valueOf(value));
-                    }
-                }
-                textValue = buttonNumbers.getText().toString();
-                viewModelPrimesList.setNumbersButtonText(textValue);
-                run(container, buttonNumbersMinus);
+            textViewPlusCompactK.setOnClickListener(v -> {
+                increaseByOne(editTextCompactK);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactK);
             });
-            buttonNumbersPlus.setOnClickListener(view -> {
-                String textValue = buttonNumbers.getText().toString();
-                if (textValue.isEmpty()) {
-                    buttonNumbers.setText(String.valueOf(NUMBERS_DEFAULT_VALUE));
-                } else {
-                    int value = Integer.parseInt(textValue);
-                    if (value < Integer.MAX_VALUE - NUMBERS_DEFAULT_VALUE) {
-                        value += NUMBERS_DEFAULT_VALUE;
-                        buttonNumbers.setText(String.valueOf(value));
-                    } else {
-                        buttonNumbers.setText(String.valueOf(Integer.MAX_VALUE));
-                    }
-                }
-                textValue = buttonNumbers.getText().toString();
-                viewModelPrimesList.setNumbersButtonText(textValue);
-                run(container, buttonNumbersPlus);
-            });
+
             textViewExpandResult.setOnClickListener(v -> {
                 PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader, listViewResult);
                 popupResult.show();
@@ -239,6 +190,9 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         super.onResume();
         refreshControlsDisplay();
         refreshResultDisplay();
+
+        // TODO +++ Remove later
+        run(null, null);
     }
 
 
@@ -246,59 +200,26 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     private void refreshControlsDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-            // Clipboard input buttons
-
-            // Clipboard output buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
-            // Labels.
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelColumns, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelNumbers, biggerControls);
-            // Buttons.
-            ControlDisplay.setButtonFontSize(this.buttonColumnsMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonColumns, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonColumnsPlus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonNumbersMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonNumbers, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonNumbersPlus, biggerControls);
-            // Labels.
+            // Compact input controls
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactK, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactK, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactK, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactK, biggerControls);
+            // Output controls
             ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
     private void refreshResultDisplay() {
         try {
-
-            if (this.listAdapter == null) {
-                recalculateResults();
-            } else {
-                boolean biggerControlsOLD = Boolean.TRUE.equals(viewModelPrimesList.getBiggerControls().getValue());
-                boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
-                if (biggerControlsOLD == biggerControls) {
-                    setListViewAdapter(listViewResult, this.listAdapter);
-                } else {
-                    recalculateResults();
-                }
-                viewModelPrimesList.setBiggerControls(biggerControls);
-            }
+            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+            // TODO +++
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
-        }
-    }
-    private void recalculateResults() {
-        View root = getView();
-        if (root == null) {
-            run(null, null);
-        } else {
-            ViewParent parent = root.getParent();
-            if (parent instanceof ViewGroup) {
-                ViewGroup container = (ViewGroup) parent;
-                run(container, null);
-            } else {
-                run(null, null);
-            }
         }
     }
     //endregion Refresh UI
@@ -397,7 +318,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     private void run(ViewGroup container, Button button) {
         try {
             // Check
-            String columnsString = buttonColumns.getText().toString();
+            String columnsString = editTextCompactK.getText().toString();
             BigInteger columns;
             try {
                 if(columnsString.isEmpty()) {
@@ -415,15 +336,8 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                 return;
             }
 
-            // Check
-            String numbersString = buttonNumbers.getText().toString();
-            BigInteger numbers;
-            try {
-                numbers = new BigInteger(numbersString);
-            } catch (Exception ex) {
-                UIHelper.showCustomToastLight(requireContext(), numbersString + " numbers must be a number");
-                return;
-            }
+            // TODO +++ increase decrease as we scroll up or down. Hardcoded for the moment.
+            BigInteger numbers = new BigInteger("24");
 
             // Reset result
             resetResult();
@@ -445,21 +359,19 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     //region RESULT
     private void beforeActionPerforming(Button button) {
         UIHelper.hideSoftKeyBoard(requireActivity());
-        buttonColumns.clearFocus();
+        editTextCompactK.clearFocus();
         resetAllAndSelectTheLastButtonClicked(button);
     }
     private void resetAllAndSelectTheLastButtonClicked() {
         resetAllAndSelectTheLastButtonClicked(null);
     }
     private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
+        // Input compact controls
+        textViewMinusCompactK.setSelected(false);
+        textViewPlusCompactK.setSelected(false);
+        // Output controls
         textViewExpandResult.setSelected(false);
         textViewClearResult.setSelected(false);
-        //
-        buttonColumnsMinus.setSelected(false);
-        buttonColumnsPlus.setSelected(false);
-        buttonNumbersMinus.setSelected(false);
-        buttonNumbers.setSelected(false);
-        buttonNumbersPlus.setSelected(false);
         // Select the last button clicked.
         if (textView != null) {
             UIHelper.vibrateOnButtonTap(requireContext());

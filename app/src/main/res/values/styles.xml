@@ -53,17 +53,14 @@
     </style>
     <style name="ClipboardButtonCopyStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
-        <!--<item name="android:text">@string/clipboard_copy</item>-->
         <item name="android:text">@string/fa_copy</item>
     </style>
     <style name="ClipboardButtonPasteStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
-        <!--<item name="android:text">@string/clipboard_paste</item>-->
         <item name="android:text">@string/fa_paste</item>
     </style>
     <style name="ClipboardButtonClearStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">0dp</item>
-        <!--<item name="android:text">@string/clipboard_clear</item>-->
         <item name="android:text">@string/fa_eraser</item>
     </style>
 
@@ -147,16 +144,16 @@
     <style name="ClipboardButtonPlusMiddleCompactStyle" parent="ClipboardButtonMiddleCompactStyle">
         <item name="android:text">@string/fa_plus</item>
     </style>
+    <style name="ClipboardButtonPlusRightCompactStyle" parent="ClipboardButtonRightCompactStyle">
+        <item name="android:text">@string/fa_plus</item>
+    </style>
     <style name="ClipboardButtonCopyMiddleCompactStyle" parent="ClipboardButtonMiddleCompactStyle">
-        <!--        <item name="android:text">@string/clipboard_copy</item>-->
         <item name="android:text">@string/fa_copy</item>
     </style>
     <style name="ClipboardButtonPasteMiddleCompactStyle" parent="ClipboardButtonMiddleCompactStyle">
-        <!--        <item name="android:text">@string/clipboard_paste</item>-->
         <item name="android:text">@string/fa_paste</item>
     </style>
-    <style name="ClipboardButtonClearMiddleCompactStyle" parent="ClipboardButtonRightCompactStyle">
-        <!--        <item name="android:text">@string/clipboard_clear</item>-->
+    <style name="ClipboardButtonClearRightCompactStyle" parent="ClipboardButtonRightCompactStyle">
         <item name="android:text">@string/fa_eraser</item>
     </style>
 
