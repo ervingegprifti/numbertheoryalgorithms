@@ -63,7 +63,7 @@ public class AlgorithmHelper {
     }
 
 
-    public static List<Solution> calculateBQFSolutions(BigInteger b, BigInteger d, BigInteger e, List<Pair<BigInteger, BigInteger>> pairFactors, boolean includeOnlyPositiveSolutions, boolean includeOnlyNegativeSolutions) throws InterruptedException {
+    public static List<Solution> calculateBQFSolutions(BigInteger a, BigInteger b, BigInteger c, List<Pair<BigInteger, BigInteger>> pairFactors, boolean includeOnlyPositiveSolutions, boolean includeOnlyNegativeSolutions) throws InterruptedException {
         List<Solution> solutions = new ArrayList<>();
         for (int i = 0; i < pairFactors.size(); i++) {
             checkIfCanceled();
@@ -73,8 +73,8 @@ public class AlgorithmHelper {
             BigInteger q = pairFactor.second;
             boolean solForX = false;
             boolean solForY = false;
-            BigInteger[] solX = p.subtract(e).divideAndRemainder(b);
-            BigInteger[] solY = q.subtract(d).divideAndRemainder(b);
+            BigInteger[] solX = p.subtract(c).divideAndRemainder(a);
+            BigInteger[] solY = q.subtract(b).divideAndRemainder(a);
             BigInteger x = solX[0];
             BigInteger y = solY[0];
             if(solX[1].compareTo(ZERO) == 0) {

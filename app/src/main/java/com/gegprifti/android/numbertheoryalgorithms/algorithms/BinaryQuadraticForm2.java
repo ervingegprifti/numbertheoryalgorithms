@@ -28,20 +28,18 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger b = algorithmParameters.getInput2();
             BigInteger c = algorithmParameters.getInput3();
             BigInteger d = algorithmParameters.getInput4();
-            BigInteger e = algorithmParameters.getInput5();
-            BigInteger f = algorithmParameters.getInput6();
 
             List<List<RowItem>> rows = new ArrayList<>();
 
             BigInteger minX = ZERO;
-            BigInteger maxX = f.abs();
-            if (d.compareTo(ZERO) != 0) {
-                maxX = f.divide(d).add(ONE);
+            BigInteger maxX = d.abs();
+            if (b.compareTo(ZERO) != 0) {
+                maxX = d.divide(b).add(ONE);
             }
             BigInteger minY = ZERO;
-            BigInteger maxY = f.abs();
-            if (e.compareTo(ZERO) != 0) {
-                maxY = f.divide(e).add(ONE);
+            BigInteger maxY = d.abs();
+            if (c.compareTo(ZERO) != 0) {
+                maxY = d.divide(c).add(ONE);
             }
 
             // Create row header.
@@ -51,7 +49,6 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             //
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-
                 headerRow.add(new RowItem(true, "x=" + x, false));
             }
             rows.add(headerRow);
@@ -65,28 +62,26 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                 // boolean isYPrime = y.isProbablePrime(10);
                 row.add(new RowItem(true, "y=" + y, false)); // isYPrime
 
-                // Add f values.
+                // Add d values.
                 for(BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
 
-                    BigInteger ax2 = a.multiply(x.pow(2));
-                    BigInteger bxy = b.multiply(x).multiply(y);
-                    BigInteger cy2 = c.multiply(y.pow(2));
-                    BigInteger dx = d.multiply(x);
-                    BigInteger ey = e.multiply(y);
-                    BigInteger fCalculated = ax2.add(bxy).add(cy2).add(dx).add(ey);
-                    // boolean isFPrime = fCalculated.isProbablePrime(10);
+                    BigInteger axy = a.multiply(x).multiply(y);
+                    BigInteger bx = b.multiply(x);
+                    BigInteger cy = c.multiply(y);
+                    BigInteger n = axy.add(bx).add(cy);
+                    // boolean isNPrime = n.isProbablePrime(10);
 
-                    if (fCalculated.equals(f)) {
+                    if (n.equals(d)) {
                         RowItem rowItemXSolution = headerRow.get(x.intValue() + 1);
                         rowItemXSolution.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
                         RowItem rowItemYSolution = row.get(0);
                         rowItemYSolution.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
-                        RowItem rowItem = new RowItem(false, fCalculated.toString(), false, RowItem.ValueStyle.ORANGE); // isFPrime
+                        RowItem rowItem = new RowItem(false, n.toString(), false, RowItem.ValueStyle.ORANGE); // isNPrime
                         rowItem.setIsSelected(true);
                         row.add(rowItem);
                     } else {
-                        row.add(new RowItem(false, fCalculated.toString(), false)); // isFPrime
+                        row.add(new RowItem(false, n.toString(), false)); // isNPrime
                     }
                 }
                 rows.add(row);

@@ -478,9 +478,9 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         super.onResume();
         refreshInputViewMode();
         refreshShowInputDecreaseIncreaseButtons();
-        refreshBiggerControls();
+        refreshControlsDisplay();
         refreshHideExampleButtons();
-        refreshBiggerResultDisplay();
+        refreshResultDisplay();
     }
 
 
@@ -550,7 +550,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     }
 
 
-    private void refreshBiggerControls() {
+    private void refreshControlsDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
@@ -605,7 +605,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     }
 
 
-    private void refreshBiggerResultDisplay() {
+    private void refreshResultDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
             // Output result
