@@ -27,10 +27,10 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
     public String calculate() throws InterruptedException {
         StringBuilder result = new StringBuilder();
         try {
-            BigInteger b = algorithmParameters.getInput1();
-            BigInteger d = algorithmParameters.getInput2();
-            BigInteger e = algorithmParameters.getInput3();
-            BigInteger f = algorithmParameters.getInput4();
+            BigInteger a = algorithmParameters.getInput1();
+            BigInteger b = algorithmParameters.getInput2();
+            BigInteger c = algorithmParameters.getInput3();
+            BigInteger d = algorithmParameters.getInput4();
             boolean includeTrivialSolutions = algorithmParameters.getIncludeTrivialSolutions();
             boolean includeOnlyPositiveSolutions = algorithmParameters.getIncludeOnlyPositiveSolutions();
             boolean includeOnlyNegativeSolutions = algorithmParameters.getIncludeOnlyNegativeSolutions();
@@ -38,9 +38,9 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
             // Simple Quadratic Form
             result.append(String.format(Locale.getDefault(), "<font color='%s'><b>Binary Quadratic Form</b></font><br>", COLOR));
 
-            // Solve for x,y such as bxy+dx+ey=f where b,d,e,f,x,y ∊ ℤ and b ≠ 0
-            result.append("Solve for <b>x</b>,<b>y</b> such as b<b>x</b><b>y</b>+d<b>x</b>+e<b>y</b>=f where b,d,e,f,<b>x</b>,<b>y</b> ∊ ℤ and b ≠ 0<br>");
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", getNP(b), getNP(d), getNP(e), getNP(f)));
+            // Solve for x,y such as axy+bx+cy=d where a,b,c,d,x,y ∊ ℤ and a ≠ 0
+            result.append("Solve for <b>x</b>,<b>y</b> such as a<b>x</b><b>y</b>+b<b>x</b>+c<b>y</b>=d where a,b,c,d,<b>x</b>,<b>y</b> ∊ ℤ and a ≠ 0<br>");
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", getNP(a), getNP(b), getNP(c), getNP(d)));
             result.append("<br>");
 
             if (includeTrivialSolutions) {
@@ -62,41 +62,41 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
 
             // InputGroup
             result.append(String.format("<font color='%s'>InputGroup</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "a = %s<br>", getNP(a)));
             result.append(String.format(Locale.getDefault(), "b = %s<br>", getNP(b)));
+            result.append(String.format(Locale.getDefault(), "c = %s<br>", getNP(c)));
             result.append(String.format(Locale.getDefault(), "d = %s<br>", getNP(d)));
-            result.append(String.format(Locale.getDefault(), "e = %s<br>", getNP(e)));
-            result.append(String.format(Locale.getDefault(), "f = %s<br>", getNP(f)));
             result.append("<br>");
 
-            // Multiply both sides with b then, b²xy+bdx+bey=bf
-            result.append(String.format("<font color='%s'>Multiply both sides with b then, b²<b>x</b><b>y</b>+bd<b>x</b>+be<b>y</b>=bf</font><br>", COLOR));
-            BigInteger bb = b.multiply(b);
-            BigInteger bd = d.multiply(b);
-            BigInteger be = e.multiply(b);
-            BigInteger bf = f.multiply(b);
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", getNP(bb), getNP(bd), getNP(be), getNP(bf)));
+            // Multiply both sides with a then, a²xy+abx+acy=ad
+            result.append(String.format("<font color='%s'>Multiply both sides with a then, a²<b>x</b><b>y</b>+ab<b>x</b>+ac<b>y</b>=ad</font><br>", COLOR));
+            BigInteger aa = a.multiply(a);
+            BigInteger ab = a.multiply(b);
+            BigInteger ac = a.multiply(c);
+            BigInteger ad = a.multiply(d);
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", getNP(aa), getNP(ab), getNP(ac), getNP(ad)));
             result.append("<br>");
 
-            // Add de to both sides then, b²xy+bdx+bey+de=bf+de
-            result.append(String.format("<font color='%s'>Add de to both sides then, b²<b>x</b><b>y</b>+bd<b>x</b>+be<b>y</b>+de=bf+de</font><br>", COLOR));
-            BigInteger de = d.multiply(e);
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>+%s=%s+%s<br>", getNP(bb), getNP(bd), getNP(be), getNP(de), getNP(bf), getNP(de)));
+            // Add bc to both sides then, a²xy+abx+acy+bc=ad+bc
+            result.append(String.format("<font color='%s'>Add bc to both sides then, a²<b>x</b><b>y</b>+ab<b>x</b>+ac<b>y</b>+bc=ad+bc</font><br>", COLOR));
+            BigInteger bc = b.multiply(c);
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>+%s=%s+%s<br>", getNP(aa), getNP(ab), getNP(ac), getNP(bc), getNP(ad), getNP(bc)));
             result.append("<br>");
 
-            // The LHS is of the form of (bx+e)(by+d)
-            result.append(String.format("<font color='%s'>The LHS is of the form of (b<b>x</b>+e)(b<b>y</b>+d)</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)<br>", getNP(b), getNP(e), getNP(b), getNP(d)));
+            // The LHS is of the form of (ax+c)(ay+b)
+            result.append(String.format("<font color='%s'>The LHS is of the form of (a<b>x</b>+c)(a<b>y</b>+b)</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)<br>", getNP(a), getNP(c), getNP(a), getNP(b)));
             result.append("<br>");
 
-            // Let n=bf+de, then the RHS can be written as n=pq
-            result.append(String.format("<font color='%s'>Let n=bf+de, then the RHS can be written as</font><br>", COLOR));
-            BigInteger n = bf.add(de);
+            // Let n=ad+bc, then the RHS can be written as n=pq
+            result.append(String.format("<font color='%s'>Let n=ad+bc, then the RHS can be written as</font><br>", COLOR));
+            BigInteger n = ad.add(bc);
             result.append(String.format(Locale.getDefault(), "n=%s<br>", getNP(n)));
             result.append("<br>");
 
-            // So we must solve (bx+e)(by+d)=n
-            result.append(String.format("<font color='%s'>So we must solve (b<b>x</b>+e)(b<b>y</b>+d)=n</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)=%s<br>", getNP(b), getNP(e), getNP(b), getNP(d), getNP(n)));
+            // So we must solve (ax+c)(ay+b)=n
+            result.append(String.format("<font color='%s'>So we must solve (a<b>x</b>+c)(a<b>y</b>+b)=n</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)=%s<br>", getNP(a), getNP(c), getNP(a), getNP(b), getNP(n)));
             result.append("<br>");
 
             // Factoring n into pq pairs using Trial Division
@@ -131,9 +131,9 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
                 return result.toString();
             }
 
-            // Checking (bx+e)=p and (by+d)=q per each (p,q) pairs will give (x,y) solutions if any
-            result.append(String.format("<font color='%s'>Checking (b<b>x</b>+e)=p and (b<b>y</b>+d)=q per each (p,q) pairs will give (<b>x</b>,<b>y</b>) solutions if any</font><br>", COLOR));
-            List<Solution> solutions = AlgorithmHelper.calculateBQFSolutions(b,d,e,pairFactors, includeOnlyPositiveSolutions, includeOnlyNegativeSolutions);
+            // Checking (ax+c)=p and (ay+b)=q per each (p,q) pairs will give (x,y) solutions if any
+            result.append(String.format("<font color='%s'>Checking (a<b>x</b>+c)=p and (a<b>y</b>+b)=q per each (p,q) pairs will give (<b>x</b>,<b>y</b>) solutions if any</font><br>", COLOR));
+            List<Solution> solutions = AlgorithmHelper.calculateBQFSolutions(a,b,c,pairFactors, includeOnlyPositiveSolutions, includeOnlyNegativeSolutions);
             if (!solutions.isEmpty()) {
                 for(int i = 0; i < solutions.size(); i++) {
                     AlgorithmHelper.checkIfCanceled();

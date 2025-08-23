@@ -605,9 +605,9 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
         super.onResume();
         refreshInputViewMode();
         refreshShowInputDecreaseIncreaseButtons();
-        this.refreshBiggerControls();
-        this.refreshHideExampleButtons();
-        refreshBiggerResultDisplay();
+        refreshControlsDisplay();
+        refreshHideExampleButtons();
+        refreshResultDisplay();
     }
 
 
@@ -685,7 +685,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     }
 
 
-    private void refreshBiggerControls() {
+    private void refreshControlsDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Clipboard input buttons
@@ -755,7 +755,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
     }
 
 
-    private void refreshBiggerResultDisplay() {
+    private void refreshResultDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
             // Output result

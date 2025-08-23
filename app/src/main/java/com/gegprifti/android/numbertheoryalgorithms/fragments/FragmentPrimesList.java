@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -239,25 +237,71 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     @Override
     public void onResume() {
         super.onResume();
-        this.refreshBiggerControls();
-        // Recalculate the results
-        if (this.listAdapter == null) {
-            View root = getView();
-            if (root == null) {
-                run(null, null);
-            } else {
-                ViewParent parent = root.getParent();
-                if (parent instanceof ViewGroup) {
-                    ViewGroup container = (ViewGroup) parent;
-                    run(container, null);
-                } else {
-                    run(null, null);
-                }
-            }
-        } else {
-            setListViewAdapter(listViewResult, this.listAdapter);
+        refreshControlsDisplay();
+        refreshResultDisplay();
+    }
+
+
+    //region Refresh UI
+    private void refreshControlsDisplay() {
+        try {
+            boolean biggerControls = UserSettings.getBiggerControls(requireContext());
+            // Clipboard input buttons
+
+            // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
+            // Labels.
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelColumns, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelNumbers, biggerControls);
+            // Buttons.
+            ControlDisplay.setButtonFontSize(this.buttonColumnsMinus, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonColumns, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonColumnsPlus, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonNumbersMinus, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonNumbers, biggerControls);
+            ControlDisplay.setButtonFontSize(this.buttonNumbersPlus, biggerControls);
+            // Labels.
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
+            ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
         }
     }
+    private void refreshResultDisplay() {
+        try {
+
+            if (this.listAdapter == null) {
+                recalculateResults();
+            } else {
+                boolean biggerControlsOLD = Boolean.TRUE.equals(viewModelPrimesList.getBiggerControls().getValue());
+                boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
+                if (biggerControlsOLD == biggerControls) {
+                    setListViewAdapter(listViewResult, this.listAdapter);
+                } else {
+                    recalculateResults();
+                }
+                viewModelPrimesList.setBiggerControls(biggerControls);
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "" + ex);
+        }
+    }
+    private void recalculateResults() {
+        View root = getView();
+        if (root == null) {
+            run(null, null);
+        } else {
+            ViewParent parent = root.getParent();
+            if (parent instanceof ViewGroup) {
+                ViewGroup container = (ViewGroup) parent;
+                run(container, null);
+            } else {
+                run(null, null);
+            }
+        }
+    }
+    //endregion Refresh UI
 
 
     //region Callback
@@ -349,35 +393,6 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     //endregion Callback
 
 
-    //region Display
-    private void refreshBiggerControls() {
-        try {
-            boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-            // Clipboard input buttons
-
-            // Clipboard output buttons
-            ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
-            // Labels.
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelColumns, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelNumbers, biggerControls);
-            // Buttons.
-            ControlDisplay.setButtonFontSize(this.buttonColumnsMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonColumns, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonColumnsPlus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonNumbersMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonNumbers, biggerControls);
-            ControlDisplay.setButtonFontSize(this.buttonNumbersPlus, biggerControls);
-            // Labels.
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
-            ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-    //endregion Display
-
-
     //region BUTTON ACTIONS
     private void run(ViewGroup container, Button button) {
         try {
@@ -424,7 +439,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
-    //end region BUTTON ACTIONS
+    //endregion BUTTON ACTIONS
 
 
     //region RESULT

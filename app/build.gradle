@@ -47,7 +47,7 @@ dependencies {
     // SplashScreen
     implementation "androidx.core:core-splashscreen:1.0.1"
     // Open Source Software Licenses plugin
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.2.1'
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.2.2'
     // PDF Viewer
     implementation "androidx.pdf:pdf-viewer-fragment:1.0.0-alpha10"
     // Local unit tests (run on JVM)
