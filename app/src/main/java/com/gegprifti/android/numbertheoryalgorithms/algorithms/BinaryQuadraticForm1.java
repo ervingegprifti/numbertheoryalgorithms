@@ -28,26 +28,26 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
     @Override
     public List<List<RowItem>> calculate() throws InterruptedException {
         try {
-            BigInteger b = algorithmParameters.getInput1();
-            BigInteger d = algorithmParameters.getInput2();
-            BigInteger e = algorithmParameters.getInput3();
-            BigInteger f = algorithmParameters.getInput4();
+            BigInteger a = algorithmParameters.getInput1();
+            BigInteger b = algorithmParameters.getInput2();
+            BigInteger c = algorithmParameters.getInput3();
+            BigInteger d = algorithmParameters.getInput4();
 
             List<List<RowItem>> rows = new ArrayList<>();
 
-            BigInteger maxX = f;
-            if (d.compareTo(ZERO) != 0) {
-                maxX = f.divide(d).add(ONE);
+            BigInteger maxX = d;
+            if (b.compareTo(ZERO) != 0) {
+                maxX = d.divide(b).add(ONE);
             }
 
-            // TODO This takes forever when e = 0. Look at it later.
-            if (e.compareTo(ZERO) == 0) {
+            // TODO This takes forever when c = 0. Look at it later.
+            if (c.compareTo(ZERO) == 0) {
                 return null;
             }
 
             // Create header row.
             List<RowItem> headerRow = new ArrayList<>();
-            RowItem headerItem = new RowItem(true, "f", false);
+            RowItem headerItem = new RowItem(true, "d", false);
             headerRow.add(headerItem);
             for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
@@ -57,8 +57,8 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             headerRow.add(new RowItem(true, "solutions", false));
             rows.add(headerRow);
 
-            // Calculate solutions from 0 up until f
-            for(BigInteger i = ZERO; i.compareTo(f) <= 0; i = i.add(ONE)) {
+            // Calculate solutions from 0 up until d
+            for(BigInteger i = ZERO; i.compareTo(d) <= 0; i = i.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
 
                 List<RowItem> rowItems = new ArrayList<>();
@@ -70,11 +70,11 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
 
-                    String resultXFixed = getBQFSolutionXFixed(b, d, e, i, x);
+                    String resultXFixed = getBQFSolutionXFixed(a, b, c, i, x);
                     rowItems.add(new RowItem(false, resultXFixed, false, (resultXFixed == null || resultXFixed.isEmpty()) ? RowItem.ValueStyle.DEFAULT : RowItem.ValueStyle.YELLOW));
                 }
                 // Last column values.
-                String resultSQFRun1 = runBQF1(b, d, e, i);
+                String resultSQFRun1 = runBQF1(a, b, c, i);
                 if (resultSQFRun1 == null || resultSQFRun1.isEmpty()) {
                     rowItems.add(new RowItem(false, resultSQFRun1, false));
                 } else {
@@ -97,14 +97,14 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
     }
 
 
-    private String runBQF1(BigInteger b, BigInteger d, BigInteger e, BigInteger f) throws InterruptedException {
-        // Multiply both sides with b then, b²xy+bdx+bey=bf
-        BigInteger bf = f.multiply(b);
-        // Add de to both sides then, b²xy+bdx+bey+de=bf+de
-        BigInteger de = d.multiply(e);
-        // Let n=bf+de, then the RHS can be written as n=pq
-        BigInteger n = bf.add(de);
-        // So we must solve (bx+e)(by+d)=n
+    private String runBQF1(BigInteger a, BigInteger b, BigInteger c, BigInteger d) throws InterruptedException {
+        // Given axy+bx+cy=d, multiply both sides with a then we have, a²xy+abx+acy=ad
+        BigInteger ad = d.multiply(a);
+        // Add bc to both sides then, a²xy+adx+acy+bc=ad+bc
+        BigInteger bc = b.multiply(c);
+        // Let n=ad+bc, then the RHS can be written as n=pq
+        BigInteger n = ad.add(bc);
+        // So we must solve (ax+c)(ay+b)=n
 
         // Factoring n into pq pairs
         List<Pair<BigInteger, BigInteger>> pairFactors = AlgorithmHelper.getPairFactors(n, true);
@@ -116,9 +116,9 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             return "";
         }
 
-        // Checking (bx+e)=p & (by+d)=q per each (p, q) pairs will give (x, y) solutions, if any
+        // Checking (ax+c)=p & (ay+b)=q per each (p, q) pairs will give (x, y) solutions, if any
         StringBuilder sb = new StringBuilder();
-        List<Solution> solutions = AlgorithmHelper.calculateBQFSolutions(b,d,e,pairFactors, true, false);
+        List<Solution> solutions = AlgorithmHelper.calculateBQFSolutions(a,b,c,pairFactors, true, false);
         if (!solutions.isEmpty()) {
             for(int i = 0; i < solutions.size(); i++) {
                 AlgorithmHelper.checkIfCanceled();
@@ -141,16 +141,16 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
     }
 
 
-    static String getBQFSolutionXFixed(BigInteger b, BigInteger d, BigInteger e, BigInteger f, BigInteger x) throws InterruptedException {
+    static String getBQFSolutionXFixed(BigInteger a, BigInteger b, BigInteger c, BigInteger d, BigInteger x) throws InterruptedException {
         BigInteger y = ZERO;
-        BigInteger result = (b.multiply(x).multiply(y)).add((d.multiply(x))).add((e.multiply(y)));
-        while (result.compareTo(f) < 0) {
+        BigInteger result = (a.multiply(x).multiply(y)).add((b.multiply(x))).add((c.multiply(y)));
+        while (result.compareTo(d) < 0) {
             AlgorithmHelper.checkIfCanceled();
 
             y = y.add(ONE);
-            result = (b.multiply(x).multiply(y)).add((d.multiply(x))).add((e.multiply(y)));
+            result = (a.multiply(x).multiply(y)).add((b.multiply(x))).add((c.multiply(y)));
         }
-        if (result.compareTo(f) == 0) {
+        if (result.compareTo(d) == 0) {
             return "" + x + ", " + y + "";
         } else {
             return "";
