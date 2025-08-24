@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.algorithms;
+package com.gegprifti.android.numbertheoryalgorithms.fragments.primeslist;
 
 
 import android.util.Log;
@@ -6,35 +6,32 @@ import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridCalculator;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PrimesList extends Algorithm implements GridCalculator {
-    private final static String TAG = PrimesList.class.getSimpleName();
+public class PrimesListCalculator {
+    private final static String TAG = PrimesListCalculator.class.getSimpleName();
+    private final int columns;
+    private final int numbers;
 
-
-    public PrimesList(AlgorithmParameters algorithmParameters) {
-        super(algorithmParameters);
+    public PrimesListCalculator(int columns, int numbers) {
+        this.columns = columns;
+        this.numbers = numbers;
     }
 
 
-    @Override
     public List<List<RowItem>> calculate() throws InterruptedException {
         try {
-            int nrOfColumns = algorithmParameters.getInput1().intValue();
-            int maxOfNumbers = algorithmParameters.getInput2().intValue();
-
             List<List<RowItem>> rows = new ArrayList<>();
             List<RowItem> row;
 
             // Create the column headers
             row = new ArrayList<>();
-            String columnLabel = nrOfColumns + "k+";
-            for(int c = -1; c < nrOfColumns; c++) {
+            String columnLabel = columns + "k+";
+            for(int c = -1; c < columns; c++) {
                 RowItem rowItemHeader;
                 if(c == -1) {
                     // This is the first header
@@ -51,13 +48,13 @@ public class PrimesList extends Algorithm implements GridCalculator {
             // k,    6k+0, 6k+1, 6k+2, 6k+3, 6k+4, 6k+5
 
             // Create the numbers
-            int nrOfRows = (int)Math.ceil((double) (maxOfNumbers/nrOfColumns)) + 1 ;
+            int nrOfRows = (int)Math.ceil((double) (numbers/columns)) + 1 ;
             for (int k = 0; k < nrOfRows; k++) {
                 AlgorithmHelper.checkIfCanceled();
 
                 // Start a new row
                 row = new ArrayList<>();
-                for(int c = -1; c < nrOfColumns; c++) {
+                for(int c = -1; c < columns; c++) {
                     if(c == -1) {
                         // Create the row label
                         RowItem rowItem = new RowItem(true, Integer.toString(k), false);
@@ -69,7 +66,7 @@ public class PrimesList extends Algorithm implements GridCalculator {
                         // 2
                         // ...
                     } else {
-                        int number = (nrOfColumns*k)+c;
+                        int number = (columns*k)+c;
                         boolean isPrime = BigInteger.valueOf((long)number).isProbablePrime(10);
                         RowItem rowItem = new RowItem(false, Integer.toString(number), isPrime, isPrime ? RowItem.ValueStyle.YELLOW : RowItem.ValueStyle.DEFAULT);
                         row.add(rowItem);

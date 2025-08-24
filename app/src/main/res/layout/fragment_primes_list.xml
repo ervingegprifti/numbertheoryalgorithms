@@ -39,69 +39,30 @@
 			android:layout_height="0px"
 			tools:ignore="UselessLeaf" />
 
-		<!--Labels-->
-		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal">
-			<TextView style="@style/TextViewLabelNoBgStyle"
-				android:id="@+id/TextViewLabelColumns"
-				android:gravity="center_horizontal"
-				android:layout_marginLeft="0dp"
-				android:text="@string/primes_list_columns"
-				android:labelFor="@+id/ButtonColumns"
-				tools:ignore="RtlHardcoded" />
-			<TextView style="@style/TextViewLabelNoBgStyle"
-				android:id="@+id/TextViewLabelNumbers"
-				android:gravity="center_horizontal"
-				android:layout_marginLeft="0dp"
-				android:text="@string/primes_list_numbers"
-				android:labelFor="@+id/ButtonRun"
-				tools:ignore="RtlHardcoded" />
+
+		<!--Compact inputGroup view-->
+		<LinearLayout style="@style/ColumnContainerStyle"
+			android:layout_marginBottom="20dp">
+			<!--InputGroup integer k-->
+			<LinearLayout style="@style/RowContainerStyle">
+				<TextView style="@style/TextViewLabelCompactStyle"
+					android:id="@+id/TextViewLabelCompactK"
+					android:labelFor="@+id/EditTextCompactK"
+					android:text="@string/label_k" />
+				<EditText style="@style/EditTextNumberInputCompactStyle"
+					android:id="@+id/EditTextCompactK"
+					android:autofillHints=""
+					android:enabled="false"/>
+				<TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+					android:id="@+id/TextViewMinusCompactK" />
+				<TextView style="@style/ClipboardButtonPlusRightCompactStyle"
+					android:id="@+id/TextViewPlusCompactK" />
+			</LinearLayout>
 		</LinearLayout>
 
-
-		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-			<Button style="@style/ButtonPillLeftStyle"
-				android:id="@+id/ButtonColumnsMinus"
-				android:text="@string/primes_list_no_of_columns_minus"/>
-			<Button style="@style/ButtonPillMiddleStyle"
-				android:id="@+id/ButtonColumns"
-				android:enabled="false"
-				android:textColor="@color/colorPrimary" />
-			<Button style="@style/ButtonPillRightStyle"
-				android:id="@+id/ButtonColumnsPlus"
-				android:text="@string/primes_list_no_of_columns_plus"
-				android:layout_marginRight="5dp"
-				tools:ignore="RtlHardcoded" />
-			<Button style="@style/ButtonPillLeftStyle"
-				android:id="@+id/ButtonNumbersMinus"
-				android:text="@string/primes_list_numbers_minus"
-				android:layout_marginLeft="5dp"
-				android:layout_marginRight="1px"
-				tools:ignore="RtlHardcoded" />
-			<Button style="@style/ButtonPillMiddleStyle"
-				android:id="@+id/ButtonNumbers"
-				android:enabled="false"
-				android:textColor="@color/colorPrimary" />
-			<Button style="@style/ButtonPillRightStyle"
-				android:id="@+id/ButtonNumbersPlus"
-				android:text="@string/primes_list_numbers_plus"
-				android:layout_marginLeft="1px"
-				tools:ignore="RtlHardcoded" />
-		</LinearLayout>
 
 		<!--Result-->
-		<LinearLayout
-			android:layout_marginTop="20dp"
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal">
+		<LinearLayout style="@style/RowContainerStyle">
 			<TextView style="@style/TextViewLabelResultStyle"
 				android:id="@+id/TextViewLabelResult" android:text="@string/result" />
 			<TextView style="@style/TextViewLabelElasticStyle"

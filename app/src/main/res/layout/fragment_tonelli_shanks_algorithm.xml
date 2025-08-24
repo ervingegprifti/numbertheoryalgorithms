@@ -117,7 +117,7 @@
                         android:id="@+id/TextViewCopyCompactA" />
                     <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
                         android:id="@+id/TextViewPasteCompactA" />
-                    <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
                         android:id="@+id/TextViewClearCompactA" />
                 </LinearLayout>
 
@@ -137,7 +137,7 @@
                         android:id="@+id/TextViewCopyCompactP" />
                     <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
                         android:id="@+id/TextViewPasteCompactP" />
-                    <TextView style="@style/ClipboardButtonClearMiddleCompactStyle"
+                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
                         android:id="@+id/TextViewClearCompactP" />
                 </LinearLayout>
             </LinearLayout>

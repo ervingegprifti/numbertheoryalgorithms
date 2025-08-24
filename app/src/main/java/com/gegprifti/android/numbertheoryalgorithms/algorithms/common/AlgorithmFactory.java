@@ -3,6 +3,7 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.*;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +40,6 @@ public class AlgorithmFactory {
         registry.put(AlgorithmName.TONELLI_SHANKS_ALGORITHM, TonelliShanksAlgorithm::new);
         registry.put(AlgorithmName.MOD_FACTORS, ModFactors::new);
         registry.put(AlgorithmName.MOD_FACTORS_COUNT, ModFactorsCount::new);
-        registry.put(AlgorithmName.PRIMES_LIST, PrimesList::new);
     }
 
 

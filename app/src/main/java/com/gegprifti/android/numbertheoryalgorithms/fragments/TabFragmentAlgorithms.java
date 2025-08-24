@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.SectionsPagerAdapter;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.primeslist.FragmentPrimesList;
 
 
 public class TabFragmentAlgorithms extends Fragment {
