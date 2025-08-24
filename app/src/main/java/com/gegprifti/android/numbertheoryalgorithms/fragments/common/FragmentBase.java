@@ -89,6 +89,31 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
 
 
     /**
+     * Decrease the integer value by one.
+     * @param editText The edit text to decrease the integer value by one.
+     * @param minValue The minimum value that the number should not go below.
+     */
+    protected void decreaseByOne(EditText editText, BigInteger minValue) {
+        String textValue = editText.getText().toString();
+        if (textValue.isEmpty()) {
+            editText.setText("0");
+            textValue = editText.getText().toString();
+        }
+        try {
+            BigInteger value = new BigInteger(textValue);
+            if (value.compareTo(minValue) <= 0) {
+                return;
+            }
+            value = value.subtract(ONE);
+            String newTextValue = value.toString();
+            editText.setText(newTextValue);
+        } catch (NumberFormatException ex) {
+            UIHelper.showCustomToastError(requireContext(), "Input value not a number");
+        }
+    }
+
+
+    /**
      * Increase the integer value by one.
      * @param editText The edit text to increase the integer value by one.
      */
@@ -100,6 +125,31 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
         }
         try {
             BigInteger value = new BigInteger(textValue);
+            value = value.add(ONE);
+            String newTextValue = value.toString();
+            editText.setText(newTextValue);
+        } catch (NumberFormatException ex) {
+            UIHelper.showCustomToastError(requireContext(), "Input value not a number");
+        }
+    }
+
+
+    /**
+     * Increase the integer value by one.
+     * @param editText The edit text to increase the integer value by one.
+     * @param maxValue The maximum value that the number should not go beyond.
+     */
+    protected void increaseByOne(EditText editText, BigInteger maxValue) {
+        String textValue = editText.getText().toString();
+        if (textValue.isEmpty()) {
+            editText.setText("0");
+            textValue = editText.getText().toString();
+        }
+        try {
+            BigInteger value = new BigInteger(textValue);
+            if (value.compareTo(maxValue) >= 0) {
+                return;
+            }
             value = value.add(ONE);
             String newTextValue = value.toString();
             editText.setText(newTextValue);
