@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.primeslist.FragmentPrimesList;
 
 
 public class FragmentAlgorithms extends FragmentBase {

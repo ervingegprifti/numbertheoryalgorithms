@@ -1,7 +1,6 @@
-package com.gegprifti.android.numbertheoryalgorithms.fragments;
+package com.gegprifti.android.numbertheoryalgorithms.fragments.primeslist;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -17,43 +16,41 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.DialogFragmentPdfViewer;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentAlgorithms;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.TabFragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
-import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
-import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
+
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class FragmentPrimesList extends FragmentBase implements Callback {
+public class FragmentPrimesList extends FragmentBase {
     private final static String TAG = FragmentPrimesList.class.getSimpleName();
-    public final static int COLUMNS_DEFAULT_VALUE = 6;
+    private final static int NUMBERS = 10000;
+    private final static int MIN_COLUMNS = 1;
+    private final static int COLUMNS_DEFAULT_VALUE = 6;
+    private final static int MAX_COLUMNS = NUMBERS;
     // Navigation controls
     private TextView textViewTitle;
     // Compact input view controls
-    TextView textViewLabelCompactK;
-    EditText editTextCompactK;
-    TextView textViewMinusCompactK;
-    TextView textViewPlusCompactK;
+    private TextView textViewLabelCompactK;
+    private EditText editTextCompactK;
+    private TextView textViewMinusCompactK;
+    private TextView textViewPlusCompactK;
     // Result controls
     private TextView textViewLabelResult;
     private TextView textViewLabelElasticResult;
@@ -61,7 +58,6 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     private TextView textViewClearResult;
     private LinearLayout linearLayoutStaticColumnHeader;
     private ListView listViewResult;
-    private ListAdapter listAdapter;
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -121,18 +117,17 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                 public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    // TODO +++ Remove later
-                    run(null, null);
+                    run();
                 }
             });
 
             // Compact input k button events
             textViewMinusCompactK.setOnClickListener(v -> {
-                decreaseByOne(editTextCompactK);
+                decreaseByOne(editTextCompactK, BigInteger.valueOf(MIN_COLUMNS));
                 resetAllAndSelectTheLastButtonClicked(textViewMinusCompactK);
             });
             textViewPlusCompactK.setOnClickListener(v -> {
-                increaseByOne(editTextCompactK);
+                increaseByOne(editTextCompactK, BigInteger.valueOf(MAX_COLUMNS));
                 resetAllAndSelectTheLastButtonClicked(textViewPlusCompactK);
             });
 
@@ -200,10 +195,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
     public void onResume() {
         super.onResume();
         refreshControlsDisplay();
-        refreshResultDisplay();
-
-        // TODO +++ Remove later
-        run(null, null);
+        run();
     }
 
 
@@ -225,65 +217,57 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
-    private void refreshResultDisplay() {
+    //endregion Refresh UI
+
+
+    //region BUTTON ACTIONS
+    private void run() {
         try {
-            boolean biggerControls = UserSettings.getBiggerResultDisplay(requireContext());
-            // TODO +++
+            // Check
+            String columnsString = editTextCompactK.getText().toString();
+            BigInteger columns;
+            try {
+                if(columnsString.isEmpty()) {
+                    UIHelper.showCustomToastLight(requireContext(), "columns must not be empty");
+                    return;
+                } else {
+                    columns =  new BigInteger(columnsString);
+                }
+            } catch (Exception ex) {
+                UIHelper.showCustomToastLight(requireContext(), columnsString + " columns must be a number");
+                return;
+            }
+            if (columns.compareTo(BigInteger.valueOf(MIN_COLUMNS)) < 0) {
+                UIHelper.showCustomToastLight(requireContext(), "columns must be greater than or equal to " + MIN_COLUMNS);
+                return;
+            }
+            if (columns.compareTo(BigInteger.valueOf(MAX_COLUMNS)) > 0) {
+                UIHelper.showCustomToastLight(requireContext(), "columns must be less than or equal to " + MAX_COLUMNS);
+                return;
+            }
+
+            // Reset result
+            resetResult();
+            // Before action performing.
+            beforeActionPerforming();
+
+            // Perform generate numbers
+            PrimesListCalculator primesListCalculator = new PrimesListCalculator(columns.intValue(), NUMBERS);
+            List<List<RowItem>> plResultList = (List<List<RowItem>>) primesListCalculator.calculate();
+            showResult(plResultList);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    //endregion Refresh UI
 
 
-    //region Callback
-    public void callbackResult(AlgorithmName algorithmName, Object result, ProgressStatus progressStatus) {
-        Activity activity = getActivity();
-        if (activity == null || !this.isAdded()) {
-            return;
-        }
-        if (algorithmName == AlgorithmName.PRIMES_LIST) {
-            if (progressStatus == ProgressStatus.CANCELED) {
-                cancelShowResult(listViewResult);
-            } else {
-                @SuppressWarnings("unchecked")
-                List<List<RowItem>> plResultList = (List<List<RowItem>>)result;
-                showResult(plResultList);
-            }
-        }
-    }
-    private void cancelShowResult(ListView listView) {
-        ArrayList<String> listItems=new ArrayList<>();
-        ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(requireContext(), R.layout.row_item_canceled, R.id.RowItemCanceled, listItems);
-        listView.setAdapter(adapter);
-        setListViewAdapter(listView, adapter);
-        listItems.add(requireContext().getResources().getString(R.string.canceled));
-        adapter.notifyDataSetChanged();
-    }
     private void showResult(List<List<RowItem>> rows) {
         try {
             if(rows == null || rows.isEmpty()) {
                 return;
             }
-            // Get the first row (the headers row)
-            List<RowItem> firstRow = rows.get(0);
-            // Get the last lvItem value of the first row
-            String firstRowLastValue = firstRow.get(firstRow.size()-1).getValue();
-            // Get the last row
-            List<RowItem> lastRow = rows.get(rows.size()-1);
-            // Get the last lvItem value of the last row
-            String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
-            // Pre-calculate the TextViewLVItemListItem width
-            int maxOfLVItemsLength = lastRowLastValue.length();
-            int maxOfHeadersLength = firstRowLastValue.length();
-            int maxTextLength = Math.max(maxOfHeadersLength, maxOfLVItemsLength);
-            maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
-            // Construct the maxText. if maxTextLength = 6 the maxText = "000000"
-            StringBuilder maxText = new StringBuilder(maxTextLength);
-            for(int i = 0; i < maxTextLength; i++) {
-                maxText.append("0");
-            }
+
+            String maxText = getMaxText(rows);
 
             // Get the value from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -294,7 +278,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             TextView textViewTemp;
             int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
             textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
-            textViewTemp.setText(maxText.toString());
+            textViewTemp.setText(maxText);
             textViewTemp.measure(0, 0); //must call measure!
             int rowItemWidth = textViewTemp.getMeasuredWidth();
             int rowItemHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -313,6 +297,37 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             Log.e(TAG, "" + ex);
         }
     }
+
+
+    @NonNull
+    private String getMaxText(List<List<RowItem>> rows) {
+        // Get the first row (the headers row)
+        List<RowItem> firstRow = rows.get(0);
+        // Get the last lvItem value of the first row
+        int maxTextLength = getMaxTextLength(rows, firstRow);
+        maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
+        // Construct the maxText. if maxTextLength = 6 the maxText = "000000"
+        StringBuilder maxText = new StringBuilder(maxTextLength);
+        for(int i = 0; i < maxTextLength; i++) {
+            maxText.append("0");
+        }
+        return maxText.toString();
+    }
+
+
+    private static int getMaxTextLength(List<List<RowItem>> rows, List<RowItem> firstRow) {
+        String firstRowLastValue = firstRow.get(firstRow.size()-1).getValue();
+        // Get the last row
+        List<RowItem> lastRow = rows.get(rows.size()-1);
+        // Get the last lvItem value of the last row
+        String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
+        // Pre-calculate the TextViewLVItemListItem width
+        int maxOfLVItemsLength = lastRowLastValue.length();
+        int maxOfHeadersLength = firstRowLastValue.length();
+        return Math.max(maxOfHeadersLength, maxOfLVItemsLength);
+    }
+
+
     private void setListViewAdapter(ListView listView, ListAdapter listAdapter) {
         listView.setAdapter(listAdapter);
         if (listAdapter == null) {
@@ -320,58 +335,14 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         } else {
             textViewExpandResult.setVisibility(View.VISIBLE);
         }
-        this.listAdapter = listAdapter;
-    }
-    //endregion Callback
-
-
-    //region BUTTON ACTIONS
-    private void run(ViewGroup container, Button button) {
-        try {
-            // Check
-            String columnsString = editTextCompactK.getText().toString();
-            BigInteger columns;
-            try {
-                if(columnsString.isEmpty()) {
-                    UIHelper.showCustomToastLight(requireContext(), "columns must not be empty");
-                    return;
-                } else {
-                    columns = new BigInteger(columnsString);
-                }
-            } catch (Exception ex) {
-                UIHelper.showCustomToastLight(requireContext(), columnsString + " columns must be a number");
-                return;
-            }
-            if (columns.compareTo(BigInteger.ZERO) <= 0) {
-                UIHelper.showCustomToastLight(requireContext(), "columns must be greater than 0");
-                return;
-            }
-
-            // TODO +++ increase decrease as we scroll up or down. Hardcoded for the moment.
-            BigInteger numbers = new BigInteger("24");
-
-            // Reset result
-            resetResult();
-            // Before action performing.
-            beforeActionPerforming(button);
-
-            // Perform generate numbers
-            AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.PRIMES_LIST, this);
-            algorithmParameters.setInput1(columns);
-            algorithmParameters.setInput2(numbers);
-            progressManager.startWork(container, algorithmParameters);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
     }
     //endregion BUTTON ACTIONS
 
 
     //region RESULT
-    private void beforeActionPerforming(Button button) {
+    private void beforeActionPerforming() {
         UIHelper.hideSoftKeyBoard(requireActivity());
         editTextCompactK.clearFocus();
-        resetAllAndSelectTheLastButtonClicked(button);
     }
     private void resetAllAndSelectTheLastButtonClicked() {
         resetAllAndSelectTheLastButtonClicked(null);
