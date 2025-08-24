@@ -113,6 +113,7 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
             });
 
             // Compact input events
+            initDoubleTapDetector(textViewLabelCompactK);
             editTextCompactK.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -120,7 +121,8 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
                 public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
                 public void afterTextChanged(Editable s) {
-                    // TODO +++
+                    // TODO +++ Remove later
+                    run(null, null);
                 }
             });
 
@@ -150,6 +152,15 @@ public class FragmentPrimesList extends FragmentBase implements Callback {
         return inflater;
     }
     //endregion CREATE
+
+
+    @Override
+    protected void fireOnDoubleTap(View view) {
+        if (view == textViewLabelCompactK){
+            // Toggle between enable disable
+            editTextCompactK.setEnabled(!editTextCompactK.isEnabled());
+        }
+    }
 
 
     //region MENU
