@@ -61,6 +61,8 @@ public class ModFactors extends Algorithm implements StringCalculator {
                         BigInteger rem = bc.mod(a);
                         if(r.equals(rem)) {
                             counter += 1;
+                            int bCharacters = AlgorithmHelper.getNrOfCharacters(b);
+                            int cCharacters = AlgorithmHelper.getNrOfCharacters(c);
                             result.append(String.format(Locale.getDefault(), "bc = %s·%s = %s ≡ %s (mod %s)<br>", b, c, bc, r, a));
                         }
                     }

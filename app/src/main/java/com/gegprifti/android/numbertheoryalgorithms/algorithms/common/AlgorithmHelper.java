@@ -1,7 +1,10 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
+import android.util.Log;
 import android.util.Pair;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -25,6 +28,11 @@ public class AlgorithmHelper {
 
     public static BigInteger getSign(BigInteger value) {
         return (value.compareTo(ZERO) < 0) ? ONE.negate() : ONE;
+    }
+
+
+    public static int getNrOfCharacters(BigInteger n) {
+        return n.toString().length();
     }
 
 
