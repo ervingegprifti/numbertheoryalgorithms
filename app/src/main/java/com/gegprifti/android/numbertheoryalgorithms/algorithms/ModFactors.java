@@ -51,6 +51,8 @@ public class ModFactors extends Algorithm implements StringCalculator {
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Possible bc mod factors for each b,c = {0, ..., a-1} </font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'>bc ≡ r (mod a)</font><br>", COLOR));
             int counter = 0;
+            int aCharacters = a.toString().length();
+            int aaCharacters = a.multiply(a).toString().length();
             for (BigInteger b = ZERO; b.compareTo(a) < 0; b = b.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 for (BigInteger c = ZERO; c.compareTo(a) < 0; c = c.add(ONE)) {
@@ -61,9 +63,25 @@ public class ModFactors extends Algorithm implements StringCalculator {
                         BigInteger rem = bc.mod(a);
                         if(r.equals(rem)) {
                             counter += 1;
-                            int bCharacters = AlgorithmHelper.getNrOfCharacters(b);
-                            int cCharacters = AlgorithmHelper.getNrOfCharacters(c);
-                            result.append(String.format(Locale.getDefault(), "bc = %s·%s = %s ≡ %s (mod %s)<br>", b, c, bc, r, a));
+
+                            String bStringFormat = AlgorithmHelper.paddingCharacters(b, aCharacters);
+                            String bString;
+                            if (b.isProbablePrime(10)) {
+                                bString = String.format(Locale.getDefault(), "<font color='%s'>%s</font>", COLOR_CIAN_DARK, bStringFormat);
+                            } else {
+                                bString = bStringFormat;
+                            }
+
+                            String cStringFormat = AlgorithmHelper.paddingCharacters(c, aCharacters);
+                            String cString;
+                            if (c.isProbablePrime(10)) {
+                                cString = String.format(Locale.getDefault(), "<font color='%s'>%s</font>", COLOR_CIAN_DARK, cStringFormat);
+                            } else {
+                                cString = cStringFormat;
+                            }
+
+                            String bcString = AlgorithmHelper.paddingCharacters(bc, aaCharacters);
+                            result.append(String.format(Locale.getDefault(), "bc = %s·%s = %s ≡ %s (mod %s)<br>", bString, cString, bcString, r, a));
                         }
                     }
                 }

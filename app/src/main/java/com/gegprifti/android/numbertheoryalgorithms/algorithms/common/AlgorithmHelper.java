@@ -31,8 +31,20 @@ public class AlgorithmHelper {
     }
 
 
-    public static int getNrOfCharacters(BigInteger n) {
-        return n.toString().length();
+    /**
+     * Add preceding spaces to preserve the same space, like '  5', ' 55', '555',...
+     * @param n
+     * @param totalCharacters
+     * @return
+     */
+    public static String paddingCharacters(BigInteger n, int totalCharacters) {
+        String characters = n.toString();
+        int requiredPadding = totalCharacters - characters.length();
+        StringBuilder padding = new StringBuilder();
+        for (int i = 0; i < requiredPadding; i++) {
+            padding.append("&nbsp;");
+        }
+        return padding + characters;
     }
 
 
