@@ -1,7 +1,10 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
+import android.util.Log;
 import android.util.Pair;
+
+import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -25,6 +28,23 @@ public class AlgorithmHelper {
 
     public static BigInteger getSign(BigInteger value) {
         return (value.compareTo(ZERO) < 0) ? ONE.negate() : ONE;
+    }
+
+
+    /**
+     * Add preceding spaces to preserve the same space, like '  5', ' 55', '555',...
+     * @param n
+     * @param totalCharacters
+     * @return
+     */
+    public static String paddingCharacters(BigInteger n, int totalCharacters) {
+        String characters = n.toString();
+        int requiredPadding = totalCharacters - characters.length();
+        StringBuilder padding = new StringBuilder();
+        for (int i = 0; i < requiredPadding; i++) {
+            padding.append("&nbsp;");
+        }
+        return padding + characters;
     }
 
 

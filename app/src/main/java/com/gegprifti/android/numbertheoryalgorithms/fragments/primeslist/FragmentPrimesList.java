@@ -40,7 +40,7 @@ import java.util.List;
 
 public class FragmentPrimesList extends FragmentBase {
     private final static String TAG = FragmentPrimesList.class.getSimpleName();
-    private final static int NUMBERS = 10000;
+    private final static int NUMBERS = 5000;
     private final static int MIN_COLUMNS = 1;
     private final static int COLUMNS_DEFAULT_VALUE = 6;
     private final static int MAX_COLUMNS = NUMBERS;
@@ -116,19 +116,19 @@ public class FragmentPrimesList extends FragmentBase {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
-                public void afterTextChanged(Editable s) {
-                    run();
-                }
+                public void afterTextChanged(Editable s) { }
             });
 
             // Compact input k button events
             textViewMinusCompactK.setOnClickListener(v -> {
                 decreaseByOne(editTextCompactK, BigInteger.valueOf(MIN_COLUMNS));
                 resetAllAndSelectTheLastButtonClicked(textViewMinusCompactK);
+                run();
             });
             textViewPlusCompactK.setOnClickListener(v -> {
                 increaseByOne(editTextCompactK, BigInteger.valueOf(MAX_COLUMNS));
                 resetAllAndSelectTheLastButtonClicked(textViewPlusCompactK);
+                run();
             });
 
             textViewExpandResult.setOnClickListener(v -> {
@@ -154,6 +154,9 @@ public class FragmentPrimesList extends FragmentBase {
         if (view == textViewLabelCompactK){
             // Toggle between enable disable
             editTextCompactK.setEnabled(!editTextCompactK.isEnabled());
+            if(!editTextCompactK.isEnabled()){
+                run();
+            }
         }
     }
 
