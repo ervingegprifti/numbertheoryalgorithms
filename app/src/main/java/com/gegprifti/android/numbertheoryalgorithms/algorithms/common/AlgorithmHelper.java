@@ -237,7 +237,7 @@ public class AlgorithmHelper {
      *
      * @see <a href="https://gist.github.com/JochemKuijpers/cd1ad9ec23d6d90959c549de5892d6cb">sqrt</a>
      */
-    private static BigInteger calculateSqRootFloor(BigInteger x) throws IllegalArgumentException {
+    public static BigInteger calculateSqRootFloor(BigInteger x) throws IllegalArgumentException {
         if (x.compareTo(ZERO) < 0) {
             throw new IllegalArgumentException("Negative argument.");
         }

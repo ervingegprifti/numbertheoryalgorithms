@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--Simple Quadratic Form-->
+        <!--Binary Quadratic Form-->
         <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
             <LinearLayout android:id="@+id/LinearLayoutSimpleQuadraticForm"
                 android:layout_width="match_parent"
