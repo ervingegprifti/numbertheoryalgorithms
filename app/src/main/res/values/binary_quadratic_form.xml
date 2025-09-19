@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="binary_quadratic_form_title">axy+bx+cy=d</string>
+    <string name="binary_quadratic_form_title">ax²+bxy+cy²+dx+ey=f</string>
     <string name="binary_quadratic_form_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y</string>
-    <string name="binary_quadratic_form_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as axy+bx+cy=d</string>
+    <string name="binary_quadratic_form_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tSolve for x,y such as ax²+bxy+cy²+dx+ey=f</string>
     <string name="binary_quadratic_form_m_minus">- m</string>
     <string name="binary_quadratic_form_m_hint">m</string>
     <string name="binary_quadratic_form_m_plus">m +</string>
