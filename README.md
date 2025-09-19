@@ -10,7 +10,7 @@ An Android app with basic number theory algorithms for quick calculations—for 
 ![Java Version](https://img.shields.io/badge/java-17-blue?style=for-the-badge)
 ![Contributors](https://img.shields.io/github/contributors/ervingegprifti/numbertheoryalgorithms?style=for-the-badge)
 
-## Install
+## Install.
 
 <a href="https://play.google.com/store/apps/details?id=com.gegprifti.android.numbertheoryalgorithms">
   <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200"/>
