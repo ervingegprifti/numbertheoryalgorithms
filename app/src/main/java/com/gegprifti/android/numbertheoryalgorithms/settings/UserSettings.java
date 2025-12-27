@@ -34,6 +34,8 @@ public class UserSettings {
     private static final String BQF_INCLUDE_TRIVIAL_SOLUTIONS = "BQF_INCLUDE_TRIVIAL_SOLUTIONS";
     private static final String BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS";
     private static final String BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS";
+    private static final String BQF_INPUT_TOGGLE = "BQF_INPUT_TOGGLE";
+    public static final int BQF_INPUT_TOGGLE_DEFAULT_VALUE = 4;
 
 
     private static SharedPreferences getSharedPreferences(Context context) {
@@ -51,11 +53,51 @@ public class UserSettings {
     }
 
 
+    private static String getString(Context context, String key) {
+        SharedPreferences sharedPreferences = UserSettings.getSharedPreferences(context);
+        if (sharedPreferences == null) {
+            return null;
+        } else {
+            return sharedPreferences.getString(key, null);
+        }
+    }
+
+
+    private static int getInt(Context context, String key) {
+        SharedPreferences sharedPreferences = UserSettings.getSharedPreferences(context);
+        if (sharedPreferences == null) {
+            return -1;
+        } else {
+            return sharedPreferences.getInt(key, -1);
+        }
+    }
+
+
     private static void setBoolean(Context context, String key, boolean value) {
         SharedPreferences sharedPreferences = UserSettings.getSharedPreferences(context);
         if (sharedPreferences != null) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(key, value);
+            editor.apply();
+        }
+    }
+
+
+    private static void setString(Context context, String key, String value) {
+        SharedPreferences sharedPreferences = UserSettings.getSharedPreferences(context);
+        if (sharedPreferences != null) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(key, value);
+            editor.apply();
+        }
+    }
+
+
+    private static void setInt(Context context, String key, int value) {
+        SharedPreferences sharedPreferences = UserSettings.getSharedPreferences(context);
+        if (sharedPreferences != null) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(key, value);
             editor.apply();
         }
     }
@@ -145,6 +187,17 @@ public class UserSettings {
     }
 
 
+    public static int getBQFInputToggle(Context context) {
+        int value = getInt(context, BQF_INPUT_TOGGLE);
+        return value == -1 ? BQF_INPUT_TOGGLE_DEFAULT_VALUE : value;
+    }
+
+
+    public static void setBQFInputToggle(Context context, int value) {
+        setInt(context, BQF_INPUT_TOGGLE, value);
+    }
+
+
     // Reset to default.
     public static void resetToDefault(Context context) {
         // Input Output UI Configuration.
@@ -167,5 +220,6 @@ public class UserSettings {
         setBoolean(context, BQF_INCLUDE_TRIVIAL_SOLUTIONS, false);
         setBoolean(context, BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS, false);
         setBoolean(context, BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS, false);
+        setInt(context, BQF_INPUT_TOGGLE, BQF_INPUT_TOGGLE_DEFAULT_VALUE);
     }
 }

@@ -396,21 +396,26 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 }
             });
             textViewInputToggle.setOnClickListener(view -> {
-                String icon = textViewInputToggle.getText().toString();
-                switch (icon) {
-                    case "\u0030": // fa_0
+                int inputToggleValue = UserSettings.getBQFInputToggle(requireContext());
+                switch (inputToggleValue) {
+                    case 0: // fa_0
+                        inputToggleValue = 4;
                         textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
                         break;
-                    case "\u0034": // fa_4
+                    case 4: // fa_4
+                        inputToggleValue = 6;
                         textViewInputToggle.setText(requireContext().getText(R.string.fa_6));
                         break;
-                    case "\u0036": // fa_6
+                    case 6: // fa_6
+                        inputToggleValue = 0;
                         textViewInputToggle.setText(requireContext().getText(R.string.fa_0));
                         break;
                     default:
+                        inputToggleValue = UserSettings.BQF_INPUT_TOGGLE_DEFAULT_VALUE;
                         textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
                         break;
                 }
+                UserSettings.setBQFInputToggle(requireContext(), inputToggleValue);
                 refreshInputToggle();
             });
 
@@ -1280,10 +1285,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //region Refresh UI
     private void refreshInputToggle() {
         try {
-            String icon = textViewInputToggle.getText().toString();
-            switch (icon) {
-                case "\u0030": // fa_0
-                    linearLayoutExtendedInputView.setVisibility(View.GONE);
+            int inputToggleValue = UserSettings.getBQFInputToggle(requireContext());
+            switch (inputToggleValue) {
+                case 0:
+                    textViewInputToggle.setText(requireContext().getText(R.string.fa_0));
+                    linearLayoutInputInputView.setVisibility(View.GONE);
                     linearLayoutExtendedInputA.setVisibility(View.GONE);
                     linearLayoutExtendedInputB.setVisibility(View.GONE);
                     linearLayoutExtendedInputC.setVisibility(View.GONE);
@@ -1297,8 +1303,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputE.setVisibility(View.GONE);
                     linearLayoutCompactInputF.setVisibility(View.GONE);
                     break;
-                case "\u0034": // fa_4
-                    linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                case 4:
+                    textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                    linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputA.setVisibility(View.GONE);
                     linearLayoutExtendedInputB.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputC.setVisibility(View.GONE);
@@ -1312,8 +1319,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputE.setVisibility(View.VISIBLE);
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
-                case "\u0036": // fa_6
-                    linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                case 6:
+                    textViewInputToggle.setText(requireContext().getText(R.string.fa_6));
+                    linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputA.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputB.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputC.setVisibility(View.VISIBLE);
@@ -1323,6 +1331,24 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputA.setVisibility(View.VISIBLE);
                     linearLayoutCompactInputB.setVisibility(View.VISIBLE);
                     linearLayoutCompactInputC.setVisibility(View.VISIBLE);
+                    linearLayoutCompactInputD.setVisibility(View.VISIBLE);
+                    linearLayoutCompactInputE.setVisibility(View.VISIBLE);
+                    linearLayoutCompactInputF.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    inputToggleValue = UserSettings.BQF_INPUT_TOGGLE_DEFAULT_VALUE;
+                    UserSettings.setBQFInputToggle(requireContext(), inputToggleValue);
+                    textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                    linearLayoutInputInputView.setVisibility(View.VISIBLE);
+                    linearLayoutExtendedInputA.setVisibility(View.GONE);
+                    linearLayoutExtendedInputB.setVisibility(View.VISIBLE);
+                    linearLayoutExtendedInputC.setVisibility(View.GONE);
+                    linearLayoutExtendedInputD.setVisibility(View.VISIBLE);
+                    linearLayoutExtendedInputE.setVisibility(View.VISIBLE);
+                    linearLayoutExtendedInputF.setVisibility(View.VISIBLE);
+                    linearLayoutCompactInputA.setVisibility(View.GONE);
+                    linearLayoutCompactInputB.setVisibility(View.VISIBLE);
+                    linearLayoutCompactInputC.setVisibility(View.GONE);
                     linearLayoutCompactInputD.setVisibility(View.VISIBLE);
                     linearLayoutCompactInputE.setVisibility(View.VISIBLE);
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
