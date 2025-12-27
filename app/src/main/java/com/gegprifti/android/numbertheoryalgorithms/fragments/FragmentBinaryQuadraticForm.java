@@ -51,6 +51,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     TextView textViewInputToggle;
     // Cache view state
     boolean isCompactInputView = false;
+    // All inputs
+    LinearLayout linearLayoutInputInputView;
     // Extended input view
     LinearLayout linearLayoutExtendedInputView;
     LinearLayout linearLayoutExtendedInputA;
@@ -229,6 +231,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
             this.textViewInputToggle = inflater.findViewById(R.id.TextViewInputToggle);
+            // All inputs
+            linearLayoutInputInputView = inflater.findViewById(R.id.LinearLayoutInputInputView);
             // Extended input view
             linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
             linearLayoutExtendedInputA = inflater.findViewById(R.id.LinearLayoutExtendedInputA);
@@ -1279,6 +1283,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             String icon = textViewInputToggle.getText().toString();
             switch (icon) {
                 case "\u0030": // fa_0
+                    linearLayoutExtendedInputView.setVisibility(View.GONE);
                     linearLayoutExtendedInputA.setVisibility(View.GONE);
                     linearLayoutExtendedInputB.setVisibility(View.GONE);
                     linearLayoutExtendedInputC.setVisibility(View.GONE);
@@ -1293,6 +1298,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.GONE);
                     break;
                 case "\u0034": // fa_4
+                    linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputA.setVisibility(View.GONE);
                     linearLayoutExtendedInputB.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputC.setVisibility(View.GONE);
@@ -1307,6 +1313,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
                 case "\u0036": // fa_6
+                    linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputA.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputB.setVisibility(View.VISIBLE);
                     linearLayoutExtendedInputC.setVisibility(View.VISIBLE);
