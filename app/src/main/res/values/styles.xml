@@ -65,7 +65,11 @@
     </style>
 
 
-
+    <style name="ExtendedInputStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 
     <style name="RowContainerStyle">
         <item name="android:layout_width">match_parent</item>
@@ -390,20 +394,6 @@
     </style>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <style name="ResultContainer">
         <item name="android:padding">5dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -432,15 +422,14 @@
         <item name="android:gravity">center</item>
     </style>
     <style name="InputToggleStyle">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@drawable/input_toggle_bg</item>
+        <item name="android:textColor">@color/colorGeneralBg</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:layout_width">28sp</item>
+        <item name="android:layout_height">28sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/fa_solid_900</item>
-        <!--<item name="android:text">@string/fa_caret_down</item>-->
-        <item name="android:text">@string/fa_eye_slash</item>
     </style>
 
 

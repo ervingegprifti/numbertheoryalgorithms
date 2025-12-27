@@ -22,7 +22,8 @@
             android:id="@+id/TextViewTitle"
             android:text="@string/binary_quadratic_form_title" />
         <TextView style="@style/InputToggleStyle"
-            android:id="@+id/TextViewInputToggle" />
+            android:id="@+id/TextViewInputToggle"
+            android:text="@string/fa_4"/>
 	</RelativeLayout>
 
     <LinearLayout
@@ -34,14 +35,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
+        <!--Extended inputGroup view-->
         <LinearLayout style="@style/ColumnContainerStyle"
-            android:id="@+id/LinearLayoutInputToggle">
+            android:id="@+id/LinearLayoutExtendedInputView"
+            android:layout_marginBottom="20dp">
 
-            <!--Extended inputGroup view-->
-            <LinearLayout style="@style/ColumnContainerStyle"
-                android:id="@+id/LinearLayoutExtendedInputView"
-                android:layout_marginBottom="20dp">
+            <LinearLayout style="@style/ExtendedInputStyle"
+                android:id="@+id/LinearLayoutExtendedInputA"
+                android:visibility="gone">
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelInputStyle"
                         android:id="@+id/TextViewLabelA"
@@ -64,7 +65,10 @@
                     android:id="@+id/EditTextA"
                     android:autofillHints=""
                     android:layout_marginBottom="10dp" />
+            </LinearLayout>
 
+            <LinearLayout style="@style/ExtendedInputStyle"
+                android:id="@+id/LinearLayoutExtendedInputB">
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelInputStyle"
                         android:id="@+id/TextViewLabelB"
@@ -87,7 +91,11 @@
                     android:id="@+id/EditTextB"
                     android:autofillHints=""
                     android:layout_marginBottom="10dp" />
+            </LinearLayout>
 
+            <LinearLayout style="@style/ExtendedInputStyle"
+                android:id="@+id/LinearLayoutExtendedInputC"
+                android:visibility="gone">
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelInputStyle"
                         android:id="@+id/TextViewLabelC"
@@ -110,7 +118,10 @@
                     android:id="@+id/EditTextC"
                     android:autofillHints=""
                     android:layout_marginBottom="10dp" />
+            </LinearLayout>
 
+            <LinearLayout style="@style/ExtendedInputStyle"
+                android:id="@+id/LinearLayoutExtendedInputD">
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelInputStyle"
                         android:id="@+id/TextViewLabelD"
@@ -133,7 +144,10 @@
                     android:id="@+id/EditTextD"
                     android:autofillHints=""
                     android:layout_marginBottom="10dp"/>
+            </LinearLayout>
 
+            <LinearLayout style="@style/ExtendedInputStyle"
+                android:id="@+id/LinearLayoutExtendedInputE">
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelInputStyle"
                         android:id="@+id/TextViewLabelE"
@@ -156,7 +170,10 @@
                     android:id="@+id/EditTextE"
                     android:autofillHints=""
                     android:layout_marginBottom="10dp"/>
+            </LinearLayout>
 
+            <LinearLayout style="@style/ExtendedInputStyle"
+                android:id="@+id/LinearLayoutExtendedInputF">
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelInputStyle"
                         android:id="@+id/TextViewLabelF"
@@ -180,134 +197,142 @@
                     android:autofillHints="" />
             </LinearLayout>
 
+        </LinearLayout>
 
-            <!--Compact inputGroup view-->
-            <LinearLayout style="@style/ColumnContainerStyle"
-                android:id="@+id/LinearLayoutCompactInputView"
-                android:layout_marginBottom="20dp"
-                android:visibility="visible">
-                <LinearLayout style="@style/RowContainerStyle"
-                    android:layout_marginBottom="10dp">
-                    <TextView style="@style/TextViewLabelCompactStyle"
-                        android:id="@+id/TextViewLabelCompactA"
-                        android:text="@string/label_a" />
-                    <EditText style="@style/EditTextNumberInputCompactStyle"
-                        android:id="@+id/EditTextCompactA"
-                        android:autofillHints="@string/empty" />
-                    <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-                        android:id="@+id/TextViewMinusCompactA" />
-                    <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
-                        android:id="@+id/TextViewPlusCompactA" />
-                    <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
-                        android:id="@+id/TextViewCopyCompactA" />
-                    <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
-                        android:id="@+id/TextViewPasteCompactA" />
-                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
-                        android:id="@+id/TextViewClearCompactA" />
-                </LinearLayout>
+        <!--Compact inputGroup view-->
+        <LinearLayout style="@style/ColumnContainerStyle"
+            android:id="@+id/LinearLayoutCompactInputView"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible">
 
-                <LinearLayout style="@style/RowContainerStyle"
-                    android:layout_marginBottom="10dp">
-                    <TextView style="@style/TextViewLabelCompactStyle"
-                        android:id="@+id/TextViewLabelCompactB"
-                        android:text="@string/label_b" />
-                    <EditText style="@style/EditTextNumberInputCompactStyle"
-                        android:id="@+id/EditTextCompactB"
-                        android:autofillHints="@string/empty" />
-                    <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-                        android:id="@+id/TextViewMinusCompactB" />
-                    <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
-                        android:id="@+id/TextViewPlusCompactB" />
-                    <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
-                        android:id="@+id/TextViewCopyCompactB" />
-                    <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
-                        android:id="@+id/TextViewPasteCompactB" />
-                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
-                        android:id="@+id/TextViewClearCompactB" />
-                </LinearLayout>
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/LinearLayoutCompactInputA"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactA"
+                    android:text="@string/label_a" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactA"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactA" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactA" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactA" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactA" />
+                <TextView style="@style/ClipboardButtonClearRightCompactStyle"
+                    android:id="@+id/TextViewClearCompactA" />
+            </LinearLayout>
 
-                <LinearLayout style="@style/RowContainerStyle"
-                    android:layout_marginBottom="10dp">
-                    <TextView style="@style/TextViewLabelCompactStyle"
-                        android:id="@+id/TextViewLabelCompactC"
-                        android:text="@string/label_c" />
-                    <EditText style="@style/EditTextNumberInputCompactStyle"
-                        android:id="@+id/EditTextCompactC"
-                        android:autofillHints="@string/empty" />
-                    <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-                        android:id="@+id/TextViewMinusCompactC" />
-                    <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
-                        android:id="@+id/TextViewPlusCompactC" />
-                    <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
-                        android:id="@+id/TextViewCopyCompactC" />
-                    <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
-                        android:id="@+id/TextViewPasteCompactC" />
-                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
-                        android:id="@+id/TextViewClearCompactC" />
-                </LinearLayout>
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/LinearLayoutCompactInputB"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactB"
+                    android:text="@string/label_b" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactB"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactB" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactB" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactB" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactB" />
+                <TextView style="@style/ClipboardButtonClearRightCompactStyle"
+                    android:id="@+id/TextViewClearCompactB" />
+            </LinearLayout>
 
-                <LinearLayout style="@style/RowContainerStyle"
-                    android:layout_marginBottom="10dp">
-                    <TextView style="@style/TextViewLabelCompactStyle"
-                        android:id="@+id/TextViewLabelCompactD"
-                        android:text="@string/label_d" />
-                    <EditText style="@style/EditTextNumberInputCompactStyle"
-                        android:id="@+id/EditTextCompactD"
-                        android:autofillHints="@string/empty" />
-                    <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-                        android:id="@+id/TextViewMinusCompactD" />
-                    <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
-                        android:id="@+id/TextViewPlusCompactD" />
-                    <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
-                        android:id="@+id/TextViewCopyCompactD" />
-                    <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
-                        android:id="@+id/TextViewPasteCompactD" />
-                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
-                        android:id="@+id/TextViewClearCompactD" />
-                </LinearLayout>
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/LinearLayoutCompactInputC"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactC"
+                    android:text="@string/label_c" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactC"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactC" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactC" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactC" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactC" />
+                <TextView style="@style/ClipboardButtonClearRightCompactStyle"
+                    android:id="@+id/TextViewClearCompactC" />
+            </LinearLayout>
 
-                <LinearLayout style="@style/RowContainerStyle"
-                    android:layout_marginBottom="10dp">
-                    <TextView style="@style/TextViewLabelCompactStyle"
-                        android:id="@+id/TextViewLabelCompactE"
-                        android:text="@string/label_e" />
-                    <EditText style="@style/EditTextNumberInputCompactStyle"
-                        android:id="@+id/EditTextCompactE"
-                        android:autofillHints="@string/empty" />
-                    <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-                        android:id="@+id/TextViewMinusCompactE" />
-                    <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
-                        android:id="@+id/TextViewPlusCompactE" />
-                    <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
-                        android:id="@+id/TextViewCopyCompactE" />
-                    <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
-                        android:id="@+id/TextViewPasteCompactE" />
-                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
-                        android:id="@+id/TextViewClearCompactE" />
-                </LinearLayout>
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/LinearLayoutCompactInputD"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactD"
+                    android:text="@string/label_d" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactD"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactD" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactD" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactD" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactD" />
+                <TextView style="@style/ClipboardButtonClearRightCompactStyle"
+                    android:id="@+id/TextViewClearCompactD" />
+            </LinearLayout>
 
-                <LinearLayout style="@style/RowContainerStyle">
-                    <TextView style="@style/TextViewLabelCompactStyle"
-                        android:id="@+id/TextViewLabelCompactF"
-                        android:text="@string/label_f" />
-                    <EditText style="@style/EditTextNumberInputCompactStyle"
-                        android:id="@+id/EditTextCompactF"
-                        android:autofillHints="@string/empty" />
-                    <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-                        android:id="@+id/TextViewMinusCompactF" />
-                    <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
-                        android:id="@+id/TextViewPlusCompactF" />
-                    <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
-                        android:id="@+id/TextViewCopyCompactF" />
-                    <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
-                        android:id="@+id/TextViewPasteCompactF" />
-                    <TextView style="@style/ClipboardButtonClearRightCompactStyle"
-                        android:id="@+id/TextViewClearCompactF" />
-                </LinearLayout>
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/LinearLayoutCompactInputE"
+                android:layout_marginBottom="10dp">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactE"
+                    android:text="@string/label_e" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactE"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactE" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactE" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactE" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactE" />
+                <TextView style="@style/ClipboardButtonClearRightCompactStyle"
+                    android:id="@+id/TextViewClearCompactE" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/RowContainerStyle"
+                android:id="@+id/LinearLayoutCompactInputF">
+                <TextView style="@style/TextViewLabelCompactStyle"
+                    android:id="@+id/TextViewLabelCompactF"
+                    android:text="@string/label_f" />
+                <EditText style="@style/EditTextNumberInputCompactStyle"
+                    android:id="@+id/EditTextCompactF"
+                    android:autofillHints="@string/empty" />
+                <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
+                    android:id="@+id/TextViewMinusCompactF" />
+                <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
+                    android:id="@+id/TextViewPlusCompactF" />
+                <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
+                    android:id="@+id/TextViewCopyCompactF" />
+                <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
+                    android:id="@+id/TextViewPasteCompactF" />
+                <TextView style="@style/ClipboardButtonClearRightCompactStyle"
+                    android:id="@+id/TextViewClearCompactF" />
             </LinearLayout>
 
         </LinearLayout>
-
 
         <!--Examples-->
         <LinearLayout style="@style/RowContainerStyle"

@@ -23,8 +23,13 @@
     <string name="fa_eraser" translatable="false">&#xf12d;</string>
     <string name="fa_minus" translatable="false">&#xf068;</string>
     <string name="fa_plus" translatable="false">&#x2b;</string>
-    <string name="fa_eye" translatable="false">&#xf06e;</string>
-    <string name="fa_eye_slash" translatable="false">&#xf070;</string>
     <string name="fa_caret_left" translatable="false">&#xf0d9;</string>
     <string name="fa_caret_down" translatable="false">&#xf0d7;</string>
+    <string name="fa_0" translatable="false">&#x0030;</string>
+    <string name="fa_1" translatable="false">&#x0031;</string>
+    <string name="fa_2" translatable="false">&#x0032;</string>
+    <string name="fa_3" translatable="false">&#x0033;</string>
+    <string name="fa_4" translatable="false">&#x0034;</string>
+    <string name="fa_5" translatable="false">&#x0035;</string>
+    <string name="fa_6" translatable="false">&#x0036;</string>
 </resources>
