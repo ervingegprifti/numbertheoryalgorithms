@@ -9,6 +9,7 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class AlgorithmHelper {
@@ -264,5 +265,49 @@ public class AlgorithmHelper {
         if (Thread.currentThread().isInterrupted()) {
             throw new InterruptedException("Calculation was cancelled by the user.");
         }
+    }
+
+
+    public static String runBQF1(BigInteger b, BigInteger d, BigInteger e, BigInteger f) throws InterruptedException {
+        // Multiply both sides with b then, b²xy+bdx+bey=bf
+        BigInteger bf = f.multiply(b);
+        // Add de to both sides then, b²xy+bdx+bey+de=bf+de
+        BigInteger de = d.multiply(e);
+        // Let n=bf+de, then the RHS can be written as n=pq
+        BigInteger n = bf.add(de);
+        // So we must solve (bx+e)(by+d)=n
+
+        // Factoring n into pq pairs
+        List<Pair<BigInteger, BigInteger>> pairFactors = AlgorithmHelper.getPairFactors(n, true);
+
+        int pairFactorsSize = pairFactors.size();
+        // We expect pairFactorsSize to be 0, 4, 8, 12, 16, 20, 24,...
+        if (pairFactorsSize == 0) {
+            // No factors were found, hence no solutions. n is prime
+            return "";
+        }
+
+        // Checking (bx+e)=p & (by+d)=q per each (p, q) pairs will give (x, y) solutions, if any
+        StringBuilder sb = new StringBuilder();
+        List<Solution> solutions = AlgorithmHelper.calculateBQFSolutions(b,d,e,pairFactors, true, false);
+        if (!solutions.isEmpty()) {
+            for(int i = 0; i < solutions.size(); i++) {
+                AlgorithmHelper.checkIfCanceled();
+
+                Solution solution = solutions.get(i);
+                BigInteger x = solution.getX();
+                BigInteger y = solution.getY();
+                if (sb.toString().isEmpty()) {
+                    sb.append(String.format(Locale.getDefault(), "[%s, %s]", getNP(x), getNP(y)));
+                } else {
+                    sb.append(String.format(Locale.getDefault(), " [%s, %s]", getNP(x), getNP(y)));
+                }
+            }
+        } else {
+            // No solutions were found.
+            return "";
+        }
+
+        return sb.toString();
     }
 }

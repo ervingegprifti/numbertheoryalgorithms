@@ -69,12 +69,12 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                 for(BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
 
-                    BigInteger ax2 = a.multiply(x.pow(2));
+                    BigInteger axx = a.multiply(x.pow(2));
                     BigInteger bxy = b.multiply(x).multiply(y);
-                    BigInteger cy2 = c.multiply(y.pow(2));
+                    BigInteger cyy = c.multiply(y.pow(2));
                     BigInteger dx = d.multiply(x);
                     BigInteger ey = e.multiply(y);
-                    BigInteger fCalculated = ax2.add(bxy).add(cy2).add(dx).add(ey);
+                    BigInteger fCalculated = axx.add(bxy).add(cyy).add(dx).add(ey);
                     // boolean isFPrime = fCalculated.isProbablePrime(10);
 
                     if (fCalculated.equals(f)) {

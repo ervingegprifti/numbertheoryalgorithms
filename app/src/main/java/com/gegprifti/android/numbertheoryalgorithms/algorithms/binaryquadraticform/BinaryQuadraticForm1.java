@@ -42,48 +42,62 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 maxX = f.divide(d).add(ONE);
             }
 
-            // TODO This takes forever when e = 0. Look at it later.
-            if (e.compareTo(ZERO) == 0) {
-                return null;
-            }
-
-            // Create header row.
-            List<RowItem> headerRow = new ArrayList<>();
-            RowItem headerItem = new RowItem(true, "f", false);
-            headerRow.add(headerItem);
+            // Create row headers.
+            List<RowItem> rowHeaders = new ArrayList<>();
+            RowItem rowHeaderOrigin = new RowItem(true, "f", false);
+            rowHeaders.add(rowHeaderOrigin);
+            // ┌───────┐
+            // │   f   │
+            // └───────┘
             for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-
-                headerRow.add(new RowItem(true, "x=" + x, false));
+                RowItem rowHeader = new RowItem(true, "x=" + x, false);
+                rowHeaders.add(rowHeader);
             }
-            headerRow.add(new RowItem(true, "solutions", false));
-            rows.add(headerRow);
+            RowItem rowHeaderSolutions = new RowItem(true, "solutions", false);
+            rowHeaders.add(rowHeaderSolutions);
+            rows.add(rowHeaders);
+            // ┌───────┬───────┬───────┬───────┬───────┐      ┌─────────────┐
+            // │   f   │  x=0  │  x=1  │  x=2  │  x=3  │ ...  │  solutions  │
+            // └───────┴───────┴───────┴───────┴───────┘      └─────────────┘
 
             // Calculate solutions from 0 up until f
             for(BigInteger i = ZERO; i.compareTo(f) <= 0; i = i.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-
                 List<RowItem> rowItems = new ArrayList<>();
-                // Add row header
-                //RowItem item = new RowItem(true, i.toString(), false, i.equals(f) ? RowItem.HeaderDisplay.HIGHLIGHTED : RowItem.HeaderDisplay.DEFAULT);
-                RowItem item = new RowItem(true, i.toString(), false);
-                rowItems.add(item);
-                // Add items
+
+                // Add column header.
+                RowItem columnHeader = new RowItem(true, i.toString(), false);
+                rowItems.add(columnHeader);
+
+                List<String> solutionsPerRow = new ArrayList<>();
+
+                // Add columns.
                 for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
+                    String resultFromFixedX = getResultFromFixedX(a, b, c, d, e, i, x);
+                    if (resultFromFixedX.isEmpty()) {
+                        RowItem column = new RowItem(false, resultFromFixedX, false, RowItem.ValueStyle.DEFAULT);
+                        rowItems.add(column);
+                    } else {
+                        RowItem column = new RowItem(false, resultFromFixedX, false, RowItem.ValueStyle.YELLOW);
+                        rowItems.add(column);
+                        solutionsPerRow.add("[" + resultFromFixedX + "]");
+                    }
+                }
 
-                    String resultXFixed = getBQFSolutionXFixed(b, d, e, i, x);
-                    rowItems.add(new RowItem(false, resultXFixed, false, (resultXFixed == null || resultXFixed.isEmpty()) ? RowItem.ValueStyle.DEFAULT : RowItem.ValueStyle.YELLOW));
-                }
-                // Last column values.
-                String resultSQFRun1 = runBQF1(b, d, e, i);
-                if (resultSQFRun1 == null || resultSQFRun1.isEmpty()) {
-                    rowItems.add(new RowItem(false, resultSQFRun1, false));
+                // Add last column.
+                if (solutionsPerRow.isEmpty()) {
+                    RowItem lastColumn = new RowItem(false, "", false);
+                    rowItems.add(lastColumn);
                 } else {
-                    RowItem rowItemSolution = rowItems.get(0);
-                    rowItemSolution.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
-                    rowItems.add(new RowItem(false, resultSQFRun1, false, RowItem.ValueStyle.YELLOW));
+                    RowItem columnHeaderEdit = rowItems.get(0);
+                    columnHeaderEdit.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
+                    String solutions = String.join(" ", solutionsPerRow);
+                    RowItem lastColumn = new RowItem(false, solutions, false, RowItem.ValueStyle.YELLOW);
+                    rowItems.add(lastColumn);
                 }
+
                 rows.add(rowItems);
             }
 
@@ -99,63 +113,29 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
     }
 
 
-    private String runBQF1(BigInteger b, BigInteger d, BigInteger e, BigInteger f) throws InterruptedException {
-        // Multiply both sides with b then, b²xy+bdx+bey=bf
-        BigInteger bf = f.multiply(b);
-        // Add de to both sides then, b²xy+bdx+bey+de=bf+de
-        BigInteger de = d.multiply(e);
-        // Let n=bf+de, then the RHS can be written as n=pq
-        BigInteger n = bf.add(de);
-        // So we must solve (bx+e)(by+d)=n
-
-        // Factoring n into pq pairs
-        List<Pair<BigInteger, BigInteger>> pairFactors = AlgorithmHelper.getPairFactors(n, true);
-
-        int pairFactorsSize = pairFactors.size();
-        // We expect pairFactorsSize to be 0, 4, 8, 12, 16, 20, 24,...
-        if (pairFactorsSize == 0) {
-            // No factors were found, hence no solutions. n is prime
-            return "";
+    private String getResultFromFixedX(BigInteger a, BigInteger b, BigInteger c, BigInteger d, BigInteger e, BigInteger f, BigInteger x) throws InterruptedException {
+        BigInteger y = ZERO;
+        BigInteger result = getResult(a, b, c, d, e, x, y);
+        while (result.compareTo(f) < 0) {
+            AlgorithmHelper.checkIfCanceled();
+            y = y.add(ONE);
+            result = getResult(a, b, c, d, e, x, y);;
         }
-
-        // Checking (bx+e)=p & (by+d)=q per each (p, q) pairs will give (x, y) solutions, if any
-        StringBuilder sb = new StringBuilder();
-        List<Solution> solutions = AlgorithmHelper.calculateBQFSolutions(b,d,e,pairFactors, true, false);
-        if (!solutions.isEmpty()) {
-            for(int i = 0; i < solutions.size(); i++) {
-                AlgorithmHelper.checkIfCanceled();
-
-                Solution solution = solutions.get(i);
-                BigInteger x = solution.getX();
-                BigInteger y = solution.getY();
-                if (sb.toString().isEmpty()) {
-                    sb.append(String.format(Locale.getDefault(), "[%s, %s]", getNP(x), getNP(y)));
-                } else {
-                    sb.append(String.format(Locale.getDefault(), " [%s, %s]", getNP(x), getNP(y)));
-                }
-            }
+        if (result.compareTo(f) == 0) {
+            return x + ", " + y;
         } else {
-            // No solutions were found.
             return "";
         }
-
-        return sb.toString();
     }
 
 
-    static String getBQFSolutionXFixed(BigInteger b, BigInteger d, BigInteger e, BigInteger f, BigInteger x) throws InterruptedException {
-        BigInteger y = ZERO;
-        BigInteger result = (b.multiply(x).multiply(y)).add((d.multiply(x))).add((e.multiply(y)));
-        while (result.compareTo(f) < 0) {
-            AlgorithmHelper.checkIfCanceled();
-
-            y = y.add(ONE);
-            result = (b.multiply(x).multiply(y)).add((d.multiply(x))).add((e.multiply(y)));
-        }
-        if (result.compareTo(f) == 0) {
-            return "" + x + ", " + y + "";
-        } else {
-            return "";
-        }
+    private BigInteger getResult(BigInteger a, BigInteger b, BigInteger c, BigInteger d, BigInteger e, BigInteger x, BigInteger y) {
+        BigInteger axx = a.multiply(x.pow(2));
+        BigInteger bxy = b.multiply(x).multiply(y);
+        BigInteger cyy = c.multiply(y.pow(2));
+        BigInteger dx = d.multiply(x);
+        BigInteger ey = e.multiply(y);
+        BigInteger result = axx.add(bxy).add(cyy).add(dx).add(ey);
+        return result;
     }
 }
