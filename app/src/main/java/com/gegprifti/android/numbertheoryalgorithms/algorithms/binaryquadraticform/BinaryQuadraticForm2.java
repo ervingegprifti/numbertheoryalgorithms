@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.algorithms;
+package com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform;
 
 
 import android.util.Log;

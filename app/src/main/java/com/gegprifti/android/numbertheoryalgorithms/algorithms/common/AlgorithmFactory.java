@@ -2,6 +2,9 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.*;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm1;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm2;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.*;
 
 import java.util.HashMap;
