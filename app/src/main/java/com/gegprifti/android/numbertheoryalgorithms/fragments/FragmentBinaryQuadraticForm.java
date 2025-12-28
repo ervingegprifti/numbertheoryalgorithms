@@ -2016,17 +2016,20 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void onButtonRun1(ViewGroup container) {
         try {
             resetResult(false);
 
-            // Check.
             InputGroup inputGroupA = getInputGroupA();
             InputGroup inputGroupB = getInputGroupB();
             InputGroup inputGroupC = getInputGroupC();
             InputGroup inputGroupD = getInputGroupD();
             InputGroup inputGroupE = getInputGroupE();
             InputGroup inputGroupF = getInputGroupF();
+
+            // Check input.
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
                 return;
             }
@@ -2056,17 +2059,17 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Check a != 0
             if (a.compareTo(BigInteger.ZERO) != 0) {
-                UIHelper.showCustomToastLight(requireContext(), "The value of a not yet supported");
+                UIHelper.showCustomToastLight(requireContext(), "The value of 'a' not yet supported");
                 return;
             }
             // Check b ≠ 0
             if (b.compareTo(BigInteger.ZERO) == 0) {
-                UIHelper.showCustomToastLight(requireContext(), "The value of b must be other than 0");
+                UIHelper.showCustomToastLight(requireContext(), "The value of 'b' must be other than 0");
                 return;
             }
             // Check c != 0
             if (c.compareTo(BigInteger.ZERO) != 0) {
-                UIHelper.showCustomToastLight(requireContext(), "The value of c not yet supported");
+                UIHelper.showCustomToastLight(requireContext(), "The value of 'c' not yet supported");
                 return;
             }
 
@@ -2088,6 +2091,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void onButtonRun2(ViewGroup container) {
         try {
             resetResult(false);
@@ -2144,6 +2149,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             Log.e(TAG, "" + ex);
         }
     }
+
+
     private void calculateFModM() {
         if (this.listViewResult2.getAdapter() != null) {
             GridAdapter gridAdapter = (GridAdapter) this.listViewResult2.getAdapter();
