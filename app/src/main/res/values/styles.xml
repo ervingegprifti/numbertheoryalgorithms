@@ -283,6 +283,17 @@
     </style>
 
 
+    <style name="ButtonRunExampleToggleStyle" parent="ButtonStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="backgroundTint">@color/button_example_bg_selector</item>
+        <item name="android:textColor">@color/buttonRunTextColor</item>
+        <item name="android:gravity">center|center_vertical</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:paddingVertical">0dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:layout_marginVertical">0dp</item>
+    </style>
+
     <!-- Button Example -->
     <style name="ButtonExampleStyle" parent="ButtonStyle">
         <item name="backgroundTint">@color/button_example_bg_selector</item>
