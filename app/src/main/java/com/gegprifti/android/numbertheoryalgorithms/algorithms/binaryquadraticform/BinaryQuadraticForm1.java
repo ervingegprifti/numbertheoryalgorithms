@@ -1,11 +1,8 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
 import android.util.Log;
-import android.util.Pair;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Solution;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridCalculator;
@@ -13,7 +10,6 @@ import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
@@ -28,6 +24,8 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
     @Override
     public List<List<RowItem>> calculate() throws InterruptedException {
         try {
+            List<List<RowItem>> rows = new ArrayList<>();
+
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
             BigInteger c = algorithmParameters.getInput3();
@@ -35,11 +33,9 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             BigInteger e = algorithmParameters.getInput5();
             BigInteger f = algorithmParameters.getInput6();
 
-            List<List<RowItem>> rows = new ArrayList<>();
-
-            BigInteger maxX = f;
+            BigInteger xMax = f.add(ONE);
             if (d.compareTo(ZERO) != 0) {
-                maxX = f.divide(d).add(ONE);
+                xMax = f.divide(d).add(ONE);
             }
 
             // Create row headers.
@@ -49,7 +45,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             // ┌───────┐
             // │   f   │
             // └───────┘
-            for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
+            for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 RowItem rowHeader = new RowItem(true, "x=" + x, false);
                 rowHeaders.add(rowHeader);
@@ -62,7 +58,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             // └───────┴───────┴───────┴───────┴───────┘      └─────────────┘
 
             // Calculate solutions from 0 up until f
-            for(BigInteger i = ZERO; i.compareTo(f) <= 0; i = i.add(ONE)) {
+            for(BigInteger i = ZERO; i.compareTo(f.add(ONE)) <= 0; i = i.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 List<RowItem> rowItems = new ArrayList<>();
 
@@ -73,7 +69,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 List<String> solutionsPerRow = new ArrayList<>();
 
                 // Add columns.
-                for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
+                for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
                     String resultFromFixedX = getResultFromFixedX(a, b, c, d, e, i, x);
                     if (resultFromFixedX.isEmpty()) {
@@ -114,18 +110,22 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
 
 
     private String getResultFromFixedX(BigInteger a, BigInteger b, BigInteger c, BigInteger d, BigInteger e, BigInteger f, BigInteger x) throws InterruptedException {
-        BigInteger y = ZERO;
-        BigInteger result = getResult(a, b, c, d, e, x, y);
-        while (result.compareTo(f) < 0) {
+        BigInteger yMax = f.add(ONE);
+        if (e.compareTo(BigInteger.ZERO) != 0) {
+            yMax = f.divide(e).add(ONE);
+        }
+
+        for (BigInteger y = ZERO; y.compareTo(yMax) <= 0; y = y.add(ONE)) {
             AlgorithmHelper.checkIfCanceled();
-            y = y.add(ONE);
-            result = getResult(a, b, c, d, e, x, y);;
+            BigInteger result = getResult(a, b, c, d, e, x, y);
+            if (result.compareTo(f) == 0) {
+                return x + ", " + y;
+            }
+            if (result.compareTo(f) > 0) {
+                break;
+            }
         }
-        if (result.compareTo(f) == 0) {
-            return x + ", " + y;
-        } else {
-            return "";
-        }
+        return "";
     }
 
 

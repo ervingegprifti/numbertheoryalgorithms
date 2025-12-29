@@ -25,6 +25,7 @@ import java.util.HashMap;
 
 
 public abstract class FragmentBase extends Fragment implements MenuProvider {
+    protected static final BigInteger ZERO = BigInteger.ZERO;
     protected static final BigInteger ONE = BigInteger.ONE;
     protected ProgressManager progressManager;
     // Map each view to its own GestureDetector

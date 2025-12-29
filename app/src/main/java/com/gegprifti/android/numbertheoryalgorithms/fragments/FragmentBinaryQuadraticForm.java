@@ -2030,23 +2030,23 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             InputGroup inputGroupE = getInputGroupE();
             InputGroup inputGroupF = getInputGroupF();
 
-            // Check input.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
+            // Check inputs.
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupA, ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupB, ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupC, ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupD, ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupE)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupE, ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupF)) {
+            if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupF, ZERO)) {
                 return;
             }
 
@@ -2057,6 +2057,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             BigInteger d = new BigInteger(editTextD.getText().toString());
             BigInteger e = new BigInteger(editTextE.getText().toString());
             BigInteger f = new BigInteger(editTextF.getText().toString());
+
+            // Check inputs.
+            if (a.compareTo(ZERO) == 0 && b.compareTo(ZERO) == 0 && c.compareTo(ZERO) == 0 && d.compareTo(ZERO) == 0 && e.compareTo(ZERO) == 0) {
+                UIHelper.displayTheErrorMessage(requireContext(), "Too many inputs are zero.");
+                return;
+            }
 
             setResultVisibilityFromButtonRun1();
 
