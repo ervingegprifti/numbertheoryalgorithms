@@ -52,7 +52,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!--Extended Euclidean Algorithm-->
+        <!--Expanded Euclidean Algorithm-->
         <!--https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm-->
         <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
             <LinearLayout

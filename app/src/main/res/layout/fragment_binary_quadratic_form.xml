@@ -39,13 +39,13 @@
             android:id="@+id/LinearLayoutInputInputView"
             android:visibility="visible">
 
-            <!--Extended inputGroup view-->
+            <!--Expanded inputGroup view-->
             <LinearLayout style="@style/ColumnContainerStyle"
-                android:id="@+id/LinearLayoutExtendedInputView"
+                android:id="@+id/LinearLayoutExpandedInputView"
                 android:layout_marginBottom="20dp">
 
-                <LinearLayout style="@style/ExtendedInputStyle"
-                    android:id="@+id/LinearLayoutExtendedInputA"
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputA"
                     android:visibility="gone">
                     <LinearLayout style="@style/RowContainerStyle">
                         <TextView style="@style/TextViewLabelInputStyle"
@@ -71,8 +71,8 @@
                         android:layout_marginBottom="10dp" />
                 </LinearLayout>
 
-                <LinearLayout style="@style/ExtendedInputStyle"
-                    android:id="@+id/LinearLayoutExtendedInputB">
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputB">
                     <LinearLayout style="@style/RowContainerStyle">
                         <TextView style="@style/TextViewLabelInputStyle"
                             android:id="@+id/TextViewLabelB"
@@ -97,8 +97,8 @@
                         android:layout_marginBottom="10dp" />
                 </LinearLayout>
 
-                <LinearLayout style="@style/ExtendedInputStyle"
-                    android:id="@+id/LinearLayoutExtendedInputC"
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputC"
                     android:visibility="gone">
                     <LinearLayout style="@style/RowContainerStyle">
                         <TextView style="@style/TextViewLabelInputStyle"
@@ -124,8 +124,8 @@
                         android:layout_marginBottom="10dp" />
                 </LinearLayout>
 
-                <LinearLayout style="@style/ExtendedInputStyle"
-                    android:id="@+id/LinearLayoutExtendedInputD">
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputD">
                     <LinearLayout style="@style/RowContainerStyle">
                         <TextView style="@style/TextViewLabelInputStyle"
                             android:id="@+id/TextViewLabelD"
@@ -150,8 +150,8 @@
                         android:layout_marginBottom="10dp"/>
                 </LinearLayout>
 
-                <LinearLayout style="@style/ExtendedInputStyle"
-                    android:id="@+id/LinearLayoutExtendedInputE">
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputE">
                     <LinearLayout style="@style/RowContainerStyle">
                         <TextView style="@style/TextViewLabelInputStyle"
                             android:id="@+id/TextViewLabelE"
@@ -176,8 +176,8 @@
                         android:layout_marginBottom="10dp"/>
                 </LinearLayout>
 
-                <LinearLayout style="@style/ExtendedInputStyle"
-                    android:id="@+id/LinearLayoutExtendedInputF">
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputF">
                     <LinearLayout style="@style/RowContainerStyle">
                         <TextView style="@style/TextViewLabelInputStyle"
                             android:id="@+id/TextViewLabelF"

@@ -1,6 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.fragments.common;
 
 
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -8,69 +9,65 @@ import androidx.annotation.NonNull;
 
 public class InputGroup {
     public final boolean isCompactInputView;
-    public final TextView label;
-    public final String labelText;
-    public final TextView labelElastic;
-    public final EditText input;
-    public final TextView labelCompact;
-    public final EditText inputCompact;
+    public final TextView expandedLabel;
+    public final String expandedLabelText;
+    public final TextView expandedLabelElastic;
+    public final EditText expandedInput;
+    public final TextView compactLabel;
+    public final EditText compactInput;
 
 
     private InputGroup(Builder builder) {
         this.isCompactInputView = builder.isCompactInputView;
-        this.label = builder.label;
-        this.labelText = builder.labelText;
-        this.labelElastic = builder.labelElastic;
-        this.input = builder.input;
-        this.labelCompact = builder.labelCompact;
-        this.inputCompact = builder.inputCompact;
+        this.expandedLabel = builder.expandedLabel;
+        this.expandedLabelText = builder.expandedLabelText;
+        this.expandedLabelElastic = builder.expandedLabelElastic;
+        this.expandedInput = builder.expandedInput;
+        this.compactLabel = builder.compactLabel;
+        this.compactInput = builder.compactInput;
     }
 
 
     public static class Builder {
         private boolean isCompactInputView = false;
-        private TextView label;
-        private String labelText;
-        private TextView labelElastic;
-        private EditText input;
-        private TextView labelCompact;
-        private EditText inputCompact;
+        private TextView expandedLabel;
+        private String expandedLabelText;
+        private TextView expandedLabelElastic;
+        private EditText expandedInput;
+        private TextView compactLabel;
+        private EditText compactInput;
 
         public Builder setIsCompactInputView(boolean isCompactInputView) {
             this.isCompactInputView = isCompactInputView;
             return this;
         }
 
-        public Builder setLabel(@NonNull TextView label, @NonNull String labelText, @NonNull TextView labelElastic) {
-            this.label = label;
-            this.labelText = labelText;
-            this.labelElastic = labelElastic;
-            return this;
-        }
-
-        public Builder setInput(@NonNull EditText input) {
-            this.input = input;
+        public Builder setExpandedControls(@NonNull TextView label, @NonNull String labelText, @NonNull TextView labelElastic, @NonNull EditText inputExpanded) {
+            this.expandedLabel = label;
+            this.expandedLabelText = labelText;
+            this.expandedLabelElastic = labelElastic;
+            this.expandedInput = inputExpanded;
             return this;
         }
 
         public Builder setCompactControls(TextView labelCompact, EditText inputCompact) {
-            this.labelCompact = labelCompact;
-            this.inputCompact = inputCompact;
+            this.compactLabel = labelCompact;
+            this.compactInput = inputCompact;
             return this;
         }
 
         public InputGroup build() {
             // Validate and ensure required fields are not null.
-            if (label == null) {
+            if (expandedLabel == null) {
                 throw new IllegalStateException("label cannot be null");
             }
-            if (labelText == null) {
+            if (expandedLabelText == null) {
                 throw new IllegalStateException("labelText cannot be null");
             }
-            if (labelElastic == null) {
+            if (expandedLabelElastic == null) {
                 throw new IllegalStateException("labelElastic cannot be null");
             }
-            if (input == null) {
+            if (expandedInput == null) {
                 throw new IllegalStateException("input cannot be null");
             }
             //if (labelCompact == null) { // TODO +++ check null when implemented.
@@ -82,5 +79,11 @@ public class InputGroup {
 
             return new InputGroup(this);
         }
+    }
+
+    public boolean isInputEmpty() {
+        boolean inputExpandedIsEmpty = TextUtils.isEmpty(expandedInput.getText().toString().trim());
+        boolean inputCompactIsEmpty = TextUtils.isEmpty(compactInput.getText().toString().trim());
+        return inputExpandedIsEmpty || inputCompactIsEmpty;
     }
 }

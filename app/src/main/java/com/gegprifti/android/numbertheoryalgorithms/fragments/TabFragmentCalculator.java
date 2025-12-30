@@ -49,8 +49,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     // Cache settings flags
     boolean isCompactInputView = false;
     boolean enableResultsHistory = false;
-    // Extended input view
-    LinearLayout linearLayoutExtendedInputView;
+    // Expanded input view
+    LinearLayout linearLayoutExpandedInputView;
     TextView textViewLabelA;
     TextView textViewLabelElasticA;
     TextView textViewMinusA;
@@ -160,8 +160,8 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
 		View inflater = null;
         try {
             inflater = layoutInflater.inflate(R.layout.fragment_tab_calculator, container, false);
-            // Extended input view
-            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
+            // Expanded input view
+            linearLayoutExpandedInputView = inflater.findViewById(R.id.LinearLayoutExpandedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
             textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
             textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
@@ -254,7 +254,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             textViewCopyHistory = inflater.findViewById(R.id.TextViewCopyHistory);
             textViewClearHistory = inflater.findViewById(R.id.TextViewClearHistory);
             editTextHistory = inflater.findViewById(R.id.EditTextHistory);
-            // Constrain extended input
+            // Constrain expanded input
             editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -263,7 +263,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             editTextCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextCompactC.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Extended input events
+            // Expanded input events
             editTextA.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -399,7 +399,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 }
             });
 
-            // Extended input a clipboard button events
+            // Expanded input a clipboard button events
             textViewMinusA.setOnClickListener(v -> {
                 decreaseByOne(editTextA);
                 resetAllAndSelectTheLastButtonClicked(textViewMinusA);
@@ -421,7 +421,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastButtonClicked(textViewClearA);
             });
 
-            // Extended input b clipboard button events
+            // Expanded input b clipboard button events
             textViewMinusB.setOnClickListener(v -> {
                 decreaseByOne(editTextB);
                 resetAllAndSelectTheLastButtonClicked(textViewMinusB);
@@ -443,7 +443,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastButtonClicked(textViewClearB);
             });
 
-            // Extended input c clipboard button events
+            // Expanded input c clipboard button events
             textViewMinusC.setOnClickListener(v -> {
                 decreaseByOne(editTextC);
                 resetAllAndSelectTheLastButtonClicked(textViewMinusC);
@@ -758,10 +758,10 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         try {
             this.isCompactInputView = UserSettings.getCompactInputView(requireContext());
             if(isCompactInputView){
-                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutExpandedInputView.setVisibility(View.GONE);
                 linearLayoutCompactInputView.setVisibility(View.VISIBLE);
             } else {
-                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutExpandedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
@@ -809,7 +809,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     private void refreshBiggerControls() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
-            // Extended input a
+            // Expanded input a
             ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
@@ -826,7 +826,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
-            // Extended input b
+            // Expanded input b
             ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
@@ -843,7 +843,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
-            // Extended input c
+            // Expanded input c
             ControlDisplay.setInputLabelFontSize(textViewLabelC, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticC, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewMinusC, biggerControls);
@@ -1162,24 +1162,21 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
     private InputGroup getInputGroupA() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelA, "a", textViewLabelElasticA)
-                .setInput(editTextA)
+                .setExpandedControls(textViewLabelA, "a", textViewLabelElasticA, editTextA)
                 .setCompactControls(textViewLabelCompactA, editTextCompactA)
                 .build();
     }
     private InputGroup getInputGroupB() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelB, "b", textViewLabelElasticB)
-                .setInput(editTextB)
+                .setExpandedControls(textViewLabelB, "b", textViewLabelElasticB, editTextB)
                 .setCompactControls(textViewLabelCompactB, editTextCompactB)
                 .build();
     }
     private InputGroup getInputGroupC() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelC, "c", textViewLabelElasticC)
-                .setInput(editTextC)
+                .setExpandedControls(textViewLabelC, "c", textViewLabelElasticC, editTextC)
                 .setCompactControls(textViewLabelCompactC, editTextCompactC)
                 .build();
     }

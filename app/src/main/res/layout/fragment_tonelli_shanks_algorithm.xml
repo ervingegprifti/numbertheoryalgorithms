@@ -43,9 +43,9 @@
                 android:layout_height="0px"
                 tools:ignore="UselessLeaf" />
 
-            <!--Extended inputGroup view-->
+            <!--Expanded inputGroup view-->
             <LinearLayout style="@style/ColumnContainerStyle"
-                android:id="@+id/LinearLayoutExtendedInputView"
+                android:id="@+id/LinearLayoutExpandedInputView"
                 android:layout_marginBottom="20dp">
                 <!--InputGroup integer a:-->
                 <LinearLayout style="@style/RowContainerStyle">
