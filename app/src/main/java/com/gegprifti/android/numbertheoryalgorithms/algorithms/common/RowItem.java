@@ -4,7 +4,19 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 public class RowItem {
 
     public enum HeaderStyle { DEFAULT, OUTLINED, HIGHLIGHTED, BLANK }
-    public enum ValueStyle { DEFAULT, YELLOW, YELLOW_STRESSED, GREEN, GREEN_STRESSED, ORANGE, ORANGE_STRESSED, BLUE, BLUE_STRESSED, BLACK, WHITE, WHITE_STRESSED }
+    public enum ValueStyle {
+        DEFAULT,
+        YELLOW,
+        YELLOW_STRESSED,
+        GREEN,
+        GREEN_STRESSED,
+        ORANGE,
+        ORANGE_STRESSED,
+        BLUE,
+        BLUE_STRESSED,
+        BLACK,
+        WHITE,
+        WHITE_STRESSED }
     public enum ValueToDisplay { VALUE_1, VALUE_2 }
 
     public String getValue() {
@@ -53,8 +65,28 @@ public class RowItem {
     public boolean getIsPrime() { return this.isPrime; }
 
     private boolean isSelected;
-    public boolean getIsSelected() { return this.isSelected; }
-    public void setIsSelected(boolean isSelected) { this.isSelected = isSelected; }
+    public boolean getIsSelected() {
+        return this.isSelected;
+    }
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
+    private int quadrant = 0;
+    /**
+     * Get the quadrant.
+     * @return The quadrant: 1 (+x,+y), 2 (-x,+y), 3 (-x,-y), 4 (+x,-y).
+     */
+    public int getQuadrant() {
+        return this.quadrant;
+    }
+    /**
+     * Set the quadrant.
+     * @param quadrant  The quadrant: 1 (+x,+y), 2 (-x,+y), 3 (-x,-y), 4 (+x,-y).
+     */
+    public void setQuadrant(int quadrant) {
+        this.quadrant = quadrant;
+    }
 
     public RowItem (boolean isHeader, boolean isConfig) {
         this(isHeader, isConfig, "", false, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);

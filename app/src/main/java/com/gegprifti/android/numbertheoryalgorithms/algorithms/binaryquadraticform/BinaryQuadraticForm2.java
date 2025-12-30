@@ -38,11 +38,14 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             if (d.compareTo(ZERO) != 0) {
                 maxX = f.divide(d).add(ONE);
             }
+            minX = maxX.negate();
+
             BigInteger minY = ZERO;
             BigInteger maxY = f.abs();
             if (e.compareTo(ZERO) != 0) {
                 maxY = f.divide(e).add(ONE);
             }
+            minY = maxY.negate();
 
             // Create row header.
             List<RowItem> headerRow = new ArrayList<>();
@@ -57,7 +60,7 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             rows.add(headerRow);
 
             // Calculate ax² + bxy + cy² + dx + ey = f values.
-            for (BigInteger y = minY; y.compareTo(maxY) <= 0; y = y.add(ONE)) {
+            for (BigInteger y = maxY; y.compareTo(minY) >= 0; y = y.subtract(ONE)) { // BigInteger y = minY; y.compareTo(maxY) <= 0; y = y.add(ONE)
                 AlgorithmHelper.checkIfCanceled();
 
                 List<RowItem> row = new ArrayList<>();
@@ -78,15 +81,28 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                     // boolean isFPrime = fCalculated.isProbablePrime(10);
 
                     if (fCalculated.equals(f)) {
-                        RowItem rowItemXSolution = headerRow.get(x.intValue() + 1);
+                        // Highlight row header x solution
+                        RowItem rowItemXSolution = headerRow.get(minX.abs().add(x.add(ONE)).intValue());
                         rowItemXSolution.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
+                        // Highlight
                         RowItem rowItemYSolution = row.get(0);
                         rowItemYSolution.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
-                        RowItem rowItem = new RowItem(false, fCalculated.toString(), false, RowItem.ValueStyle.ORANGE); // isFPrime
+                        //
+                        RowItem rowItem = new RowItem(false, fCalculated.toString(), false, RowItem.ValueStyle.ORANGE);
                         rowItem.setIsSelected(true);
                         row.add(rowItem);
                     } else {
-                        row.add(new RowItem(false, fCalculated.toString(), false)); // isFPrime
+                        RowItem rowItem = new RowItem(false, fCalculated.toString(), false);
+                        if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) > 0) {
+                            rowItem.setQuadrant(1);
+                        } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) > 0) {
+                            rowItem.setQuadrant(2);
+                        } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) < 0) {
+                            rowItem.setQuadrant(3);
+                        } else if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) < 0) {
+                            rowItem.setQuadrant(4);
+                        }
+                        row.add(rowItem);
                     }
                 }
                 rows.add(row);

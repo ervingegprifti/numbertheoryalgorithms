@@ -1910,15 +1910,15 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             InputGroup inputGroupF = getInputGroupF();
 
             // Check.
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
-                return;
-            }
+            //if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupA)) {
+            //    return;
+            //}
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupB)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
-                return;
-            }
+            //if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupC)) {
+            //    return;
+            //}
             if(UIHelper.checkInputMustBeNumber(requireContext(), inputGroupD)) {
                 return;
             }
@@ -1939,8 +1939,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Check a != 0
             if (a.compareTo(BigInteger.ZERO) != 0) {
-                UIHelper.showCustomToastLight(requireContext(), "The value of 'a' not yet supported");
-                return;
+                UIHelper.showCustomToastLight(requireContext(), "The value of 'a' not yet supported, hence ignored");
             }
             // Check b ≠ 0
             if (b.compareTo(BigInteger.ZERO) == 0) {
@@ -1949,8 +1948,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
             // Check c != 0
             if (c.compareTo(BigInteger.ZERO) != 0) {
-                UIHelper.showCustomToastLight(requireContext(), "The value of 'c' not yet supported");
-                return;
+                UIHelper.showCustomToastLight(requireContext(), "The value of 'c' not yet supported, hence ignored");
             }
 
             setResultVisibilityFromButtonRun(skipLabelResult);
@@ -2208,7 +2206,13 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                                 if (item.getIsSelected()) {
                                     item.setValueStyle(RowItem.ValueStyle.ORANGE);
                                 } else {
-                                    item.setValueStyle(RowItem.ValueStyle.DEFAULT);
+                                    if (item.getQuadrant() == 1) {
+                                        item.setValueStyle(RowItem.ValueStyle.WHITE);
+                                    } else if(item.getQuadrant() == 3){
+                                        item.setValueStyle(RowItem.ValueStyle.BLUE);
+                                    } else {
+                                        item.setValueStyle(RowItem.ValueStyle.DEFAULT);
+                                    }
                                 }
                             }
                         }
