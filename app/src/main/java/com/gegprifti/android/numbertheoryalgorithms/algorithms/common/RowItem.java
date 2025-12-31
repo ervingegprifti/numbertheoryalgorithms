@@ -3,7 +3,12 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 public class RowItem {
 
-    public enum HeaderStyle { DEFAULT, OUTLINED, HIGHLIGHTED, BLANK }
+    public enum HeaderStyle {
+        DEFAULT,
+        OUTLINED,
+        HIGHLIGHTED,
+        BLANK
+    }
     public enum ValueStyle {
         DEFAULT,
         YELLOW,
