@@ -26,11 +26,11 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.DialogFragmentPdfV
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.TabFragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
+import com.gegprifti.android.numbertheoryalgorithms.grid.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Cell;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 
@@ -256,7 +256,7 @@ public class FragmentPrimesList extends FragmentBase {
 
             // Perform generate numbers
             PrimesListCalculator primesListCalculator = new PrimesListCalculator(columns.intValue(), NUMBERS);
-            List<List<RowItem>> plResultList = (List<List<RowItem>>) primesListCalculator.calculate();
+            List<List<Cell>> plResultList = (List<List<Cell>>) primesListCalculator.calculate();
             showResult(plResultList);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -264,7 +264,7 @@ public class FragmentPrimesList extends FragmentBase {
     }
 
 
-    private void showResult(List<List<RowItem>> rows) {
+    private void showResult(List<List<Cell>> rows) {
         try {
             if(rows == null || rows.isEmpty()) {
                 return;
@@ -279,12 +279,12 @@ public class FragmentPrimesList extends FragmentBase {
             // TextView textViewTemp = new TextView(requireContext());
             LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TextView textViewTemp;
-            int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
-            textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
+            int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
+            textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
             textViewTemp.setText(maxText);
             textViewTemp.measure(0, 0); //must call measure!
-            int rowItemWidth = textViewTemp.getMeasuredWidth();
-            int rowItemHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellWidth = textViewTemp.getMeasuredWidth();
+            int cellHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space.
             if(biggerResultDisplay) {
@@ -294,7 +294,7 @@ public class FragmentPrimesList extends FragmentBase {
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader, rows, cellWidth, null, cellHeight, null, biggerResultDisplay);
             setListViewAdapter(listViewResult, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -303,9 +303,9 @@ public class FragmentPrimesList extends FragmentBase {
 
 
     @NonNull
-    private String getMaxText(List<List<RowItem>> rows) {
+    private String getMaxText(List<List<Cell>> rows) {
         // Get the first row (the headers row)
-        List<RowItem> firstRow = rows.get(0);
+        List<Cell> firstRow = rows.get(0);
         // Get the last lvItem value of the first row
         int maxTextLength = getMaxTextLength(rows, firstRow);
         maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
@@ -318,10 +318,10 @@ public class FragmentPrimesList extends FragmentBase {
     }
 
 
-    private static int getMaxTextLength(List<List<RowItem>> rows, List<RowItem> firstRow) {
+    private static int getMaxTextLength(List<List<Cell>> rows, List<Cell> firstRow) {
         String firstRowLastValue = firstRow.get(firstRow.size()-1).getValue();
         // Get the last row
-        List<RowItem> lastRow = rows.get(rows.size()-1);
+        List<Cell> lastRow = rows.get(rows.size()-1);
         // Get the last lvItem value of the last row
         String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
         // Pre-calculate the TextViewLVItemListItem width

@@ -5,8 +5,8 @@ import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridCalculator;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.grid.GridCalculator;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Cell;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
 
 
     @Override
-    public List<List<RowItem>> calculate() throws InterruptedException {
+    public List<List<Cell>> calculate() throws InterruptedException {
         try {
-            List<List<RowItem>> rows = new ArrayList<>();
+            List<List<Cell>> rows = new ArrayList<>();
 
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
@@ -39,18 +39,18 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             }
 
             // Create row headers.
-            List<RowItem> rowHeaders = new ArrayList<>();
-            RowItem rowHeaderOrigin = new RowItem(true, "f", false);
+            List<Cell> rowHeaders = new ArrayList<>();
+            Cell rowHeaderOrigin = new Cell(true, "f", false);
             rowHeaders.add(rowHeaderOrigin);
             // ┌───────┐
             // │   f   │
             // └───────┘
             for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                RowItem rowHeader = new RowItem(true, "x=" + x, false);
+                Cell rowHeader = new Cell(true, "x=" + x, false);
                 rowHeaders.add(rowHeader);
             }
-            RowItem rowHeaderSolutions = new RowItem(true, "solutions", false);
+            Cell rowHeaderSolutions = new Cell(true, "solutions", false);
             rowHeaders.add(rowHeaderSolutions);
             rows.add(rowHeaders);
             // ┌───────┬───────┬───────┬───────┬───────┐      ┌─────────────┐
@@ -60,11 +60,11 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             // Calculate solutions from 0 up until f
             for(BigInteger i = ZERO; i.compareTo(f.add(ONE)) <= 0; i = i.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                List<RowItem> rowItems = new ArrayList<>();
+                List<Cell> cells = new ArrayList<>();
 
                 // Add column header.
-                RowItem columnHeader = new RowItem(true, i.toString(), false);
-                rowItems.add(columnHeader);
+                Cell columnHeader = new Cell(true, i.toString(), false);
+                cells.add(columnHeader);
 
                 List<String> solutionsPerRow = new ArrayList<>();
 
@@ -73,28 +73,28 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                     AlgorithmHelper.checkIfCanceled();
                     String resultFromFixedX = getResultFromFixedX(a, b, c, d, e, i, x);
                     if (resultFromFixedX.isEmpty()) {
-                        RowItem column = new RowItem(false, resultFromFixedX, false, RowItem.ValueStyle.DEFAULT);
-                        rowItems.add(column);
+                        Cell column = new Cell(false, resultFromFixedX, false, Cell.ValueStyle.DEFAULT);
+                        cells.add(column);
                     } else {
-                        RowItem column = new RowItem(false, resultFromFixedX, false, RowItem.ValueStyle.YELLOW);
-                        rowItems.add(column);
+                        Cell column = new Cell(false, resultFromFixedX, false, Cell.ValueStyle.YELLOW);
+                        cells.add(column);
                         solutionsPerRow.add("[" + resultFromFixedX + "]");
                     }
                 }
 
                 // Add last column.
                 if (solutionsPerRow.isEmpty()) {
-                    RowItem lastColumn = new RowItem(false, "", false);
-                    rowItems.add(lastColumn);
+                    Cell lastColumn = new Cell(false, "", false);
+                    cells.add(lastColumn);
                 } else {
-                    RowItem columnHeaderEdit = rowItems.get(0);
-                    columnHeaderEdit.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
+                    Cell columnHeaderEdit = cells.get(0);
+                    columnHeaderEdit.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
                     String solutions = String.join(" ", solutionsPerRow);
-                    RowItem lastColumn = new RowItem(false, solutions, false, RowItem.ValueStyle.YELLOW);
-                    rowItems.add(lastColumn);
+                    Cell lastColumn = new Cell(false, solutions, false, Cell.ValueStyle.YELLOW);
+                    cells.add(lastColumn);
                 }
 
-                rows.add(rowItems);
+                rows.add(cells);
             }
 
             return rows;

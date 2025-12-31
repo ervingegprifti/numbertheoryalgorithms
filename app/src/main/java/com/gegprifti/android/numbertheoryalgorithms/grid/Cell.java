@@ -1,7 +1,7 @@
-package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.grid;
 
 
-public class RowItem {
+public class Cell {
 
     public enum HeaderStyle {
         DEFAULT,
@@ -22,7 +22,11 @@ public class RowItem {
         BLACK,
         WHITE,
         WHITE_STRESSED }
-    public enum ValueToDisplay { VALUE_1, VALUE_2 }
+
+    public enum ValueToDisplay {
+        VALUE_1,
+        VALUE_2
+    }
 
     public String getValue() {
         if (this.valueToDisplay == ValueToDisplay.VALUE_1) {
@@ -35,39 +39,59 @@ public class RowItem {
     }
 
     private String value1;
-    public String getValue1 () { return this.value1; }
-    public void setValue1(String value1) { this.value1 = value1; }
+    public String getValue1 () {
+        return this.value1;
+    }
+    public void setValue1(String value1) {
+        this.value1 = value1;
+    }
 
     private String value2;
-    public String getValue2 () { return this.value2; }
-    public void setValue2(String value2) { this.value2 = value2; }
+    public String getValue2 () {
+        return this.value2;
+    }
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
 
     private ValueToDisplay valueToDisplay;
-    public ValueToDisplay getValueToDisplay() { return this.valueToDisplay; }
+    public ValueToDisplay getValueToDisplay() {
+        return this.valueToDisplay;
+    }
     public void setValueToDisplay(ValueToDisplay valueToDisplay) {
         this.valueToDisplay = valueToDisplay;
     }
 
     private HeaderStyle headerStyle;
-    public HeaderStyle getHeaderStyle() { return this.headerStyle; }
+    public HeaderStyle getHeaderStyle() {
+        return this.headerStyle;
+    }
     public void setHeaderStyle(HeaderStyle headerStyle) {
         this.headerStyle = headerStyle;
     }
 
     private ValueStyle valueStyle;
-    public ValueStyle getValueStyle() { return this.valueStyle; }
+    public ValueStyle getValueStyle() {
+        return this.valueStyle;
+    }
     public void setValueStyle(ValueStyle valueStyle) {
         this.valueStyle = valueStyle;
     }
 
     private final boolean isHeader;
-    public boolean getIsHeader() { return this.isHeader; }
+    public boolean getIsHeader() {
+        return this.isHeader;
+    }
 
     private final boolean isConfig;
-    public boolean getIsConfig() { return this.isConfig; }
+    public boolean getIsConfig() {
+        return this.isConfig;
+    }
 
     private final boolean isPrime;
-    public boolean getIsPrime() { return this.isPrime; }
+    public boolean getIsPrime() {
+        return this.isPrime;
+    }
 
     private boolean isSelected;
     public boolean getIsSelected() {
@@ -93,19 +117,19 @@ public class RowItem {
         this.quadrant = quadrant;
     }
 
-    public RowItem (boolean isHeader, boolean isConfig) {
+    public Cell(boolean isHeader, boolean isConfig) {
         this(isHeader, isConfig, "", false, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);
     }
-    public RowItem (boolean isHeader, String value1, boolean isPrime) {
+    public Cell(boolean isHeader, String value1, boolean isPrime) {
         this(isHeader, false, value1, isPrime, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);
     }
-    public RowItem (boolean isHeader, String value1, boolean isPrime, HeaderStyle headerStyle) {
+    public Cell(boolean isHeader, String value1, boolean isPrime, HeaderStyle headerStyle) {
         this(isHeader, false, value1, isPrime, headerStyle, ValueStyle.DEFAULT);
     }
-    public RowItem (boolean isHeader, String value1, boolean isPrime, ValueStyle valueStyle) {
+    public Cell(boolean isHeader, String value1, boolean isPrime, ValueStyle valueStyle) {
         this(isHeader, false, value1, isPrime, HeaderStyle.DEFAULT, valueStyle);
     }
-    public RowItem(boolean isHeader, boolean isConfig, String value1, boolean isPrime, HeaderStyle headerStyle, ValueStyle valueStyle) {
+    public Cell(boolean isHeader, boolean isConfig, String value1, boolean isPrime, HeaderStyle headerStyle, ValueStyle valueStyle) {
         this.isHeader = isHeader;
         this.isConfig = isConfig;
         this.value1 = value1;
@@ -115,5 +139,4 @@ public class RowItem {
         //
         this.valueToDisplay = ValueToDisplay.VALUE_1;
     }
-
 }

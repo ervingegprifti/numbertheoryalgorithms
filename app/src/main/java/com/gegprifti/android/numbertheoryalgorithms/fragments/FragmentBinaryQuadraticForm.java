@@ -26,14 +26,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
+import com.gegprifti.android.numbertheoryalgorithms.grid.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmName;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Cell;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
@@ -1544,7 +1544,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 cancelShowResult(listViewResult1);
             } else {
                 @SuppressWarnings("unchecked")
-                List<List<RowItem>> sqfResultList1 = (List<List<RowItem>>)result;
+                List<List<Cell>> sqfResultList1 = (List<List<Cell>>)result;
                 showResult1(sqfResultList1);
             }
         }
@@ -1554,7 +1554,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 cancelShowResult(listViewResult2);
             } else {
                 @SuppressWarnings("unchecked")
-                List<List<RowItem>> sqfResultList2 = (List<List<RowItem>>)result;
+                List<List<Cell>> sqfResultList2 = (List<List<Cell>>)result;
                 showResult2(sqfResultList2);
             }
         }
@@ -1562,12 +1562,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     private void cancelShowResult(ListView listView) {
         ArrayList<String> listItems=new ArrayList<>();
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(requireContext(), R.layout.row_item_canceled, R.id.RowItemCanceled, listItems);
+        adapter = new ArrayAdapter<>(requireContext(), R.layout.cell_canceled, R.id.CellCanceled, listItems);
         setListViewAdapter(listView, adapter);
         listItems.add(requireContext().getResources().getString(R.string.canceled));
         adapter.notifyDataSetChanged();
     }
-    private void showResult1(List<List<RowItem>> rows) {
+    private void showResult1(List<List<Cell>> rows) {
         try {
             if(rows == null || rows.isEmpty()) {
                 return;
@@ -1576,16 +1576,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Get max text length per each column.
             List<String> columnsMaxText = new ArrayList<>();
             for(int r = 0; r < rows.size(); r++) {
-                List<RowItem> row = rows.get(r);
+                List<Cell> row = rows.get(r);
                 for(int c = 0; c < row.size(); c++) {
-                    RowItem rowItem = row.get(c);
+                    Cell cell = row.get(c);
                     if (r == 0) {
                         // Populate with the first row column items.
-                        columnsMaxText.add(rowItem.getValue());
+                        columnsMaxText.add(cell.getValue());
                     } else {
                         String existingMaxText = columnsMaxText.get(c);
-                        if (rowItem.getValue().length() > existingMaxText.length()) {
-                            columnsMaxText.set(c, rowItem.getValue());
+                        if (cell.getValue().length() > existingMaxText.length()) {
+                            columnsMaxText.set(c, cell.getValue());
                         }
                     }
                 }
@@ -1595,23 +1595,23 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
 
             // Get and set the max row item width per each column.
-            List<Integer> rowItemWidths = new ArrayList<>();
+            List<Integer> cellWidths = new ArrayList<>();
             for (int c = 0; c < columnsMaxText.size(); c++) {
                 // Start the pre-calculate
                 LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 TextView textViewTemp;
-                int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
-                textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
+                int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
+                textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
                 String maxText = columnsMaxText.get(c);
                 textViewTemp.setText(maxText);
                 //must call measure!
                 textViewTemp.measure(0, 0);
                 // get width
                 int maxColumnWidth = textViewTemp.getMeasuredWidth();
-                rowItemWidths.add(maxColumnWidth + 20); // Just add some extra space
+                cellWidths.add(maxColumnWidth + 20); // Just add some extra space
             }
-            int rowItemWidth = LinearLayout.LayoutParams.WRAP_CONTENT;
-            int rowItemHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellWidth = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space
             if(biggerResultDisplay) {
@@ -1621,13 +1621,13 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader1, rows, rowItemWidth, rowItemWidths, rowItemHeight, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader1, rows, cellWidth, cellWidths, cellHeight, null, biggerResultDisplay);
             setListViewAdapter(listViewResult1, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
-    private void showResult2(List<List<RowItem>> rows) {
+    private void showResult2(List<List<Cell>> rows) {
         try {
             if(rows == null || rows.isEmpty()) {
                 return;
@@ -1649,7 +1649,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
 
             // Get the last item in the last row
-            List<RowItem> lastRow = rows.get(rows.size()-1);
+            List<Cell> lastRow = rows.get(rows.size()-1);
             String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
             int maxTextLength = lastRowLastValue.length();
             maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
@@ -1660,12 +1660,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
             LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TextView textViewTemp;
-            int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
-            textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
+            int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
+            textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
             textViewTemp.setText(maxText.toString());
             textViewTemp.measure(0, 0); //must call measure!
-            int rowItemWidth = textViewTemp.getMeasuredWidth();
-            int rowItemHeight = squareResultDisplay ? rowItemWidth : LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellWidth = textViewTemp.getMeasuredWidth();
+            int cellHeight = squareResultDisplay ? cellWidth : LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space.
             if(biggerResultDisplay) {
@@ -1675,7 +1675,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader2, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader2, rows, cellWidth, null, cellHeight, null, biggerResultDisplay);
             showResultFModM2(adapter, m, r);
             setListViewAdapter(listViewResult2, adapter);
         } catch (Exception ex) {
@@ -2162,21 +2162,21 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             if (m != null && r == null) {
                 // Display f (mod m) and reset if highlighted.
                 for(int rIndex = 0; rIndex < gridAdapter.getCount(); rIndex++) {
-                    List<RowItem> row = gridAdapter.getItem(rIndex);
+                    List<Cell> row = gridAdapter.getItem(rIndex);
                     for(int iIndex = 0; iIndex < row.size(); iIndex++) {
-                        RowItem item = row.get(iIndex);
+                        Cell item = row.get(iIndex);
                         if (!item.getIsHeader()) {
                             String value1 = item.getValue1();
                             BigInteger f = new BigInteger(value1);
                             BigInteger fmodm1 = f.mod(m);
                             String value2 = fmodm1.toString();
                             item.setValue2(value2);
-                            item.setValueToDisplay(RowItem.ValueToDisplay.VALUE_2);
+                            item.setValueToDisplay(Cell.ValueToDisplay.VALUE_2);
                             if (item.getIsSelected()) {
-                                item.setValueStyle(RowItem.ValueStyle.ORANGE);
+                                item.setValueStyle(Cell.ValueStyle.ORANGE);
                             } else {
                                 // Reset if highlighted.
-                                item.setValueStyle(RowItem.ValueStyle.DEFAULT);
+                                item.setValueStyle(Cell.ValueStyle.DEFAULT);
                             }
                         }
                     }
@@ -2184,12 +2184,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             } else if (m != null && r != null) {
                 // Display f and highlight f (mod m) = r
                 for(int rIndex = 0; rIndex < gridAdapter.getCount(); rIndex++) {
-                    List<RowItem> row = gridAdapter.getItem(rIndex);
+                    List<Cell> row = gridAdapter.getItem(rIndex);
                     for(int iIndex = 0; iIndex < row.size(); iIndex++) {
-                        RowItem item = row.get(iIndex);
+                        Cell item = row.get(iIndex);
                         if (!item.getIsHeader()) {
-                            if (item.getValueToDisplay() != RowItem.ValueToDisplay.VALUE_1) {
-                                item.setValueToDisplay(RowItem.ValueToDisplay.VALUE_1);
+                            if (item.getValueToDisplay() != Cell.ValueToDisplay.VALUE_1) {
+                                item.setValueToDisplay(Cell.ValueToDisplay.VALUE_1);
                             }
                             String value1 = item.getValue1();
                             BigInteger f = new BigInteger(value1);
@@ -2197,21 +2197,21 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                             if (fmodm1.compareTo(r) == 0) {
                                 // Highlight.
                                 if (item.getIsSelected()) {
-                                    item.setValueStyle(RowItem.ValueStyle.ORANGE_STRESSED);
+                                    item.setValueStyle(Cell.ValueStyle.ORANGE_STRESSED);
                                 } else {
-                                    item.setValueStyle(RowItem.ValueStyle.YELLOW_STRESSED);
+                                    item.setValueStyle(Cell.ValueStyle.YELLOW_STRESSED);
                                 }
                             } else {
                                 // Reset if highlighted.
                                 if (item.getIsSelected()) {
-                                    item.setValueStyle(RowItem.ValueStyle.ORANGE);
+                                    item.setValueStyle(Cell.ValueStyle.ORANGE);
                                 } else {
                                     if (item.getQuadrant() == 1) {
-                                        item.setValueStyle(RowItem.ValueStyle.WHITE);
+                                        item.setValueStyle(Cell.ValueStyle.WHITE);
                                     } else if(item.getQuadrant() == 3){
-                                        item.setValueStyle(RowItem.ValueStyle.BLUE);
+                                        item.setValueStyle(Cell.ValueStyle.BLUE);
                                     } else {
-                                        item.setValueStyle(RowItem.ValueStyle.DEFAULT);
+                                        item.setValueStyle(Cell.ValueStyle.DEFAULT);
                                     }
                                 }
                             }
@@ -2221,18 +2221,18 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             } else {
                 // Display f and reset if highlighted.
                 for(int rIndex = 0; rIndex < gridAdapter.getCount(); rIndex++) {
-                    List<RowItem> row = gridAdapter.getItem(rIndex);
+                    List<Cell> row = gridAdapter.getItem(rIndex);
                     for(int iIndex = 0; iIndex < row.size(); iIndex++) {
-                        RowItem item = row.get(iIndex);
+                        Cell item = row.get(iIndex);
                         if (!item.getIsHeader()) {
-                            if (item.getValueToDisplay() != RowItem.ValueToDisplay.VALUE_1) {
-                                item.setValueToDisplay(RowItem.ValueToDisplay.VALUE_1);
+                            if (item.getValueToDisplay() != Cell.ValueToDisplay.VALUE_1) {
+                                item.setValueToDisplay(Cell.ValueToDisplay.VALUE_1);
                             }
                             if (item.getIsSelected()) {
-                                item.setValueStyle(RowItem.ValueStyle.ORANGE);
+                                item.setValueStyle(Cell.ValueStyle.ORANGE);
                             } else {
                                 // Reset if highlighted.
-                                item.setValueStyle(RowItem.ValueStyle.DEFAULT);
+                                item.setValueStyle(Cell.ValueStyle.DEFAULT);
                             }
                         }
                     }

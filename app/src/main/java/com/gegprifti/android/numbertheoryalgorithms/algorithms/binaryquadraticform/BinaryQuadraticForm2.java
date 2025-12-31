@@ -5,8 +5,8 @@ import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridCalculator;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.grid.GridCalculator;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Cell;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
 
 
     @Override
-    public List<List<RowItem>> calculate() throws InterruptedException {
+    public List<List<Cell>> calculate() throws InterruptedException {
         try {
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
@@ -31,7 +31,7 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger e = algorithmParameters.getInput5();
             BigInteger f = algorithmParameters.getInput6();
 
-            List<List<RowItem>> rows = new ArrayList<>();
+            List<List<Cell>> rows = new ArrayList<>();
 
             BigInteger minX = ZERO;
             BigInteger maxX = f.abs();
@@ -48,14 +48,14 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             minY = maxY.negate();
 
             // Create row header.
-            List<RowItem> headerRow = new ArrayList<>();
+            List<Cell> headerRow = new ArrayList<>();
             // Add the grid configuration button.
-            headerRow.add(new RowItem(true, true));
+            headerRow.add(new Cell(true, true));
             //
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
 
-                headerRow.add(new RowItem(true, "x=" + x, false));
+                headerRow.add(new Cell(true, "x=" + x, false));
             }
             rows.add(headerRow);
 
@@ -63,10 +63,10 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             for (BigInteger y = maxY; y.compareTo(minY) >= 0; y = y.subtract(ONE)) { // BigInteger y = minY; y.compareTo(maxY) <= 0; y = y.add(ONE)
                 AlgorithmHelper.checkIfCanceled();
 
-                List<RowItem> row = new ArrayList<>();
+                List<Cell> row = new ArrayList<>();
                 // Add column header.
                 // boolean isYPrime = y.isProbablePrime(10);
-                row.add(new RowItem(true, "y=" + y, false)); // isYPrime
+                row.add(new Cell(true, "y=" + y, false)); // isYPrime
 
                 // Add f values.
                 for(BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
@@ -82,27 +82,27 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
 
                     if (fCalculated.equals(f)) {
                         // Highlight row header x solution
-                        RowItem rowItemXSolution = headerRow.get(minX.abs().add(x.add(ONE)).intValue());
-                        rowItemXSolution.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
+                        Cell cellXSolution = headerRow.get(minX.abs().add(x.add(ONE)).intValue());
+                        cellXSolution.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
                         // Highlight
-                        RowItem rowItemYSolution = row.get(0);
-                        rowItemYSolution.setHeaderStyle(RowItem.HeaderStyle.HIGHLIGHTED);
+                        Cell cellYSolution = row.get(0);
+                        cellYSolution.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
                         //
-                        RowItem rowItem = new RowItem(false, fCalculated.toString(), false, RowItem.ValueStyle.ORANGE);
-                        rowItem.setIsSelected(true);
-                        row.add(rowItem);
+                        Cell cell = new Cell(false, fCalculated.toString(), false, Cell.ValueStyle.ORANGE);
+                        cell.setIsSelected(true);
+                        row.add(cell);
                     } else {
-                        RowItem rowItem = new RowItem(false, fCalculated.toString(), false);
+                        Cell cell = new Cell(false, fCalculated.toString(), false);
                         if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) > 0) {
-                            rowItem.setQuadrant(1);
+                            cell.setQuadrant(1);
                         } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) > 0) {
-                            rowItem.setQuadrant(2);
+                            cell.setQuadrant(2);
                         } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) < 0) {
-                            rowItem.setQuadrant(3);
+                            cell.setQuadrant(3);
                         } else if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) < 0) {
-                            rowItem.setQuadrant(4);
+                            cell.setQuadrant(4);
                         }
-                        row.add(rowItem);
+                        row.add(cell);
                     }
                 }
                 rows.add(row);

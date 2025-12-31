@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
+package com.gegprifti.android.numbertheoryalgorithms.grid;
 
 
 import android.content.Context;
@@ -20,12 +20,12 @@ public class GridAdapter extends BaseAdapter {
 
     private final Context context;
     private final LayoutInflater layoutInflater;
-    private final List<List<RowItem>> gridRows;
+    private final List<List<Cell>> rows;
     private final LinearLayout.LayoutParams layoutParamsGlobal;
-    private final int rowItemWidthGlobal;
-    private final int rowItemHeightGlobal;
-    private final List<Integer> rowItemWidths;
-    private final List<Integer> rowItemHeights;
+    private final int cellWidthGlobal;
+    private final int cellHeightGlobal;
+    private final List<Integer> cellWidths;
+    private final List<Integer> cellHeights;
     private final boolean biggerResultDisplay;
     private final int marginLeft;
     private final int marginTop;
@@ -33,13 +33,13 @@ public class GridAdapter extends BaseAdapter {
     private final int marginBottom;
     private int lastItemIndex = -1;
 
-    public GridAdapter(Context context, LinearLayout staticColumnHeader, List<List<RowItem>> gridRows, int rowItemWidthGlobal, List<Integer> rowItemWidths, int rowItemHeightGlobal, List<Integer> rowItemHeights, boolean biggerResultDisplay) {
+    public GridAdapter(Context context, LinearLayout staticColumnHeader, List<List<Cell>> rows, int cellWidthGlobal, List<Integer> cellWidths, int cellHeightGlobal, List<Integer> cellHeights, boolean biggerResultDisplay) {
         this.context = context;
-        this.gridRows = gridRows;
-        this.rowItemWidthGlobal = rowItemWidthGlobal;
-        this.rowItemWidths = rowItemWidths;
-        this.rowItemHeightGlobal = rowItemHeightGlobal;
-        this.rowItemHeights = rowItemHeights;
+        this.rows = rows;
+        this.cellWidthGlobal = cellWidthGlobal;
+        this.cellWidths = cellWidths;
+        this.cellHeightGlobal = cellHeightGlobal;
+        this.cellHeights = cellHeights;
         this.biggerResultDisplay = biggerResultDisplay;
 
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,63 +48,63 @@ public class GridAdapter extends BaseAdapter {
         this.marginRight = this.biggerResultDisplay ? (int) UIHelper.convertDpToPixel(4F, layoutInflater.getContext()) : (int) UIHelper.convertDpToPixel(1F, layoutInflater.getContext());
         this.marginBottom = 0;
 
-        if ((rowItemWidths == null || rowItemWidths.isEmpty()) && (rowItemHeights == null || rowItemHeights.isEmpty())) {
-            this.layoutParamsGlobal = new LinearLayout.LayoutParams(rowItemWidthGlobal, rowItemHeightGlobal);
+        if ((cellWidths == null || cellWidths.isEmpty()) && (cellHeights == null || cellHeights.isEmpty())) {
+            this.layoutParamsGlobal = new LinearLayout.LayoutParams(cellWidthGlobal, cellHeightGlobal);
             this.layoutParamsGlobal.setMargins(this.marginLeft, this.marginTop, this.marginRight, this.marginBottom);
         } else {
             this.layoutParamsGlobal = null;
         }
 
         // Get the last item index in the first row.
-        if (this.gridRows != null && !this.gridRows.isEmpty()) {
-            List<RowItem> firstRowItems = gridRows.get(0);
-            if (firstRowItems != null && !firstRowItems.isEmpty()) {
-                this.lastItemIndex = firstRowItems.size() - 1;
+        if (this.rows != null && !this.rows.isEmpty()) {
+            List<Cell> firstCells = rows.get(0);
+            if (firstCells != null && !firstCells.isEmpty()) {
+                this.lastItemIndex = firstCells.size() - 1;
             }
         }
 
         // Write the static column header.
         int margin = this.biggerResultDisplay ? (int) UIHelper.convertDpToPixel(4F, layoutInflater.getContext()) : (int) UIHelper.convertDpToPixel(1F, layoutInflater.getContext());
-        if (this.gridRows != null && !this.gridRows.isEmpty()) {
-            List<RowItem> firstRowItems = this.gridRows.get(0);
-            if (firstRowItems != null && !firstRowItems.isEmpty()) {
+        if (this.rows != null && !this.rows.isEmpty()) {
+            List<Cell> firstCells = this.rows.get(0);
+            if (firstCells != null && !firstCells.isEmpty()) {
                 staticColumnHeader.removeAllViews();
                 LinearLayout.LayoutParams layoutParamsStaticColumnHeader = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParamsStaticColumnHeader.setMargins(0, 0, 0, margin);
                 staticColumnHeader.setLayoutParams(layoutParamsStaticColumnHeader);
-                for (int i = 0; i < firstRowItems.size(); i++) {
-                    RowItem rowItem = firstRowItems.get(i);
-                    if (rowItem.getIsHeader()) {
-                        if (rowItem.getIsConfig()) {
-                            rowItem.setValue1("●");
+                for (int i = 0; i < firstCells.size(); i++) {
+                    Cell cell = firstCells.get(i);
+                    if (cell.getIsHeader()) {
+                        if (cell.getIsConfig()) {
+                            cell.setValue1("●");
                         }
                         boolean isLastItem = this.lastItemIndex == i;
                         TextView textView = generateTextView(i, null, isLastItem);
                         staticColumnHeader.addView(textView);
-                        refreshTextView(context, rowItem, textView);
+                        refreshTextView(context, cell, textView);
                     }
                 }
             }
         }
 
         // Remove the column header.
-        if (this.gridRows != null && !this.gridRows.isEmpty()) {
-            this.gridRows.remove(0);
+        if (this.rows != null && !this.rows.isEmpty()) {
+            this.rows.remove(0);
         }
     }
 
     static class RowHolder {
-        private List<TextView> TextViewRowItems;
+        private List<TextView> TextViewCells;
     }
 
     @Override
     public int getCount() {
-        return gridRows.size();
+        return rows.size();
     }
 
     @Override
-    public List<RowItem> getItem(int position)  {
-        return gridRows.get(position);
+    public List<Cell> getItem(int position)  {
+        return rows.get(position);
     }
 
     @Override
@@ -121,15 +121,15 @@ public class GridAdapter extends BaseAdapter {
                 rowHolder = new RowHolder();
                 View rowInflater = layoutInflater.inflate(R.layout.grid_row, parent, false);
                 LinearLayout linearLayoutRow = (LinearLayout) rowInflater.findViewById(R.id.GridRow);
-                List<TextView> textViewRowItems = new ArrayList<>();
-                List<RowItem> rowItems = getItem(position);
-                for(int i = 0; i < rowItems.size(); i++) {
+                List<TextView> textViewCells = new ArrayList<>();
+                List<Cell> cells = getItem(position);
+                for(int i = 0; i < cells.size(); i++) {
                     boolean isLastItem = this.lastItemIndex == i;
                     TextView textView = generateTextView(i, parent, isLastItem);
-                    textViewRowItems.add(textView);
+                    textViewCells.add(textView);
                     linearLayoutRow.addView(textView);
                 }
-                rowHolder.TextViewRowItems = textViewRowItems;
+                rowHolder.TextViewCells = textViewCells;
                 convertView = rowInflater;
                 convertView.setTag(rowHolder);
             } else {
@@ -137,11 +137,11 @@ public class GridAdapter extends BaseAdapter {
             }
 
             // We set values here.
-            List<RowItem> rowItems = getItem(position);
-            for(int i = 0; i < rowItems.size(); i++) {
-                final RowItem rowItem = rowItems.get(i);
-                TextView textView = rowHolder.TextViewRowItems.get(i);
-                refreshTextView(context, rowItem, textView);
+            List<Cell> cells = getItem(position);
+            for(int i = 0; i < cells.size(); i++) {
+                final Cell cell = cells.get(i);
+                TextView textView = rowHolder.TextViewCells.get(i);
+                refreshTextView(context, cell, textView);
             }
 
             return convertView;
@@ -155,13 +155,13 @@ public class GridAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    private void refreshTextView(Context context, RowItem rowItem, TextView textView) {
-        if (context == null || rowItem == null || textView == null) {
+    private void refreshTextView(Context context, Cell cell, TextView textView) {
+        if (context == null || cell == null || textView == null) {
             return;
         }
 
         // Set the value
-        textView.setText(rowItem.getValue());
+        textView.setText(cell.getValue());
 
         // TODO +++ Set the on click listener.
         //if () {
@@ -169,80 +169,80 @@ public class GridAdapter extends BaseAdapter {
         //}
 
 
-        if (!rowItem.getIsHeader() && rowItem.getValue() != null && !rowItem.getValue().isEmpty()) {
-            textView.setOnClickListener(view -> UIHelper.copyTextIntoClipboard(context, rowItem.getValue()));
+        if (!cell.getIsHeader() && cell.getValue() != null && !cell.getValue().isEmpty()) {
+            textView.setOnClickListener(view -> UIHelper.copyTextIntoClipboard(context, cell.getValue()));
         } else {
             textView.setOnClickListener(null);
         }
 
         // Set header or value styles.
-        if(rowItem.getIsHeader()) {
-            switch (rowItem.getHeaderStyle()) {
+        if(cell.getIsHeader()) {
+            switch (cell.getHeaderStyle()) {
                 case DEFAULT:
-                    textView.setBackgroundResource(R.drawable.row_item_header_bg);
+                    textView.setBackgroundResource(R.drawable.cell_header_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorGeneralBg));
                     break;
                 case OUTLINED:
-                    textView.setBackgroundResource(R.drawable.row_item_header_outlined_bg);
+                    textView.setBackgroundResource(R.drawable.cell_header_outlined_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorGeneralBg));
                     break;
                 case HIGHLIGHTED:
-                    textView.setBackgroundResource(R.drawable.row_item_header_highlighted_bg);
+                    textView.setBackgroundResource(R.drawable.cell_header_highlighted_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorGeneralBg));
                     break;
                 case BLANK:
-                    textView.setBackgroundResource(R.drawable.row_item_blank_bg);
+                    textView.setBackgroundResource(R.drawable.cell_blank_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorGeneralBg));
                     break;
             }
         } else {
-            switch (rowItem.getValueStyle()) {
+            switch (cell.getValueStyle()) {
                 case DEFAULT:
-                    textView.setBackgroundResource(R.drawable.row_item_bg);
+                    textView.setBackgroundResource(R.drawable.cell_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case YELLOW:
-                    textView.setBackgroundResource(R.drawable.row_item_yellow_bg);
+                    textView.setBackgroundResource(R.drawable.cell_yellow_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case YELLOW_STRESSED:
-                    textView.setBackgroundResource(R.drawable.row_item_yellow_stressed_bg);
+                    textView.setBackgroundResource(R.drawable.cell_yellow_stressed_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case ORANGE:
-                    textView.setBackgroundResource(R.drawable.row_item_orange_bg);
+                    textView.setBackgroundResource(R.drawable.cell_orange_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case ORANGE_STRESSED:
-                    textView.setBackgroundResource(R.drawable.row_item_orange_stressed_bg);
+                    textView.setBackgroundResource(R.drawable.cell_orange_stressed_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case GREEN:
-                    textView.setBackgroundResource(R.drawable.row_item_green_bg);
+                    textView.setBackgroundResource(R.drawable.cell_green_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case GREEN_STRESSED:
-                    textView.setBackgroundResource(R.drawable.row_item_green_stressed_bg);
+                    textView.setBackgroundResource(R.drawable.cell_green_stressed_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case BLUE:
-                    textView.setBackgroundResource(R.drawable.row_item_blue_bg);
+                    textView.setBackgroundResource(R.drawable.cell_blue_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case BLUE_STRESSED:
-                    textView.setBackgroundResource(R.drawable.row_item_blue_stressed_bg);
+                    textView.setBackgroundResource(R.drawable.cell_blue_stressed_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case WHITE:
-                    textView.setBackgroundResource(R.drawable.row_item_white_bg);
+                    textView.setBackgroundResource(R.drawable.cell_white_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case WHITE_STRESSED:
-                    textView.setBackgroundResource(R.drawable.row_item_white_stressed_bg);
+                    textView.setBackgroundResource(R.drawable.cell_white_stressed_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorAccent));
                     break;
                 case BLACK:
-                    textView.setBackgroundResource(R.drawable.row_item_black_bg);
+                    textView.setBackgroundResource(R.drawable.cell_black_bg);
                     textView.setTextColor(context.getResources().getColor(R.color.colorGeneralBg));
                     break;
             }
@@ -250,10 +250,10 @@ public class GridAdapter extends BaseAdapter {
     }
 
     private TextView generateTextView(int i, ViewGroup parent, boolean isLastItem) {
-        int rowItemResource = this.biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
-        int rowItemId = this.biggerResultDisplay ? R.id.RowItemBig : R.id.RowItemSmall;
-        View rowItemInflater = layoutInflater.inflate(rowItemResource, parent, false);
-        TextView textView = (TextView) rowItemInflater.findViewById(rowItemId);
+        int cellResource = this.biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
+        int cellId = this.biggerResultDisplay ? R.id.CellBig : R.id.CellSmall;
+        View cellInflater = layoutInflater.inflate(cellResource, parent, false);
+        TextView textView = (TextView) cellInflater.findViewById(cellId);
 
         if (this.layoutParamsGlobal == null) {
             LinearLayout.LayoutParams layoutParams = createLayoutParams(i, isLastItem);
@@ -266,9 +266,9 @@ public class GridAdapter extends BaseAdapter {
     }
 
     private LinearLayout.LayoutParams createLayoutParams(int i, boolean isLastItem) {
-        int rowItemWidth = (rowItemWidths != null && !rowItemWidths.isEmpty()) ? rowItemWidths.get(i) : this.rowItemWidthGlobal;
-        int rowItemHeight = (rowItemHeights != null && !rowItemHeights.isEmpty()) ? rowItemHeights.get(i) : this.rowItemHeightGlobal;
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(rowItemWidth, rowItemHeight);
+        int cellWidth = (cellWidths != null && !cellWidths.isEmpty()) ? cellWidths.get(i) : this.cellWidthGlobal;
+        int cellHeight = (cellHeights != null && !cellHeights.isEmpty()) ? cellHeights.get(i) : this.cellHeightGlobal;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(cellWidth, cellHeight);
         layoutParams.setMargins(this.marginLeft, this.marginTop, isLastItem ? 0 : this.marginRight, this.marginBottom);
         return layoutParams;
     }
