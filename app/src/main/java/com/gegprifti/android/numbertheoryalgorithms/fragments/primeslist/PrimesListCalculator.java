@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.grid.Cell;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Grid;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,27 +23,27 @@ public class PrimesListCalculator {
     }
 
 
-    public List<List<Cell>> calculate() throws InterruptedException {
+    public Grid calculate() throws InterruptedException {
         try {
             List<List<Cell>> rows = new ArrayList<>();
-            List<Cell> row;
+            List<Cell> columnHeaders = new ArrayList<>();
+            List<Cell> rowHeaders = new ArrayList<>();
 
-            // Create the column headers
-            row = new ArrayList<>();
-            String columnLabel = columns + "k+";
+            // Create column headers. List of header cells in the x axis.
+            String columnHeaderLabel = columns + "k+";
             for(int c = -1; c < columns; c++) {
-                Cell cellHeader;
+                Cell columnHeader;
                 if(c == -1) {
-                    // This is the first header
-                    cellHeader = new Cell(true,"k",false);
+                    // The first column header
+                    columnHeader = new Cell(true,"k",false);
                 } else {
-                    // This is column header
-                    cellHeader = new Cell(true,columnLabel + c,false);
+                    // This is a column header
+                    columnHeader = new Cell(true,columnHeaderLabel + c,false);
                 }
-                row.add(cellHeader);
+                columnHeaders.add(columnHeader);
             }
-            rows.add(row);
-            // row if k = 6
+            rows.add(columnHeaders);
+            // column if k = 6
             // 0,    1,    2,    3,    4,    5,    6
             // k,    6k+0, 6k+1, 6k+2, 6k+3, 6k+4, 6k+5
 
@@ -51,13 +53,14 @@ public class PrimesListCalculator {
                 AlgorithmHelper.checkIfCanceled();
 
                 // Start a new row
-                row = new ArrayList<>();
+                List<Cell> row = new ArrayList<>();
                 for(int c = -1; c < columns; c++) {
                     if(c == -1) {
-                        // Create the row label
-                        Cell cell = new Cell(true, Integer.toString(k), false);
-                        row.add(cell);
-                        // The first column. Represents the values of k.
+                        // Create the row header
+                        Cell rowHeader = new Cell(true, Integer.toString(k), false);
+                        rowHeaders.add(rowHeader);
+                        row.add(rowHeader);
+                        // The first row cell. Represents the values of k.
                         // k
                         // 0
                         // 1
@@ -73,7 +76,8 @@ public class PrimesListCalculator {
                 rows.add(row);
             }
 
-            return rows;
+            Grid grid = new Grid(rows, columnHeaders, rowHeaders);
+            return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
             // Re-throw it so ProgressManager can handle it correctly.

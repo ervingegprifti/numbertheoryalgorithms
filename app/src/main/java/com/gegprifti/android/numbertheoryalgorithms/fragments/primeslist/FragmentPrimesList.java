@@ -26,6 +26,7 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.DialogFragmentPdfV
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.TabFragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Grid;
 import com.gegprifti.android.numbertheoryalgorithms.grid.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
@@ -256,16 +257,17 @@ public class FragmentPrimesList extends FragmentBase {
 
             // Perform generate numbers
             PrimesListCalculator primesListCalculator = new PrimesListCalculator(columns.intValue(), NUMBERS);
-            List<List<Cell>> plResultList = (List<List<Cell>>) primesListCalculator.calculate();
-            showResult(plResultList);
+            Grid grid = primesListCalculator.calculate();
+            showResult(grid);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
 
-    private void showResult(List<List<Cell>> rows) {
+    private void showResult(Grid grid) {
         try {
+            List<List<Cell>> rows = grid.getRows();
             if(rows == null || rows.isEmpty()) {
                 return;
             }

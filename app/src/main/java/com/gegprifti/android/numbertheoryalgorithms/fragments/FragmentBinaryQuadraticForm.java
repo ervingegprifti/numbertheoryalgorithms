@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Grid;
 import com.gegprifti.android.numbertheoryalgorithms.grid.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
 import com.gegprifti.android.numbertheoryalgorithms.R;
@@ -1544,8 +1545,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 cancelShowResult(listViewResult1);
             } else {
                 @SuppressWarnings("unchecked")
-                List<List<Cell>> sqfResultList1 = (List<List<Cell>>)result;
-                showResult1(sqfResultList1);
+                Grid gridResult1 = (Grid) result;
+                showResult1(gridResult1);
             }
         }
 
@@ -1554,8 +1555,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 cancelShowResult(listViewResult2);
             } else {
                 @SuppressWarnings("unchecked")
-                List<List<Cell>> sqfResultList2 = (List<List<Cell>>)result;
-                showResult2(sqfResultList2);
+                Grid gridResult2 = (Grid) result;
+                showResult2(gridResult2);
             }
         }
     }
@@ -1567,8 +1568,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         listItems.add(requireContext().getResources().getString(R.string.canceled));
         adapter.notifyDataSetChanged();
     }
-    private void showResult1(List<List<Cell>> rows) {
+    private void showResult1(Grid grid) {
         try {
+            List<List<Cell>> rows = grid.getRows();
             if(rows == null || rows.isEmpty()) {
                 return;
             }
@@ -1627,11 +1629,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             Log.e(TAG, "" + ex);
         }
     }
-    private void showResult2(List<List<Cell>> rows) {
+    private void showResult2(Grid grid) {
         try {
-            if(rows == null || rows.isEmpty()) {
-                return;
-            }
+            List<List<Cell>> rows = grid.getRows();
+            List<Cell> rowHeaders = grid.getRowHeaders();
+            List<Cell> columnHeaders = grid.getColumnHeaders();
 
             // Get the values from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -1673,6 +1675,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             } else {
                 listViewResult2.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
             }
+
+            // Display row headers.
+
 
             // Create and set the adapter.
             GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader2, rows, cellWidth, null, cellHeight, null, biggerResultDisplay);

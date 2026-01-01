@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface GridCalculator extends Calculator {
     @Override
-    List<List<Cell>> calculate() throws InterruptedException;
+    Grid calculate() throws InterruptedException;
 }

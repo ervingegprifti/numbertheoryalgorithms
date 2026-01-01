@@ -5,6 +5,7 @@ import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Grid;
 import com.gegprifti.android.numbertheoryalgorithms.grid.GridCalculator;
 import com.gegprifti.android.numbertheoryalgorithms.grid.Cell;
 import java.math.BigInteger;
@@ -22,9 +23,11 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
 
 
     @Override
-    public List<List<Cell>> calculate() throws InterruptedException {
+    public Grid calculate() throws InterruptedException {
         try {
             List<List<Cell>> rows = new ArrayList<>();
+            List<Cell> columnHeaders = new ArrayList<>();
+            List<Cell> rowHeaders = new ArrayList<>();
 
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
@@ -38,21 +41,20 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 xMax = f.divide(d).add(ONE);
             }
 
-            // Create row headers.
-            List<Cell> rowHeaders = new ArrayList<>();
-            Cell rowHeaderOrigin = new Cell(true, "f", false);
-            rowHeaders.add(rowHeaderOrigin);
+            // Create column headers.
+            Cell columnHeaderOrigin = new Cell(true, "f", false);
+            columnHeaders.add(columnHeaderOrigin);
             // ┌───────┐
             // │   f   │
             // └───────┘
             for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                Cell rowHeader = new Cell(true, "x=" + x, false);
-                rowHeaders.add(rowHeader);
+                Cell columnHeader = new Cell(true, "x=" + x, false);
+                columnHeaders.add(columnHeader);
             }
-            Cell rowHeaderSolutions = new Cell(true, "solutions", false);
-            rowHeaders.add(rowHeaderSolutions);
-            rows.add(rowHeaders);
+            Cell columnHeaderSolutions = new Cell(true, "solutions", false);
+            columnHeaders.add(columnHeaderSolutions);
+            rows.add(columnHeaders);
             // ┌───────┬───────┬───────┬───────┬───────┐      ┌─────────────┐
             // │   f   │  x=0  │  x=1  │  x=2  │  x=3  │ ...  │  solutions  │
             // └───────┴───────┴───────┴───────┴───────┘      └─────────────┘
@@ -60,11 +62,12 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             // Calculate solutions from 0 up until f
             for(BigInteger i = ZERO; i.compareTo(f.add(ONE)) <= 0; i = i.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                List<Cell> cells = new ArrayList<>();
+                List<Cell> row = new ArrayList<>();
 
-                // Add column header.
-                Cell columnHeader = new Cell(true, i.toString(), false);
-                cells.add(columnHeader);
+                // Add row header.
+                Cell rowHeader = new Cell(true, i.toString(), false);
+                rowHeaders.add(rowHeader);
+                row.add(rowHeader);
 
                 List<String> solutionsPerRow = new ArrayList<>();
 
@@ -74,10 +77,10 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                     String resultFromFixedX = getResultFromFixedX(a, b, c, d, e, i, x);
                     if (resultFromFixedX.isEmpty()) {
                         Cell column = new Cell(false, resultFromFixedX, false, Cell.ValueStyle.DEFAULT);
-                        cells.add(column);
+                        row.add(column);
                     } else {
                         Cell column = new Cell(false, resultFromFixedX, false, Cell.ValueStyle.YELLOW);
-                        cells.add(column);
+                        row.add(column);
                         solutionsPerRow.add("[" + resultFromFixedX + "]");
                     }
                 }
@@ -85,19 +88,20 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 // Add last column.
                 if (solutionsPerRow.isEmpty()) {
                     Cell lastColumn = new Cell(false, "", false);
-                    cells.add(lastColumn);
+                    row.add(lastColumn);
                 } else {
-                    Cell columnHeaderEdit = cells.get(0);
+                    Cell columnHeaderEdit = row.get(0);
                     columnHeaderEdit.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
                     String solutions = String.join(" ", solutionsPerRow);
                     Cell lastColumn = new Cell(false, solutions, false, Cell.ValueStyle.YELLOW);
-                    cells.add(lastColumn);
+                    row.add(lastColumn);
                 }
 
-                rows.add(cells);
+                rows.add(row);
             }
 
-            return rows;
+            Grid grid = new Grid(rows, columnHeaders, rowHeaders);
+            return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
             // Re-throw it so ProgressManager can handle it correctly.
