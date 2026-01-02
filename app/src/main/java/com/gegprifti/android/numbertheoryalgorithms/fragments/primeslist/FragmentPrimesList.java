@@ -272,7 +272,7 @@ public class FragmentPrimesList extends FragmentBase {
             List<Cell> columnHeaders = grid.getColumnHeaders();
             List<Cell> rowHeaders = grid.getRowHeaders();
 
-            String maxText = getMaxText(rows);
+            String maxText = getMaxText(rows, columnHeaders);
 
             // Get the value from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -307,11 +307,9 @@ public class FragmentPrimesList extends FragmentBase {
 
 
     @NonNull
-    private String getMaxText(List<List<Cell>> rows) {
-        // Get the first row (the headers row)
-        List<Cell> firstRow = rows.get(0);
+    private String getMaxText(List<List<Cell>> rows, List<Cell> columnHeaders) {
         // Get the last lvItem value of the first row
-        int maxTextLength = getMaxTextLength(rows, firstRow);
+        int maxTextLength = getMaxTextLength(rows, columnHeaders);
         maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
         // Construct the maxText. if maxTextLength = 6 the maxText = "000000"
         StringBuilder maxText = new StringBuilder(maxTextLength);
