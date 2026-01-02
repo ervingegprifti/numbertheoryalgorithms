@@ -27,7 +27,7 @@ public class PrimesListCalculator {
         try {
             List<List<Cell>> rows = new ArrayList<>();
             List<Cell> columnHeaders = new ArrayList<>();
-            List<Cell> rowHeaders = new ArrayList<>();
+            List<List<Cell>> rowHeaders = new ArrayList<>();
 
             // Create column headers. List of header cells in the x axis.
             String columnHeaderLabel = columns + "k+";
@@ -53,12 +53,15 @@ public class PrimesListCalculator {
 
                 // Start a new row
                 List<Cell> row = new ArrayList<>();
+                List<Cell> rowHeader = new ArrayList<>();
                 for(int c = -1; c < columns; c++) {
                     if(c == -1) {
                         // Create the row header
-                        Cell rowHeader = new Cell(true, Integer.toString(k), false);
+                        Cell cellRowHeader = new Cell(true, Integer.toString(k), false);
+                        rowHeader.add(cellRowHeader);
                         rowHeaders.add(rowHeader);
-                        row.add(rowHeader);
+
+                        row.add(cellRowHeader);
                         // The first row cell. Represents the values of k.
                         // k
                         // 0
@@ -75,7 +78,7 @@ public class PrimesListCalculator {
                 rows.add(row);
             }
 
-            Grid grid = new Grid(rows, columnHeaders, rowHeaders);
+            Grid grid = new Grid(rows, null, columnHeaders, rowHeaders);
             return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.

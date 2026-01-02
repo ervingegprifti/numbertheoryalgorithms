@@ -3,12 +3,10 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
-import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -187,8 +186,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     LinearLayout linearLayoutStaticColumnHeader1;
     ListView listViewResult1;
     LinearLayout linearLayoutResultGridContainer2;
+    LinearLayout linearLayoutStaticRowHeader2;
+    LinearLayout linearLayoutStaticColumnHeaderOrigin;
     LinearLayout linearLayoutStaticColumnHeader2;
     ListView listViewResult2;
+    ListView listViewRowHeaderResult2;
     // Menu
     MenuItem menuItemIncludeTrivialSolutions;
     MenuItem menuItemIncludeOnlyPositiveSolutions;
@@ -369,8 +371,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.linearLayoutStaticColumnHeader1 = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader1);
             this.listViewResult1 = inflater.findViewById(R.id.ListViewResult1);
             this.linearLayoutResultGridContainer2 = inflater.findViewById(R.id.LinearLayoutResultGridContainer2);
+            this.linearLayoutStaticRowHeader2 = inflater.findViewById(R.id.LinearLayoutStaticRowHeader2);
+            this.linearLayoutStaticColumnHeaderOrigin = inflater.findViewById(R.id.LinearLayoutStaticColumnHeaderOrigin);
             this.linearLayoutStaticColumnHeader2 = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader2);
             this.listViewResult2 = inflater.findViewById(R.id.ListViewResult2);
+            this.listViewRowHeaderResult2 = inflater.findViewById(R.id.ListViewRowHeaderResult2);
+
 
             // Constrain expanded input
             editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -1061,6 +1067,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     }
                 }
             });
+
+            listViewResult2.setOnScrollListener(syncScrollListener);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1068,6 +1076,21 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         return inflater;
     }
     //endregion CREATE
+
+
+    AbsListView.OnScrollListener syncScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            // Not needed
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            View firstView = view.getChildAt(0);
+            int topOffset = (firstView == null) ? 0 : firstView.getTop();
+            listViewRowHeaderResult2.setSelectionFromTop(firstVisibleItem, topOffset);
+        }
+    };
 
 
     @Override
@@ -1577,7 +1600,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         try {
             List<List<Cell>> rows = grid.getRows();
             List<Cell> columnHeaders = grid.getColumnHeaders();
-            List<Cell> rowHeaders = grid.getRowHeaders();
+            List<List<Cell>> rowHeaders = grid.getRowHeaders();
 
             // Get max text length per each column in rows.
             List<String> columnsMaxText = new ArrayList<>();
@@ -1640,8 +1663,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     private void showResult2(Grid grid) {
         try {
             List<List<Cell>> rows = grid.getRows();
+            List<Cell> columnHeaderOrigin = grid.getColumnHeaderOrigin();
             List<Cell> columnHeaders = grid.getColumnHeaders();
-            List<Cell> rowHeaders = grid.getRowHeaders();
+            List<List<Cell>> rowHeaders = grid.getRowHeaders();
 
             // Get the values from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -1681,15 +1705,26 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             float dividerDp = biggerResultDisplay ? 4f : 1f;
             int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
             listViewResult2.setDividerHeight(dividerPx);
+            listViewRowHeaderResult2.setDividerHeight(dividerPx);
 
             // Set column headers.
             CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            Grid.setColumnHeaders(cellUI, columnHeaderOrigin, linearLayoutStaticColumnHeaderOrigin);
             Grid.setColumnHeaders(cellUI, columnHeaders, linearLayoutStaticColumnHeader2);
+
+            // Manually set the row headers width as per the cellWidthDefault.
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearLayoutStaticRowHeader2.getLayoutParams();
+            params.width = cellWidthDefault + dividerPx;
+            linearLayoutStaticRowHeader2.setLayoutParams(params);
 
             // Create and set the adapter.
             GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
             showResultFModM2(adapter, m, r);
             setListViewAdapter(listViewResult2, adapter);
+
+            //
+            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), rowHeaders, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            setListViewAdapter(listViewRowHeaderResult2, gridAdapterRowHeaders);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

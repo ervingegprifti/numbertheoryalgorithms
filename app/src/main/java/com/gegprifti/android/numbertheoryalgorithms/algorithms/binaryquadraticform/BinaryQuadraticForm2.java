@@ -27,8 +27,9 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
     public Grid calculate() throws InterruptedException {
         try {
             List<List<Cell>> rows = new ArrayList<>();
+            List<Cell> columnHeaderOrigin = new ArrayList<>();
             List<Cell> columnHeaders = new ArrayList<>();
-            List<Cell> rowHeaders = new ArrayList<>();
+            List<List<Cell>> rowHeaders = new ArrayList<>();
 
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
@@ -53,12 +54,13 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
 
             // Create column headers.
             // Add the grid configuration button.
-            Cell columnHeaderOrigin =new Cell(true, true);
-            columnHeaders.add(columnHeaderOrigin);
+            Cell cellColumnHeaderOrigin =new Cell(true, true);
+            // TODO delete later columnHeaders.add(cellColumnHeaderOrigin);
+            columnHeaderOrigin.add(cellColumnHeaderOrigin);
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                Cell columnHeader = new Cell(true, "x=" + x, false);
-                columnHeaders.add(columnHeader);
+                Cell cellColumnHeader = new Cell(true, "x=" + x, false);
+                columnHeaders.add(cellColumnHeader);
             }
 
             // Calculate ax² + bxy + cy² + dx + ey = f values.
@@ -67,9 +69,12 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                 List<Cell> row = new ArrayList<>();
 
                 // Add row header.
-                Cell rowHeader = new Cell(true, "y=" + y, false);
+                List<Cell> rowHeader = new ArrayList<>();
+                Cell cellRowHeader = new Cell(true, "y=" + y, false);
+                rowHeader.add(cellRowHeader);
                 rowHeaders.add(rowHeader);
-                row.add(rowHeader);
+
+                // TODO delete later row.add(cellRowHeader);
 
                 // Add f values.
                 for(BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
@@ -83,11 +88,11 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                     BigInteger fCalculated = axx.add(bxy).add(cyy).add(dx).add(ey);
 
                     if (fCalculated.equals(f)) {
-                        // Highlight row header x solution
-                        Cell cellXSolution = columnHeaders.get(minX.abs().add(x.add(ONE)).intValue());
+                        // Highlight column header x solution.
+                        Cell cellXSolution = columnHeaders.get(minX.abs().add(x).intValue());
                         cellXSolution.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
-                        // Highlight
-                        Cell cellYSolution = row.get(0);
+                        // Highlight row header y solution.
+                        Cell cellYSolution = rowHeaders.get(minY.abs().subtract(y).intValue()).get(0);
                         cellYSolution.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
                         //
                         Cell cell = new Cell(false, fCalculated.toString(), false, Cell.ValueStyle.ORANGE);
@@ -110,7 +115,7 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                 rows.add(row);
             }
 
-            Grid grid = new Grid(rows, columnHeaders, rowHeaders);
+            Grid grid = new Grid(rows, columnHeaderOrigin, columnHeaders, rowHeaders);
             return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.

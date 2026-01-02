@@ -8,8 +8,9 @@ import java.util.List;
 
 public class Grid {
     private final List<List<Cell>> rows;
+    private final List<Cell> columnHeaderOrigin;
     private final List<Cell> columnHeaders;
-    private final List<Cell> rowHeaders;
+    private final List<List<Cell>> rowHeaders;
 
     /**
      *
@@ -29,9 +30,17 @@ public class Grid {
 
     /**
      *
+     * @return  List of header origin cell in the x axis.
+     */
+    public List<Cell> getColumnHeaderOrigin() {
+        return columnHeaderOrigin;
+    }
+
+    /**
+     *
      * @return  List of header cells in the y axis.
      */
-    public List<Cell> getRowHeaders() {
+    public List<List<Cell>> getRowHeaders() {
         return rowHeaders;
     }
 
@@ -41,8 +50,9 @@ public class Grid {
      * @param columnHeaders     List of header cells in the x axis.
      * @param rowHeaders        List of header cells in the y axis.
      */
-    public Grid(List<List<Cell>> rows, List<Cell> columnHeaders, List<Cell> rowHeaders) {
+    public Grid(List<List<Cell>> rows, List<Cell> columnHeaderOrigin, List<Cell> columnHeaders, List<List<Cell>> rowHeaders) {
         this.rows = rows;
+        this.columnHeaderOrigin = columnHeaderOrigin;
         this.columnHeaders = columnHeaders;
         this.rowHeaders = rowHeaders;
     }

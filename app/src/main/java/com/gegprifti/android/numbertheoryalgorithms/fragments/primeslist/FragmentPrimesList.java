@@ -270,7 +270,7 @@ public class FragmentPrimesList extends FragmentBase {
         try {
             List<List<Cell>> rows = grid.getRows();
             List<Cell> columnHeaders = grid.getColumnHeaders();
-            List<Cell> rowHeaders = grid.getRowHeaders();
+            List<List<Cell>> rowHeaders = grid.getRowHeaders();
 
             String maxText = getMaxText(rows, columnHeaders);
 

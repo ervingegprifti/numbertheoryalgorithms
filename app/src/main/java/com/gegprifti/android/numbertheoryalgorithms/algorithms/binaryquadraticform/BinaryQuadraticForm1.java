@@ -27,7 +27,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
         try {
             List<List<Cell>> rows = new ArrayList<>();
             List<Cell> columnHeaders = new ArrayList<>();
-            List<Cell> rowHeaders = new ArrayList<>();
+            List<List<Cell>> rowHeaders = new ArrayList<>();
 
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
@@ -64,9 +64,12 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 List<Cell> row = new ArrayList<>();
 
                 // Add row header.
-                Cell rowHeader = new Cell(true, i.toString(), false);
+                List<Cell> rowHeader = new ArrayList<>();
+                Cell cellRowHeader = new Cell(true, i.toString(), false);
+                rowHeader.add(cellRowHeader);
                 rowHeaders.add(rowHeader);
-                row.add(rowHeader);
+
+                row.add(cellRowHeader);
 
                 List<String> solutionsPerRow = new ArrayList<>();
 
@@ -99,7 +102,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 rows.add(row);
             }
 
-            Grid grid = new Grid(rows, columnHeaders, rowHeaders);
+            Grid grid = new Grid(rows, null, columnHeaders, rowHeaders);
             return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
