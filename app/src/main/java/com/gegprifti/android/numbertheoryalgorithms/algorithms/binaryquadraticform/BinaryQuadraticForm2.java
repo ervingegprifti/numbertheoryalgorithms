@@ -40,14 +40,14 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger minX = ZERO;
             BigInteger maxX = f.abs();
             if (d.compareTo(ZERO) != 0) {
-                maxX = f.divide(d).add(ONE);
+                maxX = f.divide(d.abs()).add(ONE);
             }
             minX = maxX.negate();
 
             BigInteger minY = ZERO;
             BigInteger maxY = f.abs();
             if (e.compareTo(ZERO) != 0) {
-                maxY = f.divide(e).add(ONE);
+                maxY = f.divide(e.abs()).add(ONE);
             }
             minY = maxY.negate();
 
@@ -55,13 +55,11 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             // Add the grid configuration button.
             Cell columnHeaderOrigin =new Cell(true, true);
             columnHeaders.add(columnHeaderOrigin);
-            //
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 Cell columnHeader = new Cell(true, "x=" + x, false);
                 columnHeaders.add(columnHeader);
             }
-            rows.add(columnHeaders);
 
             // Calculate ax² + bxy + cy² + dx + ey = f values.
             for (BigInteger y = maxY; y.compareTo(minY) >= 0; y = y.subtract(ONE)) { // BigInteger y = minY; y.compareTo(maxY) <= 0; y = y.add(ONE)

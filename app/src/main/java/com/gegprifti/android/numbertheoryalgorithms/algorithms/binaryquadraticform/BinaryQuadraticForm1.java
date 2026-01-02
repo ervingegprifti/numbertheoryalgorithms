@@ -54,7 +54,6 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             }
             Cell columnHeaderSolutions = new Cell(true, "solutions", false);
             columnHeaders.add(columnHeaderSolutions);
-            rows.add(columnHeaders);
             // ┌───────┬───────┬───────┬───────┬───────┐      ┌─────────────┐
             // │   f   │  x=0  │  x=1  │  x=2  │  x=3  │ ...  │  solutions  │
             // └───────┴───────┴───────┴───────┴───────┘      └─────────────┘

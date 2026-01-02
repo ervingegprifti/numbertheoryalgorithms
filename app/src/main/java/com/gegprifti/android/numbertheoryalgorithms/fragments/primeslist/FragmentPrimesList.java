@@ -26,6 +26,7 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.DialogFragmentPdfV
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.TabFragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.grid.CellUI;
 import com.gegprifti.android.numbertheoryalgorithms.grid.Grid;
 import com.gegprifti.android.numbertheoryalgorithms.grid.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.R;
@@ -268,9 +269,8 @@ public class FragmentPrimesList extends FragmentBase {
     private void showResult(Grid grid) {
         try {
             List<List<Cell>> rows = grid.getRows();
-            if(rows == null || rows.isEmpty()) {
-                return;
-            }
+            List<Cell> columnHeaders = grid.getColumnHeaders();
+            List<Cell> rowHeaders = grid.getRowHeaders();
 
             String maxText = getMaxText(rows);
 
@@ -285,18 +285,20 @@ public class FragmentPrimesList extends FragmentBase {
             textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
             textViewTemp.setText(maxText);
             textViewTemp.measure(0, 0); //must call measure!
-            int cellWidth = textViewTemp.getMeasuredWidth();
-            int cellHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellWidthDefault = textViewTemp.getMeasuredWidth();
+            int cellHeightDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space.
-            if(biggerResultDisplay) {
-                listViewResult.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
-            } else {
-                listViewResult.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
-            }
+            float dividerDp = biggerResultDisplay ? 4f : 1f;
+            int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
+            listViewResult.setDividerHeight(dividerPx);
+
+            // Set column headers.
+            CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            Grid.setColumnHeaders(cellUI, columnHeaders, linearLayoutStaticColumnHeader);
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader, rows, cellWidth, null, cellHeight, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
             setListViewAdapter(listViewResult, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);

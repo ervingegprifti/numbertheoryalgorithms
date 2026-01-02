@@ -3,10 +3,12 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
+import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import com.gegprifti.android.numbertheoryalgorithms.grid.CellUI;
 import com.gegprifti.android.numbertheoryalgorithms.grid.Grid;
 import com.gegprifti.android.numbertheoryalgorithms.grid.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
@@ -1560,6 +1563,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
         }
     }
+
     private void cancelShowResult(ListView listView) {
         ArrayList<String> listItems=new ArrayList<>();
         ArrayAdapter<String> adapter;
@@ -1568,27 +1572,27 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         listItems.add(requireContext().getResources().getString(R.string.canceled));
         adapter.notifyDataSetChanged();
     }
+
     private void showResult1(Grid grid) {
         try {
             List<List<Cell>> rows = grid.getRows();
-            if(rows == null || rows.isEmpty()) {
-                return;
-            }
+            List<Cell> columnHeaders = grid.getColumnHeaders();
+            List<Cell> rowHeaders = grid.getRowHeaders();
 
-            // Get max text length per each column.
+            // Get max text length per each column in rows.
             List<String> columnsMaxText = new ArrayList<>();
+            // Populate with the column header cell values.
+            for(int c = 0; c < columnHeaders.size(); c++) {
+                Cell cell = columnHeaders.get(c);
+                columnsMaxText.add(cell.getValue());
+            }
             for(int r = 0; r < rows.size(); r++) {
                 List<Cell> row = rows.get(r);
                 for(int c = 0; c < row.size(); c++) {
                     Cell cell = row.get(c);
-                    if (r == 0) {
-                        // Populate with the first row column items.
-                        columnsMaxText.add(cell.getValue());
-                    } else {
-                        String existingMaxText = columnsMaxText.get(c);
-                        if (cell.getValue().length() > existingMaxText.length()) {
-                            columnsMaxText.set(c, cell.getValue());
-                        }
+                    String existingMaxText = columnsMaxText.get(c);
+                    if (cell.getValue().length() > existingMaxText.length()) {
+                        columnsMaxText.set(c, cell.getValue());
                     }
                 }
             }
@@ -1598,42 +1602,46 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Get and set the max row item width per each column.
             List<Integer> cellWidths = new ArrayList<>();
+            LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
+            int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
+            int extraPadding = (int) UIHelper.convertDpToPixel(10f, requireContext());
             for (int c = 0; c < columnsMaxText.size(); c++) {
                 // Start the pre-calculate
-                LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                TextView textViewTemp;
-                int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
-                textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
+                TextView textViewTemp = (TextView) layoutInflater.inflate(cellResource, null, false);
                 String maxText = columnsMaxText.get(c);
                 textViewTemp.setText(maxText);
-                //must call measure!
-                textViewTemp.measure(0, 0);
-                // get width
+                // Must call measure!
+                textViewTemp.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                // Get width
                 int maxColumnWidth = textViewTemp.getMeasuredWidth();
-                cellWidths.add(maxColumnWidth + 20); // Just add some extra space
+                cellWidths.add(maxColumnWidth + extraPadding);
             }
-            int cellWidth = LinearLayout.LayoutParams.WRAP_CONTENT;
-            int cellHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+            int cellWidthDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellHeightDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space
-            if(biggerResultDisplay) {
-                listViewResult1.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
-            } else {
-                listViewResult1.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
-            }
+            float dividerDp = biggerResultDisplay ? 4f : 1f;
+            int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
+            listViewResult1.setDividerHeight(dividerPx);
+
+            // Set column headers.
+            CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, cellWidths, cellHeightDefault, null, biggerResultDisplay);
+            Grid.setColumnHeaders(cellUI, columnHeaders, linearLayoutStaticColumnHeader1);
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader1, rows, cellWidth, cellWidths, cellHeight, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, cellWidths, cellHeightDefault, null, biggerResultDisplay);
             setListViewAdapter(listViewResult1, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
     private void showResult2(Grid grid) {
         try {
             List<List<Cell>> rows = grid.getRows();
-            List<Cell> rowHeaders = grid.getRowHeaders();
             List<Cell> columnHeaders = grid.getColumnHeaders();
+            List<Cell> rowHeaders = grid.getRowHeaders();
 
             // Get the values from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -1666,27 +1674,27 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
             textViewTemp.setText(maxText.toString());
             textViewTemp.measure(0, 0); //must call measure!
-            int cellWidth = textViewTemp.getMeasuredWidth();
-            int cellHeight = squareResultDisplay ? cellWidth : LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellWidthDefault = textViewTemp.getMeasuredWidth();
+            int cellHeightDefault = squareResultDisplay ? cellWidthDefault : LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space.
-            if(biggerResultDisplay) {
-                listViewResult2.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
-            } else {
-                listViewResult2.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
-            }
+            float dividerDp = biggerResultDisplay ? 4f : 1f;
+            int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
+            listViewResult2.setDividerHeight(dividerPx);
 
-            // Display row headers.
-
+            // Set column headers.
+            CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            Grid.setColumnHeaders(cellUI, columnHeaders, linearLayoutStaticColumnHeader2);
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader2, rows, cellWidth, null, cellHeight, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
             showResultFModM2(adapter, m, r);
             setListViewAdapter(listViewResult2, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
     private void setListViewAdapter(ListView listView, ListAdapter listAdapter) {
         listView.setAdapter(listAdapter);
         if (listAdapter == null) {

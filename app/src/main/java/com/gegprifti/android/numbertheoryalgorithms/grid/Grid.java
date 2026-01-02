@@ -1,5 +1,9 @@
 package com.gegprifti.android.numbertheoryalgorithms.grid;
 
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import java.util.List;
 
 public class Grid {
@@ -41,5 +45,31 @@ public class Grid {
         this.rows = rows;
         this.columnHeaders = columnHeaders;
         this.rowHeaders = rowHeaders;
+    }
+
+    /**
+     * Write the static column headers.
+     * @param cellUI
+     * @param columnHeaders
+     * @param staticColumnHeader
+     */
+    public static void setColumnHeaders(CellUI cellUI, List<Cell> columnHeaders, LinearLayout staticColumnHeader) {
+        staticColumnHeader.removeAllViews();
+        LinearLayout.LayoutParams layoutParamsStaticColumnHeader = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParamsStaticColumnHeader.setMargins(0, 0, 0, cellUI.getMargins().getMargin());
+        staticColumnHeader.setLayoutParams(layoutParamsStaticColumnHeader);
+        int lastItemIndex = columnHeaders.size() - 1;
+        for (int i = 0; i < columnHeaders.size(); i++) {
+            Cell cell = columnHeaders.get(i);
+            if (cell.getIsHeader()) {
+                if (cell.getIsConfig()) {
+                    cell.setValue1("●");
+                }
+                boolean isLastItem = lastItemIndex == i;
+                TextView textView = cellUI.createTextView(i, null, isLastItem);
+                staticColumnHeader.addView(textView);
+                cellUI.refreshCell(cell, textView);
+            }
+        }
     }
 }

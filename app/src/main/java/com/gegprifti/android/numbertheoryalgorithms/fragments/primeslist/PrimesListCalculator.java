@@ -42,7 +42,6 @@ public class PrimesListCalculator {
                 }
                 columnHeaders.add(columnHeader);
             }
-            rows.add(columnHeaders);
             // column if k = 6
             // 0,    1,    2,    3,    4,    5,    6
             // k,    6k+0, 6k+1, 6k+2, 6k+3, 6k+4, 6k+5
