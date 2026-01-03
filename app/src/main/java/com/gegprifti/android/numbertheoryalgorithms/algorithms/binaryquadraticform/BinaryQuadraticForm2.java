@@ -1,8 +1,10 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform;
 
 
-import android.os.Debug;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
@@ -26,11 +28,11 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
     @Override
     public Grid calculate() throws InterruptedException {
         try {
-            List<List<Cell>> rows = new ArrayList<>();
-            List<Cell> columnHeaderOrigin = new ArrayList<>();
-            List<Cell> columnHeaders = new ArrayList<>();
+            List<List<Cell>> corner = new ArrayList<>();
+            List<List<Cell>> columnHeaders = new ArrayList<>();
             List<List<Cell>> rowHeaders = new ArrayList<>();
-
+            List<List<Cell>> rows = new ArrayList<>();
+            
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
             BigInteger c = algorithmParameters.getInput3();
@@ -51,31 +53,39 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                 maxY = f.divide(e.abs()).add(ONE);
             }
             minY = maxY.negate();
+            
+            // Add the corner.
+            List<Cell> cornerRow = new ArrayList<>();
+            Cell cornerCell = new Cell(true, true);
+            cornerRow.add(cornerCell);
+            corner.add(cornerRow);
+            // ┌───────┐
+            // │       │
+            // └───────┘
 
-            // Create column headers.
-            // Add the grid configuration button.
-            Cell cellColumnHeaderOrigin =new Cell(true, true);
-            // TODO delete later columnHeaders.add(cellColumnHeaderOrigin);
-            columnHeaderOrigin.add(cellColumnHeaderOrigin);
+            // Add column headers. List of header cells in the x axis.
+            List<Cell> columnHeaderRow = new ArrayList<>();
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                Cell cellColumnHeader = new Cell(true, "x=" + x, false);
-                columnHeaders.add(cellColumnHeader);
+                Cell columnHeaderCell = new Cell(true, "x=" + x, false);
+                columnHeaderRow.add(columnHeaderCell);
             }
+            columnHeaders.add(columnHeaderRow);
+            // ┌───────┬───────┬───────┐     ┌───────┐     ┌───────┬───────┬───────┐
+            // │ x=-8  │ x=-7  │ x=-6  │ ... │  x=0  │ ... │  x=6  │  x=7  │  x=8  │
+            // └───────┴───────┴───────┘     └───────┘     └───────┴───────┴───────┘
 
             // Calculate ax² + bxy + cy² + dx + ey = f values.
             for (BigInteger y = maxY; y.compareTo(minY) >= 0; y = y.subtract(ONE)) { // BigInteger y = minY; y.compareTo(maxY) <= 0; y = y.add(ONE)
                 AlgorithmHelper.checkIfCanceled();
                 List<Cell> row = new ArrayList<>();
 
-                // Add row header.
-                List<Cell> rowHeader = new ArrayList<>();
-                Cell cellRowHeader = new Cell(true, "y=" + y, false);
-                rowHeader.add(cellRowHeader);
-                rowHeaders.add(rowHeader);
-
-                // TODO delete later row.add(cellRowHeader);
-
+                // Add row headers.
+                List<Cell> rowHeaderRow = new ArrayList<>();
+                Cell rowHeaderCell = new Cell(true, "y=" + y, false);
+                rowHeaderRow.add(rowHeaderCell);
+                rowHeaders.add(rowHeaderRow);
+                
                 // Add f values.
                 for(BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
@@ -88,34 +98,17 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                     BigInteger fCalculated = axx.add(bxy).add(cyy).add(dx).add(ey);
 
                     if (fCalculated.equals(f)) {
-                        // Highlight column header x solution.
-                        Cell cellXSolution = columnHeaders.get(minX.abs().add(x).intValue());
-                        cellXSolution.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
-                        // Highlight row header y solution.
-                        Cell cellYSolution = rowHeaders.get(minY.abs().subtract(y).intValue()).get(0);
-                        cellYSolution.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
-                        //
-                        Cell cell = new Cell(false, fCalculated.toString(), false, Cell.ValueStyle.ORANGE);
-                        cell.setIsSelected(true);
+                        Cell cell = createSolutionCell(columnHeaders, minX, x, rowHeaders, minY, y, fCalculated);
                         row.add(cell);
                     } else {
-                        Cell cell = new Cell(false, fCalculated.toString(), false);
-                        if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) > 0) {
-                            cell.setQuadrant(1);
-                        } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) > 0) {
-                            cell.setQuadrant(2);
-                        } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) < 0) {
-                            cell.setQuadrant(3);
-                        } else if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) < 0) {
-                            cell.setQuadrant(4);
-                        }
+                        Cell cell = createNonSolutionCell(fCalculated, x, y);
                         row.add(cell);
                     }
                 }
                 rows.add(row);
             }
 
-            Grid grid = new Grid(rows, columnHeaderOrigin, columnHeaders, rowHeaders);
+            Grid grid = new Grid(corner, columnHeaders, rowHeaders, rows);
             return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
@@ -125,5 +118,34 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             Log.e(TAG, "" + ex);
             return null;
         }
+    }
+
+    @NonNull
+    private static Cell createSolutionCell(List<List<Cell>> columnHeaders, BigInteger minX, BigInteger x, List<List<Cell>> rowHeaders, BigInteger minY, BigInteger y, BigInteger fCalculated) {
+        // Highlight column header x solution.
+        Cell xSolutionCell = columnHeaders.getFirst().get(minX.abs().add(x).intValue());
+        xSolutionCell.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
+        // Highlight row header y solution.
+        Cell ySolutionCell = rowHeaders.get(minY.abs().subtract(y).intValue()).get(0);
+        ySolutionCell.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
+        //
+        Cell cell = new Cell(false, fCalculated.toString(), false, Cell.ValueStyle.ORANGE);
+        cell.setIsSelected(true);
+        return cell;
+    }
+
+    @NonNull
+    private static Cell createNonSolutionCell(BigInteger fCalculated, BigInteger x, BigInteger y) {
+        Cell cell = new Cell(false, fCalculated.toString(), false);
+        if (x.compareTo(ZERO) >= 0 && y.compareTo(ZERO) >= 0) {
+            cell.setQuadrant(1);
+        } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) > 0) {
+            cell.setQuadrant(2);
+        } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) < 0) {
+            cell.setQuadrant(3);
+        } else if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) < 0) {
+            cell.setQuadrant(4);
+        }
+        return cell;
     }
 }

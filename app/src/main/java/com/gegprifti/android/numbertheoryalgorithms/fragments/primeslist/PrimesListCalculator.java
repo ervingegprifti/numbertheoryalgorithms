@@ -25,23 +25,33 @@ public class PrimesListCalculator {
 
     public Grid calculate() throws InterruptedException {
         try {
-            List<List<Cell>> rows = new ArrayList<>();
-            List<Cell> columnHeaders = new ArrayList<>();
+            List<List<Cell>> corner = new ArrayList<>(); // TODO
+            List<List<Cell>> columnHeaders = new ArrayList<>();
             List<List<Cell>> rowHeaders = new ArrayList<>();
+            List<List<Cell>> rows = new ArrayList<>();
+
+            // Add the corner.
+            List<Cell> cornerRow = new ArrayList<>();
+            Cell cornerCell = new Cell(true,"k",false);
+            cornerRow.add(cornerCell);
+            corner.add(cornerRow);
+            // ┌───────┐
+            // │       │
+            // └───────┘
 
             // Create column headers. List of header cells in the x axis.
-            String columnHeaderLabel = columns + "k+";
+            List<Cell> columnHeaderRow = new ArrayList<>();
             for(int c = -1; c < columns; c++) {
-                Cell columnHeader;
-                if(c == -1) {
+                if(c == -1) { // TODO remove later when making use of corner.
                     // The first column header
-                    columnHeader = new Cell(true,"k",false);
+                    columnHeaderRow.add(cornerCell); // TODO remove later when making use of corner.
                 } else {
                     // This is a column header
-                    columnHeader = new Cell(true,columnHeaderLabel + c,false);
+                    Cell columnHeader = new Cell(true,columns + "k+" + c,false);
+                    columnHeaderRow.add(columnHeader);
                 }
-                columnHeaders.add(columnHeader);
             }
+            columnHeaders.add(columnHeaderRow);
             // column if k = 6
             // 0,    1,    2,    3,    4,    5,    6
             // k,    6k+0, 6k+1, 6k+2, 6k+3, 6k+4, 6k+5
@@ -53,14 +63,13 @@ public class PrimesListCalculator {
 
                 // Start a new row
                 List<Cell> row = new ArrayList<>();
-                List<Cell> rowHeader = new ArrayList<>();
+                List<Cell> rowHeaderRow = new ArrayList<>();
                 for(int c = -1; c < columns; c++) {
                     if(c == -1) {
                         // Create the row header
                         Cell cellRowHeader = new Cell(true, Integer.toString(k), false);
-                        rowHeader.add(cellRowHeader);
-                        rowHeaders.add(rowHeader);
-
+                        rowHeaderRow.add(cellRowHeader);
+                        rowHeaders.add(rowHeaderRow);
                         row.add(cellRowHeader);
                         // The first row cell. Represents the values of k.
                         // k
@@ -78,7 +87,7 @@ public class PrimesListCalculator {
                 rows.add(row);
             }
 
-            Grid grid = new Grid(rows, null, columnHeaders, rowHeaders);
+            Grid grid = new Grid(null, columnHeaders, rowHeaders, rows);
             return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.

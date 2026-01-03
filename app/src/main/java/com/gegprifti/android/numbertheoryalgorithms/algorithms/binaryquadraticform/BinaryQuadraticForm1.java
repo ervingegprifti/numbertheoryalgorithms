@@ -25,9 +25,10 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
     @Override
     public Grid calculate() throws InterruptedException {
         try {
-            List<List<Cell>> rows = new ArrayList<>();
-            List<Cell> columnHeaders = new ArrayList<>();
+            List<List<Cell>> corner = new ArrayList<>();
+            List<List<Cell>> columnHeaders = new ArrayList<>();
             List<List<Cell>> rowHeaders = new ArrayList<>();
+            List<List<Cell>> rows = new ArrayList<>();
 
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
@@ -41,21 +42,28 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 xMax = f.divide(d).add(ONE);
             }
 
-            // Create column headers.
-            Cell columnHeaderOrigin = new Cell(true, "f", false);
-            columnHeaders.add(columnHeaderOrigin);
+            // Add the corner.
+            List<Cell> cornerRow = new ArrayList<>();
+            Cell cornerCell = new Cell(true, "f", false);
+            cornerRow.add(cornerCell);
+            corner.add(cornerRow);
             // ┌───────┐
             // │   f   │
             // └───────┘
+
+            // Add column headers.
+            List<Cell> columnHeaderRow = new ArrayList<>();
+            columnHeaderRow.add(cornerCell); // TODO remove later
             for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 Cell columnHeader = new Cell(true, "x=" + x, false);
-                columnHeaders.add(columnHeader);
+                columnHeaderRow.add(columnHeader);
             }
             Cell columnHeaderSolutions = new Cell(true, "solutions", false);
-            columnHeaders.add(columnHeaderSolutions);
+            columnHeaderRow.add(columnHeaderSolutions);
+            columnHeaders.add(columnHeaderRow);
             // ┌───────┬───────┬───────┬───────┬───────┐      ┌─────────────┐
-            // │   f   │  x=0  │  x=1  │  x=2  │  x=3  │ ...  │  solutions  │
+            // │  x=0  │  x=1  │  x=2  │  x=3  │  x=4  │ ...  │  solutions  │
             // └───────┴───────┴───────┴───────┴───────┘      └─────────────┘
 
             // Calculate solutions from 0 up until f
@@ -64,12 +72,12 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 List<Cell> row = new ArrayList<>();
 
                 // Add row header.
-                List<Cell> rowHeader = new ArrayList<>();
-                Cell cellRowHeader = new Cell(true, i.toString(), false);
-                rowHeader.add(cellRowHeader);
-                rowHeaders.add(rowHeader);
+                List<Cell> rowHeaderRow = new ArrayList<>();
+                Cell rowHeaderCell = new Cell(true, i.toString(), false);
+                rowHeaderRow.add(rowHeaderCell);
+                rowHeaders.add(rowHeaderRow);
 
-                row.add(cellRowHeader);
+                row.add(rowHeaderCell); // TODO remove later
 
                 List<String> solutionsPerRow = new ArrayList<>();
 
@@ -102,7 +110,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 rows.add(row);
             }
 
-            Grid grid = new Grid(rows, null, columnHeaders, rowHeaders);
+            Grid grid = new Grid(null, columnHeaders, rowHeaders, rows);
             return grid;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.

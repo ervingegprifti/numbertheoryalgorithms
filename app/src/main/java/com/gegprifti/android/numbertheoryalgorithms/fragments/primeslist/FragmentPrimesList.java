@@ -265,14 +265,15 @@ public class FragmentPrimesList extends FragmentBase {
         }
     }
 
-
     private void showResult(Grid grid) {
         try {
+            List<List<Cell>> corner = grid.getCorner(); // TODO
+            List<List<Cell>> columnHeaders = grid.getColumnHeaders();
+            List<List<Cell>> rowHeaders = grid.getRowHeaders(); // TODO
             List<List<Cell>> rows = grid.getRows();
-            List<Cell> columnHeaders = grid.getColumnHeaders();
-            List<List<Cell>> rowHeaders = grid.getRowHeaders();
 
-            String maxText = getMaxText(rows, columnHeaders);
+            List<Cell> columnHeaderRow = columnHeaders.getFirst();
+            String maxText = getMaxText(rows, columnHeaderRow);
 
             // Get the value from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -307,9 +308,9 @@ public class FragmentPrimesList extends FragmentBase {
 
 
     @NonNull
-    private String getMaxText(List<List<Cell>> rows, List<Cell> columnHeaders) {
+    private String getMaxText(List<List<Cell>> rows, List<Cell> columnHeaderRow) {
         // Get the last lvItem value of the first row
-        int maxTextLength = getMaxTextLength(rows, columnHeaders);
+        int maxTextLength = getMaxTextLength(rows, columnHeaderRow);
         maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
         // Construct the maxText. if maxTextLength = 6 the maxText = "000000"
         StringBuilder maxText = new StringBuilder(maxTextLength);
@@ -320,8 +321,8 @@ public class FragmentPrimesList extends FragmentBase {
     }
 
 
-    private static int getMaxTextLength(List<List<Cell>> rows, List<Cell> firstRow) {
-        String firstRowLastValue = firstRow.get(firstRow.size()-1).getValue();
+    private static int getMaxTextLength(List<List<Cell>> rows, List<Cell> columnHeaderRow) {
+        String firstRowLastValue = columnHeaderRow.get(columnHeaderRow.size()-1).getValue();
         // Get the last row
         List<Cell> lastRow = rows.get(rows.size()-1);
         // Get the last lvItem value of the last row

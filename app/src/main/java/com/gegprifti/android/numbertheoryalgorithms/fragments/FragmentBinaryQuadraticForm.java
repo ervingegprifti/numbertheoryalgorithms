@@ -1598,15 +1598,18 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
     private void showResult1(Grid grid) {
         try {
+            List<List<Cell>> corner = grid.getCorner();
+            List<List<Cell>> columnHeaders = grid.getColumnHeaders();
+            List<List<Cell>> rowHeaders = grid.getRowHeaders(); // TODO
             List<List<Cell>> rows = grid.getRows();
-            List<Cell> columnHeaders = grid.getColumnHeaders();
-            List<List<Cell>> rowHeaders = grid.getRowHeaders();
 
+            // TODO calculate width when creating the data
+            List<Cell> columnHeaderRow = columnHeaders.getFirst();
             // Get max text length per each column in rows.
             List<String> columnsMaxText = new ArrayList<>();
             // Populate with the column header cell values.
-            for(int c = 0; c < columnHeaders.size(); c++) {
-                Cell cell = columnHeaders.get(c);
+            for(int c = 0; c < columnHeaderRow.size(); c++) {
+                Cell cell = columnHeaderRow.get(c);
                 columnsMaxText.add(cell.getValue());
             }
             for(int r = 0; r < rows.size(); r++) {
@@ -1623,6 +1626,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Get the value from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
 
+            // TODO calculate width when creating the data
             // Get and set the max row item width per each column.
             List<Integer> cellWidths = new ArrayList<>();
             LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
@@ -1662,10 +1666,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
     private void showResult2(Grid grid) {
         try {
-            List<List<Cell>> rows = grid.getRows();
-            List<Cell> columnHeaderOrigin = grid.getColumnHeaderOrigin();
-            List<Cell> columnHeaders = grid.getColumnHeaders();
+            List<List<Cell>> corner = grid.getCorner();
+            List<List<Cell>> columnHeaders = grid.getColumnHeaders();
             List<List<Cell>> rowHeaders = grid.getRowHeaders();
+            List<List<Cell>> rows = grid.getRows();
 
             // Get the values from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -1682,6 +1686,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 r = new BigInteger(rText);
             }
 
+            // TODO calculate width when creating the data
             // Get the last item in the last row
             List<Cell> lastRow = rows.get(rows.size()-1);
             String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
@@ -1709,7 +1714,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Set column headers.
             CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
-            Grid.setColumnHeaders(cellUI, columnHeaderOrigin, linearLayoutStaticColumnHeaderOrigin);
+            Grid.setColumnHeaders(cellUI, corner, linearLayoutStaticColumnHeaderOrigin);
             Grid.setColumnHeaders(cellUI, columnHeaders, linearLayoutStaticColumnHeader2);
 
             // Manually set the row headers width as per the cellWidthDefault.
