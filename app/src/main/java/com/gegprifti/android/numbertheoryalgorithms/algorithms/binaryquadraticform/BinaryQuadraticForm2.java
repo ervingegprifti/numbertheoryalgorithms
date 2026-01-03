@@ -43,14 +43,14 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger minX = ZERO;
             BigInteger maxX = f.abs();
             if (d.compareTo(ZERO) != 0) {
-                maxX = f.divide(d.abs()).add(ONE);
+                maxX = f.abs().divide(d.abs()).add(ONE);
             }
             minX = maxX.negate();
 
             BigInteger minY = ZERO;
             BigInteger maxY = f.abs();
             if (e.compareTo(ZERO) != 0) {
-                maxY = f.divide(e.abs()).add(ONE);
+                maxY = f.abs().divide(e.abs()).add(ONE);
             }
             minY = maxY.negate();
             
