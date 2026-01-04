@@ -272,7 +272,7 @@ public class FragmentPrimesList extends FragmentBase {
             List<List<Cell>> rowHeaders = grid.getRowHeaders(); // TODO
             List<List<Cell>> rows = grid.getRows();
 
-            List<Cell> columnHeaderRow = columnHeaders.getFirst();
+            List<Cell> columnHeaderRow = columnHeaders.get(0);
             String maxText = getMaxText(rows, columnHeaderRow);
 
             // Get the value from shared preferences.

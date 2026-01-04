@@ -123,7 +123,8 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
     @NonNull
     private static Cell createSolutionCell(List<List<Cell>> columnHeaders, BigInteger minX, BigInteger x, List<List<Cell>> rowHeaders, BigInteger minY, BigInteger y, BigInteger fCalculated) {
         // Highlight column header x solution.
-        Cell xSolutionCell = columnHeaders.getFirst().get(minX.abs().add(x).intValue());
+        List<Cell> columnHeaderRow = columnHeaders.get(0);
+        Cell xSolutionCell = columnHeaderRow.get(minX.abs().add(x).intValue());
         xSolutionCell.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
         // Highlight row header y solution.
         Cell ySolutionCell = rowHeaders.get(minY.abs().subtract(y).intValue()).get(0);

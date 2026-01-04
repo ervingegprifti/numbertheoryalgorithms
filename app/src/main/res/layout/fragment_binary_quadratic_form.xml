@@ -477,7 +477,7 @@
             </HorizontalScrollView>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/LinearLayoutResultGridContainer2"
+        <LinearLayout android:id="@+id/Result2LinearLayoutContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="5dp"
@@ -487,7 +487,7 @@
             android:visibility="gone">
 
             <LinearLayout
-                android:id="@+id/LinearLayoutStaticRowHeader2"
+                android:id="@+id/Result2LinearLayoutRowHeaders"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -496,19 +496,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
-                        android:id="@+id/LinearLayoutStaticColumnHeaderOrigin"
+                        android:id="@+id/Result2LinearLayoutCorner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"/>
                     <com.gegprifti.android.numbertheoryalgorithms.grid.NonScrollableListView
-                        android:id="@+id/ListViewRowHeaderResult2"
+                        android:id="@+id/Result2ListViewRowHeaders"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:divider="@android:color/transparent"
                         android:listSelector="@android:color/transparent"
                         android:cacheColorHint="@android:color/transparent"
-                        android:scrollbars="none">
-                    </com.gegprifti.android.numbertheoryalgorithms.grid.NonScrollableListView>
+                        android:scrollbars="none" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -523,12 +522,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
-                        android:id="@+id/LinearLayoutStaticColumnHeader2"
+                        android:id="@+id/Result2LinearLayoutColumnHeaders"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"/>
                     <ListView
-                        android:id="@+id/ListViewResult2"
+                        android:id="@+id/Result2ListViewRows"
                         android:divider="@android:color/transparent"
                         android:listSelector="@android:color/transparent"
                         android:cacheColorHint="@android:color/transparent"
@@ -536,8 +535,7 @@
                         android:scrollbarSize="0dp"
                         android:smoothScrollbar="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                    </ListView>
+                        android:layout_height="match_parent" />
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>

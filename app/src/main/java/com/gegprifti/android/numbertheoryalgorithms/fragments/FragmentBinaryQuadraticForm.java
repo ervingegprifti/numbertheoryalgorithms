@@ -185,12 +185,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     LinearLayout linearLayoutResultGridContainer1;
     LinearLayout linearLayoutStaticColumnHeader1;
     ListView listViewResult1;
-    LinearLayout linearLayoutResultGridContainer2;
-    LinearLayout linearLayoutStaticRowHeader2;
-    LinearLayout linearLayoutStaticColumnHeaderOrigin;
-    LinearLayout linearLayoutStaticColumnHeader2;
-    ListView listViewResult2;
-    ListView listViewRowHeaderResult2;
+    LinearLayout result2LinearLayoutContainer;
+    LinearLayout result2LinearLayoutRowHeaders;
+    LinearLayout result2LinearLayoutCorner;
+    LinearLayout result2LinearLayoutColumnHeaders;
+    ListView result2ListViewRows;
+    ListView result2ListViewRowHeaders;
     // Menu
     MenuItem menuItemIncludeTrivialSolutions;
     MenuItem menuItemIncludeOnlyPositiveSolutions;
@@ -370,12 +370,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
             this.linearLayoutStaticColumnHeader1 = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader1);
             this.listViewResult1 = inflater.findViewById(R.id.ListViewResult1);
-            this.linearLayoutResultGridContainer2 = inflater.findViewById(R.id.LinearLayoutResultGridContainer2);
-            this.linearLayoutStaticRowHeader2 = inflater.findViewById(R.id.LinearLayoutStaticRowHeader2);
-            this.linearLayoutStaticColumnHeaderOrigin = inflater.findViewById(R.id.LinearLayoutStaticColumnHeaderOrigin);
-            this.linearLayoutStaticColumnHeader2 = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader2);
-            this.listViewResult2 = inflater.findViewById(R.id.ListViewResult2);
-            this.listViewRowHeaderResult2 = inflater.findViewById(R.id.ListViewRowHeaderResult2);
+            this.result2LinearLayoutContainer = inflater.findViewById(R.id.Result2LinearLayoutContainer);
+            this.result2LinearLayoutRowHeaders = inflater.findViewById(R.id.Result2LinearLayoutRowHeaders);
+            this.result2LinearLayoutCorner = inflater.findViewById(R.id.Result2LinearLayoutCorner);
+            this.result2LinearLayoutColumnHeaders = inflater.findViewById(R.id.Result2LinearLayoutColumnHeaders);
+            this.result2ListViewRows = inflater.findViewById(R.id.Result2ListViewRows);
+            this.result2ListViewRowHeaders = inflater.findViewById(R.id.Result2ListViewRowHeaders);
 
 
             // Constrain expanded input
@@ -1068,7 +1068,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 }
             });
 
-            listViewResult2.setOnScrollListener(syncScrollListener);
+            result2ListViewRows.setOnScrollListener(syncScrollListener);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1088,7 +1088,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             View firstView = view.getChildAt(0);
             int topOffset = (firstView == null) ? 0 : firstView.getTop();
-            listViewRowHeaderResult2.setSelectionFromTop(firstVisibleItem, topOffset);
+            result2ListViewRowHeaders.setSelectionFromTop(firstVisibleItem, topOffset);
         }
     };
 
@@ -1107,8 +1107,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         } else if (linearLayoutResultGridContainer1.getVisibility() == View.VISIBLE) {
             PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader1, listViewResult1);
             popupResult.show();
-        } else if (linearLayoutResultGridContainer2.getVisibility() == View.VISIBLE) {
-            PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader2, listViewResult2);
+        } else if (result2LinearLayoutContainer.getVisibility() == View.VISIBLE) {
+            PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), result2LinearLayoutColumnHeaders, result2ListViewRows);
             popupResult.show();
         }
     }
@@ -1578,7 +1578,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
         if (algorithmName == AlgorithmName.BINARY_QUADRATIC_FORM_2) {
             if (progressStatus == ProgressStatus.CANCELED) {
-                cancelShowResult(listViewResult2);
+                cancelShowResult(result2ListViewRows);
             } else {
                 @SuppressWarnings("unchecked")
                 Grid gridResult2 = (Grid) result;
@@ -1604,7 +1604,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             List<List<Cell>> rows = grid.getRows();
 
             // TODO calculate width when creating the data
-            List<Cell> columnHeaderRow = columnHeaders.getFirst();
+            List<Cell> columnHeaderRow = columnHeaders.get(0);
             // Get max text length per each column in rows.
             List<String> columnsMaxText = new ArrayList<>();
             // Populate with the column header cell values.
@@ -1691,7 +1691,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             List<Cell> lastRow = rows.get(rows.size()-1);
             String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
             int maxTextLength = lastRowLastValue.length();
-            maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
+            maxTextLength = maxTextLength + 2; // Add 2 for easy reading. // TODO need to be fixed properly by finding the biggest number.
             // Construct the maxText. if maxTextLength = 6 the maxText = "000000"
             StringBuilder maxText = new StringBuilder(maxTextLength);
             for(int i = 0; i < maxTextLength; i++) {
@@ -1709,27 +1709,27 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Set the listview row space.
             float dividerDp = biggerResultDisplay ? 4f : 1f;
             int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
-            listViewResult2.setDividerHeight(dividerPx);
-            listViewRowHeaderResult2.setDividerHeight(dividerPx);
+            result2ListViewRows.setDividerHeight(dividerPx);
+            result2ListViewRowHeaders.setDividerHeight(dividerPx);
 
             // Set column headers.
             CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
-            Grid.setColumnHeaders(cellUI, corner, linearLayoutStaticColumnHeaderOrigin);
-            Grid.setColumnHeaders(cellUI, columnHeaders, linearLayoutStaticColumnHeader2);
+            Grid.setColumnHeaders(cellUI, corner, result2LinearLayoutCorner);
+            Grid.setColumnHeaders(cellUI, columnHeaders, result2LinearLayoutColumnHeaders);
 
             // Manually set the row headers width as per the cellWidthDefault.
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearLayoutStaticRowHeader2.getLayoutParams();
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) result2LinearLayoutRowHeaders.getLayoutParams();
             params.width = cellWidthDefault + dividerPx;
-            linearLayoutStaticRowHeader2.setLayoutParams(params);
+            result2LinearLayoutRowHeaders.setLayoutParams(params);
 
             // Create and set the adapter.
             GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
             showResultFModM2(adapter, m, r);
-            setListViewAdapter(listViewResult2, adapter);
+            setListViewAdapter(result2ListViewRows, adapter);
 
             //
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), rowHeaders, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
-            setListViewAdapter(listViewRowHeaderResult2, gridAdapterRowHeaders);
+            setListViewAdapter(result2ListViewRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -2187,8 +2187,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
 
     private void calculateFModM() {
-        if (this.listViewResult2.getAdapter() != null) {
-            GridAdapter gridAdapter = (GridAdapter) this.listViewResult2.getAdapter();
+        if (this.result2ListViewRows.getAdapter() != null) {
+            GridAdapter gridAdapter = (GridAdapter) this.result2ListViewRows.getAdapter();
 
             BigInteger m = null;
             BigInteger r = null;
@@ -2408,9 +2408,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         }
         this.editTextResult.setText("");
         this.linearLayoutStaticColumnHeader1.removeAllViews();
-        this.linearLayoutStaticColumnHeader2.removeAllViews();
+        this.result2LinearLayoutColumnHeaders.removeAllViews();
         setListViewAdapter(listViewResult1, null);
-        setListViewAdapter(listViewResult2, null);
+        setListViewAdapter(result2ListViewRows, null);
     }
     private void setResultVisibilityFromButtonRun(boolean skipLabelResult) {
         if(!skipLabelResult) {
@@ -2421,7 +2421,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.textViewClearResult.setVisibility(View.VISIBLE);
         this.linearLayoutResultContainer.setVisibility(View.VISIBLE);
         this.linearLayoutResultGridContainer1.setVisibility(View.GONE);
-        this.linearLayoutResultGridContainer2.setVisibility(View.GONE);
+        this.result2LinearLayoutContainer.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun1() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy));
@@ -2430,7 +2430,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.textViewClearResult.setVisibility(View.VISIBLE);
         this.linearLayoutResultContainer.setVisibility(View.GONE);
         this.linearLayoutResultGridContainer1.setVisibility(View.VISIBLE);
-        this.linearLayoutResultGridContainer2.setVisibility(View.GONE);
+        this.result2LinearLayoutContainer.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun2() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy_f_mod_m_r));
@@ -2439,7 +2439,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         this.textViewClearResult.setVisibility(View.VISIBLE);
         this.linearLayoutResultContainer.setVisibility(View.GONE);
         this.linearLayoutResultGridContainer1.setVisibility(View.GONE);
-        this.linearLayoutResultGridContainer2.setVisibility(View.VISIBLE);
+        this.result2LinearLayoutContainer.setVisibility(View.VISIBLE);
     }
     //endregion RESULT
 }
