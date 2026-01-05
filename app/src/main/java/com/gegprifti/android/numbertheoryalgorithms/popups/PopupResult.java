@@ -26,33 +26,30 @@ public final class PopupResult {
     final Context context;
     final String title;
     final Editable editableResult;
-    final LinearLayout linearLayoutStaticColumnHeaderResult;
-    final ListView listViewResult;
-    final LinearLayout linearLayoutParentResultOrigin;
+    private LinearLayout parentResultLinearLayoutGridContainer;
+    private LinearLayout popupResultLinearLayoutGridContainer;
+    final LinearLayout resultLinearLayoutGrid;
     private PopupWindow popupWindow;
 
     public PopupResult(FragmentActivity fragmentActivity, Context context, String title, Editable editableResult) {
-        this(fragmentActivity, context, title, editableResult, null, null);
+        this(fragmentActivity, context, title, editableResult, null);
     }
-    public PopupResult(FragmentActivity fragmentActivity, Context context, String title, LinearLayout linearLayoutStaticColumnHeaderResult, ListView listViewResult) {
-        this(fragmentActivity, context, title, null, linearLayoutStaticColumnHeaderResult, listViewResult);
+    public PopupResult(FragmentActivity fragmentActivity, Context context, String title, LinearLayout resultLinearLayoutGrid) {
+        this(fragmentActivity, context, title, null, resultLinearLayoutGrid);
+
     }
-    public PopupResult(FragmentActivity fragmentActivity, Context context, String title, Editable editableResult, LinearLayout linearLayoutStaticColumnHeaderResult, ListView listViewResult) {
+    public PopupResult(FragmentActivity fragmentActivity, Context context, String title, Editable editableResult, LinearLayout resultLinearLayoutGrid) {
         this.fragmentActivity = fragmentActivity;
         this.context = context;
         this.title = title;
         this.editableResult = editableResult;
-        this.linearLayoutStaticColumnHeaderResult = linearLayoutStaticColumnHeaderResult;
-        this.listViewResult = listViewResult;
-        //
-        if (this.linearLayoutStaticColumnHeaderResult != null && this.listViewResult != null) {
-            if (this.listViewResult.getParent() != null && this.listViewResult.getParent() instanceof LinearLayout) {
-                this.linearLayoutParentResultOrigin = (LinearLayout) listViewResult.getParent();
-            } else {
-                this.linearLayoutParentResultOrigin = null;
-            }
+        this.resultLinearLayoutGrid = resultLinearLayoutGrid;
+
+        // Get the parent of resultLinearLayoutGrid.
+        if (resultLinearLayoutGrid != null && resultLinearLayoutGrid.getParent() instanceof LinearLayout) {
+            parentResultLinearLayoutGridContainer = (LinearLayout) resultLinearLayoutGrid.getParent();
         } else {
-            this.linearLayoutParentResultOrigin = null;
+            parentResultLinearLayoutGridContainer = null;
         }
     }
 
@@ -70,9 +67,8 @@ public final class PopupResult {
             // Text result
             ScrollView scrollViewResultTextContained = viewFragmentResult.findViewById(R.id.ScrollViewResultTextContained);
             TextView editTextResult = viewFragmentResult.findViewById(R.id.EditTextResult);
-            // GridView result
-            LinearLayout linearLayoutResultGridContainer = viewFragmentResult.findViewById(R.id.LinearLayoutResultGridContainer);
-            LinearLayout linearLayoutParentResult = viewFragmentResult.findViewById(R.id.LinearLayoutParentResult);
+            // Grid result
+            popupResultLinearLayoutGridContainer = viewFragmentResult.findViewById(R.id.PopupResultLinearLayoutGridContainer);
 
             textViewTitle.setText(title);
 
@@ -83,14 +79,12 @@ public final class PopupResult {
                 editTextResult.setText(editableResult);
             }
 
-            if (linearLayoutParentResultOrigin != null && linearLayoutStaticColumnHeaderResult != null && listViewResult != null) {
-                linearLayoutResultGridContainer.setVisibility(View.VISIBLE);
-                linearLayoutParentResultOrigin.removeView(linearLayoutStaticColumnHeaderResult);
-                linearLayoutParentResultOrigin.removeView(listViewResult);
-                linearLayoutParentResult.addView(linearLayoutStaticColumnHeaderResult);
-                linearLayoutParentResult.addView(listViewResult);
+            if (parentResultLinearLayoutGridContainer != null && popupResultLinearLayoutGridContainer != null && resultLinearLayoutGrid != null) {
+                parentResultLinearLayoutGridContainer.removeView(resultLinearLayoutGrid);
+                popupResultLinearLayoutGridContainer.setVisibility(View.VISIBLE);
+                popupResultLinearLayoutGridContainer.addView(resultLinearLayoutGrid);
             } else {
-                linearLayoutResultGridContainer.setVisibility(View.GONE);
+                popupResultLinearLayoutGridContainer.setVisibility(View.GONE);
             }
 
             // Create the PopupWindow to fill the entire screen
@@ -125,12 +119,10 @@ public final class PopupResult {
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    // Display results back in parent origin
-                    if (linearLayoutParentResultOrigin != null && linearLayoutStaticColumnHeaderResult != null && listViewResult != null) {
-                        linearLayoutParentResult.removeView(linearLayoutStaticColumnHeaderResult);
-                        linearLayoutParentResult.removeView(listViewResult);
-                        linearLayoutParentResultOrigin.addView(linearLayoutStaticColumnHeaderResult);
-                        linearLayoutParentResultOrigin.addView(listViewResult);
+                    // Display results back in parent linear layout.
+                    if (parentResultLinearLayoutGridContainer != null && popupResultLinearLayoutGridContainer != null && resultLinearLayoutGrid != null) {
+                        popupResultLinearLayoutGridContainer.removeView(resultLinearLayoutGrid);
+                        parentResultLinearLayoutGridContainer.addView(resultLinearLayoutGrid);
                     }
                     UIHelper.exitFullScreen(fragmentActivity);
                 }

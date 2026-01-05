@@ -58,8 +58,11 @@ public class FragmentPrimesList extends FragmentBase {
     private TextView textViewLabelElasticResult;
     private TextView textViewExpandResult;
     private TextView textViewClearResult;
-    private LinearLayout linearLayoutStaticColumnHeader;
-    private ListView listViewResult;
+    // Result
+    private LinearLayout resultLinearLayoutGridContainer;
+    private LinearLayout resultLinearLayoutGrid;
+    private LinearLayout resultLinearLayoutGridColumnHeaders;
+    private ListView resultListViewGridRows;
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -90,8 +93,11 @@ public class FragmentPrimesList extends FragmentBase {
             this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
             this.textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
             this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
-            this.linearLayoutStaticColumnHeader = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader);
-            this.listViewResult = inflater.findViewById(R.id.ListViewResult);
+            // Result
+            this.resultLinearLayoutGridContainer = inflater.findViewById(R.id.ResultLinearLayoutGridContainer);
+            this.resultLinearLayoutGrid = inflater.findViewById(R.id.ResultLinearLayoutGrid);
+            this.resultLinearLayoutGridColumnHeaders = inflater.findViewById(R.id.ResultLinearLayoutGridColumnHeaders);
+            this.resultListViewGridRows = inflater.findViewById(R.id.ResultListViewGridRows);
 
             // Constrain compact input
             editTextCompactK.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -134,7 +140,7 @@ public class FragmentPrimesList extends FragmentBase {
             });
 
             textViewExpandResult.setOnClickListener(v -> {
-                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader, listViewResult);
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), resultLinearLayoutGrid);
                 popupResult.show();
                 resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
             });
@@ -292,15 +298,15 @@ public class FragmentPrimesList extends FragmentBase {
             // Set the listview row space.
             float dividerDp = biggerResultDisplay ? 4f : 1f;
             int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
-            listViewResult.setDividerHeight(dividerPx);
+            resultListViewGridRows.setDividerHeight(dividerPx);
 
             // Set column headers.
             CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
-            Grid.setColumnHeaders(cellUI, columnHeaders, linearLayoutStaticColumnHeader);
+            Grid.setColumnHeaders(cellUI, columnHeaders, resultLinearLayoutGridColumnHeaders);
 
             // Create and set the adapter.
             GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
-            setListViewAdapter(listViewResult, adapter);
+            setListViewAdapter(resultListViewGridRows, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -368,8 +374,8 @@ public class FragmentPrimesList extends FragmentBase {
     }
     private void resetResult() {
         resetAllAndSelectTheLastButtonClicked();
-        linearLayoutStaticColumnHeader.removeAllViews();
-        setListViewAdapter(listViewResult, null);
+        resultLinearLayoutGridColumnHeaders.removeAllViews();
+        setListViewAdapter(resultListViewGridRows, null);
     }
     //endregion RESULT
 }
