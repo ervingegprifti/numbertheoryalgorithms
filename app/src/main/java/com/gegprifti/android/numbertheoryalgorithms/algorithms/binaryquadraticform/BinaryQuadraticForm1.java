@@ -110,8 +110,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 rows.add(row);
             }
 
-            Grid grid = new Grid(null, columnHeaders, rowHeaders, rows);
-            return grid;
+            return new Grid(null, columnHeaders, rowHeaders, rows, null);
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
             // Re-throw it so ProgressManager can handle it correctly.

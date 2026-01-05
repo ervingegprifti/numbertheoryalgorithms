@@ -2,8 +2,6 @@ package com.gegprifti.android.numbertheoryalgorithms.grid;
 
 
 public class Cell {
-    private final boolean corner;
-
     public enum HeaderStyle {
         DEFAULT,
         OUTLINED,
@@ -84,16 +82,6 @@ public class Cell {
         return this.isHeader;
     }
 
-
-    /**
-     * Indicates whether this cell is the top-left corner cell.
-     *
-     * @return  true if this cell is the top-left corner; false otherwise.
-     */
-    public boolean isCorner() {
-        return this.corner;
-    }
-
     private final boolean isPrime;
     public boolean getIsPrime() {
         return this.isPrime;
@@ -123,21 +111,20 @@ public class Cell {
         this.quadrant = quadrant;
     }
 
-    public Cell(boolean isHeader, boolean corner) {
-        this(isHeader, corner, "", false, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);
+    public Cell(boolean isHeader, String value1) {
+        this(isHeader, value1, false, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);
     }
     public Cell(boolean isHeader, String value1, boolean isPrime) {
-        this(isHeader, false, value1, isPrime, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);
+        this(isHeader, value1, isPrime, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);
     }
     public Cell(boolean isHeader, String value1, boolean isPrime, HeaderStyle headerStyle) {
-        this(isHeader, false, value1, isPrime, headerStyle, ValueStyle.DEFAULT);
+        this(isHeader, value1, isPrime, headerStyle, ValueStyle.DEFAULT);
     }
     public Cell(boolean isHeader, String value1, boolean isPrime, ValueStyle valueStyle) {
-        this(isHeader, false, value1, isPrime, HeaderStyle.DEFAULT, valueStyle);
+        this(isHeader, value1, isPrime, HeaderStyle.DEFAULT, valueStyle);
     }
-    public Cell(boolean isHeader, boolean corner, String value1, boolean isPrime, HeaderStyle headerStyle, ValueStyle valueStyle) {
+    public Cell(boolean isHeader, String value1, boolean isPrime, HeaderStyle headerStyle, ValueStyle valueStyle) {
         this.isHeader = isHeader;
-        this.corner = corner;
         this.value1 = value1;
         this.isPrime = isPrime;
         this.headerStyle = headerStyle;

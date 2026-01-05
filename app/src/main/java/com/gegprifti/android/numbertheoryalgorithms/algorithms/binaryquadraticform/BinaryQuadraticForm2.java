@@ -32,6 +32,7 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             List<List<Cell>> columnHeaders = new ArrayList<>();
             List<List<Cell>> rowHeaders = new ArrayList<>();
             List<List<Cell>> rows = new ArrayList<>();
+            List<Integer> columnMaxLengths = new ArrayList<>();
             
             BigInteger a = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
@@ -56,19 +57,26 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             
             // Add the corner.
             List<Cell> cornerRow = new ArrayList<>();
-            Cell cornerCell = new Cell(true, true);
+            Cell cornerCell = new Cell(true, "f(x,y)");
             cornerRow.add(cornerCell);
             corner.add(cornerRow);
-            // ┌───────┐
-            // │       │
-            // └───────┘
+            // ┌────────┐
+            // │ f(x,y) │
+            // └────────┘
+
+            // Add the length of the cornerCell value to begin with.
+            int columnHeaderRowIndex = 0;
+            addColumnMaxLength(columnMaxLengths, cornerCell, columnHeaderRowIndex);
 
             // Add column headers. List of header cells in the x axis.
             List<Cell> columnHeaderRow = new ArrayList<>();
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                Cell columnHeaderCell = new Cell(true, "x=" + x, false);
+                Cell columnHeaderCell = new Cell(true, "x=" + x);
                 columnHeaderRow.add(columnHeaderCell);
+                // Add the length of the columnHeaderCell values to begin with.
+                columnHeaderRowIndex++;
+                addColumnMaxLength(columnMaxLengths, columnHeaderCell, columnHeaderRowIndex);
             }
             columnHeaders.add(columnHeaderRow);
             // ┌───────┬───────┬───────┐     ┌───────┐     ┌───────┬───────┬───────┐
@@ -82,8 +90,10 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
 
                 // Add row headers.
                 List<Cell> rowHeaderRow = new ArrayList<>();
-                Cell rowHeaderCell = new Cell(true, "y=" + y, false);
+                Cell rowHeaderCell = new Cell(true, "y=" + y);
                 rowHeaderRow.add(rowHeaderCell);
+                columnHeaderRowIndex = 0;
+                addColumnMaxLength(columnMaxLengths, rowHeaderCell, columnHeaderRowIndex);
                 rowHeaders.add(rowHeaderRow);
                 
                 // Add f values.
@@ -97,19 +107,21 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                     BigInteger ey = e.multiply(y);
                     BigInteger fCalculated = axx.add(bxy).add(cyy).add(dx).add(ey);
 
+                    columnHeaderRowIndex++;
                     if (fCalculated.equals(f)) {
                         Cell cell = createSolutionCell(columnHeaders, minX, x, rowHeaders, minY, y, fCalculated);
                         row.add(cell);
+                        addColumnMaxLength(columnMaxLengths, cell, columnHeaderRowIndex);
                     } else {
                         Cell cell = createNonSolutionCell(fCalculated, x, y);
                         row.add(cell);
+                        addColumnMaxLength(columnMaxLengths, cell, columnHeaderRowIndex);
                     }
                 }
                 rows.add(row);
             }
 
-            Grid grid = new Grid(corner, columnHeaders, rowHeaders, rows);
-            return grid;
+            return new Grid(corner, columnHeaders, rowHeaders, rows, columnMaxLengths);
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
             // Re-throw it so ProgressManager can handle it correctly.
@@ -117,6 +129,20 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
             return null;
+        }
+    }
+
+    private void addColumnMaxLength(List<Integer> columnMaxLengths, Cell cell, int index) {
+        String currentLengthAsString = cell.getValue1();
+        int currentLength = (currentLengthAsString == null) ? 0 : currentLengthAsString.length();
+        // Add a length to begin with.
+        while (columnMaxLengths.size() <= index) {
+            columnMaxLengths.add(0);
+        }
+        // Update the previous length if smaller than the current one.
+        int previousLength = columnMaxLengths.get(index);
+        if (currentLength > previousLength) {
+            columnMaxLengths.set(index, currentLength);
         }
     }
 

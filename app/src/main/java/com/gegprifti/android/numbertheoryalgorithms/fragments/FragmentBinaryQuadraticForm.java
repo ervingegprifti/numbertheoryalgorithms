@@ -2,7 +2,6 @@ package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -42,6 +41,8 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBas
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -1670,6 +1671,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             List<List<Cell>> columnHeaders = grid.getColumnHeaders();
             List<List<Cell>> rowHeaders = grid.getRowHeaders();
             List<List<Cell>> rows = grid.getRows();
+            List<Integer> columnMaxLengths = grid.getColumnMaxLengths();
 
             // Get the values from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -1686,24 +1688,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 r = new BigInteger(rText);
             }
 
-            // TODO calculate width when creating the data
-            // Get the last item in the last row
-            List<Cell> lastRow = rows.get(rows.size()-1);
-            String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
-            int maxTextLength = lastRowLastValue.length();
-            maxTextLength = maxTextLength + 2; // Add 2 for easy reading. // TODO need to be fixed properly by finding the biggest number.
-            // Construct the maxText. if maxTextLength = 6 the maxText = "000000"
-            StringBuilder maxText = new StringBuilder(maxTextLength);
-            for(int i = 0; i < maxTextLength; i++) {
-                maxText.append("0");
-            }
-            LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            TextView textViewTemp;
-            int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
-            textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
-            textViewTemp.setText(maxText.toString());
-            textViewTemp.measure(0, 0); //must call measure!
-            int cellWidthDefault = textViewTemp.getMeasuredWidth();
+            // Set the column cell width to be the same as the biggest one.
+            int cellWidthDefault = getCellWidthDefault(columnMaxLengths, biggerResultDisplay);
             int cellHeightDefault = squareResultDisplay ? cellWidthDefault : LinearLayout.LayoutParams.WRAP_CONTENT;
 
             // Set the listview row space.
@@ -1733,6 +1719,28 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
+    }
+
+    /**
+     * Get the column cell width to be the same as the biggest one.
+     *
+     * @param columnMaxLengths
+     * @param biggerResultDisplay
+     * @return
+     */
+    private int getCellWidthDefault(List<Integer> columnMaxLengths, boolean biggerResultDisplay) {
+        int maxTextLength = columnMaxLengths.isEmpty() ? 0 : Collections.max(columnMaxLengths);
+        char[] chars = new char[maxTextLength];
+        Arrays.fill(chars, '0');
+        String maxText = new String(chars);
+        LayoutInflater layoutInflater = LayoutInflater.from(requireContext());
+        int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
+        TextView textView = (TextView) layoutInflater.inflate(cellResource, null, false);
+        textView.setText(maxText);
+        int wSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int hSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        textView.measure(wSpec, hSpec);
+        return textView.getMeasuredWidth();
     }
 
     private void setListViewAdapter(ListView listView, ListAdapter listAdapter) {
