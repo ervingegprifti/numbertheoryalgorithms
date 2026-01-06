@@ -9,28 +9,38 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import com.gegprifti.android.numbertheoryalgorithms.R;
 
 
 public class GridAdapter extends BaseAdapter {
     private final static String TAG = GridAdapter.class.getSimpleName();
 
-    private final Context context;
     private final LayoutInflater layoutInflater;
     private final List<List<Cell>> rows;
     private int lastItemIndex = -1;
 
     private final CellUI cellUI;
 
-    public GridAdapter(Context context, List<List<Cell>> rows, int cellWidthDefault, List<Integer> cellWidths, int cellHeightDefault, List<Integer> cellHeights, boolean biggerResultDisplay) {
-        this.context = context;
-        this.rows = rows;
+    public GridAdapter(@NonNull Context context, @NonNull List<Integer> cellWidths, @NonNull List<Integer> cellHeights, @NonNull List<List<Cell>> rows, boolean biggerResultDisplay) {
+        this.rows = Objects.requireNonNull(rows, "GridAdapter: rows must not be null");
+
+        if (cellWidths.isEmpty()) {
+            throw new IllegalArgumentException("CellUI: cellWidths must not be empty");
+        }
+
+        if (cellHeights.isEmpty()) {
+            throw new IllegalArgumentException("CellUI: cellHeights must not be empty");
+        }
 
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        cellUI = new CellUI(context, cellWidthDefault, cellWidths, cellHeightDefault, cellHeights, biggerResultDisplay);
+        cellUI = new CellUI(context, cellWidths, cellHeights, biggerResultDisplay);
 
         // Get the last item index in the first row.
         List<Cell> columnHeaders = rows.get(0);

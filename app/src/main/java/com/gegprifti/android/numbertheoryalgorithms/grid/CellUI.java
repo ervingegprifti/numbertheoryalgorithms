@@ -7,44 +7,44 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CellUI {
     private final Context context;
     private final boolean biggerResultDisplay;
-    private final int cellWidthDefault;
     private final List<Integer> cellWidths;
-    private final int cellHeightDefault;
     private final List<Integer> cellHeights;
     private final LayoutInflater layoutInflater;
     private final Margins margins;
-    private final LinearLayout.LayoutParams layoutParamsDefault;
 
     public Margins getMargins() {
         return margins;
     }
 
-    public CellUI(Context context, int cellWidthDefault, List<Integer> cellWidths, int cellHeightDefault, List<Integer> cellHeights, boolean biggerResultDisplay) {
-        this.context = context;
+    public CellUI(@NonNull Context context, @NonNull List<Integer> cellWidths,  @NonNull List<Integer> cellHeights, boolean biggerResultDisplay) {
+        this.context = Objects.requireNonNull(context, "CellUI: context must not be null");
+        this.cellWidths = Objects.requireNonNull(cellWidths, "CellUI: cellWidths must not be null");
+        this.cellHeights = Objects.requireNonNull(cellHeights, "CellUI: cellHeights must not be null");
         this.biggerResultDisplay = biggerResultDisplay;
-        this.cellWidthDefault = cellWidthDefault;
-        this.cellWidths = cellWidths;
-        this.cellHeightDefault = cellHeightDefault;
-        this.cellHeights = cellHeights;
 
-        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        margins = new Margins(context, biggerResultDisplay);
-        if ((cellWidths == null || cellWidths.isEmpty()) && (cellHeights == null || cellHeights.isEmpty())) {
-            layoutParamsDefault = new LinearLayout.LayoutParams(cellWidthDefault, cellHeightDefault);
-            layoutParamsDefault.setMargins(margins.getLeft(), margins.getTop(), margins.getRight(), margins.getBottom());
-        } else {
-            layoutParamsDefault = null;
+        if (cellWidths.isEmpty()) {
+            throw new IllegalArgumentException("CellUI: cellWidths must not be empty");
         }
+
+        if (cellHeights.isEmpty()) {
+            throw new IllegalArgumentException("CellUI: cellHeights must not be empty");
+        }
+
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        margins = new Margins(context, biggerResultDisplay);
+
     }
 
 
@@ -147,35 +147,17 @@ public class CellUI {
         int cellId = this.biggerResultDisplay ? R.id.CellBig : R.id.CellSmall;
         View cellInflater = layoutInflater.inflate(cellResource, parent, false);
         TextView textView = cellInflater.findViewById(cellId);
-
-        if (this.layoutParamsDefault == null) {
-            LinearLayout.LayoutParams layoutParams = createLayoutParams(i, isLastItem);
-            textView.setLayoutParams(layoutParams);
-        } else {
-            textView.setLayoutParams(layoutParamsDefault);
-        }
-
+        LinearLayout.LayoutParams layoutParams = createLayoutParams(i, isLastItem);
+        textView.setLayoutParams(layoutParams);
         return textView;
     }
 
 
-    public LinearLayout.LayoutParams createLayoutParams(int i, boolean isLastItem) {
-        int cellWidth = CellUI.getCellWidth(i, cellWidths, cellWidthDefault);
-        int cellHeight = CellUI.getCellHeight(i, cellHeights, cellHeightDefault);
+    private LinearLayout.LayoutParams createLayoutParams(int i, boolean isLastItem) {
+        int cellWidth = cellWidths.get(i);
+        int cellHeight = cellHeights.get(i);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(cellWidth, cellHeight);
         layoutParams.setMargins(margins.getLeft(), margins.getTop(), isLastItem ? 0 : margins.getRight(), margins.getBottom());
         return layoutParams;
-    }
-
-
-    private static int getCellWidth(int i, List<Integer> cellWidths, int cellWidthDefault) {
-        int cellWidth = (cellWidths != null && !cellWidths.isEmpty()) ? cellWidths.get(i) : cellWidthDefault;
-        return cellWidth;
-    }
-
-
-    private static int getCellHeight(int i, List<Integer> cellHeights, int cellHeightDefault) {
-        int cellHeight = (cellHeights != null && !cellHeights.isEmpty()) ? cellHeights.get(i) : cellHeightDefault;
-        return cellHeight;
     }
 }

@@ -53,7 +53,6 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
 
             // Add column headers.
             List<Cell> columnHeaderRow = new ArrayList<>();
-            columnHeaderRow.add(cornerCell); // TODO remove later
             for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 Cell columnHeader = new Cell(true, "x=" + x, false);
@@ -77,8 +76,6 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 rowHeaderRow.add(rowHeaderCell);
                 rowHeaders.add(rowHeaderRow);
 
-                row.add(rowHeaderCell); // TODO remove later
-
                 List<String> solutionsPerRow = new ArrayList<>();
 
                 // Add columns.
@@ -100,7 +97,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                     Cell lastColumn = new Cell(false, "", false);
                     row.add(lastColumn);
                 } else {
-                    Cell columnHeaderEdit = row.get(0);
+                    Cell columnHeaderEdit = rowHeaderRow.get(0);
                     columnHeaderEdit.setHeaderStyle(Cell.HeaderStyle.HIGHLIGHTED);
                     String solutions = String.join(" ", solutionsPerRow);
                     Cell lastColumn = new Cell(false, solutions, false, Cell.ValueStyle.YELLOW);

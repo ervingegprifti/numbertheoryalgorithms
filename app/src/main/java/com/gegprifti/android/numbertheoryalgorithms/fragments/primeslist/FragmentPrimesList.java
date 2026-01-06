@@ -37,6 +37,8 @@ import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -295,17 +297,21 @@ public class FragmentPrimesList extends FragmentBase {
             int cellWidthDefault = textViewTemp.getMeasuredWidth();
             int cellHeightDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
 
+            // Populate cellWidths and cellHeights
+            List<Integer> cellWidths = new ArrayList<>(Collections.nCopies(rows.get(0).size(), cellWidthDefault));
+            List<Integer> cellHeights = new ArrayList<>(Collections.nCopies(rows.size(), cellHeightDefault));
+
             // Set the listview row space.
             float dividerDp = biggerResultDisplay ? 4f : 1f;
             int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
             resultListViewGridRows.setDividerHeight(dividerPx);
 
             // Set column headers.
-            CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            CellUI cellUI = new CellUI(requireContext(), cellWidths, cellHeights, biggerResultDisplay);
             Grid.setColumnHeaders(cellUI, columnHeaders, resultLinearLayoutGridColumnHeaders);
 
             // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), cellWidths, cellHeights, rows, biggerResultDisplay);
             setListViewAdapter(resultListViewGridRows, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);

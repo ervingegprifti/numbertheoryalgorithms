@@ -1246,6 +1246,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         refreshHideExampleButtons();
         refreshResultDisplay();
         refreshRun();
+        refreshTitle();
     }
 
 
@@ -1575,6 +1576,30 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 break;
         }
     }
+
+
+    private void refreshTitle() {
+        Editable a = editTextA.getText();
+        Editable b = editTextB.getText();
+        Editable c = editTextC.getText();
+        Editable d = editTextD.getText();
+        Editable e = editTextE.getText();
+        Editable f = editTextF.getText();
+
+        boolean checkA = a.length() > 0 && a.length() <= 2;
+        boolean checkB = b.length() > 0 && b.length() <= 2;
+        boolean checkC = c.length() > 0 && c.length() <= 2;
+        boolean checkD = d.length() > 0 && d.length() <= 2;
+        boolean checkE = e.length() > 0 && e.length() <= 2;
+        boolean checkF = f.length() > 0 && f.length() <= 3;
+
+        if (checkA && checkB && checkC && checkD && checkE && checkF) {
+            String title = a + "x²+" + b + "xy+" + c + "y²+" + d + "x+" + e + "y=" + f;
+            textViewTitle.setText(title);
+        } else {
+            textViewTitle.setText(R.string.binary_quadratic_form_title);
+        }
+    }
     //endregion Refresh UI
 
 
@@ -1674,8 +1699,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 cellWidths.add(maxColumnWidth + extraPadding);
             }
 
-            int cellWidthDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
+            // int cellWidthDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
             int cellHeightDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+            // Populate cellWidths and cellHeights
+            //List<Integer> cellWidths = new ArrayList<>(Collections.nCopies(columnHeaders.get(0).size(), cellWidthDefault));
+            List<Integer> cellHeights = new ArrayList<>(Collections.nCopies(rowHeaders.size(), cellHeightDefault));
 
             // Set the listview row space
             float dividerDp = biggerResultDisplay ? 4f : 1f;
@@ -1684,21 +1713,21 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             result1ListViewGridRowHeaders.setDividerHeight(dividerPx);
 
             // Set column headers.
-            CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, cellWidths, cellHeightDefault, null, biggerResultDisplay);
+            CellUI cellUI = new CellUI(requireContext(), cellWidths, cellHeights, biggerResultDisplay);
             Grid.setColumnHeaders(cellUI, corner, result1LinearLayoutGridCorner);
             Grid.setColumnHeaders(cellUI, columnHeaders, result1LinearLayoutGridColumnHeaders);
 
-            // Manually set the row headers width as per the cellWidthDefault.
+            // Manually set the row headers width as per the first cell width.
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) result1LinearLayoutGridRowHeaders.getLayoutParams();
-            params.width = cellWidthDefault + dividerPx;
+            params.width = cellWidths.get(0) + dividerPx;
             result1LinearLayoutGridRowHeaders.setLayoutParams(params);
 
             // Create and set the adapter for grid rows.
-            GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, cellWidths, cellHeightDefault, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), cellWidths, cellHeights, rows, biggerResultDisplay);
             setListViewAdapter(result1ListViewGridRows, adapter);
 
             // Create and set the adapter for grid row headers.
-            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), rowHeaders, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(result1ListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -1729,8 +1758,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
 
             // Set the column cell width to be the same as the biggest one.
-            int cellWidthDefault = getCellWidthDefault(columnMaxLengths, biggerResultDisplay);
+            int cellWidthDefault = getMaxCellWidth(columnMaxLengths, biggerResultDisplay);
             int cellHeightDefault = squareResultDisplay ? cellWidthDefault : LinearLayout.LayoutParams.WRAP_CONTENT;
+
+            // Populate cellWidths and cellHeights
+            List<Integer> cellWidths = new ArrayList<>(Collections.nCopies(columnHeaders.get(0).size(), cellWidthDefault));
+            List<Integer> cellHeights = new ArrayList<>(Collections.nCopies(rowHeaders.size(), cellHeightDefault));
 
             // Set the listview row space.
             float dividerDp = biggerResultDisplay ? 4f : 1f;
@@ -1739,7 +1772,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             result2ListViewGridRowHeaders.setDividerHeight(dividerPx);
 
             // Set column headers.
-            CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            CellUI cellUI = new CellUI(requireContext(), cellWidths, cellHeights, biggerResultDisplay);
             Grid.setColumnHeaders(cellUI, corner, result2LinearLayoutGridCorner);
             Grid.setColumnHeaders(cellUI, columnHeaders, result2LinearLayoutGridColumnHeaders);
 
@@ -1749,12 +1782,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             result2LinearLayoutGridRowHeaders.setLayoutParams(params);
 
             // Create and set the adapter for grid rows.
-            GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            GridAdapter adapter = new GridAdapter(requireContext(), cellWidths, cellHeights, rows, biggerResultDisplay);
             showResultFModM2(adapter, m, r);
             setListViewAdapter(result2ListViewGridRows, adapter);
 
             // Create and set the adapter for grid row headers.
-            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), rowHeaders, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(result2ListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -1762,13 +1795,13 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
 
     /**
-     * Get the column cell width to be the same as the biggest one.
+     * Get the max column cell width within the list of column max length.
      *
      * @param columnMaxLengths
      * @param biggerResultDisplay
      * @return
      */
-    private int getCellWidthDefault(List<Integer> columnMaxLengths, boolean biggerResultDisplay) {
+    private int getMaxCellWidth(List<Integer> columnMaxLengths, boolean biggerResultDisplay) {
         int maxTextLength = columnMaxLengths.isEmpty() ? 0 : Collections.max(columnMaxLengths);
         char[] chars = new char[maxTextLength];
         Arrays.fill(chars, '0');
@@ -2465,6 +2498,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         result2LinearLayoutGridColumnHeaders.removeAllViews();
         setListViewAdapter(result2ListViewGridRowHeaders, null);
         setListViewAdapter(result2ListViewGridRows, null);
+
     }
     private void setResultVisibilityFromButtonRun(boolean skipLabelResult) {
         if(!skipLabelResult) {
