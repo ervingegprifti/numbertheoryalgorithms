@@ -186,8 +186,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     // Result 1
     LinearLayout result1LinearLayoutGridContainer;
     LinearLayout result1LinearLayoutGrid;
+    LinearLayout result1LinearLayoutGridRowHeaders;
+    LinearLayout result1LinearLayoutGridCorner;
+    ListView result1ListViewGridRowHeaders;
     LinearLayout result1LinearLayoutGridColumnHeaders;
-    ListView listViewResult1;
+    ListView result1ListViewGridRows;
     // Result 2
     LinearLayout result2LinearLayoutGridContainer;
     LinearLayout result2LinearLayoutGrid;
@@ -371,12 +374,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             this.linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
             this.editTextResult = inflater.findViewById(R.id.EditTextResult);
+            // Button mods
+            this.linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
             // Result 1
             this.result1LinearLayoutGridContainer = inflater.findViewById(R.id.Result1LinearLayoutGridContainer);
             this.result1LinearLayoutGrid = inflater.findViewById(R.id.Result1LinearLayoutGrid);
-            this.linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
+            this.result1LinearLayoutGridRowHeaders = inflater.findViewById(R.id.Result1LinearLayoutGridRowHeaders);
+            this.result1LinearLayoutGridCorner = inflater.findViewById(R.id.Result1LinearLayoutGridCorner);
+            this.result1ListViewGridRowHeaders = inflater.findViewById(R.id.Result1ListViewGridRowHeaders);
             this.result1LinearLayoutGridColumnHeaders = inflater.findViewById(R.id.Result1LinearLayoutGridColumnHeaders);
-            this.listViewResult1 = inflater.findViewById(R.id.Result1ListViewGridRows);
+            this.result1ListViewGridRows = inflater.findViewById(R.id.Result1ListViewGridRows);
             // Result 2
             this.result2LinearLayoutGridContainer = inflater.findViewById(R.id.Result2LinearLayoutGridContainer);
             this.result2LinearLayoutGrid = inflater.findViewById(R.id.Result2LinearLayoutGrid);
@@ -1076,7 +1083,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 }
             });
 
-            result2ListViewGridRows.setOnScrollListener(syncScrollListener);
+            result1ListViewGridRows.setOnScrollListener(result1SyncScrollListener);
+            result2ListViewGridRows.setOnScrollListener(result2SyncScrollListener);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1086,7 +1094,21 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //endregion CREATE
 
 
-    AbsListView.OnScrollListener syncScrollListener = new AbsListView.OnScrollListener() {
+    AbsListView.OnScrollListener result1SyncScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            // Not needed
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            View firstView = view.getChildAt(0);
+            int topOffset = (firstView == null) ? 0 : firstView.getTop();
+            result1ListViewGridRowHeaders.setSelectionFromTop(firstVisibleItem, topOffset);
+        }
+    };
+
+    AbsListView.OnScrollListener result2SyncScrollListener = new AbsListView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             // Not needed
@@ -1576,7 +1598,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
         if (algorithmName == AlgorithmName.BINARY_QUADRATIC_FORM_1) {
             if (progressStatus == ProgressStatus.CANCELED) {
-                cancelShowResult(listViewResult1);
+                cancelShowResult(result1ListViewGridRows);
             } else {
                 @SuppressWarnings("unchecked")
                 Grid gridResult1 = (Grid) result;
@@ -1608,7 +1630,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         try {
             List<List<Cell>> corner = grid.getCorner();
             List<List<Cell>> columnHeaders = grid.getColumnHeaders();
-            List<List<Cell>> rowHeaders = grid.getRowHeaders(); // TODO
+            List<List<Cell>> rowHeaders = grid.getRowHeaders();
             List<List<Cell>> rows = grid.getRows();
 
             // TODO calculate width when creating the data
@@ -1658,15 +1680,26 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Set the listview row space
             float dividerDp = biggerResultDisplay ? 4f : 1f;
             int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
-            listViewResult1.setDividerHeight(dividerPx);
+            result1ListViewGridRows.setDividerHeight(dividerPx);
+            result1ListViewGridRowHeaders.setDividerHeight(dividerPx);
 
             // Set column headers.
             CellUI cellUI = new CellUI(requireContext(), cellWidthDefault, cellWidths, cellHeightDefault, null, biggerResultDisplay);
+            Grid.setColumnHeaders(cellUI, corner, result1LinearLayoutGridCorner);
             Grid.setColumnHeaders(cellUI, columnHeaders, result1LinearLayoutGridColumnHeaders);
 
-            // Create and set the adapter.
+            // Manually set the row headers width as per the cellWidthDefault.
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) result1LinearLayoutGridRowHeaders.getLayoutParams();
+            params.width = cellWidthDefault + dividerPx;
+            result1LinearLayoutGridRowHeaders.setLayoutParams(params);
+
+            // Create and set the adapter for grid rows.
             GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, cellWidths, cellHeightDefault, null, biggerResultDisplay);
-            setListViewAdapter(listViewResult1, adapter);
+            setListViewAdapter(result1ListViewGridRows, adapter);
+
+            // Create and set the adapter for grid row headers.
+            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), rowHeaders, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
+            setListViewAdapter(result1ListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1715,12 +1748,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             params.width = cellWidthDefault + dividerPx;
             result2LinearLayoutGridRowHeaders.setLayoutParams(params);
 
-            // Create and set the adapter.
+            // Create and set the adapter for grid rows.
             GridAdapter adapter = new GridAdapter(requireContext(), rows, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
             showResultFModM2(adapter, m, r);
             setListViewAdapter(result2ListViewGridRows, adapter);
 
-            //
+            // Create and set the adapter for grid row headers.
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), rowHeaders, cellWidthDefault, null, cellHeightDefault, null, biggerResultDisplay);
             setListViewAdapter(result2ListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
@@ -2422,10 +2455,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
         this.editTextResult.setText("");
-        this.result1LinearLayoutGridColumnHeaders.removeAllViews();
-        this.result2LinearLayoutGridColumnHeaders.removeAllViews();
-        setListViewAdapter(listViewResult1, null);
+        // Result 1
+        result1LinearLayoutGridCorner.removeAllViews();
+        result1LinearLayoutGridColumnHeaders.removeAllViews();
+        setListViewAdapter(result1ListViewGridRowHeaders, null);
+        setListViewAdapter(result1ListViewGridRows, null);
+        // Result 2
         result2LinearLayoutGridCorner.removeAllViews();
+        result2LinearLayoutGridColumnHeaders.removeAllViews();
         setListViewAdapter(result2ListViewGridRowHeaders, null);
         setListViewAdapter(result2ListViewGridRows, null);
     }
@@ -2433,30 +2470,30 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         if(!skipLabelResult) {
             textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
-        this.linearLayoutFModMContainer.setVisibility(View.GONE);
-        this.textViewCopyResult.setVisibility(View.VISIBLE);
-        this.textViewClearResult.setVisibility(View.VISIBLE);
-        this.linearLayoutResultContainer.setVisibility(View.VISIBLE);
-        this.result1LinearLayoutGridContainer.setVisibility(View.GONE);
-        this.result2LinearLayoutGridContainer.setVisibility(View.GONE);
+        linearLayoutFModMContainer.setVisibility(View.GONE);
+        textViewCopyResult.setVisibility(View.VISIBLE);
+        textViewClearResult.setVisibility(View.VISIBLE);
+        linearLayoutResultContainer.setVisibility(View.VISIBLE);
+        result1LinearLayoutGridContainer.setVisibility(View.GONE);
+        result2LinearLayoutGridContainer.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun1() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy));
-        this.linearLayoutFModMContainer.setVisibility(View.GONE);
-        this.textViewCopyResult.setVisibility(View.GONE);
-        this.textViewClearResult.setVisibility(View.VISIBLE);
-        this.linearLayoutResultContainer.setVisibility(View.GONE);
-        this.result1LinearLayoutGridContainer.setVisibility(View.VISIBLE);
-        this.result2LinearLayoutGridContainer.setVisibility(View.GONE);
+        linearLayoutFModMContainer.setVisibility(View.GONE);
+        textViewCopyResult.setVisibility(View.GONE);
+        textViewClearResult.setVisibility(View.VISIBLE);
+        linearLayoutResultContainer.setVisibility(View.GONE);
+        result1LinearLayoutGridContainer.setVisibility(View.VISIBLE);
+        result2LinearLayoutGridContainer.setVisibility(View.GONE);
     }
     private void setResultVisibilityFromButtonRun2() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy_f_mod_m_r));
-        this.linearLayoutFModMContainer.setVisibility(View.VISIBLE);
-        this.textViewCopyResult.setVisibility(View.GONE);
-        this.textViewClearResult.setVisibility(View.VISIBLE);
-        this.linearLayoutResultContainer.setVisibility(View.GONE);
-        this.result1LinearLayoutGridContainer.setVisibility(View.GONE);
-        this.result2LinearLayoutGridContainer.setVisibility(View.VISIBLE);
+        linearLayoutFModMContainer.setVisibility(View.VISIBLE);
+        textViewCopyResult.setVisibility(View.GONE);
+        textViewClearResult.setVisibility(View.VISIBLE);
+        linearLayoutResultContainer.setVisibility(View.GONE);
+        result1LinearLayoutGridContainer.setVisibility(View.GONE);
+        result2LinearLayoutGridContainer.setVisibility(View.VISIBLE);
     }
     //endregion RESULT
 }

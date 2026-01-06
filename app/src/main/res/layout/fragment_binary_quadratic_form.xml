@@ -453,7 +453,33 @@
                 android:layout_height="match_parent"
                 android:padding="5dp"
                 android:background="@drawable/result_bg"
-                android:gravity="top|start">
+                android:gravity="top|start"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/Result1LinearLayoutGridRowHeaders"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/Result1LinearLayoutGridCorner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+                        <com.gegprifti.android.numbertheoryalgorithms.grid.NonScrollableListView
+                            android:id="@+id/Result1ListViewGridRowHeaders"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:divider="@android:color/transparent"
+                            android:listSelector="@android:color/transparent"
+                            android:cacheColorHint="@android:color/transparent"
+                            android:scrollbars="none" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
