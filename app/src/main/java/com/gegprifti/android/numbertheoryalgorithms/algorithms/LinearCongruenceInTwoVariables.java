@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getSign;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
@@ -45,15 +45,15 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             // Solving linear Congruence ax+by ≡ c (mod m)
             result.append(String.format(Locale.getDefault(), "<font color='%s'><b>Linear Congruence In Two Variables</b></font><br>", COLOR));
             result.append("Solve for <b>x</b>,<b>y</b> a<b>x</b>+b<b>y</b> ≡ c (mod m) where a,b,c,<b>x</b>,<b>y</b> ∊ ℤ, m ∊ ℕ<br>");
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> ≡ %s (mod %s)<br>", getNP(a), getNP(b), getNP(c), getNP(m)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> ≡ %s (mod %s)<br>", formatSigned(a), formatSigned(b), formatSigned(c), formatSigned(m)));
             result.append("<br>");
 
             // InputGroup
             result.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "a = %s <br>", getNP(a)));
-            result.append(String.format(Locale.getDefault(), "b = %s <br>", getNP(b)));
-            result.append(String.format(Locale.getDefault(), "c = %s <br>", getNP(c)));
-            result.append(String.format(Locale.getDefault(), "m = %s <br>", getNP(m)));
+            result.append(String.format(Locale.getDefault(), "a = %s <br>", formatSigned(a)));
+            result.append(String.format(Locale.getDefault(), "b = %s <br>", formatSigned(b)));
+            result.append(String.format(Locale.getDefault(), "c = %s <br>", formatSigned(c)));
+            result.append(String.format(Locale.getDefault(), "m = %s <br>", formatSigned(m)));
             result.append("<br>");
 
             // g = GCD(a, b, m)
@@ -81,19 +81,19 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
 
             // The Congruence ax+by ≡ c (mod m) ⬌ ax+by=mz+c ⬌ ax+by+mz=c
             result.append(String.format(Locale.getDefault(), "<font color='%s'>The Congruence a<b>x</b>+b<b>y</b> ≡ c (mod m) %s a<b>x</b>+b<b>y</b>=m<b>z</b>+c %s a<b>x</b>+b<b>y</b>+m<b>z</b>=c</font><br>", COLOR, LEFT_RIGHT_ARROW, LEFT_RIGHT_ARROW));
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b>+%s<b>z</b>=%s<br>", getNP(a), getNP(b), getNP(m), getNP(c)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b>+%s<b>z</b>=%s<br>", formatSigned(a), formatSigned(b), formatSigned(m), formatSigned(c)));
             result.append("<br>");
 
             // Let h=GCD(a,b), d=a/h, e=b/h
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Let h=GCD(a,b), d=a/h, e=b/h</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "h = GCD(a, b) = GCD(%s, %s) = %s <br>", getNP(a), getNP(b), getNP(h)));
-            result.append(String.format(Locale.getDefault(), "d = a/h = %s/%s = %s <br>", getNP(a), getNP(h), getNP(d)));
-            result.append(String.format(Locale.getDefault(), "e = b/h = %s/%s = %s <br>", getNP(b), getNP(h), getNP(e)));
+            result.append(String.format(Locale.getDefault(), "h = GCD(a, b) = GCD(%s, %s) = %s <br>", formatSigned(a), formatSigned(b), formatSigned(h)));
+            result.append(String.format(Locale.getDefault(), "d = a/h = %s/%s = %s <br>", formatSigned(a), formatSigned(h), formatSigned(d)));
+            result.append(String.format(Locale.getDefault(), "e = b/h = %s/%s = %s <br>", formatSigned(b), formatSigned(h), formatSigned(e)));
             result.append("<br>");
 
             // Factoring out ax+by we get h(dx+ey)+mz=c
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Factoring out a<b>x</b>+b<b>y</b> we get h(d<b>x</b>+e<b>y</b>)+m<b>z</b>=c</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "%s(%s<b>x</b>+%s<b>y</b>)+%s<b>z</b>=%s<br>", getNP(h), getNP(d), getNP(e), getNP(m), getNP(c)));
+            result.append(String.format(Locale.getDefault(), "%s(%s<b>x</b>+%s<b>y</b>)+%s<b>z</b>=%s<br>", formatSigned(h), formatSigned(d), formatSigned(e), formatSigned(m), formatSigned(c)));
             result.append("<br>");
 
             // Note that GCD(d,e) is always 1, since d = a/h and e = b/h
@@ -102,12 +102,12 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
 
             // Let dx+ey=w
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Let d<b>x</b>+e<b>y</b>=<b>w</b></font> <br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b>=<b>w</b> <br>", getNP(d), getNP(e)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b>=<b>w</b> <br>", formatSigned(d), formatSigned(e)));
             result.append("<br>");
 
             // Rewriting we must solve hw+mz=c
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Rewriting we must solve h<b>w</b>+m<b>z</b>=c</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "%s<b>w</b>+%s<b>z</b>=%s<br>", getNP(h), getNP(m), getNP(c)));
+            result.append(String.format(Locale.getDefault(), "%s<b>w</b>+%s<b>z</b>=%s<br>", formatSigned(h), formatSigned(m), formatSigned(c)));
             result.append("<br>");
 
             BigInteger i = h.gcd(m).gcd(c);
@@ -121,10 +121,10 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             BigInteger n = m.divide(i);
             BigInteger f = c.divide(i);
 
-            result.append(String.format(Locale.getDefault(), "j = h/i = %s/%s = %s <br>", getNP(h), i, getNP(j)));
-            result.append(String.format(Locale.getDefault(), "n = m/i = %s/%s = %s <br>", getNP(m), i, getNP(n)));
-            result.append(String.format(Locale.getDefault(), "f = c/i = %s/%s = %s <br>", getNP(c), i, getNP(f)));
-            result.append(String.format(Locale.getDefault(), "%s<b>w</b>+%s<b>z</b>=%s<br>", getNP(j), getNP(n), getNP(f)));
+            result.append(String.format(Locale.getDefault(), "j = h/i = %s/%s = %s <br>", formatSigned(h), i, formatSigned(j)));
+            result.append(String.format(Locale.getDefault(), "n = m/i = %s/%s = %s <br>", formatSigned(m), i, formatSigned(n)));
+            result.append(String.format(Locale.getDefault(), "f = c/i = %s/%s = %s <br>", formatSigned(c), i, formatSigned(f)));
+            result.append(String.format(Locale.getDefault(), "%s<b>w</b>+%s<b>z</b>=%s<br>", formatSigned(j), formatSigned(n), formatSigned(f)));
             result.append("<br>");
 
             BigInteger k = j.gcd(n);
@@ -148,8 +148,8 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
 
             // Use Extended Euclidean Algorithm to find wₑₑ and zₑₑ from |j|w + |n|z = GCD(|j|, |n|) = k
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Use Extended Euclidean Algorithm to find wₑₑ and zₑₑ from |j|<b>w</b> + |n|<b>z</b> = GCD(|j|, |n|) = k </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "wₑₑ = sign(j)·wₑₑ = %s·%s = %s <br>", getNP(getSign(j)), getNP(eeaForWandZ[1]), wee));
-            result.append(String.format(Locale.getDefault(), "zₑₑ = sign(n)·zₑₑ = %s·%s = %s <br>", getNP(getSign(n)), getNP(eeaForWandZ[2]), zee));
+            result.append(String.format(Locale.getDefault(), "wₑₑ = sign(j)·wₑₑ = %s·%s = %s <br>", formatSigned(getSign(j)), formatSigned(eeaForWandZ[1]), wee));
+            result.append(String.format(Locale.getDefault(), "zₑₑ = sign(n)·zₑₑ = %s·%s = %s <br>", formatSigned(getSign(n)), formatSigned(eeaForWandZ[2]), zee));
             result.append("<br>");
 
             BigInteger w0 = (wee.multiply(f.divide(k)));
@@ -157,8 +157,8 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
 
             // A particular first initial solution is w₀ = wₑₑ(f/k) and z₀ = zₑₑ(f/k)
             result.append(String.format(Locale.getDefault(), "<font color='%s'>A particular first initial solution is w₀ = wₑₑ(f/k) and z₀ = zₑₑ(f/k) </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "w₀ = %s·(%s/%s) = %s <br>", getNP(wee), getNP(f), getNP(k), getNP(w0)));
-            result.append(String.format(Locale.getDefault(), "z₀ = %s·(%s/%s) = %s <br>", getNP(zee), getNP(f), getNP(k), getNP(z0)));
+            result.append(String.format(Locale.getDefault(), "w₀ = %s·(%s/%s) = %s <br>", formatSigned(wee), formatSigned(f), formatSigned(k), formatSigned(w0)));
+            result.append(String.format(Locale.getDefault(), "z₀ = %s·(%s/%s) = %s <br>", formatSigned(zee), formatSigned(f), formatSigned(k), formatSigned(z0)));
             result.append("<br>");
 
             BigInteger p = n.divide(k);
@@ -166,21 +166,21 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
 
             // For r ∊ ℤ, the general solution to jw+nz=f is w = w₀ + (n/k)r and z = z₀ - (j/k)r
             result.append(String.format(Locale.getDefault(), "<font color='%s'>For r ∊ ℤ, the general solution to j<b>w</b>+n<b>z</b>=f is</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<b>w</b> = %s + (%s/%s)r<br>", getNP(w0), getNP(n), getNP(k)));
-            result.append(String.format(Locale.getDefault(), "<b>z</b> = %s - (%s/%s)r<br>", getNP(z0), getNP(j), getNP(k)));
+            result.append(String.format(Locale.getDefault(), "<b>w</b> = %s + (%s/%s)r<br>", formatSigned(w0), formatSigned(n), formatSigned(k)));
+            result.append(String.format(Locale.getDefault(), "<b>z</b> = %s - (%s/%s)r<br>", formatSigned(z0), formatSigned(j), formatSigned(k)));
             result.append("<br>");
 
             // Let p=(n/k) and q=(j/k), hence the general solution to jw+nz=f is w = w₀ + (n/k)r = w₀ + pr and z = z₀ - (j/k)r = z₀ - qr
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Let p=(n/k) and q=(j/k), hence the general solution to j<b>w</b>+n<b>z</b>=f is</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'><b>w</b> = w₀ + (n/k)r = w₀ + p<b>r</b> </font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'><b>z</b> = z₀ - (j/k)r = z₀ - q<b>r</b> </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "<b>w</b> = %s + %s<b>r</b> <br>", getNP(w0), getNP(p)));
-            result.append(String.format(Locale.getDefault(), "<b>z</b> = %s - %s<b>r</b> <br>", getNP(z0), getNP(q)));
+            result.append(String.format(Locale.getDefault(), "<b>w</b> = %s + %s<b>r</b> <br>", formatSigned(w0), formatSigned(p)));
+            result.append(String.format(Locale.getDefault(), "<b>z</b> = %s - %s<b>r</b> <br>", formatSigned(z0), formatSigned(q)));
             result.append("<br>");
 
             // Substituting for w, then we have  dx+ey = w₀+pr
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Substituting for <b>w</b>, then d<b>x</b>+e<b>y</b> = w₀+p<b>r</b></font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> = %s+%s<b>r</b> <br>", getNP(d), getNP(e), getNP(w0), getNP(p)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> = %s+%s<b>r</b> <br>", formatSigned(d), formatSigned(e), formatSigned(w0), formatSigned(p)));
             result.append("<br>");
 
             // Since GCD(d,e) is always 1, then we find x₀ and y₀ by solving dx+ey=1
@@ -193,13 +193,13 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
 
             // Use Extended Euclidean Algorithm to find xₑₑ and yₑₑ from |d|x + |e|y = GCD(|d|, |e|) = 1
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Use Extended Euclidean Algorithm to find xₑₑ and yₑₑ from |d|<b>x</b> + |e|<b>y</b> = GCD(|d|, |e|) = 1</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "xₑₑ = sign(d)·xₑₑ = %s·%s = %s <br>", getNP(getSign(d)), getNP(eeaForXandY[1]), xee));
-            result.append(String.format(Locale.getDefault(), "yₑₑ = sign(e)·yₑₑ = %s·%s = %s <br>", getNP(getSign(e)), getNP(eeaForXandY[2]), yee));
+            result.append(String.format(Locale.getDefault(), "xₑₑ = sign(d)·xₑₑ = %s·%s = %s <br>", formatSigned(getSign(d)), formatSigned(eeaForXandY[1]), xee));
+            result.append(String.format(Locale.getDefault(), "yₑₑ = sign(e)·yₑₑ = %s·%s = %s <br>", formatSigned(getSign(e)), formatSigned(eeaForXandY[2]), yee));
             result.append("<br>");
 
             // Hence dxₑₑ+eyₑₑ = 1
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Hence dxₑₑ+eyₑₑ = 1</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "dxₑₑ+eyₑₑ = %s·%s+%s·%s = 1 <br>", getNP(d), getNP(xee), getNP(e), getNP(yee)));
+            result.append(String.format(Locale.getDefault(), "dxₑₑ+eyₑₑ = %s·%s+%s·%s = 1 <br>", formatSigned(d), formatSigned(xee), formatSigned(e), formatSigned(yee)));
             result.append("<br>");
 
             // Multiplying both sides with w₀+pr = w we have dxₑₑ(w₀+pr)+eyₑₑ(w₀+pr) = w
@@ -219,8 +219,8 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             result.append("x₀ = xₑₑ(w₀+p<b>r</b>) = xₑₑw₀+xₑₑp<b>r</b> <br>");
             result.append("y₀ = yₑₑ(w₀+p<b>r</b>) = yₑₑw₀+yₑₑp<b>r</b> <br>");
             result.append("<br>");
-            result.append(String.format(Locale.getDefault(), "x₀ = %s·%s+%s·%s<b>r</b> = %s + %s<b>r</b><br>", getNP(xee), getNP(w0), getNP(xee), getNP(p), getNP(xeew0), getNP(xeep)));
-            result.append(String.format(Locale.getDefault(), "y₀ = %s·%s+%s·%s<b>r</b> = %s + %s<b>r</b><br>", getNP(yee), getNP(w0), getNP(yee), getNP(p), getNP(yeew0), getNP(yeep)));
+            result.append(String.format(Locale.getDefault(), "x₀ = %s·%s+%s·%s<b>r</b> = %s + %s<b>r</b><br>", formatSigned(xee), formatSigned(w0), formatSigned(xee), formatSigned(p), formatSigned(xeew0), formatSigned(xeep)));
+            result.append(String.format(Locale.getDefault(), "y₀ = %s·%s+%s·%s<b>r</b> = %s + %s<b>r</b><br>", formatSigned(yee), formatSigned(w0), formatSigned(yee), formatSigned(p), formatSigned(yeew0), formatSigned(yeep)));
             result.append("<br>");
 
             // The general x,y solution is x = x₀ + (e/1)t = xₑₑw₀+xₑₑpr + et and y = y₀ - (d/1)t = yₑₑw₀+yₑₑpr - dt
@@ -228,8 +228,8 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             result.append("<b>x</b> = x₀ + (e/1)t = xₑₑw₀+xₑₑp<b>r</b> + e<b>t</b> <br>");
             result.append("<b>y</b> = y₀ - (d/1)t = yₑₑw₀+yₑₑp<b>r</b> - d<b>t</b> <br>");
             result.append("<br>");
-            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s+%s<b>r</b> + %s<b>t</b> <br>", getNP(xeew0), getNP(xeep), getNP(e)));
-            result.append(String.format(Locale.getDefault(), "<b>y</b> = %s+%s<b>r</b> - %s<b>t</b> <br>", getNP(yeew0), getNP(yeep), getNP(d)));
+            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s+%s<b>r</b> + %s<b>t</b> <br>", formatSigned(xeew0), formatSigned(xeep), formatSigned(e)));
+            result.append(String.format(Locale.getDefault(), "<b>y</b> = %s+%s<b>r</b> - %s<b>t</b> <br>", formatSigned(yeew0), formatSigned(yeep), formatSigned(d)));
             result.append("<br>");
 
             Tabular tabular = new Tabular();
@@ -240,7 +240,7 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
             // The congruence ax+by ≡ c (mod m) can be written as a(xₑₑw₀ + xₑₑpr + et) + b(yₑₑw₀ + yₑₑpr - dt) ≡ c (mod m)
             result.append(String.format(Locale.getDefault(), "<font color='%s'>The congruence a<b>x</b>+b<b>y</b> ≡ c (mod m) can be written as </font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'>a(xₑₑw₀ + xₑₑp<b>r</b> + e<b>t</b>) + b(yₑₑw₀ + yₑₑp<b>r</b> - d<b>t</b>) ≡ c (mod m)</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "%s(%s + %s<b>r</b> + %s<b>t</b>) + %s(%s + %s<b>r</b> - %s<b>t</b>) ≡ %s (mod %s) <br>", getNP(a), getNP(xeew0), getNP(xeep), getNP(e), getNP(b), getNP(yeew0), getNP(yeep), getNP(d), getNP(c), getNP(m)));
+            result.append(String.format(Locale.getDefault(), "%s(%s + %s<b>r</b> + %s<b>t</b>) + %s(%s + %s<b>r</b> - %s<b>t</b>) ≡ %s (mod %s) <br>", formatSigned(a), formatSigned(xeew0), formatSigned(xeep), formatSigned(e), formatSigned(b), formatSigned(yeew0), formatSigned(yeep), formatSigned(d), formatSigned(c), formatSigned(m)));
             result.append("<br>");
 
             // Check correctness for r = {-3, ..., 3} and t = {-3, ..., 3} in a(xₑₑw₀+xₑₑpr + et) + b(yₑₑw₀+yₑₑpr - dt) ≡ c (mod m)
@@ -268,17 +268,17 @@ public class LinearCongruenceInTwoVariables extends Algorithm implements StringC
                     row.add(" ");
                     row.add(String.format(Locale.getDefault(), "<b>t</b> = %s", t)); // t.compareTo(ZERO) < 0 ? t : NBSP + t // t.compareTo(ZERO) < 0 ? t : "+" + t
                     row.add(NBSP + RIGHT_ARROW_COLORED + NBSP);
-                    row.add(String.format(Locale.getDefault(), "%s(%s", getNP(a), getNP(xeew0)));
+                    row.add(String.format(Locale.getDefault(), "%s(%s", formatSigned(a), formatSigned(xeew0)));
                     row.add(" + ");
-                    row.add(String.format(Locale.getDefault(), "%s", getNP(xeepr)));
+                    row.add(String.format(Locale.getDefault(), "%s", formatSigned(xeepr)));
                     row.add(" + ");
-                    row.add(String.format(Locale.getDefault(), "%s", getNP(et)));
+                    row.add(String.format(Locale.getDefault(), "%s", formatSigned(et)));
                     row.add(") + ");
-                    row.add(String.format(Locale.getDefault(), "%s(%s", getNP(b), getNP(yeew0)));
+                    row.add(String.format(Locale.getDefault(), "%s(%s", formatSigned(b), formatSigned(yeew0)));
                     row.add(" + ");
-                    row.add(String.format(Locale.getDefault(), "%s", getNP(yeepr)));
+                    row.add(String.format(Locale.getDefault(), "%s", formatSigned(yeepr)));
                     row.add(" - ");
-                    row.add(String.format(Locale.getDefault(), "%s", getNP(dt)));
+                    row.add(String.format(Locale.getDefault(), "%s", formatSigned(dt)));
                     row.add(") = ");
                     row.add(String.format(Locale.getDefault(), "%s", axNewPLUSbyNew));
                     row.add(" ≡ ");

@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import android.util.Log;
 
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
@@ -32,13 +32,13 @@ public class ExtendedEuclideanAlgorithm extends Algorithm implements StringCalcu
 
             // Solve for x,y such as ax+by=GCD(a,b) where a,b ∊ ℕ, x,y ∊ ℤ
             output.append("Solve for <b>x</b>,<b>y</b> such as a<b>x</b>+b<b>y</b>=GCD(a,b) where a,b ∊ ℕ, <b>x</b>,<b>y</b> ∊ ℤ<br>");
-            output.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> = GCD(%s, %s)<br>", getNP(a), getNP(b), getNP(a), getNP(b)));
+            output.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b> = GCD(%s, %s)<br>", formatSigned(a), formatSigned(b), formatSigned(a), formatSigned(b)));
             output.append("<br>");
 
             // InputGroup
             output.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
-            output.append(String.format(Locale.getDefault(), "a = %s<br>", getNP(a)));
-            output.append(String.format(Locale.getDefault(), "b = %s<br>", getNP(b)));
+            output.append(String.format(Locale.getDefault(), "a = %s<br>", formatSigned(a)));
+            output.append(String.format(Locale.getDefault(), "b = %s<br>", formatSigned(b)));
             output.append(String.format(Locale.getDefault(), "GCD(a,b) = %s<br>", a.gcd(b)));
             output.append("<br>");
 

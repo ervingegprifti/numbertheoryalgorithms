@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
@@ -37,8 +37,8 @@ public class ModFactors extends Algorithm implements StringCalculator {
 
             // InputGroup
             result.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "n = %s<br>", getNP(n)));
-            result.append(String.format(Locale.getDefault(), "a = %s<br>", getNP(a)));
+            result.append(String.format(Locale.getDefault(), "n = %s<br>", formatSigned(n)));
+            result.append(String.format(Locale.getDefault(), "a = %s<br>", formatSigned(a)));
             result.append("<br>");
 
             // n (mod a) = r

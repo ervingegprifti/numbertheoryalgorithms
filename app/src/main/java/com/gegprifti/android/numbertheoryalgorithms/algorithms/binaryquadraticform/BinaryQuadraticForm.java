@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import android.util.Log;
 import android.util.Pair;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
@@ -42,7 +42,7 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
 
             // Solve for x,y such as bxy+dx+ey=f where b,d,e,f,x,y ∊ ℤ and b ≠ 0
             result.append("Solve for <b>x</b>,<b>y</b> such as b<b>x</b><b>y</b>+d<b>x</b>+e<b>y</b>=f where b,d,e,f,<b>x</b>,<b>y</b> ∊ ℤ and b ≠ 0<br>");
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", getNP(b), getNP(d), getNP(e), getNP(f)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", formatSigned(b), formatSigned(d), formatSigned(e), formatSigned(f)));
             result.append("<br>");
 
             if (includeTrivialSolutions) {
@@ -62,12 +62,14 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
             }
             result.append("<br>");
 
-            // InputGroup
-            result.append(String.format("<font color='%s'>InputGroup</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "b = %s<br>", getNP(b)));
-            result.append(String.format(Locale.getDefault(), "d = %s<br>", getNP(d)));
-            result.append(String.format(Locale.getDefault(), "e = %s<br>", getNP(e)));
-            result.append(String.format(Locale.getDefault(), "f = %s<br>", getNP(f)));
+            // Inputs
+            result.append(String.format("<font color='%s'>Inputs</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "a = %s ignored<br>", formatSigned(a)));
+            result.append(String.format(Locale.getDefault(), "b = %s<br>", formatSigned(b)));
+            result.append(String.format(Locale.getDefault(), "c = %s ignored<br>", formatSigned(c)));
+            result.append(String.format(Locale.getDefault(), "d = %s<br>", formatSigned(d)));
+            result.append(String.format(Locale.getDefault(), "e = %s<br>", formatSigned(e)));
+            result.append(String.format(Locale.getDefault(), "f = %s<br>", formatSigned(f)));
             result.append("<br>");
 
             // Multiply both sides with b then, b²xy+bdx+bey=bf
@@ -76,29 +78,29 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
             BigInteger bd = d.multiply(b);
             BigInteger be = e.multiply(b);
             BigInteger bf = f.multiply(b);
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", getNP(bb), getNP(bd), getNP(be), getNP(bf)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>=%s<br>", formatSigned(bb), formatSigned(bd), formatSigned(be), formatSigned(bf)));
             result.append("<br>");
 
             // Add de to both sides then, b²xy+bdx+bey+de=bf+de
             result.append(String.format("<font color='%s'>Add de to both sides then, b²<b>x</b><b>y</b>+bd<b>x</b>+be<b>y</b>+de=bf+de</font><br>", COLOR));
             BigInteger de = d.multiply(e);
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>+%s=%s+%s<br>", getNP(bb), getNP(bd), getNP(be), getNP(de), getNP(bf), getNP(de)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b><b>y</b>+%s<b>x</b>+%s<b>y</b>+%s=%s+%s<br>", formatSigned(bb), formatSigned(bd), formatSigned(be), formatSigned(de), formatSigned(bf), formatSigned(de)));
             result.append("<br>");
 
             // The LHS is of the form of (bx+e)(by+d)
             result.append(String.format("<font color='%s'>The LHS is of the form of (b<b>x</b>+e)(b<b>y</b>+d)</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)<br>", getNP(b), getNP(e), getNP(b), getNP(d)));
+            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)<br>", formatSigned(b), formatSigned(e), formatSigned(b), formatSigned(d)));
             result.append("<br>");
 
             // Let n=bf+de, then the RHS can be written as n=pq
             result.append(String.format("<font color='%s'>Let n=bf+de, then the RHS can be written as</font><br>", COLOR));
             BigInteger n = bf.add(de);
-            result.append(String.format(Locale.getDefault(), "n=%s<br>", getNP(n)));
+            result.append(String.format(Locale.getDefault(), "n=%s<br>", formatSigned(n)));
             result.append("<br>");
 
             // So we must solve (bx+e)(by+d)=n
             result.append(String.format("<font color='%s'>So we must solve (b<b>x</b>+e)(b<b>y</b>+d)=n</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)=%s<br>", getNP(b), getNP(e), getNP(b), getNP(d), getNP(n)));
+            result.append(String.format(Locale.getDefault(), "(%s<b>x</b>+%s)(%s<b>y</b>+%s)=%s<br>", formatSigned(b), formatSigned(e), formatSigned(b), formatSigned(d), formatSigned(n)));
             result.append("<br>");
 
             // Factoring n into pq pairs using Trial Division
@@ -123,7 +125,7 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
                         BigInteger q2 = pairFactor2.second;
                         BigInteger p3 = pairFactor3.first;
                         BigInteger q3 = pairFactor3.second;
-                        result.append(String.format(Locale.getDefault(), "[%s, %s] [%s, %s] [%s, %s] [%s, %s]<br>", getNP(p0), getNP(q0), getNP(p1), getNP(q1), getNP(p2), getNP(q2), getNP(p3), getNP(q3)));
+                        result.append(String.format(Locale.getDefault(), "[%s, %s] [%s, %s] [%s, %s] [%s, %s]<br>", formatSigned(p0), formatSigned(q0), formatSigned(p1), formatSigned(q1), formatSigned(p2), formatSigned(q2), formatSigned(p3), formatSigned(q3)));
                     }
                 }
                 result.append("<br>");
@@ -145,7 +147,7 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
                     BigInteger q = solution.getQ();
                     BigInteger x = solution.getX();
                     BigInteger y = solution.getY();
-                    result.append(String.format(Locale.getDefault(), "[%s, %s] %s [%s, %s]<br>", getNP(p), getNP(q), RIGHT_ARROW_COLORED, getNP(x), getNP(y)));
+                    result.append(String.format(Locale.getDefault(), "[%s, %s] %s [%s, %s]<br>", formatSigned(p), formatSigned(q), RIGHT_ARROW_COLORED, formatSigned(x), formatSigned(y)));
                 }
             } else {
                 result.append("No solutions were found");
@@ -162,9 +164,9 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
                 BigInteger x = solution.getX();
                 BigInteger y = solution.getY();
                 if (i != solutions.size() - 1) {
-                    result.append(String.format(Locale.getDefault(), "[%s, %s]<br>", getNP(x), getNP(y)));
+                    result.append(String.format(Locale.getDefault(), "[%s, %s]<br>", formatSigned(x), formatSigned(y)));
                 } else {
-                    result.append(String.format(Locale.getDefault(), "[%s, %s]", getNP(x), getNP(y)));
+                    result.append(String.format(Locale.getDefault(), "[%s, %s]", formatSigned(x), formatSigned(y)));
                 }
             }
 

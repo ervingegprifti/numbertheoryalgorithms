@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getSign;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
@@ -34,7 +34,7 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
 
             // Solve for x,y such as ax+by=c where a,b,c,x,y ∊ ℤ with a,b ≠ 0
             result.append("Solve for <b>x</b>,<b>y</b> such as a<b>x</b>+b<b>y</b>=c where a,b,c,<b>x</b>,<b>y</b> ∊ ℤ with a,b ≠ 0<br>");
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b>=%s <br>", getNP(a), getNP(b), getNP(c)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b>+%s<b>y</b>=%s <br>", formatSigned(a), formatSigned(b), formatSigned(c)));
             result.append("<br>");
 
             // InputGroup
@@ -77,8 +77,8 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
 
             // Use Extended Euclidean Algorithm to find xₑₑ and yₑₑ from |a|x + |b|y = GCD(|a|, |b|) = g
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Use Extended Euclidean Algorithm to find xₑₑ and yₑₑ from |a|<b>x</b> + |b|<b>y</b> = GCD(|a|, |b|) = g </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "xₑₑ = sign(a)·xₑₑ = %s·%s = %s <br>", getNP(getSign(a)), getNP(EE[1]), xee));
-            result.append(String.format(Locale.getDefault(), "yₑₑ = sign(b)·yₑₑ = %s·%s = %s <br>", getNP(getSign(b)), getNP(EE[2]), yee));
+            result.append(String.format(Locale.getDefault(), "xₑₑ = sign(a)·xₑₑ = %s·%s = %s <br>", formatSigned(getSign(a)), formatSigned(EE[1]), xee));
+            result.append(String.format(Locale.getDefault(), "yₑₑ = sign(b)·yₑₑ = %s·%s = %s <br>", formatSigned(getSign(b)), formatSigned(EE[2]), yee));
             result.append("<br>");
 
             BigInteger x0 = (xee.multiply(c.divide(g)));
@@ -86,8 +86,8 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
 
             // A particular first initial solution is x₀ = xₑₑ(c/g) and y₀ = yₑₑ(c/g)
             result.append(String.format(Locale.getDefault(), "<font color='%s'>A particular first initial solution is x₀ = xₑₑ(c/g) and y₀ = yₑₑ(c/g) </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "x₀ = %s·(%s/%s) = %s <br>", getNP(xee), getNP(c), getNP(g), getNP(x0)));
-            result.append(String.format(Locale.getDefault(), "y₀ = %s·(%s/%s) = %s <br>", getNP(yee), getNP(c), getNP(g), getNP(y0)));
+            result.append(String.format(Locale.getDefault(), "x₀ = %s·(%s/%s) = %s <br>", formatSigned(xee), formatSigned(c), formatSigned(g), formatSigned(x0)));
+            result.append(String.format(Locale.getDefault(), "y₀ = %s·(%s/%s) = %s <br>", formatSigned(yee), formatSigned(c), formatSigned(g), formatSigned(y0)));
             result.append("<br>");
 
             // For r ∊ ℤ, The general x,y solution is
@@ -95,18 +95,18 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
             result.append("<b>x</b> = x₀ + (b/g)<b>r</b>  <br>");
             result.append("<b>y</b> = y₀ - (a/g)<b>r</b>  <br>");
             result.append("<br>");
-            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s + (%s/%s)<b>r</b>  <br>", getNP(x0), getNP(b), getNP(g)));
-            result.append(String.format(Locale.getDefault(), "<b>y</b> = %s - (%s/%s)<b>r</b>  <br>", getNP(y0), getNP(a), getNP(g)));
+            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s + (%s/%s)<b>r</b>  <br>", formatSigned(x0), formatSigned(b), formatSigned(g)));
+            result.append(String.format(Locale.getDefault(), "<b>y</b> = %s - (%s/%s)<b>r</b>  <br>", formatSigned(y0), formatSigned(a), formatSigned(g)));
             result.append("<br>");
             BigInteger bDg = b.divide(g);
             BigInteger aDg = a.divide(g);
-            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s + %s<b>r</b>  <br>", getNP(x0), getNP(bDg)));
-            result.append(String.format(Locale.getDefault(), "<b>y</b> = %s - %s<b>r</b>  <br>", getNP(y0), getNP(aDg)));
+            result.append(String.format(Locale.getDefault(), "<b>x</b> = %s + %s<b>r</b>  <br>", formatSigned(x0), formatSigned(bDg)));
+            result.append(String.format(Locale.getDefault(), "<b>y</b> = %s - %s<b>r</b>  <br>", formatSigned(y0), formatSigned(aDg)));
             result.append("<br>");
 
             // The Linear Diophantine Equation ax+by=c can be written as
             result.append(String.format(Locale.getDefault(), "<font color='%s'>The Linear Diophantine Equation a<b>x</b>+b<b>y</b>=c can be written as </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "%s(%s + %s<b>r</b>)+%s(%s - %s<b>r</b>)=c  <br>", getNP(a), getNP(x0), getNP(bDg), getNP(b), getNP(y0), getNP(aDg)));
+            result.append(String.format(Locale.getDefault(), "%s(%s + %s<b>r</b>)+%s(%s - %s<b>r</b>)=c  <br>", formatSigned(a), formatSigned(x0), formatSigned(bDg), formatSigned(b), formatSigned(y0), formatSigned(aDg)));
             result.append("<br>");
 
             // Check correctness for r = {-3, ..., 3}
@@ -127,22 +127,22 @@ public class LinearDiophantineEquation extends Algorithm implements StringCalcul
                 BigInteger cCalculated = ax.add(by);
 
                 List<String> row = new ArrayList<>();
-                row.add(String.format(Locale.getDefault(), "<b>r</b> = %s", getNP(r)));
+                row.add(String.format(Locale.getDefault(), "<b>r</b> = %s", formatSigned(r)));
                 row.add(NBSP + RIGHT_ARROW_COLORED + NBSP);
-                row.add(String.format(Locale.getDefault(), "<b>x</b> = %s + %s·%s", getNP(x0), getNP(bDg), getNP(r)));
+                row.add(String.format(Locale.getDefault(), "<b>x</b> = %s + %s·%s", formatSigned(x0), formatSigned(bDg), formatSigned(r)));
                 row.add(" = ");
-                row.add(String.format(Locale.getDefault(), "%s+%s", getNP(x0), getNP(bDgMr)));
-                row.add(String.format(Locale.getDefault(), " = %s", getNP(x)));
+                row.add(String.format(Locale.getDefault(), "%s+%s", formatSigned(x0), formatSigned(bDgMr)));
+                row.add(String.format(Locale.getDefault(), " = %s", formatSigned(x)));
                 row.add(" and ");
-                row.add(String.format(Locale.getDefault(), "<b>y</b> = %s - %s·%s", getNP(y0), getNP(aDg), getNP(r)));
+                row.add(String.format(Locale.getDefault(), "<b>y</b> = %s - %s·%s", formatSigned(y0), formatSigned(aDg), formatSigned(r)));
                 row.add(" = ");
-                row.add(String.format(Locale.getDefault(), "%s-%s", getNP(y0), getNP(aDgMr)));
-                row.add(String.format(Locale.getDefault(), " = %s", getNP(y)));
+                row.add(String.format(Locale.getDefault(), "%s-%s", formatSigned(y0), formatSigned(aDgMr)));
+                row.add(String.format(Locale.getDefault(), " = %s", formatSigned(y)));
                 row.add(NBSP + RIGHT_ARROW_COLORED + NBSP);
-                row.add(String.format(Locale.getDefault(),"%s·%s", getNP(a), getNP(x)));
+                row.add(String.format(Locale.getDefault(),"%s·%s", formatSigned(a), formatSigned(x)));
                 row.add(" + ");
-                row.add(String.format(Locale.getDefault(),"%s·%s", getNP(b), getNP(y)));
-                row.add(String.format(Locale.getDefault()," = %s", getNP(cCalculated)));
+                row.add(String.format(Locale.getDefault(),"%s·%s", formatSigned(b), formatSigned(y)));
+                row.add(String.format(Locale.getDefault()," = %s", formatSigned(cCalculated)));
                 tabular.addRow(row);
             }
             result.append(tabular.render());

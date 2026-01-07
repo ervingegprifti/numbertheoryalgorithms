@@ -1,6 +1,10 @@
 package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.digitsWithin;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.parseBigIntegerOrNull;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -44,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -463,6 +468,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextCompactA.set(false); // Unlock editTextCompactA
                     }
+                    refreshTitle();
                 }
             });
             editTextB.addTextChangedListener(new TextWatcher() {
@@ -487,6 +493,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextCompactB.set(false); // Unlock editTextCompactB
                     }
+                    refreshTitle();
                 }
             });
             editTextC.addTextChangedListener(new TextWatcher() {
@@ -511,6 +518,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextCompactC.set(false); // Unlock editTextCompactC
                     }
+                    refreshTitle();
                 }
             });
             editTextD.addTextChangedListener(new TextWatcher() {
@@ -535,6 +543,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextCompactD.set(false); // Unlock editTextCompactD
                     }
+                    refreshTitle();
                 }
             });
             editTextE.addTextChangedListener(new TextWatcher() {
@@ -559,6 +568,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextCompactE.set(false); // Unlock editTextCompactE
                     }
+                    refreshTitle();
                 }
             });
             editTextF.addTextChangedListener(new TextWatcher() {
@@ -583,6 +593,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextCompactF.set(false); // Unlock editTextCompactF
                     }
+                    refreshTitle();
                 }
             });
 
@@ -608,6 +619,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextA.set(false); // unlock editTextA
                     }
+                    refreshTitle();
                 }
             });
             editTextCompactB.addTextChangedListener(new TextWatcher() {
@@ -630,6 +642,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextB.set(false); // unlock editTextB
                     }
+                    refreshTitle();
                 }
             });
             editTextCompactC.addTextChangedListener(new TextWatcher() {
@@ -652,6 +665,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextC.set(false); // unlock editTextC
                     }
+                    refreshTitle();
                 }
             });
             editTextCompactD.addTextChangedListener(new TextWatcher() {
@@ -674,6 +688,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextD.set(false); // unlock editTextD
                     }
+                    refreshTitle();
                 }
             });
             editTextCompactE.addTextChangedListener(new TextWatcher() {
@@ -696,6 +711,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextE.set(false); // unlock editTextE
                     }
+                    refreshTitle();
                 }
             });
             editTextCompactF.addTextChangedListener(new TextWatcher() {
@@ -718,6 +734,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     } finally {
                         isUpdatingEditTextF.set(false); // unlock editTextF
                     }
+                    refreshTitle();
                 }
             });
 
@@ -1239,6 +1256,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     @Override
     public void onResume() {
         super.onResume();
+        refreshTitle();
         refreshInputToggle();
         refreshInputViewMode();
         refreshShowInputDecreaseIncreaseButtons();
@@ -1246,7 +1264,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         refreshHideExampleButtons();
         refreshResultDisplay();
         refreshRun();
-        refreshTitle();
     }
 
 
@@ -1579,26 +1596,35 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
 
     private void refreshTitle() {
-        Editable a = editTextA.getText();
-        Editable b = editTextB.getText();
-        Editable c = editTextC.getText();
-        Editable d = editTextD.getText();
-        Editable e = editTextE.getText();
-        Editable f = editTextF.getText();
+        BigInteger a = parseBigIntegerOrNull(editTextA.getText());
+        BigInteger b = parseBigIntegerOrNull(editTextB.getText());
+        BigInteger c = parseBigIntegerOrNull(editTextC.getText());
+        BigInteger d = parseBigIntegerOrNull(editTextD.getText());
+        BigInteger e = parseBigIntegerOrNull(editTextE.getText());
+        BigInteger f = parseBigIntegerOrNull(editTextF.getText());
 
-        boolean checkA = a.length() > 0 && a.length() <= 2;
-        boolean checkB = b.length() > 0 && b.length() <= 2;
-        boolean checkC = c.length() > 0 && c.length() <= 2;
-        boolean checkD = d.length() > 0 && d.length() <= 2;
-        boolean checkE = e.length() > 0 && e.length() <= 2;
-        boolean checkF = f.length() > 0 && f.length() <= 3;
+        boolean ok =
+                digitsWithin(a, 2) &&
+                digitsWithin(b, 2) &&
+                digitsWithin(c, 2) &&
+                digitsWithin(d, 2) &&
+                digitsWithin(e, 2) &&
+                digitsWithin(f, 3);
 
-        if (checkA && checkB && checkC && checkD && checkE && checkF) {
-            String title = a + "x²+" + b + "xy+" + c + "y²+" + d + "x+" + e + "y=" + f;
-            textViewTitle.setText(title);
-        } else {
+        if (!ok) {
             textViewTitle.setText(R.string.binary_quadratic_form_title);
+            return;
         }
+
+        String updatedTitle =
+                formatSigned(a) + "x²+" +
+                formatSigned(b) + "xy+" +
+                formatSigned(c) + "y²+" +
+                formatSigned(d) + "x+" +
+                formatSigned(e) + "y=" +
+                formatSigned(f);
+
+        textViewTitle.setText(updatedTitle);
     }
     //endregion Refresh UI
 
