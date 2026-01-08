@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -63,6 +64,9 @@ public class FragmentPrimesList extends FragmentBase {
     // Result
     private LinearLayout resultLinearLayoutGridContainer;
     private LinearLayout resultLinearLayoutGrid;
+    private LinearLayout resultLinearLayoutGridCorner;
+    private LinearLayout resultLinearLayoutGridRowHeaders;
+    private ListView resultListViewGridRowHeaders;
     private LinearLayout resultLinearLayoutGridColumnHeaders;
     private ListView resultListViewGridRows;
 
@@ -98,6 +102,9 @@ public class FragmentPrimesList extends FragmentBase {
             // Result
             this.resultLinearLayoutGridContainer = inflater.findViewById(R.id.ResultLinearLayoutGridContainer);
             this.resultLinearLayoutGrid = inflater.findViewById(R.id.ResultLinearLayoutGrid);
+            this.resultLinearLayoutGridCorner = inflater.findViewById(R.id.ResultLinearLayoutGridCorner);
+            this.resultLinearLayoutGridRowHeaders = inflater.findViewById(R.id.ResultLinearLayoutGridRowHeaders);
+            this.resultListViewGridRowHeaders = inflater.findViewById(R.id.ResultListViewGridRowHeaders);
             this.resultLinearLayoutGridColumnHeaders = inflater.findViewById(R.id.ResultLinearLayoutGridColumnHeaders);
             this.resultListViewGridRows = inflater.findViewById(R.id.ResultListViewGridRows);
 
@@ -150,6 +157,8 @@ public class FragmentPrimesList extends FragmentBase {
                 this.resetResult();
                 resetAllAndSelectTheLastButtonClicked(textViewClearResult);
             });
+
+            resultListViewGridRows.setOnScrollListener(resultSyncScrollListener);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -158,6 +167,20 @@ public class FragmentPrimesList extends FragmentBase {
     }
     //endregion CREATE
 
+
+    AbsListView.OnScrollListener resultSyncScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            // Not needed
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            View firstView = view.getChildAt(0);
+            int topOffset = (firstView == null) ? 0 : firstView.getTop();
+            resultListViewGridRowHeaders.setSelectionFromTop(firstVisibleItem, topOffset);
+        }
+    };
 
     @Override
     protected void fireOnDoubleTap(View view) {
@@ -275,9 +298,9 @@ public class FragmentPrimesList extends FragmentBase {
 
     private void showResult(Grid grid) {
         try {
-            List<List<Cell>> corner = grid.getCorner(); // TODO
+            List<List<Cell>> corner = grid.getCorner();
             List<List<Cell>> columnHeaders = grid.getColumnHeaders();
-            List<List<Cell>> rowHeaders = grid.getRowHeaders(); // TODO
+            List<List<Cell>> rowHeaders = grid.getRowHeaders();
             List<List<Cell>> rows = grid.getRows();
 
             List<Cell> columnHeaderRow = columnHeaders.get(0);
@@ -305,14 +328,25 @@ public class FragmentPrimesList extends FragmentBase {
             float dividerDp = biggerResultDisplay ? 4f : 1f;
             int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
             resultListViewGridRows.setDividerHeight(dividerPx);
+            resultListViewGridRowHeaders.setDividerHeight(dividerPx);
 
             // Set column headers.
             CellUI cellUI = new CellUI(requireContext(), cellWidths, cellHeights, biggerResultDisplay);
+            Grid.setColumnHeaders(cellUI, corner, resultLinearLayoutGridCorner);
             Grid.setColumnHeaders(cellUI, columnHeaders, resultLinearLayoutGridColumnHeaders);
 
-            // Create and set the adapter.
+            // Manually set the row headers width as per the cellWidthDefault.
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) resultLinearLayoutGridRowHeaders.getLayoutParams();
+            params.width = cellWidthDefault + dividerPx;
+            resultLinearLayoutGridRowHeaders.setLayoutParams(params);
+
+            // Create and set the adapter for grid rows.
             GridAdapter adapter = new GridAdapter(requireContext(), cellWidths, cellHeights, rows, biggerResultDisplay);
             setListViewAdapter(resultListViewGridRows, adapter);
+
+            // Create and set the adapter for grid row headers.
+            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
+            setListViewAdapter(resultListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }

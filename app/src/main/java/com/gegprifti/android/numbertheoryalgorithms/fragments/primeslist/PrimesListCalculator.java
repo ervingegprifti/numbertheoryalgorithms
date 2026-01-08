@@ -36,25 +36,19 @@ public class PrimesListCalculator {
             cornerRow.add(cornerCell);
             corner.add(cornerRow);
             // ┌───────┐
-            // │       │
+            // │   k   │
             // └───────┘
 
             // Create column headers. List of header cells in the x axis.
             List<Cell> columnHeaderRow = new ArrayList<>();
-            for(int c = -1; c < columns; c++) {
-                if(c == -1) { // TODO remove later when making use of corner.
-                    // The first column header
-                    columnHeaderRow.add(cornerCell); // TODO remove later when making use of corner.
-                } else {
-                    // This is a column header
-                    Cell columnHeader = new Cell(true,columns + "k+" + c,false);
-                    columnHeaderRow.add(columnHeader);
-                }
+            for(int c = 0; c < columns; c++) {
+                Cell columnHeaderCell = new Cell(true,columns + "k+" + c,false);
+                columnHeaderRow.add(columnHeaderCell);
             }
             columnHeaders.add(columnHeaderRow);
             // column if k = 6
-            // 0,    1,    2,    3,    4,    5,    6
-            // k,    6k+0, 6k+1, 6k+2, 6k+3, 6k+4, 6k+5
+            // 0,    1,    2,    3,    4,    5,
+            // 6k+0, 6k+1, 6k+2, 6k+3, 6k+4, 6k+5
 
             // Create the numbers
             int nrOfRows = (int)Math.ceil((double) (numbers/columns)) + 1 ;
@@ -67,12 +61,10 @@ public class PrimesListCalculator {
                 for(int c = -1; c < columns; c++) {
                     if(c == -1) {
                         // Create the row header
-                        Cell cellRowHeader = new Cell(true, Integer.toString(k), false);
-                        rowHeaderRow.add(cellRowHeader);
+                        Cell rowHeaderCell = new Cell(true, Integer.toString(k), false);
+                        rowHeaderRow.add(rowHeaderCell);
                         rowHeaders.add(rowHeaderRow);
-                        row.add(cellRowHeader);
                         // The first row cell. Represents the values of k.
-                        // k
                         // 0
                         // 1
                         // 2
@@ -87,7 +79,7 @@ public class PrimesListCalculator {
                 rows.add(row);
             }
 
-            return new Grid(null, columnHeaders, rowHeaders, rows, null);
+            return new Grid(corner, columnHeaders, rowHeaders, rows, null);
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
             // Re-throw it so ProgressManager can handle it correctly.
