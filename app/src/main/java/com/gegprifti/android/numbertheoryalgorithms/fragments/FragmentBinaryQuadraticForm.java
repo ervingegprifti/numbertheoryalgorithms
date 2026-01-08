@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -365,6 +364,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.buttonRun = inflater.findViewById(R.id.ButtonRun);
             this.buttonRun1 = inflater.findViewById(R.id.ButtonRun1);
             this.buttonRun2 = inflater.findViewById(R.id.ButtonRun2);
+            // Button mods
+            this.linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
             this.buttonMMinus = inflater.findViewById(R.id.ButtonMMinus);
             this.buttonM = inflater.findViewById(R.id.ButtonM);
             this.buttonMPlus = inflater.findViewById(R.id.ButtonMPlus);
@@ -379,8 +380,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             this.linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
             this.editTextResult = inflater.findViewById(R.id.EditTextResult);
-            // Button mods
-            this.linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
             // Result 1
             this.result1LinearLayoutGridContainer = inflater.findViewById(R.id.Result1LinearLayoutGridContainer);
             this.result1LinearLayoutGrid = inflater.findViewById(R.id.Result1LinearLayoutGrid);
