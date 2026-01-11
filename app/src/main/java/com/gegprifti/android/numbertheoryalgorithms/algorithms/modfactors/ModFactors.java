@@ -54,36 +54,42 @@ public class ModFactors extends Algorithm implements StringCalculator {
             int counter = 0;
             int bCharacters = b.toString().length();
             int bbCharacters = b.multiply(b).toString().length();
+
+            // d = {0, ..., b-1}
             for (BigInteger d = ZERO; d.compareTo(b) < 0; d = d.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
+
+                // e = {0, ..., b-1}
                 for (BigInteger e = ZERO; e.compareTo(b) < 0; e = e.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
-                    if(d.compareTo(e) <= 0) {
-                        // Get only one of the pair and the ones with the same values. e.x. from 1,2 and 2,1 get only one pair 1,2. Get all the pairs like 00; 11; 22...
-                        BigInteger de = d.multiply(e);
-                        BigInteger rem = de.mod(b);
-                        if(r.equals(rem)) {
-                            counter += 1;
 
-                            String dStringFormat = AlgorithmHelper.paddingCharacters(d, bCharacters);
-                            String dString;
-                            if (d.isProbablePrime(10)) {
-                                dString = String.format(Locale.getDefault(), "<font color='%s'>%s</font>", COLOR_CIAN_DARK, dStringFormat);
-                            } else {
-                                dString = dStringFormat;
-                            }
+                    BigInteger de = d.multiply(e);
+                    BigInteger rem = de.mod(b);
 
-                            String eStringFormat = AlgorithmHelper.paddingCharacters(e, bCharacters);
-                            String eString;
-                            if (e.isProbablePrime(10)) {
-                                eString = String.format(Locale.getDefault(), "<font color='%s'>%s</font>", COLOR_CIAN_DARK, eStringFormat);
-                            } else {
-                                eString = eStringFormat;
-                            }
+                    String dStringFormat = AlgorithmHelper.paddingCharacters(d, bCharacters);
+                    String dString;
+                    if (d.isProbablePrime(10)) {
+                        dString = String.format(Locale.getDefault(), "<font color='%s'>%s</font>", COLOR_CIAN_DARK, dStringFormat);
+                    } else {
+                        dString = dStringFormat;
+                    }
 
-                            String deString = AlgorithmHelper.paddingCharacters(de, bbCharacters);
-                            result.append(String.format(Locale.getDefault(), "de = %s·%s = %s ≡ %s (mod %s)<br>", dString, eString, deString, r, b));
-                        }
+                    String eStringFormat = AlgorithmHelper.paddingCharacters(e, bCharacters);
+                    String eString;
+                    if (e.isProbablePrime(10)) {
+                        eString = String.format(Locale.getDefault(), "<font color='%s'>%s</font>", COLOR_CIAN_DARK, eStringFormat);
+                    } else {
+                        eString = eStringFormat;
+                    }
+
+                    String deString = AlgorithmHelper.paddingCharacters(de, bbCharacters);
+                    String resultString = "de = %s·%s = %s ≡ %s (mod %s) %s<br>";
+
+                    if(r.equals(rem)) {
+                        counter += 1;
+                        result.append(String.format(Locale.getDefault(), "<b>" + resultString + "</b>", dString, eString, deString, r, b, counter));
+                    } else {
+                        result.append(String.format(Locale.getDefault(), resultString, dString, eString, deString, r, b, ""));
                     }
                 }
             }
