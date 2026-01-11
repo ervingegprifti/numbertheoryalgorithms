@@ -6,6 +6,8 @@ import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticfo
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm1;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm2;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.*;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors.ModFactors;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors.ModFactorsCount;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.gegprifti.android.numbertheoryalgorithms.algorithms;
+package com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors;
 
 
 import android.util.Log;
@@ -24,45 +24,49 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
         StringBuilder result = new StringBuilder();
         try {
             BigInteger n = algorithmParameters.getInput1();
-            BigInteger a = algorithmParameters.getInput2();
+            BigInteger b = algorithmParameters.getInput2();
 
             // Mod factors count
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Mod factors count </font><br>", COLOR));
-            result.append("(a<b>x</b> + c)(a<b>y</b> + b) = a(a<b>x</b><b>y</b> + b<b>x</b> + c<b>y</b>) + bc = n </font><br>");
+            result.append("Find n ≡ de (mod b) where <br>");
+            result.append("(b<b>x</b> + e)(b<b>y</b> + d) = n </font><br>");
+            result.append("b(b<b>x</b><b>y</b> + d<b>x</b> + e<b>y</b>) + de = n </font><br>");
+            result.append("b<b>x</b><b>y</b> + d<b>x</b> + e<b>y</b> = (n-de)/b </font><br>");
             result.append("<br>");
 
-            // InputGroup
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>InputGroup</font><br>", COLOR));
+            // Inputs
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Inputs</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "n = %s<br>", n));
-            result.append(String.format(Locale.getDefault(), "a = %s<br>", a));
+            result.append(String.format(Locale.getDefault(), "b = %s<br>", b));
             result.append("<br>");
 
-            // Count possible bc mod factors for each b,c = {0, ... , k-1}, k = {2, ... , a}
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Count possible bc mod factors for each b,c = {0, ... , k-1}, k = {2, ... , a} </font><br>", COLOR));
+            // Count possible de mod factors for each d,e = {0, ... , k-1}, k = {2, ... , b}
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Count possible de mod factors for each d,e = {0, ... , k-1}, k = {2, ... , b} </font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'>n (mod k) = r</font><br>",COLOR));
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>bc ≡ r (mod k) %s p possible bc mod factors counted per each k</font><br>",COLOR, RIGHT_ARROW_COLORED));
-            for(BigInteger k = TWO; k.compareTo(a) <= 0; k = k.add(ONE))
-            {
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>de ≡ r (mod k) %s p possible de mod factors counted per each k</font><br>",COLOR, RIGHT_ARROW_COLORED));
+
+            //
+            for(BigInteger k = TWO; k.compareTo(b) <= 0; k = k.add(ONE)) {
                 BigInteger m = n.mod(k);
                 int counter = 0;
-                for (BigInteger b = ZERO; b.compareTo(k) < 0; b = b.add(ONE)) {
+                for (BigInteger d = ZERO; d.compareTo(k) < 0; d = d.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
-                    for (BigInteger c = ZERO; c.compareTo(k) < 0; c = c.add(ONE)) {
+                    for (BigInteger e = ZERO; e.compareTo(k) < 0; e = e.add(ONE)) {
                         AlgorithmHelper.checkIfCanceled();
-                        if(b.compareTo(c) <= 0) {
+                        if(d.compareTo(e) <= 0) {
                             // Get only one of the pair and the ones with the same values.
                             // e.x. from 1,2 and 2,1 get only one pair 1,2. Get all the pairs like 0,0; 1,1; 2,2;...
-                            BigInteger rem = b.multiply(c).mod(k);
+                            BigInteger rem = d.multiply(e).mod(k);
                             if(m.equals(rem)) {
                                 counter += 1;
                             }
                         }
                     }
                 }
-                if(k.equals(a)) {
-                    result.append(String.format(Locale.getDefault(), "bc ≡ %s (mod %s) %s %s", m, k, RIGHT_ARROW_COLORED, counter));
+                if(k.equals(b)) {
+                    result.append(String.format(Locale.getDefault(), "de ≡ %s (mod %s) %s %s", m, k, RIGHT_ARROW_COLORED, counter));
                 } else {
-                    result.append(String.format(Locale.getDefault(), "bc ≡ %s (mod %s) %s %s<br>", m, k, RIGHT_ARROW_COLORED, counter));
+                    result.append(String.format(Locale.getDefault(), "de ≡ %s (mod %s) %s %s<br>", m, k, RIGHT_ARROW_COLORED, counter));
                 }
             }
 

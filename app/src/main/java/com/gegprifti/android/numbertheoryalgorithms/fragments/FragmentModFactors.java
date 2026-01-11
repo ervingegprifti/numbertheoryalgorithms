@@ -54,14 +54,14 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     TextView textViewPasteN;
     TextView textViewClearN;
     EditText editTextN;
-    TextView textViewLabelA;
-    TextView textViewLabelElasticA;
-    TextView textViewMinusA;
-    TextView textViewPlusA;
-    TextView textViewCopyA;
-    TextView textViewPasteA;
-    TextView textViewClearA;
-    EditText editTextA;
+    TextView textViewLabelB;
+    TextView textViewLabelElasticB;
+    TextView textViewMinusB;
+    TextView textViewPlusB;
+    TextView textViewCopyB;
+    TextView textViewPasteB;
+    TextView textViewClearB;
+    EditText editTextB;
     // Compact input view
     LinearLayout linearLayoutCompactInputView;
     TextView textViewLabelCompactN;
@@ -71,13 +71,13 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     TextView textViewCopyCompactN;
     TextView textViewPasteCompactN;
     TextView textViewClearCompactN;
-    TextView textViewLabelCompactA;
-    EditText editTextCompactA;
-    TextView textViewMinusCompactA;
-    TextView textViewPlusCompactA;
-    TextView textViewCopyCompactA;
-    TextView textViewPasteCompactA;
-    TextView textViewClearCompactA;
+    TextView textViewLabelCompactB;
+    EditText editTextCompactB;
+    TextView textViewMinusCompactB;
+    TextView textViewPlusCompactB;
+    TextView textViewCopyCompactB;
+    TextView textViewPasteCompactB;
+    TextView textViewClearCompactB;
     // Example run buttons
     LinearLayout linearLayoutExamplesContainer;
     Button buttonRunExample1;
@@ -99,8 +99,8 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     // Flags to prevent recursive updates
     AtomicBoolean isUpdatingEditTextN = new AtomicBoolean(false);
     AtomicBoolean isUpdatingEditTextCompactN = new AtomicBoolean(false);
-    AtomicBoolean isUpdatingEditTextA = new AtomicBoolean(false);
-    AtomicBoolean isUpdatingEditTextCompactA = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextB = new AtomicBoolean(false);
+    AtomicBoolean isUpdatingEditTextCompactB = new AtomicBoolean(false);
 
 
     // Define the parent fragment
@@ -132,14 +132,14 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewPasteN = inflater.findViewById(R.id.TextViewPasteN);
             textViewClearN = inflater.findViewById(R.id.TextViewClearN);
             editTextN = inflater.findViewById(R.id.EditTextN);
-            textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
-            textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
-            textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
-            textViewPlusA = inflater.findViewById(R.id.TextViewPlusA);
-            textViewCopyA = inflater.findViewById(R.id.TextViewCopyA);
-            textViewPasteA = inflater.findViewById(R.id.TextViewPasteA);
-            textViewClearA = inflater.findViewById(R.id.TextViewClearA);
-            editTextA = inflater.findViewById(R.id.EditTextA);
+            textViewLabelB = inflater.findViewById(R.id.TextViewLabelB);
+            textViewLabelElasticB = inflater.findViewById(R.id.TextViewLabelElasticB);
+            textViewMinusB = inflater.findViewById(R.id.TextViewMinusB);
+            textViewPlusB = inflater.findViewById(R.id.TextViewPlusB);
+            textViewCopyB = inflater.findViewById(R.id.TextViewCopyB);
+            textViewPasteB = inflater.findViewById(R.id.TextViewPasteB);
+            textViewClearB = inflater.findViewById(R.id.TextViewClearB);
+            editTextB = inflater.findViewById(R.id.EditTextB);
             // Compact input view
             linearLayoutCompactInputView = inflater.findViewById(R.id.LinearLayoutCompactInputView);
             textViewLabelCompactN = inflater.findViewById(R.id.TextViewLabelCompactN);
@@ -149,13 +149,13 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewCopyCompactN = inflater.findViewById(R.id.TextViewCopyCompactN);
             textViewPasteCompactN = inflater.findViewById(R.id.TextViewPasteCompactN);
             textViewClearCompactN = inflater.findViewById(R.id.TextViewClearCompactN);
-            textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
-            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
-            textViewMinusCompactA = inflater.findViewById(R.id.TextViewMinusCompactA);
-            textViewPlusCompactA = inflater.findViewById(R.id.TextViewPlusCompactA);
-            textViewCopyCompactA = inflater.findViewById(R.id.TextViewCopyCompactA);
-            textViewPasteCompactA = inflater.findViewById(R.id.TextViewPasteCompactA);
-            textViewClearCompactA = inflater.findViewById(R.id.TextViewClearCompactA);
+            textViewLabelCompactB = inflater.findViewById(R.id.TextViewLabelCompactB);
+            editTextCompactB = inflater.findViewById(R.id.EditTextCompactB);
+            textViewMinusCompactB = inflater.findViewById(R.id.TextViewMinusCompactB);
+            textViewPlusCompactB = inflater.findViewById(R.id.TextViewPlusCompactB);
+            textViewCopyCompactB = inflater.findViewById(R.id.TextViewCopyCompactB);
+            textViewPasteCompactB = inflater.findViewById(R.id.TextViewPasteCompactB);
+            textViewClearCompactB = inflater.findViewById(R.id.TextViewClearCompactB);
             // Example run buttons
             this.linearLayoutExamplesContainer = inflater.findViewById(R.id.LinearLayoutExamplesContainer);
             this.buttonRunExample1 = inflater.findViewById(R.id.ButtonRunExample1);
@@ -177,10 +177,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
 
             // Constrain expanded input
             editTextN.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
-            editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             // Constrain compact input
             editTextCompactN.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
-            editTextCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // Navigation vents
             textViewBackToAlgorithms.setOnClickListener(view -> {
@@ -216,7 +216,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     }
                 }
             });
-            editTextA.addTextChangedListener(new TextWatcher() {
+            editTextB.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
@@ -224,19 +224,19 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 @Override
                 public void afterTextChanged(Editable s) {
                     // Prevent recursive updates
-                    if (isUpdatingEditTextA.get()) return; // editTextA is locked
+                    if (isUpdatingEditTextB.get()) return; // editTextB is locked
                     // Other work
-                    String labelText = "a" + UIHelper.getNrOfDigits(s.toString());
-                    textViewLabelA.setText(labelText);
+                    String labelText = "b" + UIHelper.getNrOfDigits(s.toString());
+                    textViewLabelB.setText(labelText);
                     resetResult(false);
                     resetAllAndSelectTheLastButtonClicked();
-                    // Sync to editTextCompactA
-                    isUpdatingEditTextCompactA.set(true); // Lock editTextCompactA
+                    // Sync to editTextCompactB
+                    isUpdatingEditTextCompactB.set(true); // Lock editTextCompactB
                     try {
-                        editTextCompactA.setText(s.toString());
-                        // editTextCompactA.setSelection(s.length()); // Set cursor to the end
+                        editTextCompactB.setText(s.toString());
+                        // editTextCompactB.setSelection(s.length()); // Set cursor to the end
                     } finally {
-                        isUpdatingEditTextCompactA.set(false); // Unlock editTextCompactA
+                        isUpdatingEditTextCompactB.set(false); // Unlock editTextCompactB
                     }
                 }
             });
@@ -264,7 +264,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     }
                 }
             });
-            editTextCompactA.addTextChangedListener(new TextWatcher() {
+            editTextCompactB.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
@@ -272,17 +272,17 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 @Override
                 public void afterTextChanged(Editable s) {
                     // Prevent recursive updates
-                    if (isUpdatingEditTextCompactA.get()) return; // editTextCompactA is locked
+                    if (isUpdatingEditTextCompactB.get()) return; // editTextCompactB is locked
                     // Other work
                     resetResult(false);
                     resetAllAndSelectTheLastButtonClicked();
-                    // Sync to editTextA
-                    isUpdatingEditTextA.set(true); // Lock editTextA
+                    // Sync to editTextB
+                    isUpdatingEditTextB.set(true); // Lock editTextB
                     try {
-                        editTextA.setText(s.toString());
-                        // editTextA.setSelection(s.length()); // Set cursor to the end
+                        editTextB.setText(s.toString());
+                        // editTextB.setSelection(s.length()); // Set cursor to the end
                     } finally {
-                        isUpdatingEditTextA.set(false); // unlock editTextA
+                        isUpdatingEditTextB.set(false); // unlock editTextB
                     }
                 }
             });
@@ -309,26 +309,26 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastButtonClicked(textViewClearN);
             });
 
-            // Expanded input a clipboard button events
-            textViewMinusA.setOnClickListener(v -> {
-                decreaseByOne(editTextA);
-                resetAllAndSelectTheLastButtonClicked(textViewMinusA);
+            // Expanded input b clipboard button events
+            textViewMinusB.setOnClickListener(v -> {
+                decreaseByOne(editTextB);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusB);
             });
-            textViewPlusA.setOnClickListener(v -> {
-                increaseByOne(editTextA);
-                resetAllAndSelectTheLastButtonClicked(textViewPlusA);
+            textViewPlusB.setOnClickListener(v -> {
+                increaseByOne(editTextB);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusB);
             });
-            textViewCopyA.setOnClickListener(v -> {
-                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextA);
-                resetAllAndSelectTheLastButtonClicked(textViewCopyA);
+            textViewCopyB.setOnClickListener(v -> {
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextB);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyB);
             });
-            textViewPasteA.setOnClickListener(v -> {
-                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextA);
-                resetAllAndSelectTheLastButtonClicked(textViewPasteA);
+            textViewPasteB.setOnClickListener(v -> {
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteB);
             });
-            textViewClearA.setOnClickListener(v -> {
-                UIHelper.clearEditText(requireContext(), editTextA);
-                resetAllAndSelectTheLastButtonClicked(textViewClearA);
+            textViewClearB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextB);
+                resetAllAndSelectTheLastButtonClicked(textViewClearB);
             });
 
             // Compact input n clipboard button events
@@ -353,26 +353,26 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastButtonClicked(textViewClearCompactN);
             });
 
-            // Compact input a clipboard button events
-            textViewMinusCompactA.setOnClickListener(v -> {
-                decreaseByOne(editTextCompactA);
-                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactA);
+            // Compact input b clipboard button events
+            textViewMinusCompactB.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactB);
             });
-            textViewPlusCompactA.setOnClickListener(v -> {
-                increaseByOne(editTextCompactA);
-                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactA);
+            textViewPlusCompactB.setOnClickListener(v -> {
+                increaseByOne(editTextCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactB);
             });
-            textViewCopyCompactA.setOnClickListener(v -> {
-                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactA);
-                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactA);
+            textViewCopyCompactB.setOnClickListener(v -> {
+                UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewCopyCompactB);
             });
-            textViewPasteCompactA.setOnClickListener(v -> {
-                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactA);
-                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactA);
+            textViewPasteCompactB.setOnClickListener(v -> {
+                UIHelper.pasteTextFromClipboardIntoEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewPasteCompactB);
             });
-            textViewClearCompactA.setOnClickListener(v -> {
-                UIHelper.clearEditText(requireContext(), editTextCompactA);
-                resetAllAndSelectTheLastButtonClicked(textViewClearCompactA);
+            textViewClearCompactB.setOnClickListener(v -> {
+                UIHelper.clearEditText(requireContext(), editTextCompactB);
+                resetAllAndSelectTheLastButtonClicked(textViewClearCompactB);
             });
 
             // Example run button events
@@ -459,42 +459,42 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             int id = menuItem.getItemId();
             if (id == R.id.mod_factors_menu_example_1) {
                 this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_1_n));
-                this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_1_a));
+                this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_1_a));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.mod_factors_menu_example_2) {
                 this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_2_n));
-                this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_2_a));
+                this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_2_a));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.mod_factors_menu_example_3) {
                 this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_3_n));
-                this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_3_a));
+                this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_3_a));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.mod_factors_menu_example_4) {
                 this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_4_n));
-                this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_4_a));
+                this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_4_a));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.mod_factors_menu_example_5) {
                 this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_5_n));
-                this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_5_a));
+                this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_5_a));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
                 resetResult(true);
                 return true;
             }
             if (id == R.id.mod_factors_menu_example_6) {
                 this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_6_n));
-                this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_6_a));
+                this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_6_a));
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_6));
                 resetResult(true);
                 return true;
@@ -550,19 +550,19 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 textViewPlusN.setVisibility(View.VISIBLE);
                 textViewMinusCompactN.setVisibility(View.VISIBLE);
                 textViewPlusCompactN.setVisibility(View.VISIBLE);
-                textViewMinusA.setVisibility(View.VISIBLE);
-                textViewPlusA.setVisibility(View.VISIBLE);
-                textViewMinusCompactA.setVisibility(View.VISIBLE);
-                textViewPlusCompactA.setVisibility(View.VISIBLE);
+                textViewMinusB.setVisibility(View.VISIBLE);
+                textViewPlusB.setVisibility(View.VISIBLE);
+                textViewMinusCompactB.setVisibility(View.VISIBLE);
+                textViewPlusCompactB.setVisibility(View.VISIBLE);
             } else {
                 textViewMinusN.setVisibility(View.GONE);
                 textViewPlusN.setVisibility(View.GONE);
                 textViewMinusCompactN.setVisibility(View.GONE);
                 textViewPlusCompactN.setVisibility(View.GONE);
-                textViewMinusA.setVisibility(View.GONE);
-                textViewPlusA.setVisibility(View.GONE);
-                textViewMinusCompactA.setVisibility(View.GONE);
-                textViewPlusCompactA.setVisibility(View.GONE);
+                textViewMinusB.setVisibility(View.GONE);
+                textViewPlusB.setVisibility(View.GONE);
+                textViewMinusCompactB.setVisibility(View.GONE);
+                textViewPlusCompactB.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -596,21 +596,21 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             ControlDisplay.setClipboardButtonFontSize(textViewCopyN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearN, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewMinusA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPlusA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewCopyA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPasteA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactN, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactN, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactA, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCopyCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
             // Clipboard output buttons
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
@@ -619,14 +619,14 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             ControlDisplay.setInputLabelFontSize(textViewLabelN, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticN, biggerControls);
             ControlDisplay.setInputFontSize(editTextN, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
-            ControlDisplay.setInputFontSize(editTextA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelB, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelElasticB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextB, biggerControls);
             // Compact input controls
             ControlDisplay.setInputLabelFontSize(textViewLabelCompactN, biggerControls);
             ControlDisplay.setInputFontSize(editTextCompactN, biggerControls);
-            ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
-            ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactB, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
             // Example run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
@@ -696,7 +696,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void onButtonRunExample1(ViewGroup container) {
         try {
             this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_1_n));
-            this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_1_a));
+            this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_1_a));
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
             //
             onButtonRun(container, buttonRunExample1, true);
@@ -707,7 +707,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void onButtonRunExample2(ViewGroup container) {
         try {
             this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_2_n));
-            this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_2_a));
+            this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_2_a));
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
             //
             onButtonRun(container, buttonRunExample2, true);
@@ -718,7 +718,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void onButtonRunExample3(ViewGroup container) {
         try {
             this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_3_n));
-            this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_3_a));
+            this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_3_a));
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
             //
             onButtonRun(container, buttonRunExample3, true);
@@ -729,7 +729,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void onButtonRunExample4(ViewGroup container) {
         try {
             this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_4_n));
-            this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_4_a));
+            this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_4_a));
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
             //
             onButtonRun(container, buttonRunExample4, true);
@@ -740,7 +740,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void onButtonRunExample5(ViewGroup container) {
         try {
             this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_5_n));
-            this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_5_a));
+            this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_5_a));
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
             //
             onButtonRun(container, buttonRunExample5, true);
@@ -751,7 +751,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     private void onButtonRunExample6(ViewGroup container) {
         try {
             this.editTextN.setText(requireContext().getText(R.string.mod_factors_example_6_n));
-            this.editTextA.setText(requireContext().getText(R.string.mod_factors_example_6_a));
+            this.editTextB.setText(requireContext().getText(R.string.mod_factors_example_6_a));
             this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_6));
             //
             onButtonRun(container, buttonRunExample6, true);
@@ -766,28 +766,28 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 .setCompactControls(textViewLabelCompactN, editTextCompactN)
                 .build();
     }
-    private InputGroup getInputGroupA() {
+    private InputGroup getInputGroupB() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setExpandedControls(textViewLabelA, "a", textViewLabelElasticA,editTextA )
-                .setCompactControls(textViewLabelCompactA, editTextCompactA)
+                .setExpandedControls(textViewLabelB, "b", textViewLabelElasticB,editTextB )
+                .setCompactControls(textViewLabelCompactB, editTextCompactB)
                 .build();
     }
     private void onButtonRun(ViewGroup container, Button button, boolean skipLabelResult) {
         try {
             // Check.
             InputGroup inputGroupN = getInputGroupN();
-            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupN, BigInteger.ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupA, TWO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupB, TWO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
             // Get numbers
             BigInteger n = new BigInteger(editTextN.getText().toString());
-            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult(skipLabelResult);
@@ -798,7 +798,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Perform the mod factors
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.MOD_FACTORS, this);
             algorithmParameters.setInput1(n);
-            algorithmParameters.setInput2(a);
+            algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -808,17 +808,17 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         try {
             // Check.
             InputGroup inputGroupN = getInputGroupN();
-            InputGroup inputGroupA = getInputGroupA();
+            InputGroup inputGroupB = getInputGroupB();
             if(UIHelper.checkInputMustBeGreaterThanOrEqualToMin(requireContext(), inputGroupN, BigInteger.ZERO)) {
                 return;
             }
-            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupA, TWO, INTEGER_MAX_VALUE)) {
+            if(UIHelper.checkInputMustBeBetweenMinMaxInclusive(requireContext(), inputGroupB, TWO, INTEGER_MAX_VALUE)) {
                 return;
             }
 
             // Get numbers
             BigInteger n = new BigInteger(editTextN.getText().toString());
-            BigInteger a = new BigInteger(editTextA.getText().toString());
+            BigInteger b = new BigInteger(editTextB.getText().toString());
 
             // Reset result
             resetResult(false);
@@ -829,7 +829,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Perform the mod factors
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.MOD_FACTORS_COUNT, this);
             algorithmParameters.setInput1(n);
-            algorithmParameters.setInput2(a);
+            algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
@@ -844,9 +844,9 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
         editTextN.clearFocus();
-        editTextA.clearFocus();
+        editTextB.clearFocus();
         editTextCompactN.clearFocus();
-        editTextCompactA.clearFocus();
+        editTextCompactB.clearFocus();
         // Select the last button clicked.
         resetAllAndSelectTheLastButtonClicked(button);
     }
@@ -859,21 +859,21 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         textViewCopyN.setSelected(false);
         textViewPasteN.setSelected(false);
         textViewClearN.setSelected(false);
-        textViewMinusA.setSelected(false);
-        textViewPlusA.setSelected(false);
-        textViewCopyA.setSelected(false);
-        textViewPasteA.setSelected(false);
-        textViewClearA.setSelected(false);
+        textViewMinusB.setSelected(false);
+        textViewPlusB.setSelected(false);
+        textViewCopyB.setSelected(false);
+        textViewPasteB.setSelected(false);
+        textViewClearB.setSelected(false);
         textViewMinusCompactN.setSelected(false);
         textViewPlusCompactN.setSelected(false);
         textViewCopyCompactN.setSelected(false);
         textViewPasteCompactN.setSelected(false);
         textViewClearCompactN.setSelected(false);
-        textViewMinusCompactA.setSelected(false);
-        textViewPlusCompactA.setSelected(false);
-        textViewCopyCompactA.setSelected(false);
-        textViewPasteCompactA.setSelected(false);
-        textViewClearCompactA.setSelected(false);
+        textViewMinusCompactB.setSelected(false);
+        textViewPlusCompactB.setSelected(false);
+        textViewCopyCompactB.setSelected(false);
+        textViewPasteCompactB.setSelected(false);
+        textViewClearCompactB.setSelected(false);
         //
         buttonRunExample1.setSelected(false);
         buttonRunExample2.setSelected(false);

@@ -72,27 +72,27 @@
                     android:autofillHints=""
                     android:layout_marginBottom="10dp"/>
 
-                <!--InputGroup integer a:-->
+                <!--InputGroup integer b:-->
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelInputStyle"
-                        android:id="@+id/TextViewLabelA"
-                        android:text="@string/label_a"
-                        android:labelFor="@+id/EditTextA" />
+                        android:id="@+id/TextViewLabelB"
+                        android:text="@string/label_b"
+                        android:labelFor="@+id/EditTextB" />
                     <TextView style="@style/TextViewLabelElasticStyle"
-                        android:id="@+id/TextViewLabelElasticA"  />
+                        android:id="@+id/TextViewLabelElasticB"  />
                     <TextView style="@style/ClipboardButtonMinusStyle"
-                        android:id="@+id/TextViewMinusA" />
+                        android:id="@+id/TextViewMinusB" />
                     <TextView style="@style/ClipboardButtonPlusStyle"
-                        android:id="@+id/TextViewPlusA" />
+                        android:id="@+id/TextViewPlusB" />
                     <TextView style="@style/ClipboardButtonCopyStyle"
-                        android:id="@+id/TextViewCopyA" />
+                        android:id="@+id/TextViewCopyB" />
                     <TextView style="@style/ClipboardButtonPasteStyle"
-                        android:id="@+id/TextViewPasteA"  />
+                        android:id="@+id/TextViewPasteB"  />
                     <TextView style="@style/ClipboardButtonClearStyle"
-                        android:id="@+id/TextViewClearA"  />
+                        android:id="@+id/TextViewClearB"  />
                 </LinearLayout>
                 <EditText style="@style/EditTextNumberPositiveInputStyle"
-                    android:id="@+id/EditTextA"
+                    android:id="@+id/EditTextB"
                     android:autofillHints="" />
             </LinearLayout>
 
@@ -121,24 +121,24 @@
                         android:id="@+id/TextViewClearCompactN" />
                 </LinearLayout>
 
-                <!--InputGroup integer a:-->
+                <!--InputGroup integer b:-->
                 <LinearLayout style="@style/RowContainerStyle">
                     <TextView style="@style/TextViewLabelCompactStyle"
-                        android:id="@+id/TextViewLabelCompactA"
-                        android:text="@string/label_a" />
+                        android:id="@+id/TextViewLabelCompactB"
+                        android:text="@string/label_b" />
                     <EditText style="@style/EditTextNumberInputCompactStyle"
-                        android:id="@+id/EditTextCompactA"
+                        android:id="@+id/EditTextCompactB"
                         android:autofillHints="@string/empty" />
                     <TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-                        android:id="@+id/TextViewMinusCompactA" />
+                        android:id="@+id/TextViewMinusCompactB" />
                     <TextView style="@style/ClipboardButtonPlusMiddleCompactStyle"
-                        android:id="@+id/TextViewPlusCompactA" />
+                        android:id="@+id/TextViewPlusCompactB" />
                     <TextView style="@style/ClipboardButtonCopyMiddleCompactStyle"
-                        android:id="@+id/TextViewCopyCompactA" />
+                        android:id="@+id/TextViewCopyCompactB" />
                     <TextView style="@style/ClipboardButtonPasteMiddleCompactStyle"
-                        android:id="@+id/TextViewPasteCompactA" />
+                        android:id="@+id/TextViewPasteCompactB" />
                     <TextView style="@style/ClipboardButtonClearRightCompactStyle"
-                        android:id="@+id/TextViewClearCompactA" />
+                        android:id="@+id/TextViewClearCompactB" />
                 </LinearLayout>
             </LinearLayout>
 
