@@ -37,9 +37,18 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             BigInteger e = algorithmParameters.getInput5();
             BigInteger f = algorithmParameters.getInput6();
 
-            BigInteger xMax = f.add(ONE);
+            BigInteger limitAxis = new BigInteger("1000");
+            BigInteger maxX = f.add(ONE);
             if (d.compareTo(ZERO) != 0) {
-                xMax = f.divide(d).add(ONE);
+                maxX = f.divide(d).add(ONE);
+            }
+            if(maxX.compareTo(limitAxis) > 0){
+                maxX = limitAxis;
+            }
+
+            BigInteger maxF = f.add(ONE);
+            if(maxF.compareTo(limitAxis) > 0){
+                maxF = limitAxis;
             }
 
             // Add the corner.
@@ -53,7 +62,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
 
             // Add column headers.
             List<Cell> columnHeaderRow = new ArrayList<>();
-            for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
+            for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 Cell columnHeader = new Cell(true, "x=" + x, false);
                 columnHeaderRow.add(columnHeader);
@@ -65,8 +74,8 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
             // │  x=0  │  x=1  │  x=2  │  x=3  │  x=4  │ ...  │  solutions  │
             // └───────┴───────┴───────┴───────┴───────┘      └─────────────┘
 
-            // Calculate solutions from 0 up until f
-            for(BigInteger i = ZERO; i.compareTo(f.add(ONE)) <= 0; i = i.add(ONE)) {
+            // Calculate solutions from 0 up until f or max f
+            for(BigInteger i = ZERO; i.compareTo(maxF) <= 0; i = i.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 List<Cell> row = new ArrayList<>();
 
@@ -79,7 +88,7 @@ public class BinaryQuadraticForm1 extends Algorithm implements GridCalculator {
                 List<String> solutionsPerRow = new ArrayList<>();
 
                 // Add columns.
-                for (BigInteger x = ZERO; x.compareTo(xMax) <= 0; x = x.add(ONE)) {
+                for (BigInteger x = ZERO; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
                     String resultFromFixedX = getResultFromFixedX(a, b, c, d, e, i, x);
                     if (resultFromFixedX.isEmpty()) {

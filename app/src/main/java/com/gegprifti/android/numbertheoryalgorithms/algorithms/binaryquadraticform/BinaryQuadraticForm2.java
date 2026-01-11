@@ -41,19 +41,30 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger e = algorithmParameters.getInput5();
             BigInteger f = algorithmParameters.getInput6();
 
-            BigInteger minX = ZERO;
+            BigInteger limitAxis = new BigInteger("500");
             BigInteger maxX = f.abs();
             if (d.compareTo(ZERO) != 0) {
                 maxX = f.abs().divide(d.abs()).add(ONE);
             }
-            minX = maxX.negate();
+            BigInteger minX = maxX.negate();
+            if(minX.compareTo(limitAxis.negate()) < 0){
+                minX = limitAxis.negate();
+            }
+            if(maxX.compareTo(limitAxis) > 0){
+                maxX = limitAxis;
+            }
 
-            BigInteger minY = ZERO;
             BigInteger maxY = f.abs();
             if (e.compareTo(ZERO) != 0) {
                 maxY = f.abs().divide(e.abs()).add(ONE);
             }
-            minY = maxY.negate();
+            BigInteger minY = maxY.negate();
+            if(minY.compareTo(limitAxis.negate()) < 0){
+                minY = limitAxis.negate();
+            }
+            if(maxY.compareTo(limitAxis) > 0){
+                maxY = limitAxis;
+            }
             
             // Add the corner.
             List<Cell> cornerRow = new ArrayList<>();
