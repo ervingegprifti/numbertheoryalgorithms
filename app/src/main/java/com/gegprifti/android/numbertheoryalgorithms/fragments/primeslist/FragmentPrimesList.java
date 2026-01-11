@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -26,15 +27,19 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.DialogFragmentPdfV
 import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.TabFragmentAlgorithms;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.GridAdapter;
+import com.gegprifti.android.numbertheoryalgorithms.grid.CellUI;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Grid;
+import com.gegprifti.android.numbertheoryalgorithms.grid.GridAdapter;
 import com.gegprifti.android.numbertheoryalgorithms.R;
 import com.gegprifti.android.numbertheoryalgorithms.settings.ControlDisplay;
 import com.gegprifti.android.numbertheoryalgorithms.popups.PopupResult;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.RowItem;
+import com.gegprifti.android.numbertheoryalgorithms.grid.Cell;
 import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -56,8 +61,14 @@ public class FragmentPrimesList extends FragmentBase {
     private TextView textViewLabelElasticResult;
     private TextView textViewExpandResult;
     private TextView textViewClearResult;
-    private LinearLayout linearLayoutStaticColumnHeader;
-    private ListView listViewResult;
+    // Result
+    private LinearLayout resultLinearLayoutGridContainer;
+    private LinearLayout resultLinearLayoutGrid;
+    private LinearLayout resultLinearLayoutGridCorner;
+    private LinearLayout resultLinearLayoutGridRowHeaders;
+    private ListView resultListViewGridRowHeaders;
+    private LinearLayout resultLinearLayoutGridColumnHeaders;
+    private ListView resultListViewGridRows;
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -88,8 +99,14 @@ public class FragmentPrimesList extends FragmentBase {
             this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
             this.textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
             this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
-            this.linearLayoutStaticColumnHeader = inflater.findViewById(R.id.LinearLayoutStaticColumnHeader);
-            this.listViewResult = inflater.findViewById(R.id.ListViewResult);
+            // Result
+            this.resultLinearLayoutGridContainer = inflater.findViewById(R.id.ResultLinearLayoutGridContainer);
+            this.resultLinearLayoutGrid = inflater.findViewById(R.id.ResultLinearLayoutGrid);
+            this.resultLinearLayoutGridCorner = inflater.findViewById(R.id.ResultLinearLayoutGridCorner);
+            this.resultLinearLayoutGridRowHeaders = inflater.findViewById(R.id.ResultLinearLayoutGridRowHeaders);
+            this.resultListViewGridRowHeaders = inflater.findViewById(R.id.ResultListViewGridRowHeaders);
+            this.resultLinearLayoutGridColumnHeaders = inflater.findViewById(R.id.ResultLinearLayoutGridColumnHeaders);
+            this.resultListViewGridRows = inflater.findViewById(R.id.ResultListViewGridRows);
 
             // Constrain compact input
             editTextCompactK.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -132,7 +149,7 @@ public class FragmentPrimesList extends FragmentBase {
             });
 
             textViewExpandResult.setOnClickListener(v -> {
-                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutStaticColumnHeader, listViewResult);
+                PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), resultLinearLayoutGrid);
                 popupResult.show();
                 resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
             });
@@ -140,6 +157,8 @@ public class FragmentPrimesList extends FragmentBase {
                 this.resetResult();
                 resetAllAndSelectTheLastButtonClicked(textViewClearResult);
             });
+
+            resultListViewGridRows.setOnScrollListener(resultSyncScrollListener);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -148,6 +167,20 @@ public class FragmentPrimesList extends FragmentBase {
     }
     //endregion CREATE
 
+
+    AbsListView.OnScrollListener resultSyncScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            // Not needed
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            View firstView = view.getChildAt(0);
+            int topOffset = (firstView == null) ? 0 : firstView.getTop();
+            resultListViewGridRowHeaders.setSelectionFromTop(firstVisibleItem, topOffset);
+        }
+    };
 
     @Override
     protected void fireOnDoubleTap(View view) {
@@ -256,21 +289,22 @@ public class FragmentPrimesList extends FragmentBase {
 
             // Perform generate numbers
             PrimesListCalculator primesListCalculator = new PrimesListCalculator(columns.intValue(), NUMBERS);
-            List<List<RowItem>> plResultList = (List<List<RowItem>>) primesListCalculator.calculate();
-            showResult(plResultList);
+            Grid grid = primesListCalculator.calculate();
+            showResult(grid);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
 
-
-    private void showResult(List<List<RowItem>> rows) {
+    private void showResult(Grid grid) {
         try {
-            if(rows == null || rows.isEmpty()) {
-                return;
-            }
+            List<List<Cell>> corner = grid.getCorner();
+            List<List<Cell>> columnHeaders = grid.getColumnHeaders();
+            List<List<Cell>> rowHeaders = grid.getRowHeaders();
+            List<List<Cell>> rows = grid.getRows();
 
-            String maxText = getMaxText(rows);
+            List<Cell> columnHeaderRow = columnHeaders.get(0);
+            String maxText = getMaxText(rows, columnHeaderRow);
 
             // Get the value from shared preferences.
             boolean biggerResultDisplay = UserSettings.getBiggerResultDisplay(requireContext());
@@ -279,23 +313,40 @@ public class FragmentPrimesList extends FragmentBase {
             // TextView textViewTemp = new TextView(requireContext());
             LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             TextView textViewTemp;
-            int rowItemResource = biggerResultDisplay ? R.layout.row_item_big : R.layout.row_item_small;
-            textViewTemp = (TextView) layoutInflater.inflate(rowItemResource, null);
+            int cellResource = biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
+            textViewTemp = (TextView) layoutInflater.inflate(cellResource, null);
             textViewTemp.setText(maxText);
             textViewTemp.measure(0, 0); //must call measure!
-            int rowItemWidth = textViewTemp.getMeasuredWidth();
-            int rowItemHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int cellWidthDefault = textViewTemp.getMeasuredWidth();
+            int cellHeightDefault = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+            // Populate cellWidths and cellHeights
+            List<Integer> cellWidths = new ArrayList<>(Collections.nCopies(rows.get(0).size(), cellWidthDefault));
+            List<Integer> cellHeights = new ArrayList<>(Collections.nCopies(rows.size(), cellHeightDefault));
 
             // Set the listview row space.
-            if(biggerResultDisplay) {
-                listViewResult.setDividerHeight((int) UIHelper.convertDpToPixel(4F, requireContext()));
-            } else {
-                listViewResult.setDividerHeight((int) UIHelper.convertDpToPixel(1F, requireContext()));
-            }
+            float dividerDp = biggerResultDisplay ? 4f : 1f;
+            int dividerPx = (int) UIHelper.convertDpToPixel(dividerDp, requireContext());
+            resultListViewGridRows.setDividerHeight(dividerPx);
+            resultListViewGridRowHeaders.setDividerHeight(dividerPx);
 
-            // Create and set the adapter.
-            GridAdapter adapter = new GridAdapter(requireContext(), linearLayoutStaticColumnHeader, rows, rowItemWidth, null, rowItemHeight, null, biggerResultDisplay);
-            setListViewAdapter(listViewResult, adapter);
+            // Set column headers.
+            CellUI cellUI = new CellUI(requireContext(), cellWidths, cellHeights, biggerResultDisplay);
+            Grid.setColumnHeaders(cellUI, corner, resultLinearLayoutGridCorner);
+            Grid.setColumnHeaders(cellUI, columnHeaders, resultLinearLayoutGridColumnHeaders);
+
+            // Manually set the row headers width as per the cellWidthDefault.
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) resultLinearLayoutGridRowHeaders.getLayoutParams();
+            params.width = cellWidthDefault + dividerPx;
+            resultLinearLayoutGridRowHeaders.setLayoutParams(params);
+
+            // Create and set the adapter for grid rows.
+            GridAdapter adapter = new GridAdapter(requireContext(), cellWidths, cellHeights, rows, biggerResultDisplay);
+            setListViewAdapter(resultListViewGridRows, adapter);
+
+            // Create and set the adapter for grid row headers.
+            GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
+            setListViewAdapter(resultListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -303,11 +354,9 @@ public class FragmentPrimesList extends FragmentBase {
 
 
     @NonNull
-    private String getMaxText(List<List<RowItem>> rows) {
-        // Get the first row (the headers row)
-        List<RowItem> firstRow = rows.get(0);
+    private String getMaxText(List<List<Cell>> rows, List<Cell> columnHeaderRow) {
         // Get the last lvItem value of the first row
-        int maxTextLength = getMaxTextLength(rows, firstRow);
+        int maxTextLength = getMaxTextLength(rows, columnHeaderRow);
         maxTextLength = maxTextLength + 1; // Add 1 for easy reading.
         // Construct the maxText. if maxTextLength = 6 the maxText = "000000"
         StringBuilder maxText = new StringBuilder(maxTextLength);
@@ -318,10 +367,10 @@ public class FragmentPrimesList extends FragmentBase {
     }
 
 
-    private static int getMaxTextLength(List<List<RowItem>> rows, List<RowItem> firstRow) {
-        String firstRowLastValue = firstRow.get(firstRow.size()-1).getValue();
+    private static int getMaxTextLength(List<List<Cell>> rows, List<Cell> columnHeaderRow) {
+        String firstRowLastValue = columnHeaderRow.get(columnHeaderRow.size()-1).getValue();
         // Get the last row
-        List<RowItem> lastRow = rows.get(rows.size()-1);
+        List<Cell> lastRow = rows.get(rows.size()-1);
         // Get the last lvItem value of the last row
         String lastRowLastValue = lastRow.get(lastRow.size()-1).getValue();
         // Pre-calculate the TextViewLVItemListItem width
@@ -365,8 +414,8 @@ public class FragmentPrimesList extends FragmentBase {
     }
     private void resetResult() {
         resetAllAndSelectTheLastButtonClicked();
-        linearLayoutStaticColumnHeader.removeAllViews();
-        setListViewAdapter(listViewResult, null);
+        resultLinearLayoutGridColumnHeaders.removeAllViews();
+        setListViewAdapter(resultListViewGridRows, null);
     }
     //endregion RESULT
 }

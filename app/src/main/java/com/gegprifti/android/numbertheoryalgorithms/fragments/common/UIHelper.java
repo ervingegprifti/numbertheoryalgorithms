@@ -513,32 +513,32 @@ public final class UIHelper {
 
 
     public static void displayNormal(InputGroup inputGroup) {
-        inputGroup.label.setBackgroundResource(R.drawable.label_input_bg);
-        inputGroup.labelElastic.setBackgroundResource(R.drawable.label_elastic_bg);
-        inputGroup.input.setBackgroundResource(R.drawable.edittext_input_bg);
-        if (inputGroup.labelCompact != null) { // TODO +++ remove the check later when implemented for all.
-            inputGroup.labelCompact.setBackgroundResource(R.drawable.label_input_compact_bg);
+        inputGroup.expandedLabel.setBackgroundResource(R.drawable.label_input_bg);
+        inputGroup.expandedLabelElastic.setBackgroundResource(R.drawable.label_elastic_bg);
+        inputGroup.expandedInput.setBackgroundResource(R.drawable.edittext_input_bg);
+        if (inputGroup.compactLabel != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.compactLabel.setBackgroundResource(R.drawable.label_input_compact_bg);
         }
-        if (inputGroup.inputCompact != null) { // TODO +++ remove the check later when implemented for all.
-            inputGroup.inputCompact.setBackgroundResource(R.drawable.edittext_input_compact_bg);
+        if (inputGroup.compactInput != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.compactInput.setBackgroundResource(R.drawable.edittext_input_compact_bg);
         }
     }
 
 
     public static void displayError(InputGroup inputGroup) {
-        inputGroup.label.setBackgroundResource(R.drawable.label_input_error_bg);
-        inputGroup.labelElastic.setBackgroundResource(R.drawable.label_elastic_error_bg);
-        inputGroup.input.setBackgroundResource(R.drawable.edittext_input_error_bg);
-        if (inputGroup.labelCompact != null) { // TODO +++ remove the check later when implemented for all.
-            inputGroup.labelCompact.setBackgroundResource(R.drawable.label_input_error_compact_bg);
+        inputGroup.expandedLabel.setBackgroundResource(R.drawable.label_input_error_bg);
+        inputGroup.expandedLabelElastic.setBackgroundResource(R.drawable.label_elastic_error_bg);
+        inputGroup.expandedInput.setBackgroundResource(R.drawable.edittext_input_error_bg);
+        if (inputGroup.compactLabel != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.compactLabel.setBackgroundResource(R.drawable.label_input_error_compact_bg);
         }
-        if (inputGroup.inputCompact != null) { // TODO +++ remove the check later when implemented for all.
-            inputGroup.inputCompact.setBackgroundResource(R.drawable.edittext_input_error_compact_bg);
+        if (inputGroup.compactInput != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.compactInput.setBackgroundResource(R.drawable.edittext_input_error_compact_bg);
         }
-        if (inputGroup.isCompactInputView && inputGroup.inputCompact != null) { // TODO +++ remove the check later when implemented for all.
-            inputGroup.inputCompact.requestFocus();
+        if (inputGroup.isCompactInputView && inputGroup.compactInput != null) { // TODO +++ remove the check later when implemented for all.
+            inputGroup.compactInput.requestFocus();
         } else {
-            inputGroup.input.requestFocus();
+            inputGroup.expandedInput.requestFocus();
         }
     }
 
@@ -556,10 +556,10 @@ public final class UIHelper {
 
 
     public static boolean checkInputMustBeFilled(Context context, InputGroup inputGroup) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         String errorMessageFormat = "The input <b>%s</b> must be filled.";
         return checkInputMustBeFilled(context, inputGroup, errorMessageFormat);
@@ -575,10 +575,10 @@ public final class UIHelper {
      * @return true if the check failed, false otherwise.
      */
     public static boolean checkInputMustBeFilled(Context context, InputGroup inputGroup, String errorMessageFormat) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         boolean checkFailed;
         String errorMessage = "";
@@ -608,10 +608,10 @@ public final class UIHelper {
      * @return true if the check failed, false otherwise.
      */
     public static boolean checkInputMustBeNumber(Context context, InputGroup inputGroup) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         boolean checkFailed;
         String errorMessage = "";
@@ -653,10 +653,10 @@ public final class UIHelper {
      * @return true if the check failed, false otherwise.
      */
     public static boolean checkInputMustBePrimeNumber(Context context, InputGroup inputGroup) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         boolean checkFailed;
         String errorMessage = "";
@@ -692,10 +692,10 @@ public final class UIHelper {
      * @return true if the check failed, false otherwise.
      */
     public static boolean checkInputMustBeOtherThanZero(Context context, InputGroup inputGroup) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         boolean checkFailed;
         String errorMessage = "";
@@ -733,10 +733,10 @@ public final class UIHelper {
      * @return true if the check failed, false otherwise.
      */
     public static boolean checkInputMustBeBetweenMinMaxInclusive(Context context, InputGroup inputGroup, BigInteger minValue, BigInteger maxValue) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         boolean checkFailed;
         String errorMessage = "";
@@ -773,10 +773,10 @@ public final class UIHelper {
      * @return true if the check failed, false otherwise.
      */
     public static boolean checkInputMustBeGreaterThanOrEqualToMin(Context context, InputGroup inputGroup, BigInteger minValue) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         boolean checkFailed;
         String errorMessage = "";
@@ -813,10 +813,10 @@ public final class UIHelper {
      * @return true if the check failed, false otherwise.
      */
     public static boolean checkInputMustBeGreaterThanMin(Context context, InputGroup inputGroup, BigInteger minValue) {
-        TextView label = inputGroup.label;
-        String labelText = inputGroup.labelText;
-        TextView labelElastic = inputGroup.labelElastic;
-        EditText editText = inputGroup.input;
+        TextView label = inputGroup.expandedLabel;
+        String labelText = inputGroup.expandedLabelText;
+        TextView labelElastic = inputGroup.expandedLabelElastic;
+        EditText editText = inputGroup.expandedInput;
 
         boolean checkFailed;
         String errorMessage = "";

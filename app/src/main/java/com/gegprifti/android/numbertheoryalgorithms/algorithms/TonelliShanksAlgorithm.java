@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
@@ -35,13 +35,13 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
 
             // Solve for x, quadratic residue modulo x² ≡ a (mod p), where p ∊ PRIMES
             result.append("Solve for <b>x</b>, quadratic residue modulo <b>x</b>² ≡ a (mod p), where p ∊ PRIMES<br>");
-            result.append(String.format(Locale.getDefault(), "<b>x</b>² ≡ %s (mod %s)<br>", getNP(a), getNP(p)));
+            result.append(String.format(Locale.getDefault(), "<b>x</b>² ≡ %s (mod %s)<br>", formatSigned(a), formatSigned(p)));
             result.append("<br>");
 
             //
             result.append(String.format(Locale.getDefault(),"<font color='%s'>InputGroup </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(),"%sa = %s<br>", TAB, getNP(a)));
-            result.append(String.format(Locale.getDefault(),"%sp = %s<br>", TAB, getNP(p)));
+            result.append(String.format(Locale.getDefault(),"%sa = %s<br>", TAB, formatSigned(a)));
+            result.append(String.format(Locale.getDefault(),"%sp = %s<br>", TAB, formatSigned(p)));
             result.append("<br>");
 
             // p must be prime. Check if p is prime.

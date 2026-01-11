@@ -1,14 +1,15 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms.common;
 
 
-import android.util.Log;
+import android.text.Editable;
 import android.util.Pair;
 
-import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
+import androidx.annotation.Nullable;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class AlgorithmHelper {
@@ -17,11 +18,76 @@ public class AlgorithmHelper {
     private static final BigInteger TWO = BigInteger.valueOf(2L);
     private static final BigInteger EIGHT = BigInteger.valueOf(8L);
 
+    @Nullable
+    public static BigInteger parseBigIntegerOrNull(@Nullable Editable editable) {
+        if (editable == null) return null;
 
-    public static String getNP(int value) {
+        String s = editable.toString().trim();
+        if (s.isEmpty()) return null;
+
+        // Accept digits with optional leading minus; reject "+" and "-" alone
+        if (!s.matches("-?\\d+")) return null;
+
+        try {
+            return new BigInteger(s);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
+    public static boolean digitsWithin(@Nullable BigInteger v, int maxDigits) {
+        if (v == null) return false;
+        // digits ignoring sign; 0 has 1 digit
+        return v.abs().toString().length() <= maxDigits;
+    }
+
+    /**
+     * Formats an {@code int} value for mathematical display.
+     * <p>
+     * If the value is negative, it is wrapped in parentheses
+     * (e.g. {@code (-5)}). If the value is zero or positive,
+     * it is returned as a plain string (e.g. {@code 0}, {@code 7}).
+     * <p>
+     * This is useful when rendering algebraic expressions to avoid
+     * ambiguity such as {@code x + -3}, which becomes {@code x + (-3)}.
+     *
+     * <h3>Examples</h3>
+     * <pre>{@code
+     * getNP(-5)   -> "(-5)"
+     * getNP(0)    -> "0"
+     * getNP(7)    -> "7"
+     * getNP(-42)  -> "(-42)"
+     * }</pre>
+     *
+     * @param value the integer value to format
+     * @return a string representation suitable for mathematical expressions
+     */
+    public static String formatSigned(int value) {
         return  (value < 0) ? "(" + value + ")" : value + "";
     }
-    public static String getNP(BigInteger value) {
+
+    /**
+     * Formats a {@link BigInteger} for mathematical display.
+     * <p>
+     * If the value is negative, it is wrapped in parentheses
+     * (e.g. {@code (-5)}). If the value is zero or positive,
+     * it is returned as a plain string (e.g. {@code 0}, {@code 7}).
+     * <p>
+     * This is useful when rendering algebraic expressions to avoid
+     * ambiguity such as {@code x + -3}, which becomes {@code x + (-3)}.
+     *
+     * <h3>Examples</h3>
+     * <pre>{@code
+     * getNP(BigInteger.valueOf(-5))   -> "(-5)"
+     * getNP(BigInteger.ZERO)          -> "0"
+     * getNP(BigInteger.valueOf(7))    -> "7"
+     * getNP(new BigInteger("-123"))  -> "(-123)"
+     * }</pre>
+     *
+     * @param value the number to format (must not be {@code null})
+     * @return a string representation suitable for mathematical expressions
+     */
+    public static String formatSigned(BigInteger value) {
         return  (value.compareTo(BigInteger.ZERO) < 0) ? "(" + value + ")" : value + "";
     }
 
@@ -264,5 +330,49 @@ public class AlgorithmHelper {
         if (Thread.currentThread().isInterrupted()) {
             throw new InterruptedException("Calculation was cancelled by the user.");
         }
+    }
+
+
+    public static String runBQF1(BigInteger b, BigInteger d, BigInteger e, BigInteger f) throws InterruptedException {
+        // Multiply both sides with b then, b²xy+bdx+bey=bf
+        BigInteger bf = f.multiply(b);
+        // Add de to both sides then, b²xy+bdx+bey+de=bf+de
+        BigInteger de = d.multiply(e);
+        // Let n=bf+de, then the RHS can be written as n=pq
+        BigInteger n = bf.add(de);
+        // So we must solve (bx+e)(by+d)=n
+
+        // Factoring n into pq pairs
+        List<Pair<BigInteger, BigInteger>> pairFactors = AlgorithmHelper.getPairFactors(n, true);
+
+        int pairFactorsSize = pairFactors.size();
+        // We expect pairFactorsSize to be 0, 4, 8, 12, 16, 20, 24,...
+        if (pairFactorsSize == 0) {
+            // No factors were found, hence no solutions. n is prime
+            return "";
+        }
+
+        // Checking (bx+e)=p & (by+d)=q per each (p, q) pairs will give (x, y) solutions, if any
+        StringBuilder sb = new StringBuilder();
+        List<Solution> solutions = AlgorithmHelper.calculateBQFSolutions(b,d,e,pairFactors, true, false);
+        if (!solutions.isEmpty()) {
+            for(int i = 0; i < solutions.size(); i++) {
+                AlgorithmHelper.checkIfCanceled();
+
+                Solution solution = solutions.get(i);
+                BigInteger x = solution.getX();
+                BigInteger y = solution.getY();
+                if (sb.toString().isEmpty()) {
+                    sb.append(String.format(Locale.getDefault(), "[%s, %s]", formatSigned(x), formatSigned(y)));
+                } else {
+                    sb.append(String.format(Locale.getDefault(), " [%s, %s]", formatSigned(x), formatSigned(y)));
+                }
+            }
+        } else {
+            // No solutions were found.
+            return "";
+        }
+
+        return sb.toString();
     }
 }

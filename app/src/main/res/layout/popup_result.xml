@@ -29,7 +29,6 @@
 			android:labelFor="@id/EditTextResult" />
 	</RelativeLayout>
 
-
 	<ScrollView
 		android:id="@+id/ScrollViewResultTextContained"
 		android:layout_width="match_parent"
@@ -47,44 +46,12 @@
 		</HorizontalScrollView>
 	</ScrollView>
 
-
-	<LinearLayout
-		android:id="@+id/LinearLayoutResultGridContainer"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:visibility="visible">
-		<HorizontalScrollView
-			android:scrollbarStyle="outsideInset"
-			android:scrollbarSize="3dp"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-			<LinearLayout
-				android:id="@+id/LinearLayoutParentResult"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:padding="10dp"
-				android:orientation="vertical">
-				<!--
-				<LinearLayout
-					android:id="@+id/LinearLayoutResultStaticColumnHeader"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal"/>
-				<ListView
-					android:id="@+id/ListViewResult"
-					android:divider="@android:color/transparent"
-					android:listSelector="@android:color/transparent"
-					android:cacheColorHint="@android:color/transparent"
-					android:scrollbarStyle="insideInset"
-					android:scrollbarSize="3dp"
-					android:smoothScrollbar="true"
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent">
-				</ListView>
-				-->
-			</LinearLayout>
-		</HorizontalScrollView>
-	</LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/PopupResultLinearLayoutGridContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+    </LinearLayout>
 
 </LinearLayout>

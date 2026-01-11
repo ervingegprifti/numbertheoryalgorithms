@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getSign;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
@@ -41,7 +41,7 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
 
             // Solve for x, the linear congruence ax ≡ b (mod m) where a,b,x ∊ ℤ, m ∊ ℕ
             result.append("Solve for <b>x</b>, the linear congruence a<b>x</b> ≡ b (mod m) where a,b,<b>x</b> ∊ ℤ, m ∊ ℕ<br>");
-            result.append(String.format(Locale.getDefault(), "%s<b>x</b> ≡ %s (mod %s)<br>", getNP(a), getNP(b), getNP(m)));
+            result.append(String.format(Locale.getDefault(), "%s<b>x</b> ≡ %s (mod %s)<br>", formatSigned(a), formatSigned(b), formatSigned(m)));
             result.append("<br>");
 
             // InputGroup
@@ -78,14 +78,14 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
 
             // Use Extended Euclidean Algorithm to find xₑₑ from |a|x + |m|y = GCD(|a|, |m|) = g
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Use Extended Euclidean Algorithm to find xₑₑ from |a|<b>x</b> + |m|<b>y</b> = GCD(|a|, |m|) = g</font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "xₑₑ = sign(a)·xₑₑ = %s·%s = %s <br>", getNP(getSign(a)), getNP(EE[1]), xee));
+            result.append(String.format(Locale.getDefault(), "xₑₑ = sign(a)·xₑₑ = %s·%s = %s <br>", formatSigned(getSign(a)), formatSigned(EE[1]), xee));
             //result.append(String.format(Locale.getDefault(), TAB + "yₑₑ = sign(m)·yₑₑ = %s·%s = %s <br>", NP(getSign(m)), NP(EE[2]), yee));
             result.append("<br>");
 
             // The first initial solution is x₀ = xₑₑ(b/g) mod m
             BigInteger x0 = (xee.multiply(b.divide(g))).mod(m);
             result.append(String.format(Locale.getDefault(), "<font color='%s'>The first initial solution is x₀ = xₑₑ(b/g) (mod m) </font><br>", COLOR));
-            result.append(String.format(Locale.getDefault(), "x₀ = %s·(%s/%s) mod %s = %s <br>", getNP(xee), getNP(b), getNP(g), getNP(m), getNP(x0)));
+            result.append(String.format(Locale.getDefault(), "x₀ = %s·(%s/%s) mod %s = %s <br>", formatSigned(xee), formatSigned(b), formatSigned(g), formatSigned(m), formatSigned(x0)));
             result.append("<br>");
 
             // All initial solutions n = {0, ..., g-1}, xₙ = n(m/g) + x₀ mod m
@@ -96,7 +96,7 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
 
                 BigInteger xn = n.multiply(m.divide(g)).add(x0).mod(m);
                 initialXSolutions.add(xn);
-                result.append(String.format(Locale.getDefault(), "x<sub><small><small>%s</small></small></sub> = %s·(%s/%s) + %s (mod %s) = %s <br>", getNP(n), getNP(n), getNP(m), getNP(g), getNP(x0), getNP(m), getNP(xn)));
+                result.append(String.format(Locale.getDefault(), "x<sub><small><small>%s</small></small></sub> = %s·(%s/%s) + %s (mod %s) = %s <br>", formatSigned(n), formatSigned(n), formatSigned(m), formatSigned(g), formatSigned(x0), formatSigned(m), formatSigned(xn)));
             }
             result.append("<br>");
 
@@ -121,7 +121,7 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
                     result.append("<br><br>");
                 }
                 BigInteger xn = initialXSolutions.get(n);
-                result.append(String.format(Locale.getDefault(), "x<sub><small><small>%s</small></small></sub> = %s <br>", AlgorithmHelper.getNP(n), getNP(xn)));
+                result.append(String.format(Locale.getDefault(), "x<sub><small><small>%s</small></small></sub> = %s <br>", AlgorithmHelper.formatSigned(n), formatSigned(xn)));
                 result.append(String.format(Locale.getDefault(), "%s(%s<b>r</b> + %s) ≡ %s (mod %s) <br>", a, m, xn, b, m));
                 result.append("⋮<br>");
                 Tabular tabular = new Tabular();
@@ -133,14 +133,14 @@ public class LinearCongruenceInOneVariable extends Algorithm implements StringCa
                     BigInteger aMxMODm = aMx.mod(m);
 
                     List<String> row = new ArrayList<>();
-                    row.add(String.format(Locale.getDefault(), "<b>r</b> = %s", getNP(r)));
+                    row.add(String.format(Locale.getDefault(), "<b>r</b> = %s", formatSigned(r)));
                     row.add(NBSP + RIGHT_ARROW_COLORED + NBSP);
-                    row.add(String.format(Locale.getDefault(), "<b>x</b> = %s·%s + %s", getNP(m), getNP(r), getNP(xn)));
-                    row.add(String.format(Locale.getDefault(), " = %s", getNP(mMrPxn)));
+                    row.add(String.format(Locale.getDefault(), "<b>x</b> = %s·%s + %s", formatSigned(m), formatSigned(r), formatSigned(xn)));
+                    row.add(String.format(Locale.getDefault(), " = %s", formatSigned(mMrPxn)));
                     row.add(NBSP + RIGHT_ARROW_COLORED + NBSP);
-                    row.add(String.format(Locale.getDefault(), "%s·%s", getNP(a) , getNP(mMrPxn)));
-                    row.add(String.format(Locale.getDefault(), " = %s", getNP(aMx)));
-                    row.add(String.format(Locale.getDefault(), " = %s (mod %s)", getNP(aMxMODm), getNP(m))); // Calculated b
+                    row.add(String.format(Locale.getDefault(), "%s·%s", formatSigned(a) , formatSigned(mMrPxn)));
+                    row.add(String.format(Locale.getDefault(), " = %s", formatSigned(aMx)));
+                    row.add(String.format(Locale.getDefault(), " = %s (mod %s)", formatSigned(aMxMODm), formatSigned(m))); // Calculated b
 
 
                     tabular.addRow(row);

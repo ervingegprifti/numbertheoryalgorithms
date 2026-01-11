@@ -56,6 +56,18 @@ public final class ProgressManager {
      * @param algPrm                The parameters for the algorithm.
      */
     public void startWork(ViewGroup container, final AlgorithmParameters algPrm) {
+        startWork(container, algPrm, true);
+    }
+
+
+    /**
+     * Starts the background algorithm execution.
+     *
+     * @param container    The container for the progress view, can be null.
+     * @param algPrm       The parameters for the algorithm.
+     * @param showProgress Show the progress and the ability to cancel the process. (Default = true).
+     */
+    public void startWork(ViewGroup container, final AlgorithmParameters algPrm, boolean showProgress) {
         try {
             // Ensure any previous task on this instance is cancelled before starting a new one.
             if (runningTask != null && !runningTask.isDone()) {
@@ -86,7 +98,9 @@ public final class ProgressManager {
             });
 
             // --- Setup Progress UI ---
-            setupPopupWindow(container, algPrm);
+            if (showProgress) {
+                setupPopupWindow(container, algPrm);
+            }
         } catch (Exception ex) {
             Log.e(TAG, "An error occurred in startWork.", ex);
         }

@@ -1,7 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.algorithms;
 
 
-import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.getNP;
+import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
 import android.util.Log;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
@@ -30,13 +30,13 @@ public class EuclideanAlgorithm extends Algorithm implements StringCalculator {
             // Title
             output.append(String.format(Locale.getDefault(), "<font color='%s'><b>Euclidean Algorithm</b></font><br>", COLOR));
             output.append("Compute the GCD of a and b<br>");
-            output.append(String.format(Locale.getDefault(), "GCD(%s, %s)<br>", getNP(a), getNP(b)));
+            output.append(String.format(Locale.getDefault(), "GCD(%s, %s)<br>", formatSigned(a), formatSigned(b)));
             output.append("<br>");
 
             // InputGroup
             output.append(String.format("<font color='%s'>%s%sInput</font><br>", COLOR, BULLET, TAB));
-            output.append(String.format("%sa = %s<br>", TAB, getNP(a)));
-            output.append(String.format("%sb = %s<br>", TAB, getNP(b)));
+            output.append(String.format("%sa = %s<br>", TAB, formatSigned(a)));
+            output.append(String.format("%sb = %s<br>", TAB, formatSigned(b)));
             output.append("<br>");
 
             // Make sure a,b ∊ ℕ

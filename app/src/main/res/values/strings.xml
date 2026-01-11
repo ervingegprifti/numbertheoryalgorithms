@@ -18,6 +18,7 @@
     <string name="result">result</string>
     <string name="temp">temp</string>
     <string name="history">history</string>
+    <string name="run_example">E</string>
     <string name="run_example_1">E₁</string>
     <string name="run_example_2">E₂</string>
     <string name="run_example_3">E₃</string>
@@ -37,6 +38,7 @@
     <string name="label_m" translatable="false">m</string>
     <string name="label_n" translatable="false">n</string>
     <string name="label_k" translatable="false">k</string>
+    <string name="value_0" translatable="false">0</string>
     <string name="result_example_1">result example no 1</string>
     <string name="result_example_2">result example no 2</string>
     <string name="result_example_3">result example no 3</string>

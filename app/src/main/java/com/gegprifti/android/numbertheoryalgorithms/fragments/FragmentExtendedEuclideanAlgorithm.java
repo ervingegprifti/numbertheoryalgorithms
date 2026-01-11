@@ -42,8 +42,8 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     TextView textViewTitle;
     // Cache view state
     boolean isCompactInputView = false;
-    // Extended input view
-    LinearLayout linearLayoutExtendedInputView;
+    // Expanded input view
+    LinearLayout linearLayoutExpandedInputView;
     TextView textViewLabelA;
     TextView textViewLabelElasticA;
     TextView textViewMinusA;
@@ -114,8 +114,8 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             // Navigation controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            // Extended input view
-            linearLayoutExtendedInputView = inflater.findViewById(R.id.LinearLayoutExtendedInputView);
+            // Expanded input view
+            linearLayoutExpandedInputView = inflater.findViewById(R.id.LinearLayoutExpandedInputView);
             textViewLabelA = inflater.findViewById(R.id.TextViewLabelA);
             textViewLabelElasticA = inflater.findViewById(R.id.TextViewLabelElasticA);
             textViewMinusA = inflater.findViewById(R.id.TextViewMinusA);
@@ -161,7 +161,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             editTextResult = inflater.findViewById(R.id.EditTextResult);
 
-            // Constrain extended input
+            // Constrain expanded input
             editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             // Constrain compact input
@@ -177,7 +177,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 }
             });
 
-            // Extended input events
+            // Expanded input events
             editTextA.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -273,7 +273,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 }
             });
 
-            // Extended input a clipboard button events
+            // Expanded input a clipboard button events
             textViewMinusA.setOnClickListener(v -> {
                 decreaseByOne(editTextA);
                 resetAllAndSelectTheLastButtonClicked(textViewMinusA);
@@ -295,7 +295,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 resetAllAndSelectTheLastButtonClicked(textViewClearA);
             });
 
-            // Extended input b clipboard button events
+            // Expanded input b clipboard button events
             textViewMinusB.setOnClickListener(v -> {
                 decreaseByOne(editTextB);
                 resetAllAndSelectTheLastButtonClicked(textViewMinusB);
@@ -489,10 +489,10 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         try {
             this.isCompactInputView = UserSettings.getCompactInputView(requireContext());
             if(isCompactInputView){
-                linearLayoutExtendedInputView.setVisibility(View.GONE);
+                linearLayoutExpandedInputView.setVisibility(View.GONE);
                 linearLayoutCompactInputView.setVisibility(View.VISIBLE);
             } else {
-                linearLayoutExtendedInputView.setVisibility(View.VISIBLE);
+                linearLayoutExpandedInputView.setVisibility(View.VISIBLE);
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
@@ -578,7 +578,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
-            // Extended input controls
+            // Expanded input controls
             ControlDisplay.setInputLabelFontSize(textViewLabelA, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticA, biggerControls);
             ControlDisplay.setInputFontSize(editTextA, biggerControls);
@@ -644,8 +644,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     private InputGroup getInputGroupA() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelA, "a", textViewLabelElasticA)
-                .setInput(editTextA)
+                .setExpandedControls(textViewLabelA, "a", textViewLabelElasticA, editTextA)
                 .setCompactControls(textViewLabelCompactA, editTextCompactA)
                 .build();
     }
@@ -654,8 +653,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
     private InputGroup getInputGroupB() {
         return new InputGroup.Builder()
                 .setIsCompactInputView(isCompactInputView)
-                .setLabel(textViewLabelB, "b", textViewLabelElasticB)
-                .setInput(editTextB)
+                .setExpandedControls(textViewLabelB, "b", textViewLabelElasticB, editTextB)
                 .setCompactControls(textViewLabelCompactB, editTextCompactB)
                 .build();
     }

@@ -22,7 +22,8 @@
             android:id="@+id/TextViewTitle"
             android:text="@string/binary_quadratic_form_title" />
         <TextView style="@style/InputToggleStyle"
-            android:id="@+id/TextViewInputToggle" />
+            android:id="@+id/TextViewInputToggle"
+            android:text="@string/fa_4"/>
 	</RelativeLayout>
 
     <LinearLayout
@@ -34,159 +35,183 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <LinearLayout style="@style/ColumnContainerStyle"
-            android:id="@+id/LinearLayoutInputToggle">
+            android:id="@+id/LinearLayoutInputInputView"
+            android:visibility="visible">
 
-            <!--Extended inputGroup view-->
+            <!--Expanded inputGroup view-->
             <LinearLayout style="@style/ColumnContainerStyle"
-                android:id="@+id/LinearLayoutExtendedInputView"
+                android:id="@+id/LinearLayoutExpandedInputView"
                 android:layout_marginBottom="20dp">
-                <LinearLayout style="@style/RowContainerStyle">
-                    <TextView style="@style/TextViewLabelInputStyle"
-                        android:id="@+id/TextViewLabelA"
-                        android:text="@string/label_a"
-                        android:labelFor="@+id/EditTextA" />
-                    <TextView style="@style/TextViewLabelElasticStyle"
-                        android:id="@+id/TextViewLabelElasticA" />
-                    <TextView style="@style/ClipboardButtonMinusStyle"
-                        android:id="@+id/TextViewMinusA" />
-                    <TextView style="@style/ClipboardButtonPlusStyle"
-                        android:id="@+id/TextViewPlusA" />
-                    <TextView style="@style/ClipboardButtonCopyStyle"
-                        android:id="@+id/TextViewCopyA" />
-                    <TextView style="@style/ClipboardButtonPasteStyle"
-                        android:id="@+id/TextViewPasteA"  />
-                    <TextView style="@style/ClipboardButtonClearStyle"
-                        android:id="@+id/TextViewClearA" />
-                </LinearLayout>
-                <EditText style="@style/EditTextNumberInputStyle"
-                    android:id="@+id/EditTextA"
-                    android:autofillHints=""
-                    android:layout_marginBottom="10dp" />
 
-                <LinearLayout style="@style/RowContainerStyle">
-                    <TextView style="@style/TextViewLabelInputStyle"
-                        android:id="@+id/TextViewLabelB"
-                        android:text="@string/label_b"
-                        android:labelFor="@+id/EditTextB" />
-                    <TextView style="@style/TextViewLabelElasticStyle"
-                        android:id="@+id/TextViewLabelElasticB" />
-                    <TextView style="@style/ClipboardButtonMinusStyle"
-                        android:id="@+id/TextViewMinusB" />
-                    <TextView style="@style/ClipboardButtonPlusStyle"
-                        android:id="@+id/TextViewPlusB" />
-                    <TextView style="@style/ClipboardButtonCopyStyle"
-                        android:id="@+id/TextViewCopyB" />
-                    <TextView style="@style/ClipboardButtonPasteStyle"
-                        android:id="@+id/TextViewPasteB"  />
-                    <TextView style="@style/ClipboardButtonClearStyle"
-                        android:id="@+id/TextViewClearB" />
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputA"
+                    android:visibility="gone">
+                    <LinearLayout style="@style/RowContainerStyle">
+                        <TextView style="@style/TextViewLabelInputStyle"
+                            android:id="@+id/TextViewLabelA"
+                            android:text="@string/label_a"
+                            android:labelFor="@+id/EditTextA" />
+                        <TextView style="@style/TextViewLabelElasticStyle"
+                            android:id="@+id/TextViewLabelElasticA" />
+                        <TextView style="@style/ClipboardButtonMinusStyle"
+                            android:id="@+id/TextViewMinusA" />
+                        <TextView style="@style/ClipboardButtonPlusStyle"
+                            android:id="@+id/TextViewPlusA" />
+                        <TextView style="@style/ClipboardButtonCopyStyle"
+                            android:id="@+id/TextViewCopyA" />
+                        <TextView style="@style/ClipboardButtonPasteStyle"
+                            android:id="@+id/TextViewPasteA"  />
+                        <TextView style="@style/ClipboardButtonClearStyle"
+                            android:id="@+id/TextViewClearA" />
+                    </LinearLayout>
+                    <EditText style="@style/EditTextNumberInputStyle"
+                        android:id="@+id/EditTextA"
+                        android:autofillHints=""
+                        android:layout_marginBottom="10dp" />
                 </LinearLayout>
-                <EditText style="@style/EditTextNumberInputStyle"
-                    android:id="@+id/EditTextB"
-                    android:autofillHints=""
-                    android:layout_marginBottom="10dp" />
 
-                <LinearLayout style="@style/RowContainerStyle">
-                    <TextView style="@style/TextViewLabelInputStyle"
-                        android:id="@+id/TextViewLabelC"
-                        android:text="@string/label_c"
-                        android:labelFor="@+id/EditTextC" />
-                    <TextView style="@style/TextViewLabelElasticStyle"
-                        android:id="@+id/TextViewLabelElasticC" />
-                    <TextView style="@style/ClipboardButtonMinusStyle"
-                        android:id="@+id/TextViewMinusC" />
-                    <TextView style="@style/ClipboardButtonPlusStyle"
-                        android:id="@+id/TextViewPlusC" />
-                    <TextView style="@style/ClipboardButtonCopyStyle"
-                        android:id="@+id/TextViewCopyC" />
-                    <TextView style="@style/ClipboardButtonPasteStyle"
-                        android:id="@+id/TextViewPasteC"  />
-                    <TextView style="@style/ClipboardButtonClearStyle"
-                        android:id="@+id/TextViewClearC" />
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputB">
+                    <LinearLayout style="@style/RowContainerStyle">
+                        <TextView style="@style/TextViewLabelInputStyle"
+                            android:id="@+id/TextViewLabelB"
+                            android:text="@string/label_b"
+                            android:labelFor="@+id/EditTextB" />
+                        <TextView style="@style/TextViewLabelElasticStyle"
+                            android:id="@+id/TextViewLabelElasticB" />
+                        <TextView style="@style/ClipboardButtonMinusStyle"
+                            android:id="@+id/TextViewMinusB" />
+                        <TextView style="@style/ClipboardButtonPlusStyle"
+                            android:id="@+id/TextViewPlusB" />
+                        <TextView style="@style/ClipboardButtonCopyStyle"
+                            android:id="@+id/TextViewCopyB" />
+                        <TextView style="@style/ClipboardButtonPasteStyle"
+                            android:id="@+id/TextViewPasteB"  />
+                        <TextView style="@style/ClipboardButtonClearStyle"
+                            android:id="@+id/TextViewClearB" />
+                    </LinearLayout>
+                    <EditText style="@style/EditTextNumberInputStyle"
+                        android:id="@+id/EditTextB"
+                        android:autofillHints=""
+                        android:layout_marginBottom="10dp" />
                 </LinearLayout>
-                <EditText style="@style/EditTextNumberInputStyle"
-                    android:id="@+id/EditTextC"
-                    android:autofillHints=""
-                    android:layout_marginBottom="10dp" />
 
-                <LinearLayout style="@style/RowContainerStyle">
-                    <TextView style="@style/TextViewLabelInputStyle"
-                        android:id="@+id/TextViewLabelD"
-                        android:text="@string/label_d"
-                        android:labelFor="@+id/EditTextD" />
-                    <TextView style="@style/TextViewLabelElasticStyle"
-                        android:id="@+id/TextViewLabelElasticD" />
-                    <TextView style="@style/ClipboardButtonMinusStyle"
-                        android:id="@+id/TextViewMinusD" />
-                    <TextView style="@style/ClipboardButtonPlusStyle"
-                        android:id="@+id/TextViewPlusD" />
-                    <TextView style="@style/ClipboardButtonCopyStyle"
-                        android:id="@+id/TextViewCopyD" />
-                    <TextView style="@style/ClipboardButtonPasteStyle"
-                        android:id="@+id/TextViewPasteD"  />
-                    <TextView style="@style/ClipboardButtonClearStyle"
-                        android:id="@+id/TextViewClearD" />
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputC"
+                    android:visibility="gone">
+                    <LinearLayout style="@style/RowContainerStyle">
+                        <TextView style="@style/TextViewLabelInputStyle"
+                            android:id="@+id/TextViewLabelC"
+                            android:text="@string/label_c"
+                            android:labelFor="@+id/EditTextC" />
+                        <TextView style="@style/TextViewLabelElasticStyle"
+                            android:id="@+id/TextViewLabelElasticC" />
+                        <TextView style="@style/ClipboardButtonMinusStyle"
+                            android:id="@+id/TextViewMinusC" />
+                        <TextView style="@style/ClipboardButtonPlusStyle"
+                            android:id="@+id/TextViewPlusC" />
+                        <TextView style="@style/ClipboardButtonCopyStyle"
+                            android:id="@+id/TextViewCopyC" />
+                        <TextView style="@style/ClipboardButtonPasteStyle"
+                            android:id="@+id/TextViewPasteC"  />
+                        <TextView style="@style/ClipboardButtonClearStyle"
+                            android:id="@+id/TextViewClearC" />
+                    </LinearLayout>
+                    <EditText style="@style/EditTextNumberInputStyle"
+                        android:id="@+id/EditTextC"
+                        android:autofillHints=""
+                        android:layout_marginBottom="10dp" />
                 </LinearLayout>
-                <EditText style="@style/EditTextNumberInputStyle"
-                    android:id="@+id/EditTextD"
-                    android:autofillHints=""
-                    android:layout_marginBottom="10dp"/>
 
-                <LinearLayout style="@style/RowContainerStyle">
-                    <TextView style="@style/TextViewLabelInputStyle"
-                        android:id="@+id/TextViewLabelE"
-                        android:text="@string/label_e"
-                        android:labelFor="@+id/EditTextE" />
-                    <TextView style="@style/TextViewLabelElasticStyle"
-                        android:id="@+id/TextViewLabelElasticE" />
-                    <TextView style="@style/ClipboardButtonMinusStyle"
-                        android:id="@+id/TextViewMinusE" />
-                    <TextView style="@style/ClipboardButtonPlusStyle"
-                        android:id="@+id/TextViewPlusE" />
-                    <TextView style="@style/ClipboardButtonCopyStyle"
-                        android:id="@+id/TextViewCopyE" />
-                    <TextView style="@style/ClipboardButtonPasteStyle"
-                        android:id="@+id/TextViewPasteE"  />
-                    <TextView style="@style/ClipboardButtonClearStyle"
-                        android:id="@+id/TextViewClearE" />
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputD">
+                    <LinearLayout style="@style/RowContainerStyle">
+                        <TextView style="@style/TextViewLabelInputStyle"
+                            android:id="@+id/TextViewLabelD"
+                            android:text="@string/label_d"
+                            android:labelFor="@+id/EditTextD" />
+                        <TextView style="@style/TextViewLabelElasticStyle"
+                            android:id="@+id/TextViewLabelElasticD" />
+                        <TextView style="@style/ClipboardButtonMinusStyle"
+                            android:id="@+id/TextViewMinusD" />
+                        <TextView style="@style/ClipboardButtonPlusStyle"
+                            android:id="@+id/TextViewPlusD" />
+                        <TextView style="@style/ClipboardButtonCopyStyle"
+                            android:id="@+id/TextViewCopyD" />
+                        <TextView style="@style/ClipboardButtonPasteStyle"
+                            android:id="@+id/TextViewPasteD"  />
+                        <TextView style="@style/ClipboardButtonClearStyle"
+                            android:id="@+id/TextViewClearD" />
+                    </LinearLayout>
+                    <EditText style="@style/EditTextNumberInputStyle"
+                        android:id="@+id/EditTextD"
+                        android:autofillHints=""
+                        android:layout_marginBottom="10dp"/>
                 </LinearLayout>
-                <EditText style="@style/EditTextNumberInputStyle"
-                    android:id="@+id/EditTextE"
-                    android:autofillHints=""
-                    android:layout_marginBottom="10dp"/>
 
-                <LinearLayout style="@style/RowContainerStyle">
-                    <TextView style="@style/TextViewLabelInputStyle"
-                        android:id="@+id/TextViewLabelF"
-                        android:text="@string/label_f"
-                        android:labelFor="@+id/EditTextF" />
-                    <TextView style="@style/TextViewLabelElasticStyle"
-                        android:id="@+id/TextViewLabelElasticF" />
-                    <TextView style="@style/ClipboardButtonMinusStyle"
-                        android:id="@+id/TextViewMinusF" />
-                    <TextView style="@style/ClipboardButtonPlusStyle"
-                        android:id="@+id/TextViewPlusF" />
-                    <TextView style="@style/ClipboardButtonCopyStyle"
-                        android:id="@+id/TextViewCopyF" />
-                    <TextView style="@style/ClipboardButtonPasteStyle"
-                        android:id="@+id/TextViewPasteF"  />
-                    <TextView style="@style/ClipboardButtonClearStyle"
-                        android:id="@+id/TextViewClearF" />
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputE">
+                    <LinearLayout style="@style/RowContainerStyle">
+                        <TextView style="@style/TextViewLabelInputStyle"
+                            android:id="@+id/TextViewLabelE"
+                            android:text="@string/label_e"
+                            android:labelFor="@+id/EditTextE" />
+                        <TextView style="@style/TextViewLabelElasticStyle"
+                            android:id="@+id/TextViewLabelElasticE" />
+                        <TextView style="@style/ClipboardButtonMinusStyle"
+                            android:id="@+id/TextViewMinusE" />
+                        <TextView style="@style/ClipboardButtonPlusStyle"
+                            android:id="@+id/TextViewPlusE" />
+                        <TextView style="@style/ClipboardButtonCopyStyle"
+                            android:id="@+id/TextViewCopyE" />
+                        <TextView style="@style/ClipboardButtonPasteStyle"
+                            android:id="@+id/TextViewPasteE"  />
+                        <TextView style="@style/ClipboardButtonClearStyle"
+                            android:id="@+id/TextViewClearE" />
+                    </LinearLayout>
+                    <EditText style="@style/EditTextNumberInputStyle"
+                        android:id="@+id/EditTextE"
+                        android:autofillHints=""
+                        android:layout_marginBottom="10dp"/>
                 </LinearLayout>
-                <EditText style="@style/EditTextNumberInputStyle"
-                    android:id="@+id/EditTextF"
-                    android:autofillHints="" />
+
+                <LinearLayout style="@style/ExpandedInputStyle"
+                    android:id="@+id/LinearLayoutExpandedInputF">
+                    <LinearLayout style="@style/RowContainerStyle">
+                        <TextView style="@style/TextViewLabelInputStyle"
+                            android:id="@+id/TextViewLabelF"
+                            android:text="@string/label_f"
+                            android:labelFor="@+id/EditTextF" />
+                        <TextView style="@style/TextViewLabelElasticStyle"
+                            android:id="@+id/TextViewLabelElasticF" />
+                        <TextView style="@style/ClipboardButtonMinusStyle"
+                            android:id="@+id/TextViewMinusF" />
+                        <TextView style="@style/ClipboardButtonPlusStyle"
+                            android:id="@+id/TextViewPlusF" />
+                        <TextView style="@style/ClipboardButtonCopyStyle"
+                            android:id="@+id/TextViewCopyF" />
+                        <TextView style="@style/ClipboardButtonPasteStyle"
+                            android:id="@+id/TextViewPasteF"  />
+                        <TextView style="@style/ClipboardButtonClearStyle"
+                            android:id="@+id/TextViewClearF" />
+                    </LinearLayout>
+                    <EditText style="@style/EditTextNumberInputStyle"
+                        android:id="@+id/EditTextF"
+                        android:autofillHints="" />
+                </LinearLayout>
+
             </LinearLayout>
-
 
             <!--Compact inputGroup view-->
             <LinearLayout style="@style/ColumnContainerStyle"
                 android:id="@+id/LinearLayoutCompactInputView"
                 android:layout_marginBottom="20dp"
                 android:visibility="visible">
+
                 <LinearLayout style="@style/RowContainerStyle"
+                    android:id="@+id/LinearLayoutCompactInputA"
+                    android:visibility="gone"
                     android:layout_marginBottom="10dp">
                     <TextView style="@style/TextViewLabelCompactStyle"
                         android:id="@+id/TextViewLabelCompactA"
@@ -207,6 +232,7 @@
                 </LinearLayout>
 
                 <LinearLayout style="@style/RowContainerStyle"
+                    android:id="@+id/LinearLayoutCompactInputB"
                     android:layout_marginBottom="10dp">
                     <TextView style="@style/TextViewLabelCompactStyle"
                         android:id="@+id/TextViewLabelCompactB"
@@ -227,6 +253,8 @@
                 </LinearLayout>
 
                 <LinearLayout style="@style/RowContainerStyle"
+                    android:id="@+id/LinearLayoutCompactInputC"
+                    android:visibility="gone"
                     android:layout_marginBottom="10dp">
                     <TextView style="@style/TextViewLabelCompactStyle"
                         android:id="@+id/TextViewLabelCompactC"
@@ -247,6 +275,7 @@
                 </LinearLayout>
 
                 <LinearLayout style="@style/RowContainerStyle"
+                    android:id="@+id/LinearLayoutCompactInputD"
                     android:layout_marginBottom="10dp">
                     <TextView style="@style/TextViewLabelCompactStyle"
                         android:id="@+id/TextViewLabelCompactD"
@@ -267,6 +296,7 @@
                 </LinearLayout>
 
                 <LinearLayout style="@style/RowContainerStyle"
+                    android:id="@+id/LinearLayoutCompactInputE"
                     android:layout_marginBottom="10dp">
                     <TextView style="@style/TextViewLabelCompactStyle"
                         android:id="@+id/TextViewLabelCompactE"
@@ -286,7 +316,8 @@
                         android:id="@+id/TextViewClearCompactE" />
                 </LinearLayout>
 
-                <LinearLayout style="@style/RowContainerStyle">
+                <LinearLayout style="@style/RowContainerStyle"
+                    android:id="@+id/LinearLayoutCompactInputF">
                     <TextView style="@style/TextViewLabelCompactStyle"
                         android:id="@+id/TextViewLabelCompactF"
                         android:text="@string/label_f" />
@@ -304,33 +335,17 @@
                     <TextView style="@style/ClipboardButtonClearRightCompactStyle"
                         android:id="@+id/TextViewClearCompactF" />
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
 
-
-        <!--Examples-->
-        <LinearLayout style="@style/RowContainerStyle"
-            android:id="@+id/LinearLayoutExamplesContainer">
-            <Button style="@style/ButtonExampleFirstStyle"
-                android:id="@+id/ButtonRunExample1"
-                android:text="@string/run_example_1" />
-            <Button style="@style/ButtonExampleStyle"
-                android:id="@+id/ButtonRunExample2"
-                android:text="@string/run_example_2" />
-            <Button style="@style/ButtonExampleStyle"
-                android:id="@+id/ButtonRunExample3"
-                android:text="@string/run_example_3" />
-            <Button style="@style/ButtonExampleStyle"
-                android:id="@+id/ButtonRunExample4"
-                android:text="@string/run_example_4" />
-            <Button style="@style/ButtonExampleLastStyle"
-                android:id="@+id/ButtonRunExample5"
-                android:text="@string/run_example_5" />
-        </LinearLayout>
-
         <!--Buttons run-->
         <LinearLayout style="@style/RowContainerStyle">
+            <Button style="@style/ButtonRunExampleToggleStyle"
+                android:id="@+id/ButtonRunExampleToggle"
+                android:text="@string/run_example"
+                android:layout_marginEnd="10dp" />
             <Button style="@style/ButtonRunStyle"
                 android:id="@+id/ButtonRun"
                 android:text="@string/binary_quadratic_form_run_short"
@@ -362,26 +377,26 @@
             <Button style="@style/ButtonPillLeftStyle"
                 android:id="@+id/ButtonMMinus"
                 android:text="@string/binary_quadratic_form_m_minus"/>
-            <Button style="@style/ButtonPillMiddleStyle"
-                android:id="@+id/ButtonM"
+            <EditText style="@style/EditTextModStyle"
+                android:id="@+id/EditTextM"
                 android:enabled="false"
-                android:textColor="@color/colorPrimary"
-                android:autofillHints=""
-                android:hint="@string/binary_quadratic_form_m_hint" />
+                android:hint="@string/binary_quadratic_form_m_hint"
+                android:autofillHints="@string/empty" />
             <Button style="@style/ButtonPillRightStyle"
                 android:id="@+id/ButtonMPlus"
                 android:text="@string/binary_quadratic_form_m_plus"
                 android:layout_marginRight="10dp"
                 tools:ignore="RtlHardcoded" />
+
             <Button style="@style/ButtonPillLeftStyle"
                 android:id="@+id/ButtonRMinus"
                 android:text="@string/binary_quadratic_form_r_minus"/>
-            <Button style="@style/ButtonPillMiddleStyle"
-                android:id="@+id/ButtonR"
+            <EditText style="@style/EditTextModStyle"
+                android:id="@+id/EditTextR"
                 android:enabled="false"
-                android:textColor="@color/colorPrimary"
-                android:autofillHints=""
-                android:hint="@string/binary_quadratic_form_r_hint" />
+                android:hint="@string/binary_quadratic_form_r_hint"
+                android:autofillHints="@string/empty" />
+
             <Button style="@style/ButtonPillRightStyle"
                 android:id="@+id/ButtonRPlus"
                 android:text="@string/binary_quadratic_form_r_plus"/>
@@ -424,79 +439,151 @@
             </ScrollView>
         </LinearLayout>
 
+
         <LinearLayout
-            android:id="@+id/LinearLayoutResultGridContainer1"
+            android:id="@+id/Result1LinearLayoutGridContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:background="@drawable/result_bg"
-            android:gravity="top|start"
+            android:orientation="horizontal"
             android:visibility="gone">
-            <HorizontalScrollView
-                android:scrollbarStyle="outsideInset"
-                android:scrollbarSize="3dp"
-                android:paddingBottom="0dp"
+
+            <LinearLayout
+                android:id="@+id/Result1LinearLayoutGrid"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@drawable/result_bg"
+                android:gravity="top|start"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:id="@+id/Result1LinearLayoutGridRowHeaders"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
                     <LinearLayout
-                        android:id="@+id/LinearLayoutStaticColumnHeader1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"/>
-                    <ListView
-                        android:id="@+id/ListViewResult1"
-                        android:divider="@android:color/transparent"
-                        android:listSelector="@android:color/transparent"
-                        android:cacheColorHint="@android:color/transparent"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbarSize="3dp"
-                        android:smoothScrollbar="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                    </ListView>
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/Result1LinearLayoutGridCorner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+                        <com.gegprifti.android.numbertheoryalgorithms.grid.NonScrollableListView
+                            android:id="@+id/Result1ListViewGridRowHeaders"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:divider="@android:color/transparent"
+                            android:listSelector="@android:color/transparent"
+                            android:cacheColorHint="@android:color/transparent"
+                            android:scrollbars="none" />
+                    </LinearLayout>
                 </LinearLayout>
-            </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbarSize="0dp"
+                    android:paddingBottom="0dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/Result1LinearLayoutGridColumnHeaders"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+                        <ListView
+                            android:id="@+id/Result1ListViewGridRows"
+                            android:divider="@android:color/transparent"
+                            android:listSelector="@android:color/transparent"
+                            android:cacheColorHint="@android:color/transparent"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbarSize="0dp"
+                            android:smoothScrollbar="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                        </ListView>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/LinearLayoutResultGridContainer2"
+
+        <LinearLayout
+            android:id="@+id/Result2LinearLayoutGridContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:background="@drawable/result_bg"
-            android:gravity="top|start"
+            android:orientation="horizontal"
             android:visibility="gone">
-            <HorizontalScrollView
-                android:scrollbarStyle="outsideInset"
-                android:scrollbarSize="3dp"
-                android:paddingBottom="0dp"
+
+            <LinearLayout
+                android:id="@+id/Result2LinearLayoutGrid"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@drawable/result_bg"
+                android:gravity="top|start"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:id="@+id/Result2LinearLayoutGridRowHeaders"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
                     <LinearLayout
-                        android:id="@+id/LinearLayoutStaticColumnHeader2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"/>
-                    <ListView
-                        android:id="@+id/ListViewResult2"
-                        android:divider="@android:color/transparent"
-                        android:listSelector="@android:color/transparent"
-                        android:cacheColorHint="@android:color/transparent"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbarSize="3dp"
-                        android:smoothScrollbar="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                    </ListView>
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/Result2LinearLayoutGridCorner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+                        <com.gegprifti.android.numbertheoryalgorithms.grid.NonScrollableListView
+                            android:id="@+id/Result2ListViewGridRowHeaders"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:divider="@android:color/transparent"
+                            android:listSelector="@android:color/transparent"
+                            android:cacheColorHint="@android:color/transparent"
+                            android:scrollbars="none" />
+                    </LinearLayout>
                 </LinearLayout>
-            </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbarSize="0dp"
+                    android:paddingBottom="0dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/Result2LinearLayoutGridColumnHeaders"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+                        <ListView
+                            android:id="@+id/Result2ListViewGridRows"
+                            android:divider="@android:color/transparent"
+                            android:listSelector="@android:color/transparent"
+                            android:cacheColorHint="@android:color/transparent"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbarSize="0dp"
+                            android:smoothScrollbar="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
