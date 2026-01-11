@@ -174,10 +174,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     Button buttonRun2;
     LinearLayout linearLayoutFModMContainer;
     Button buttonMMinus;
-    Button buttonM;
+    EditText editTextM;
     Button buttonMPlus;
     Button buttonRMinus;
-    Button buttonR;
+    EditText editTextR;
     Button buttonRPlus;
     // Result controls
     TextView textViewLabelResult;
@@ -360,43 +360,42 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewPasteCompactF = inflater.findViewById(R.id.TextViewPasteCompactF);
             textViewClearCompactF = inflater.findViewById(R.id.TextViewClearCompactF);
             // Run buttons
-            this.buttonRunExampleToggle = inflater.findViewById(R.id.ButtonRunExampleToggle);
-            this.buttonRun = inflater.findViewById(R.id.ButtonRun);
-            this.buttonRun1 = inflater.findViewById(R.id.ButtonRun1);
-            this.buttonRun2 = inflater.findViewById(R.id.ButtonRun2);
+            buttonRunExampleToggle = inflater.findViewById(R.id.ButtonRunExampleToggle);
+            buttonRun = inflater.findViewById(R.id.ButtonRun);
+            buttonRun1 = inflater.findViewById(R.id.ButtonRun1);
+            buttonRun2 = inflater.findViewById(R.id.ButtonRun2);
             // Button mods
-            this.linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
-            this.buttonMMinus = inflater.findViewById(R.id.ButtonMMinus);
-            this.buttonM = inflater.findViewById(R.id.ButtonM);
-            this.buttonMPlus = inflater.findViewById(R.id.ButtonMPlus);
-            this.buttonRMinus = inflater.findViewById(R.id.ButtonRMinus);
-            this.buttonR = inflater.findViewById(R.id.ButtonR);
-            this.buttonRPlus = inflater.findViewById(R.id.ButtonRPlus);
+            linearLayoutFModMContainer = inflater.findViewById(R.id.LinearLayoutFModMContainer);
+            buttonMMinus = inflater.findViewById(R.id.ButtonMMinus);
+            editTextM = inflater.findViewById(R.id.EditTextM);
+            buttonMPlus = inflater.findViewById(R.id.ButtonMPlus);
+            buttonRMinus = inflater.findViewById(R.id.ButtonRMinus);
+            editTextR = inflater.findViewById(R.id.EditTextR);
+            buttonRPlus = inflater.findViewById(R.id.ButtonRPlus);
             // Result controls
-            this.textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
-            this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
-            this.textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
-            this.textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
-            this.textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
-            this.linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
-            this.editTextResult = inflater.findViewById(R.id.EditTextResult);
+            textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
+            textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
+            textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
+            textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
+            textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
+            linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
+            editTextResult = inflater.findViewById(R.id.EditTextResult);
             // Result 1
-            this.result1LinearLayoutGridContainer = inflater.findViewById(R.id.Result1LinearLayoutGridContainer);
-            this.result1LinearLayoutGrid = inflater.findViewById(R.id.Result1LinearLayoutGrid);
-            this.result1LinearLayoutGridRowHeaders = inflater.findViewById(R.id.Result1LinearLayoutGridRowHeaders);
-            this.result1LinearLayoutGridCorner = inflater.findViewById(R.id.Result1LinearLayoutGridCorner);
-            this.result1ListViewGridRowHeaders = inflater.findViewById(R.id.Result1ListViewGridRowHeaders);
-            this.result1LinearLayoutGridColumnHeaders = inflater.findViewById(R.id.Result1LinearLayoutGridColumnHeaders);
-            this.result1ListViewGridRows = inflater.findViewById(R.id.Result1ListViewGridRows);
+            result1LinearLayoutGridContainer = inflater.findViewById(R.id.Result1LinearLayoutGridContainer);
+            result1LinearLayoutGrid = inflater.findViewById(R.id.Result1LinearLayoutGrid);
+            result1LinearLayoutGridRowHeaders = inflater.findViewById(R.id.Result1LinearLayoutGridRowHeaders);
+            result1LinearLayoutGridCorner = inflater.findViewById(R.id.Result1LinearLayoutGridCorner);
+            result1ListViewGridRowHeaders = inflater.findViewById(R.id.Result1ListViewGridRowHeaders);
+            result1LinearLayoutGridColumnHeaders = inflater.findViewById(R.id.Result1LinearLayoutGridColumnHeaders);
+            result1ListViewGridRows = inflater.findViewById(R.id.Result1ListViewGridRows);
             // Result 2
-            this.result2LinearLayoutGridContainer = inflater.findViewById(R.id.Result2LinearLayoutGridContainer);
-            this.result2LinearLayoutGrid = inflater.findViewById(R.id.Result2LinearLayoutGrid);
-            this.result2LinearLayoutGridRowHeaders = inflater.findViewById(R.id.Result2LinearLayoutGridRowHeaders);
-            this.result2LinearLayoutGridCorner = inflater.findViewById(R.id.Result2LinearLayoutGridCorner);
-            this.result2ListViewGridRowHeaders = inflater.findViewById(R.id.Result2ListViewGridRowHeaders);
-            this.result2LinearLayoutGridColumnHeaders = inflater.findViewById(R.id.Result2LinearLayoutGridColumnHeaders);
-            this.result2ListViewGridRows = inflater.findViewById(R.id.Result2ListViewGridRows);
-
+            result2LinearLayoutGridContainer = inflater.findViewById(R.id.Result2LinearLayoutGridContainer);
+            result2LinearLayoutGrid = inflater.findViewById(R.id.Result2LinearLayoutGrid);
+            result2LinearLayoutGridRowHeaders = inflater.findViewById(R.id.Result2LinearLayoutGridRowHeaders);
+            result2LinearLayoutGridCorner = inflater.findViewById(R.id.Result2LinearLayoutGridCorner);
+            result2ListViewGridRowHeaders = inflater.findViewById(R.id.Result2ListViewGridRowHeaders);
+            result2LinearLayoutGridColumnHeaders = inflater.findViewById(R.id.Result2LinearLayoutGridColumnHeaders);
+            result2ListViewGridRows = inflater.findViewById(R.id.Result2ListViewGridRows);
             // Constrain expanded input
             editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -1011,56 +1010,56 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Run button events
             buttonMMinus.setOnClickListener(v -> {
-                String mText = buttonM.getText().toString();
+                String mText = editTextM.getText().toString();
                 if (!mText.isEmpty()) {
                     int m = Integer.parseInt(mText);
                     if (m <= 1) { // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
-                        buttonM.setText("");
+                        editTextM.setText("");
                     } else {
                         m = m - 1;
-                        buttonM.setText(String.valueOf(m));
+                        editTextM.setText(String.valueOf(m));
                     }
                 }
                 calculateFModM();
             });
             buttonMPlus.setOnClickListener(v -> {
-                String mText = buttonM.getText().toString();
+                String mText = editTextM.getText().toString();
                 if (mText.isEmpty()) {
-                    buttonM.setText("1"); // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
+                    editTextM.setText("1"); // m value should not be 0 otherwise we get "modulus not positive" or "m.signum() <= 0" exceptions when doing m.mod(r)
                 } else {
                     int m = Integer.parseInt(mText);
                     m = m + 1;
-                    buttonM.setText(String.valueOf(m));
+                    editTextM.setText(String.valueOf(m));
                 }
                 calculateFModM();
             });
             buttonRMinus.setOnClickListener(v -> {
-                String rText = buttonR.getText().toString();
+                String rText = editTextR.getText().toString();
                 if (!rText.isEmpty()) {
                     int r = Integer.parseInt(rText);
                     if (r <= 0) {
-                        buttonR.setText("");
+                        editTextR.setText("");
                     } else {
                         r -= 1;
-                        buttonR.setText(String.valueOf(r));
+                        editTextR.setText(String.valueOf(r));
                     }
                 }
                 calculateFModM();
             });
             buttonRPlus.setOnClickListener(v -> {
-                String rText = buttonR.getText().toString();
+                String rText = editTextR.getText().toString();
                 if (rText.isEmpty()) {
-                    buttonR.setText("0");
+                    editTextR.setText("0");
                 } else {
-                    String mText = buttonM.getText().toString();
+                    String mText = editTextM.getText().toString();
                     if (mText.isEmpty()) {
-                        buttonR.setText("");
+                        editTextR.setText("");
                     } else {
                         int m = Integer.parseInt(mText);
                         int r = Integer.parseInt(rText);
                         r += 1;
                         if (r < m) {
-                            buttonR.setText(String.valueOf(r));
+                            editTextR.setText(String.valueOf(r));
                         }
                     }
                 }
@@ -1540,10 +1539,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             ControlDisplay.setButtonFontSize(buttonRun2, biggerControls);
             // Run Buttons
             ControlDisplay.setButtonFontSize(buttonMMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonM, biggerControls);
+            ControlDisplay.setInputFontSize(editTextM, biggerControls);
             ControlDisplay.setButtonFontSize(buttonMPlus, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRMinus, biggerControls);
-            ControlDisplay.setButtonFontSize(buttonR, biggerControls);
+            ControlDisplay.setInputFontSize(editTextR, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRPlus, biggerControls);
             // Output result
             ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
@@ -1773,11 +1772,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             BigInteger m = null;
             BigInteger r = null;
-            String mText = this.buttonM.getText().toString();
+            String mText = editTextM.getText().toString();
             if (!mText.isEmpty()) {
                 m = new BigInteger(mText);
             }
-            String rText = this.buttonR.getText().toString();
+            String rText = editTextR.getText().toString();
             if (!rText.isEmpty()) {
                 r = new BigInteger(rText);
             }
@@ -1900,16 +1899,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             String f = "88";
             String m = "8";
             String r = "0";
-            this.editTextA.setText(a);
-            this.editTextB.setText(b);
-            this.editTextC.setText(c);
-            this.editTextD.setText(d);
-            this.editTextE.setText(e);
-            this.editTextF.setText(f);
-            this.buttonM.setText(m);
-            this.buttonR.setText(r);
-            this.buttonRunExampleToggle.setText(R.string.run_example_1);
-            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
+            editTextA.setText(a);
+            editTextB.setText(b);
+            editTextC.setText(c);
+            editTextD.setText(d);
+            editTextE.setText(e);
+            editTextF.setText(f);
+            editTextM.setText(m);
+            editTextR.setText(r);
+            buttonRunExampleToggle.setText(R.string.run_example_1);
+            textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1924,16 +1923,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             String f = "113";
             String m = "16";
             String r = "1";
-            this.editTextA.setText(a);
-            this.editTextB.setText(b);
-            this.editTextC.setText(c);
-            this.editTextD.setText(d);
-            this.editTextE.setText(e);
-            this.editTextF.setText(f);
-            this.buttonM.setText(m);
-            this.buttonR.setText(r);
-            this.buttonRunExampleToggle.setText(R.string.run_example_2);
-            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
+            editTextA.setText(a);
+            editTextB.setText(b);
+            editTextC.setText(c);
+            editTextD.setText(d);
+            editTextE.setText(e);
+            editTextF.setText(f);
+            editTextM.setText(m);
+            editTextR.setText(r);
+            buttonRunExampleToggle.setText(R.string.run_example_2);
+            textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1948,16 +1947,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             String f = "83";
             String m = "8";
             String r = "3";
-            this.editTextA.setText(a);
-            this.editTextB.setText(b);
-            this.editTextC.setText(c);
-            this.editTextD.setText(d);
-            this.editTextE.setText(e);
-            this.editTextF.setText(f);
-            this.buttonM.setText(m);
-            this.buttonR.setText(r);
-            this.buttonRunExampleToggle.setText(R.string.run_example_3);
-            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
+            editTextA.setText(a);
+            editTextB.setText(b);
+            editTextC.setText(c);
+            editTextD.setText(d);
+            editTextE.setText(e);
+            editTextF.setText(f);
+            editTextM.setText(m);
+            editTextR.setText(r);
+            buttonRunExampleToggle.setText(R.string.run_example_3);
+            textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1972,16 +1971,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             String f = "104";
             String m = "16";
             String r = "8";
-            this.editTextA.setText(a);
-            this.editTextB.setText(b);
-            this.editTextC.setText(c);
-            this.editTextD.setText(d);
-            this.editTextE.setText(e);
-            this.editTextF.setText(f);
-            this.buttonM.setText(m);
-            this.buttonR.setText(r);
-            this.buttonRunExampleToggle.setText(R.string.run_example_4);
-            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
+            editTextA.setText(a);
+            editTextB.setText(b);
+            editTextC.setText(c);
+            editTextD.setText(d);
+            editTextE.setText(e);
+            editTextF.setText(f);
+            editTextM.setText(m);
+            editTextR.setText(r);
+            buttonRunExampleToggle.setText(R.string.run_example_4);
+            textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -1996,16 +1995,16 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             String f = "14";
             String m = "8";
             String r = "6";
-            this.editTextA.setText(a);
-            this.editTextB.setText(b);
-            this.editTextC.setText(c);
-            this.editTextD.setText(d);
-            this.editTextE.setText(e);
-            this.editTextF.setText(f);
-            this.buttonM.setText(m);
-            this.buttonR.setText(r);
-            this.buttonRunExampleToggle.setText(R.string.run_example_5);
-            this.textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
+            editTextA.setText(a);
+            editTextB.setText(b);
+            editTextC.setText(c);
+            editTextD.setText(d);
+            editTextE.setText(e);
+            editTextF.setText(f);
+            editTextM.setText(m);
+            editTextR.setText(r);
+            buttonRunExampleToggle.setText(R.string.run_example_5);
+            textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
@@ -2299,8 +2298,8 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             BigInteger m = null;
             BigInteger r = null;
 
-            String mText = this.buttonM.getText().toString();
-            String rText = this.buttonR.getText().toString();
+            String mText = editTextM.getText().toString();
+            String rText = editTextR.getText().toString();
 
             if (!mText.isEmpty()) {
                 m = new BigInteger(mText);

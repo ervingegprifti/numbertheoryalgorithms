@@ -161,9 +161,6 @@
         <item name="android:text">@string/fa_eraser</item>
     </style>
 
-
-
-
     <style name="TextViewLabelNoBgStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -173,8 +170,6 @@
         <item name="android:layout_marginBottom">0dp</item>
         <item name="android:layout_gravity">bottom</item>
     </style>
-
-
 
     <style name="TextViewDocumentation">
         <item name="android:background">@drawable/documentation_button_bg</item>
@@ -322,7 +317,7 @@
     <!-- Button Pills -->
     <style name="ButtonPillStyle">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:padding">0dp</item>
         <item name="android:gravity">center</item>
@@ -339,6 +334,25 @@
         <item name="backgroundTint">@color/button_run_bg_selector</item>
         <item name="cornerRadius">0dp</item>
         <item name="android:layout_weight">1</item>
+    </style>
+    <style name="EditTextModStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@drawable/edittext_pill_middle_bg</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:maxLength">10</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:ellipsize">end</item>
     </style>
     <style name="ButtonPillRightStyle" parent="ButtonPillStyle">
         <item name="shapeAppearanceOverlay">@style/ButtonPillRightCornerRadiusStyle</item>
