@@ -14,6 +14,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!--Primes list-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutPrimesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/primes_list"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/primes_list_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--Mod Factors-->
+        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
+            <LinearLayout android:id="@+id/LinearLayoutModFactors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView style="@style/AlgorithmsTextViewTitle"
+                    android:text="@string/mod_factors"/>
+                <View style="@style/AlgorithmsViewSeparator"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mod_factors_description"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <!--Binary Quadratic Form-->
         <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
             <LinearLayout android:id="@+id/LinearLayoutSimpleQuadraticForm"
@@ -140,42 +176,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/tonelli_shanks_algorithm_description"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!--Mod Factors-->
-        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
-            <LinearLayout android:id="@+id/LinearLayoutModFactors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView style="@style/AlgorithmsTextViewTitle"
-                    android:text="@string/mod_factors"/>
-                <View style="@style/AlgorithmsViewSeparator"/>
-                <TextView
-                    android:textColor="@color/colorAccent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mod_factors_description"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!--Primes list-->
-        <androidx.cardview.widget.CardView style="@style/AlgorithmsCardView">
-            <LinearLayout android:id="@+id/LinearLayoutPrimesList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView style="@style/AlgorithmsTextViewTitle"
-                    android:text="@string/primes_list"/>
-                <View style="@style/AlgorithmsViewSeparator"/>
-                <TextView
-                    android:textColor="@color/colorAccent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/primes_list_description"
                     android:textSize="12sp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

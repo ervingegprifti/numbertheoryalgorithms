@@ -49,17 +49,16 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
             for(BigInteger k = TWO; k.compareTo(b) <= 0; k = k.add(ONE)) {
                 BigInteger m = n.mod(k);
                 int counter = 0;
+                //
                 for (BigInteger d = ZERO; d.compareTo(k) < 0; d = d.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
+                    //
                     for (BigInteger e = ZERO; e.compareTo(k) < 0; e = e.add(ONE)) {
                         AlgorithmHelper.checkIfCanceled();
-                        if(d.compareTo(e) <= 0) {
-                            // Get only one of the pair and the ones with the same values.
-                            // e.x. from 1,2 and 2,1 get only one pair 1,2. Get all the pairs like 0,0; 1,1; 2,2;...
-                            BigInteger rem = d.multiply(e).mod(k);
-                            if(m.equals(rem)) {
-                                counter += 1;
-                            }
+
+                        BigInteger rem = d.multiply(e).mod(k);
+                        if(m.equals(rem)) {
+                            counter += 1;
                         }
                     }
                 }
