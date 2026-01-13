@@ -575,10 +575,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             boolean exampleButtonsAreVisible = this.linearLayoutExamplesContainer.getVisibility() == View.VISIBLE;
             boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
             if (exampleButtonsAreVisible && hideExampleButtons) {
-                this.buttonRun.setText(requireContext().getText(R.string.mod_factors_run_long));
+                this.buttonRun.setText(requireContext().getText(R.string.mod_factors_run_alg_2));
                 this.linearLayoutExamplesContainer.setVisibility(View.GONE);
             } else if (!exampleButtonsAreVisible && !hideExampleButtons) {
-                this.buttonRun.setText(requireContext().getText(R.string.mod_factors_run_short));
+                this.buttonRun.setText(requireContext().getText(R.string.mod_factors_run_alg_1));
                 this.linearLayoutExamplesContainer.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {

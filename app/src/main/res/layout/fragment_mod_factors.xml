@@ -171,12 +171,18 @@
             <LinearLayout style="@style/RowContainerStyle">
                 <Button style="@style/ButtonRunStyle"
                     android:id="@+id/ButtonRun"
-                    android:text="@string/mod_factors_run_short"
+                    android:text="@string/mod_factors_run_alg_1"
+                    android:layout_marginRight="5dp"
+                    tools:ignore="RtlHardcoded" />
+                <Button style="@style/ButtonRunStyle"
+                    android:id="@+id/ButtonRun2"
+                    android:text="@string/mod_factors_run_alg_2"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     tools:ignore="RtlHardcoded" />
                 <Button style="@style/ButtonRunStyle"
                     android:id="@+id/ButtonCountRun"
-                    android:text="@string/mod_factors_count_run_short"
+                    android:text="@string/mod_factors_run_count1"
                     android:layout_marginLeft="5dp"
                     tools:ignore="RtlHardcoded" />
             </LinearLayout>

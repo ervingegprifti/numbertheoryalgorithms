@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="mod_factors_title">MOD FACTORS</string>
-    <string name="mod_factors_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tMod factors</string>
-    <string name="mod_factors_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tMod factors</string>
-    <string name="mod_factors_count_run_short"><strong><font color='#E3E1D7'>●</font></strong>\tCount</string>
-    <string name="mod_factors_count_run_long"><strong><font color='#E3E1D7'>●</font></strong>\tCount</string>
+    <string name="mod_factors_run_alg_1"><strong><font color='#E3E1D7'>●</font></strong>\tAlg 1</string>
+    <string name="mod_factors_run_alg_2"><strong><font color='#E3E1D7'>●</font></strong>\tAlg 2</string>
+    <string name="mod_factors_run_count1"><strong><font color='#E3E1D7'>●</font></strong>\tCount</string>
     <string name="mod_factors_example_1_n">551</string>
     <string name="mod_factors_example_1_a">8</string>
     <string name="mod_factors_example_2_n">551</string>
