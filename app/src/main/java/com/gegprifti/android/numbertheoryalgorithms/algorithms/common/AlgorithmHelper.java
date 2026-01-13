@@ -18,6 +18,27 @@ public class AlgorithmHelper {
     private static final BigInteger TWO = BigInteger.valueOf(2L);
     private static final BigInteger EIGHT = BigInteger.valueOf(8L);
 
+
+    public static String formatExecutionTime(long durationNs) {
+        long hours = durationNs / 3_600_000_000_000L;
+        durationNs %= 3_600_000_000_000L;
+
+        long minutes = durationNs / 60_000_000_000L;
+        durationNs %= 60_000_000_000L;
+
+        long seconds = durationNs / 1_000_000_000L;
+        durationNs %= 1_000_000_000L;
+
+        long millis = durationNs / 1_000_000L;
+        durationNs %= 1_000_000L;
+
+        long micros = durationNs / 1_000L;
+        long nanos  = durationNs % 1_000L;
+
+        return String.format(Locale.getDefault(), "Time: %02dh %02dm %02ds %03dms %03dµs %03dns", hours, minutes, seconds, millis, micros, nanos);
+    }
+
+
     @Nullable
     public static BigInteger parseBigIntegerOrNull(@Nullable Editable editable) {
         if (editable == null) return null;
@@ -105,6 +126,24 @@ public class AlgorithmHelper {
      */
     public static String paddingCharacters(BigInteger n, int totalCharacters) {
         String s = n.toString();
+        int padding = totalCharacters - s.length();
+
+        if (padding <= 0) {
+            return s;
+        }
+
+        return "&nbsp;".repeat(padding) + s;
+    }
+
+
+    /**
+     * Add preceding spaces to preserve the same space, like '  5', ' 55', '555',...
+     * @param n
+     * @param totalCharacters
+     * @return
+     */
+    public static String paddingCharacters(int n, int totalCharacters) {
+        String s = String.valueOf(n);
         int padding = totalCharacters - s.length();
 
         if (padding <= 0) {

@@ -2,19 +2,22 @@ package com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors;
 
 
 import static com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper.formatSigned;
+
 import android.util.Log;
+
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmHelper;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
-import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
+
 import java.math.BigInteger;
 import java.util.Locale;
 
 
-public class ModFactors extends Algorithm implements StringCalculator {
-    private final static String TAG = ModFactors.class.getSimpleName();
+public class ModFactorsAlg2 extends Algorithm implements StringCalculator {
+    private final static String TAG = ModFactorsAlg2.class.getSimpleName();
 
-    public ModFactors(AlgorithmParameters algorithmParameters) {
+    public ModFactorsAlg2(AlgorithmParameters algorithmParameters) {
         super(algorithmParameters);
     }
 
