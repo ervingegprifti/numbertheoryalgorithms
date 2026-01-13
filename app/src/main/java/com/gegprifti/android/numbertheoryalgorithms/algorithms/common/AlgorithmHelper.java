@@ -104,13 +104,14 @@ public class AlgorithmHelper {
      * @return
      */
     public static String paddingCharacters(BigInteger n, int totalCharacters) {
-        String characters = n.toString();
-        int requiredPadding = totalCharacters - characters.length();
-        StringBuilder padding = new StringBuilder();
-        for (int i = 0; i < requiredPadding; i++) {
-            padding.append("&nbsp;");
+        String s = n.toString();
+        int padding = totalCharacters - s.length();
+
+        if (padding <= 0) {
+            return s;
         }
-        return padding + characters;
+
+        return "&nbsp;".repeat(padding) + s;
     }
 
 
