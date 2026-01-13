@@ -89,13 +89,14 @@ public class ModFactorsAlg1 extends Algorithm implements StringCalculator {
                         eString = eStringFormat;
                     }
 
-                    String deString = AlgorithmHelper.paddingCharacters(de, bbCharacters);
                     String resultStringDEqualToE = "■ %s | %s·%s = %s ≡ %s (mod %s)<br>";
                     String resultStringDNotEqualToE = "□ %s | %s·%s = %s ≡ %s (mod %s)<br>";
 
+                    // Check if r = rem
                     if(r.equals(rem)) {
+                        String deString = AlgorithmHelper.paddingCharacters(de, bbCharacters);
                         counter += 1;
-                        String counterStringFormat = AlgorithmHelper.paddingCharacters(counter, bCharacters);
+                        String counterStringFormat = AlgorithmHelper.paddingCharacters(counter, bCharacters + 1);
                         if(d.compareTo(e) == 0) {
                             result.append(String.format(Locale.getDefault(), resultStringDEqualToE, counterStringFormat, dString, eString, deString, r, b));
                         } else {

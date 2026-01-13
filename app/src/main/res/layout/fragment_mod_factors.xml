@@ -182,7 +182,7 @@
                     tools:ignore="RtlHardcoded" />
                 <Button style="@style/ButtonRunStyle"
                     android:id="@+id/ButtonRun3"
-                    android:text="@string/mod_factors_run_alg_2"
+                    android:text="@string/mod_factors_run_alg_3"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     tools:ignore="RtlHardcoded" />
