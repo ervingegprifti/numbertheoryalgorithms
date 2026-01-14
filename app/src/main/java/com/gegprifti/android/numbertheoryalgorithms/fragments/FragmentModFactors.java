@@ -32,6 +32,7 @@ import com.gegprifti.android.numbertheoryalgorithms.settings.UserSettings;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.FragmentBase;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.Callback;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -701,9 +702,13 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 String resultCanceledText = requireContext().getResources().getString(R.string.canceled);
                 editTextResult.setText(resultCanceledText);
             } else {
-                String resultAsString = (String) result;
-                CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
-                editTextResult.setText(resultFromHtml);
+                if (result instanceof List<?>) {
+                    @SuppressWarnings("unchecked")
+                    List<String> modFactors = (List<String>) result;
+                    String modFactorsString = String.join("<br><br>", modFactors);
+                    CharSequence resultFromHtml = Html.fromHtml(modFactorsString, Html.FROM_HTML_MODE_LEGACY);
+                    editTextResult.setText(resultFromHtml);
+                }
             }
         }
 
