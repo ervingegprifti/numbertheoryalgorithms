@@ -41,7 +41,12 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger e = algorithmParameters.getInput5();
             BigInteger f = algorithmParameters.getInput6();
 
-            BigInteger limitAxis = new BigInteger("500");
+            boolean passedMinXLimitAxis = false;
+            boolean passedMaxXLimitAxis = false;
+            boolean passedMinYLimitAxis = false;
+            boolean passedMaxYLimitAxis = false;
+
+            BigInteger limitAxis = new BigInteger("250");
             BigInteger maxX = f.abs();
             if (d.compareTo(ZERO) != 0) {
                 maxX = f.abs().divide(d.abs()).add(ONE);
@@ -49,9 +54,11 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger minX = maxX.negate();
             if(minX.compareTo(limitAxis.negate()) < 0){
                 minX = limitAxis.negate();
+                passedMinXLimitAxis = true;
             }
             if(maxX.compareTo(limitAxis) > 0){
                 maxX = limitAxis;
+                passedMaxXLimitAxis = true;
             }
 
             BigInteger maxY = f.abs();
@@ -61,11 +68,13 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger minY = maxY.negate();
             if(minY.compareTo(limitAxis.negate()) < 0){
                 minY = limitAxis.negate();
+                passedMinYLimitAxis = true;
             }
             if(maxY.compareTo(limitAxis) > 0){
                 maxY = limitAxis;
+                passedMaxYLimitAxis = true;
             }
-            
+
             // Add the corner.
             List<Cell> cornerRow = new ArrayList<>();
             Cell cornerCell = new Cell(true, "f(x,y)");
@@ -81,9 +90,16 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
 
             // Add column headers. List of header cells in the x axis.
             List<Cell> columnHeaderRow = new ArrayList<>();
+            // if (passedMinXLimitAxis) {
+            //     Cell columnHeaderCell = new Cell(true, "···");
+            //     columnHeaderRow.add(columnHeaderCell);
+            //     // Add the length of the columnHeaderCell values to begin with.
+            //     columnHeaderRowIndex++;
+            //     addColumnMaxLength(columnMaxLengths, columnHeaderCell, columnHeaderRowIndex);
+            // }
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
-                Cell columnHeaderCell = new Cell(true, "x=" + x);
+                Cell columnHeaderCell = new Cell(true, x.toString());
                 columnHeaderRow.add(columnHeaderCell);
                 // Add the length of the columnHeaderCell values to begin with.
                 columnHeaderRowIndex++;
@@ -101,11 +117,18 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
 
                 // Add row headers.
                 List<Cell> rowHeaderRow = new ArrayList<>();
-                Cell rowHeaderCell = new Cell(true, "y=" + y);
+                Cell rowHeaderCell = new Cell(true, y.toString());
                 rowHeaderRow.add(rowHeaderCell);
                 columnHeaderRowIndex = 0;
                 addColumnMaxLength(columnMaxLengths, rowHeaderCell, columnHeaderRowIndex);
                 rowHeaders.add(rowHeaderRow);
+
+                // if(passedMinXLimitAxis){
+                //     columnHeaderRowIndex++;
+                //     Cell cell = new Cell(true, "···");
+                //     row.add(cell);
+                //     addColumnMaxLength(columnMaxLengths, cell, columnHeaderRowIndex);
+                // }
                 
                 // Add f values.
                 for(BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
