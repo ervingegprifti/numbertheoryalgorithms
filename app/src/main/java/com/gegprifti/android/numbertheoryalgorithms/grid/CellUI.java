@@ -62,7 +62,7 @@ public class CellUI {
         //}
 
         if (!cell.getIsHeader() && cell.getValue() != null && !cell.getValue().isEmpty()) {
-            textView.setOnClickListener(view -> UIHelper.copyTextIntoClipboard(context, cell.getValue()));
+            textView.setOnClickListener(view -> UIHelper.copyTextIntoClipboardWithNotification(context, cell.getValue(), true));
         } else {
             textView.setOnClickListener(null);
         }

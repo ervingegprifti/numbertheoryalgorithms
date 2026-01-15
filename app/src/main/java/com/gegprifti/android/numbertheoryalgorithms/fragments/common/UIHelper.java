@@ -167,7 +167,7 @@ public final class UIHelper {
 
     //region Toasts
     public static void showCustomToastError(Context context, String message) {
-        showCustomToastError(context, message, Toast.LENGTH_LONG);
+        showCustomToastError(context, message, Toast.LENGTH_SHORT);
     }
     public static void showCustomToastError(Context context, String message, int toastLength) {
         try {
@@ -186,7 +186,7 @@ public final class UIHelper {
         }
     }
     public static void showCustomToastLight(Context context, String message) {
-        showCustomToastLight(context, message, Toast.LENGTH_LONG);
+        showCustomToastLight(context, message, Toast.LENGTH_SHORT);
     }
     public static void showCustomToastLight(Context context, String message, int toastLength) {
         try {
@@ -205,7 +205,7 @@ public final class UIHelper {
         }
     }
     public static void showCustomToastDark(Context context, String message) {
-        showCustomToastDark(context, message, Toast.LENGTH_LONG);
+        showCustomToastDark(context, message, Toast.LENGTH_SHORT);
     }
     public static void showCustomToastDark(Context context, String message, int toastLength) {
         try {
@@ -285,27 +285,59 @@ public final class UIHelper {
      * @param context
      * @param textToCopyToClipboard
      */
-    public static void copyTextIntoClipboard(Context context, String textToCopyToClipboard) {
+    public static void copyTextIntoClipboardWithoutNotification(Context context, String textToCopyToClipboard) {
+        copyTextIntoClipboard(context, textToCopyToClipboard);
+    }
+
+
+    /**
+     * Copy this text into clipboard.
+     *
+     * @param context
+     * @param textToCopyToClipboard
+     */
+    public static void copyTextIntoClipboardWithNotification(Context context, String textToCopyToClipboard, boolean showCopiedText) {
+        boolean success = copyTextIntoClipboard(context, textToCopyToClipboard);
+        if (success) {
+            String textToShow = showCopiedText ? textToCopyToClipboard + " copied" : "Copied";
+            showCustomToastLight(context, textToShow, Toast.LENGTH_SHORT);
+        }
+    }
+
+
+    /**
+     *
+     * @param context
+     * @param textToCopyToClipboard
+     * @return
+     */
+    private static boolean copyTextIntoClipboard(Context context, String textToCopyToClipboard) {
         try {
             vibrateOnButtonTap(context);
             // Source: https://developer.android.com/guide/topics/text/copy-paste.html
             if(textToCopyToClipboard.isEmpty()) {
                 showCustomToastLight(context, "Nothing to copy", Toast.LENGTH_SHORT);
-            } else {
-                ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                if(clipboardManager == null) {
-                    return;
-                }
-                ClipData clipData = ClipData.newPlainText("CopiedText", textToCopyToClipboard);
-                if(clipData == null) {
-                    return;
-                }
-                clipboardManager.setPrimaryClip(clipData);
-                showCustomToastLight(context, textToCopyToClipboard + " copied", Toast.LENGTH_SHORT);
+                return false;
             }
+
+            ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+            if(clipboardManager == null) {
+                showCustomToastLight(context, "clipboardManager is null", Toast.LENGTH_SHORT);
+                return false;
+            }
+
+            ClipData clipData = ClipData.newPlainText("CopiedText", textToCopyToClipboard);
+            if(clipData == null) {
+                showCustomToastLight(context, "clipData is null", Toast.LENGTH_SHORT);
+                return false;
+            }
+
+            clipboardManager.setPrimaryClip(clipData);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
+
+        return true;
     }
 
 

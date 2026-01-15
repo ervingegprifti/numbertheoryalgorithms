@@ -714,10 +714,24 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     //
                     LayoutInflater inflater = LayoutInflater.from(requireContext());
                     linearLayoutResultContainer.removeAllViews(); // Clear old results
-                    for (String modFactorText : modFactors) {
-                        EditText editText = (EditText) inflater.inflate(R.layout.mod_factor, linearLayoutResultContainer, false);
-                        editText.setText(modFactorText);
-                        linearLayoutResultContainer.addView(editText);
+                    for (int i = 0; i < modFactors.size(); i++) {
+                        String modFactor = modFactors.get(i);
+                        TextView textView = (TextView) inflater.inflate(R.layout.mod_factor, linearLayoutResultContainer, false);
+                        textView.setText(modFactor);
+
+                        final int index = i;
+                        textView.setOnClickListener(v -> {
+                            // UIHelper.showCustomToastLight(requireContext(), "Clicked modFactor # " + index);
+                            UIHelper.copyTextIntoClipboardWithoutNotification(requireContext(), modFactor);
+                        });
+
+                        //textView.setOnLongClickListener(v -> {
+                        //    UIHelper.showCustomToastLight(requireContext(), "Clicked item #" + index);
+                        //    UIHelper.copyTextIntoClipboard(requireContext(), modFactor);
+                        //    return true;
+                        //});
+
+                        linearLayoutResultContainer.addView(textView);
                     }
                 }
             }
