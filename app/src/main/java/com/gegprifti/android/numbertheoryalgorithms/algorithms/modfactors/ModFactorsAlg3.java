@@ -11,6 +11,7 @@ import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.ListString
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ModFactorsAlg3 extends Algorithm implements ListStringCalculator {
@@ -27,13 +28,21 @@ public class ModFactorsAlg3 extends Algorithm implements ListStringCalculator {
             BigInteger n = algorithmParameters.getInput1();
             BigInteger b = algorithmParameters.getInput2();
 
+            List<String> result = new ArrayList<>();
+            result.add(String.format(Locale.getDefault(), "<font color='%s'><b>Mod factors: Alg 3</b></font>", COLOR));
+
             BigInteger gcdnb = n.gcd(b);
 
+            List<String> modFactors;
             if (gcdnb.compareTo(ONE) == 0) {
-                return alg2CoprimeCase (n, b);
+                modFactors = alg2CoprimeCase (n, b);
+                result.addAll(modFactors);
             } else {
-                return alg2NonCoprimeCase(n, b);
+                modFactors = alg2NonCoprimeCase(n, b);
+                result.addAll(modFactors);
             }
+
+            return result;
         } catch (InterruptedException ex) {
             // This specifically handles the cancellation.
             // Re-throw it so ProgressManager can handle it correctly.

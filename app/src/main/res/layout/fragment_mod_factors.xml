@@ -215,7 +215,8 @@
                 <TextView style="@style/ClipboardButtonClearStyle"
                     android:id="@+id/TextViewClearResult"  />
             </LinearLayout>
-            <LinearLayout style="@style/ResultContainer">
+            <LinearLayout style="@style/ResultContainer"
+                android:id="@+id/LinearLayoutResultContainer">
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -224,13 +225,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <EditText style="@style/EditTextResult"
+                            android:id="@+id/EditTextResult"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/EditTextResult"
                             android:typeface="monospace"
                             android:autofillHints="" />
                         <LinearLayout
-                            android:id="@+id/LinearLayoutResultContainer"
+                            android:id="@+id/LinearLayoutResultModFactors"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">

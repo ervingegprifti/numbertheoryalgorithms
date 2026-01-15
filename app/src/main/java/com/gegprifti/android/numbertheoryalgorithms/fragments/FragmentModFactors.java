@@ -99,6 +99,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     TextView textViewCopyResult;
     TextView textViewClearResult;
     LinearLayout linearLayoutResultContainer;
+    LinearLayout linearLayoutResultModFactors;
     EditText editTextResult;
     // Flags to prevent recursive updates
     AtomicBoolean isUpdatingEditTextN = new AtomicBoolean(false);
@@ -180,6 +181,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
             textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
+            linearLayoutResultModFactors = inflater.findViewById(R.id.LinearLayoutResultModFactors);
             editTextResult = inflater.findViewById(R.id.EditTextResult);
 
             // Constrain expanded input
@@ -406,6 +408,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             });
             textViewClearResult.setOnClickListener(v -> {
                 UIHelper.clearEditText(requireContext(), editTextResult);
+                linearLayoutResultModFactors.removeAllViews();
                 resetAllAndSelectTheLastButtonClicked(textViewClearResult);
             });
 
@@ -441,8 +444,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
         }
     }
+
+
     private void expandResult() {
-        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), editTextResult.getText());
+        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutResultContainer);
         popupResult.show();
         resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
     }
@@ -686,6 +691,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
                 editTextResult.setText(resultFromHtml);
             }
+            linearLayoutResultModFactors.removeAllViews();
         }
 
         if (algorithmName == AlgorithmName.MOD_FACTORS_ALG2) {
@@ -697,6 +703,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
                 editTextResult.setText(resultFromHtml);
             }
+            linearLayoutResultModFactors.removeAllViews();
         }
 
         if (algorithmName == AlgorithmName.MOD_FACTORS_ALG3) {
@@ -707,31 +714,28 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 if (result instanceof List<?>) {
                     @SuppressWarnings("unchecked")
                     List<String> modFactors = (List<String>) result;
-                    String modFactorsString = "Mod ...";
+                    String modFactorsString = modFactors.get(0);
                     CharSequence resultFromHtml = Html.fromHtml(modFactorsString, Html.FROM_HTML_MODE_LEGACY);
                     editTextResult.setText(resultFromHtml);
 
                     //
                     LayoutInflater inflater = LayoutInflater.from(requireContext());
-                    linearLayoutResultContainer.removeAllViews(); // Clear old results
-                    for (int i = 0; i < modFactors.size(); i++) {
+                    linearLayoutResultModFactors.removeAllViews(); // Clear old results
+                    for (int i = 1; i < modFactors.size(); i++) {
                         String modFactor = modFactors.get(i);
-                        TextView textView = (TextView) inflater.inflate(R.layout.mod_factor, linearLayoutResultContainer, false);
+                        TextView textView = (TextView) inflater.inflate(R.layout.mod_factor, linearLayoutResultModFactors, false);
                         textView.setText(modFactor);
 
-                        final int index = i;
                         textView.setOnClickListener(v -> {
-                            // UIHelper.showCustomToastLight(requireContext(), "Clicked modFactor # " + index);
                             UIHelper.copyTextIntoClipboardWithoutNotification(requireContext(), modFactor);
                         });
 
                         //textView.setOnLongClickListener(v -> {
-                        //    UIHelper.showCustomToastLight(requireContext(), "Clicked item #" + index);
-                        //    UIHelper.copyTextIntoClipboard(requireContext(), modFactor);
+                        //    UIHelper.copyTextIntoClipboardWithoutNotification(requireContext(), modFactor);
                         //    return true;
                         //});
 
-                        linearLayoutResultContainer.addView(textView);
+                        linearLayoutResultModFactors.addView(textView);
                     }
                 }
             }
@@ -746,6 +750,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 CharSequence resultFromHtml = Html.fromHtml(resultAsString, Html.FROM_HTML_MODE_LEGACY);
                 editTextResult.setText(resultFromHtml);
             }
+            linearLayoutResultModFactors.removeAllViews();
         }
     }
     //endregion Callback
@@ -1024,6 +1029,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
         editTextResult.setText("");
+        linearLayoutResultModFactors.removeAllViews();
     }
     //endregion RESULT
 }
