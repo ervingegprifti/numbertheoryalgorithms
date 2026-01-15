@@ -98,6 +98,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     TextView textViewExpandResult;
     TextView textViewCopyResult;
     TextView textViewClearResult;
+    LinearLayout linearLayoutResultContainer;
     EditText editTextResult;
     // Flags to prevent recursive updates
     AtomicBoolean isUpdatingEditTextN = new AtomicBoolean(false);
@@ -178,6 +179,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
             textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
             textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
+            linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
             editTextResult = inflater.findViewById(R.id.EditTextResult);
 
             // Constrain expanded input
@@ -705,9 +707,18 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 if (result instanceof List<?>) {
                     @SuppressWarnings("unchecked")
                     List<String> modFactors = (List<String>) result;
-                    String modFactorsString = String.join("<br><br>", modFactors);
+                    String modFactorsString = "Mod ...";
                     CharSequence resultFromHtml = Html.fromHtml(modFactorsString, Html.FROM_HTML_MODE_LEGACY);
                     editTextResult.setText(resultFromHtml);
+
+                    //
+                    LayoutInflater inflater = LayoutInflater.from(requireContext());
+                    linearLayoutResultContainer.removeAllViews(); // Clear old results
+                    for (String modFactorText : modFactors) {
+                        EditText editText = (EditText) inflater.inflate(R.layout.mod_factor, linearLayoutResultContainer, false);
+                        editText.setText(modFactorText);
+                        linearLayoutResultContainer.addView(editText);
+                    }
                 }
             }
         }

@@ -216,19 +216,28 @@
                     android:id="@+id/TextViewClearResult"  />
             </LinearLayout>
             <LinearLayout style="@style/ResultContainer">
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:background="@color/colorGeneralBg"-->
-<!--                    android:text="SSS">-->
-<!--                </TextView>-->
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <EditText android:id="@+id/EditTextResult"
-                        style="@style/EditTextResult"
-                        android:typeface="monospace"
-                        android:autofillHints="" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <EditText style="@style/EditTextResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/EditTextResult"
+                            android:typeface="monospace"
+                            android:autofillHints="" />
+                        <LinearLayout
+                            android:id="@+id/LinearLayoutResultContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <!--<include layout="@layout/mod_factor" />-->
+                            <!--<include layout="@layout/mod_factor" />-->
+                        </LinearLayout>
+                    </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
         </LinearLayout>

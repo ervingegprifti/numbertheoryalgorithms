@@ -68,8 +68,8 @@ public class ModFactorsAlg3 extends Algorithm implements ListStringCalculator {
                 BigInteger rem = de.mod(b);
                 if(rem.equals(r)) {
                     BigInteger f = n.subtract(de).divide(b);
-                    String modFactor = "b: " + b + "<br>" + "d: " + d + "<br>" + "e: " + e + "<br>" + "f: " + f;
-                    modFactors.add(modFactor);
+                    String modFactor = "b: " + b + "\n" + "d: " + d + "\n" + "e: " + e + "\n" + "f: " + f + "\n" + "m: " + b + "\n" + "r: " + r;
+                            modFactors.add(modFactor);
                 }
             }
         }
@@ -114,7 +114,7 @@ public class ModFactorsAlg3 extends Algorithm implements ListStringCalculator {
 
                 if(rem.equals(r)) {
                     BigInteger f = n.subtract(de).divide(b);
-                    String modFactor = "b: " + b + "<br>" + "d: " + d + "<br>" + "e: " + e + "<br>" + "f: " + f;
+                    String modFactor = "b: " + b + "\n" + "d: " + d + "\n" + "e: " + e + "\n" + "f: " + f + "\n" + "m: " + b + "\n" + "r: " + r;
                     modFactors.add(modFactor);
                 }
             }
