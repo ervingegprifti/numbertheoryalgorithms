@@ -2324,6 +2324,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     for(int iIndex = 0; iIndex < row.size(); iIndex++) {
                         Cell item = row.get(iIndex);
                         if (!item.getIsHeader()) {
+                            if (item.getIsInfinit()) {
+                                continue;
+                            }
                             String value1 = item.getValue1();
                             BigInteger f = new BigInteger(value1);
                             BigInteger fmodm1 = f.mod(m);
@@ -2346,6 +2349,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     for(int iIndex = 0; iIndex < row.size(); iIndex++) {
                         Cell item = row.get(iIndex);
                         if (!item.getIsHeader()) {
+                            if (item.getIsInfinit()) {
+                                continue;
+                            }
                             if (item.getValueToDisplay() != Cell.ValueToDisplay.VALUE_1) {
                                 item.setValueToDisplay(Cell.ValueToDisplay.VALUE_1);
                             }

@@ -18,7 +18,11 @@ import java.util.List;
 
 public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
     private final static String TAG = BinaryQuadraticForm2.class.getSimpleName();
-
+    private final static BigInteger LIMIT_AXIS = new BigInteger("250");
+    private boolean passedMinXLimitAxis = false;
+    private boolean passedMaxXLimitAxis = false;
+    private boolean passedMinYLimitAxis = false;
+    private boolean passedMaxYLimitAxis = false;
 
     public BinaryQuadraticForm2(AlgorithmParameters algorithmParameters) {
         super(algorithmParameters);
@@ -41,23 +45,17 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
             BigInteger e = algorithmParameters.getInput5();
             BigInteger f = algorithmParameters.getInput6();
 
-            boolean passedMinXLimitAxis = false;
-            boolean passedMaxXLimitAxis = false;
-            boolean passedMinYLimitAxis = false;
-            boolean passedMaxYLimitAxis = false;
-
-            BigInteger limitAxis = new BigInteger("250");
             BigInteger maxX = f.abs();
             if (d.compareTo(ZERO) != 0) {
                 maxX = f.abs().divide(d.abs()).add(ONE);
             }
             BigInteger minX = maxX.negate();
-            if(minX.compareTo(limitAxis.negate()) < 0){
-                minX = limitAxis.negate();
+            if(minX.compareTo(LIMIT_AXIS.negate()) < 0){
+                minX = LIMIT_AXIS.add(ONE).negate();
                 passedMinXLimitAxis = true;
             }
-            if(maxX.compareTo(limitAxis) > 0){
-                maxX = limitAxis;
+            if(maxX.compareTo(LIMIT_AXIS) > 0){
+                maxX = LIMIT_AXIS.add(ONE);
                 passedMaxXLimitAxis = true;
             }
 
@@ -66,12 +64,12 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                 maxY = f.abs().divide(e.abs()).add(ONE);
             }
             BigInteger minY = maxY.negate();
-            if(minY.compareTo(limitAxis.negate()) < 0){
-                minY = limitAxis.negate();
+            if(minY.compareTo(LIMIT_AXIS.negate()) < 0){
+                minY = LIMIT_AXIS.add(ONE).negate();
                 passedMinYLimitAxis = true;
             }
-            if(maxY.compareTo(limitAxis) > 0){
-                maxY = limitAxis;
+            if(maxY.compareTo(LIMIT_AXIS) > 0){
+                maxY = LIMIT_AXIS.add(ONE);
                 passedMaxYLimitAxis = true;
             }
 
@@ -90,16 +88,16 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
 
             // Add column headers. List of header cells in the x axis.
             List<Cell> columnHeaderRow = new ArrayList<>();
-            // if (passedMinXLimitAxis) {
-            //     Cell columnHeaderCell = new Cell(true, "···");
-            //     columnHeaderRow.add(columnHeaderCell);
-            //     // Add the length of the columnHeaderCell values to begin with.
-            //     columnHeaderRowIndex++;
-            //     addColumnMaxLength(columnMaxLengths, columnHeaderCell, columnHeaderRowIndex);
-            // }
             for (BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                 AlgorithmHelper.checkIfCanceled();
                 Cell columnHeaderCell = new Cell(true, x.toString());
+                Cell cellInfinit = new Cell(true, "···");
+                if (passedMinXLimitAxis && x.compareTo(minX) == 0) {
+                    columnHeaderCell = cellInfinit;
+                }
+                if (passedMaxXLimitAxis && x.compareTo(maxX) == 0) {
+                    columnHeaderCell =  cellInfinit;
+                }
                 columnHeaderRow.add(columnHeaderCell);
                 // Add the length of the columnHeaderCell values to begin with.
                 columnHeaderRowIndex++;
@@ -118,18 +116,18 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                 // Add row headers.
                 List<Cell> rowHeaderRow = new ArrayList<>();
                 Cell rowHeaderCell = new Cell(true, y.toString());
+                Cell cellInfinit = new Cell(true, "···");
+                if (passedMinXLimitAxis && y.compareTo(minY) == 0) {
+                    rowHeaderCell = cellInfinit;
+                }
+                if (passedMaxXLimitAxis && y.compareTo(maxY) == 0) {
+                    rowHeaderCell =  cellInfinit;
+                }
                 rowHeaderRow.add(rowHeaderCell);
                 columnHeaderRowIndex = 0;
                 addColumnMaxLength(columnMaxLengths, rowHeaderCell, columnHeaderRowIndex);
                 rowHeaders.add(rowHeaderRow);
 
-                // if(passedMinXLimitAxis){
-                //     columnHeaderRowIndex++;
-                //     Cell cell = new Cell(true, "···");
-                //     row.add(cell);
-                //     addColumnMaxLength(columnMaxLengths, cell, columnHeaderRowIndex);
-                // }
-                
                 // Add f values.
                 for(BigInteger x = minX; x.compareTo(maxX) <= 0; x = x.add(ONE)) {
                     AlgorithmHelper.checkIfCanceled();
@@ -147,7 +145,7 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
                         row.add(cell);
                         addColumnMaxLength(columnMaxLengths, cell, columnHeaderRowIndex);
                     } else {
-                        Cell cell = createNonSolutionCell(fCalculated, x, y);
+                        Cell cell = createNonSolutionCell(fCalculated, minX, x, maxX, minY, y, maxY);
                         row.add(cell);
                         addColumnMaxLength(columnMaxLengths, cell, columnHeaderRowIndex);
                     }
@@ -196,8 +194,9 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
     }
 
     @NonNull
-    private static Cell createNonSolutionCell(BigInteger fCalculated, BigInteger x, BigInteger y) {
+    private Cell createNonSolutionCell(BigInteger fCalculated, BigInteger minX, BigInteger x, BigInteger maxX, BigInteger minY, BigInteger y, BigInteger maxY) {
         Cell cell = new Cell(false, fCalculated.toString(), false);
+
         if (x.compareTo(ZERO) >= 0 && y.compareTo(ZERO) >= 0) {
             cell.setQuadrant(1);
         } else if (x.compareTo(ZERO) < 0 && y.compareTo(ZERO) > 0) {
@@ -207,6 +206,29 @@ public class BinaryQuadraticForm2 extends Algorithm implements GridCalculator {
         } else if (x.compareTo(ZERO) > 0 && y.compareTo(ZERO) < 0) {
             cell.setQuadrant(4);
         }
+
+        //
+        if (passedMinXLimitAxis && x.compareTo(minX) == 0) {
+            Cell cellInfinit = new Cell(false, "···", false);
+            cellInfinit.setIsInfinit(true);
+            return cellInfinit;
+        }
+        if (passedMaxXLimitAxis && x.compareTo(maxX) == 0) {
+            Cell cellInfinit = new Cell(false, "···", false);
+            cellInfinit.setIsInfinit(true);
+            return cellInfinit;
+        }
+        if (passedMinYLimitAxis && y.compareTo(minY) == 0) {
+            Cell cellInfinit = new Cell(false, "···", false);
+            cellInfinit.setIsInfinit(true);
+            return cellInfinit;
+        }
+        if (passedMaxYLimitAxis && y.compareTo(maxY) == 0) {
+            Cell cellInfinit = new Cell(false, "···", false);
+            cellInfinit.setIsInfinit(true);
+            return cellInfinit;
+        }
+
         return cell;
     }
 }
