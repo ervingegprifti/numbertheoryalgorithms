@@ -214,6 +214,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 this.textViewInputCycleRSA.setText(rsa.getName());
                 //noinspection SetTextI18n
                 this.editTextN.setText(rsa.getN().toString());
+                resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleRSA);
             });
 
             // Expanded input events
@@ -996,6 +997,9 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         resetAllAndSelectTheLastButtonClicked(null);
     }
     private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
+        //
+        this.textViewInputCycleRSA.setSelected(false);
+        //
         textViewMinusN.setSelected(false);
         textViewPlusN.setSelected(false);
         textViewCopyN.setSelected(false);

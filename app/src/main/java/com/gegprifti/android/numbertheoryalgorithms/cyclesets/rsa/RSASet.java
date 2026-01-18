@@ -37,6 +37,20 @@ public class RSASet {
         BigInteger rsa_120_q = new BigInteger("693342667110830181197325401899700641361965863127336680673013");
         RSA rsa120 = new RSA(rsa_120, rsa_120_n, rsa_120_p, rsa_120_q);
         list.add(rsa120);
+        // https://en.wikipedia.org/wiki/RSA_numbers#RSA-129
+        String rsa_129 = "RSA₁₂₉";
+        BigInteger rsa_129_n = new BigInteger("114381625757888867669235779976146612010218296721242362562561842935706935245733897830597123563958705058989075147599290026879543541");
+        BigInteger rsa_129_p = new BigInteger("3490529510847650949147849619903898133417764638493387843990820577");
+        BigInteger rsa_129_q = new BigInteger("32769132993266709549961988190834461413177642967992942539798288533");
+        RSA rsa129 = new RSA(rsa_129, rsa_129_n, rsa_129_p, rsa_129_q);
+        list.add(rsa129);
+        // https://en.wikipedia.org/wiki/RSA_numbers#RSA-130
+        String rsa_130 = "RSA₁₃₀";
+        BigInteger rsa_130_n = new BigInteger("1807082088687404805951656164405905566278102516769401349170127021450056662540244048387341127590812303371781887966563182013214880557");
+        BigInteger rsa_130_p = new BigInteger("39685999459597454290161126162883786067576449112810064832555157243");
+        BigInteger rsa_130_q = new BigInteger("45534498646735972188403686897274408864356301263205069600999044599");
+        RSA rsa130 = new RSA(rsa_130, rsa_130_n, rsa_130_p, rsa_130_q);
+        list.add(rsa130);
 
         this.rsaList = Collections.unmodifiableList(list);
     }

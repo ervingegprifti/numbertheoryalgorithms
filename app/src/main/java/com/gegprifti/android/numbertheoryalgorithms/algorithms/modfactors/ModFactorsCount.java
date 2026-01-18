@@ -8,10 +8,7 @@ import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmP
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.Locale;
 
 
