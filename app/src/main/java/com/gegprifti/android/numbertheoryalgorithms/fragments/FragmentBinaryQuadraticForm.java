@@ -1106,7 +1106,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             result1ListViewGridRows.setOnScrollListener(result1SyncScrollListener);
             result2ListViewGridRows.setOnScrollListener(result2SyncScrollListener);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -1170,7 +1170,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         try {
             menuInflater.inflate(R.menu.menu_fragment_binary_quadratic_form, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
         this.menuItemIncludeTrivialSolutions = menu.findItem(R.id.quadratic_form_menu_include_trivial_solutions);
         this.menuItemIncludeOnlyPositiveSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_positive_solutions);
@@ -1246,7 +1246,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -1343,7 +1343,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     break;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1359,7 +1359,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1419,7 +1419,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 textViewPlusCompactF.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1431,7 +1431,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
             buttonRunExampleToggle.setVisibility(hideExampleButtons ? View.GONE : View.VISIBLE);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1553,7 +1553,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1564,7 +1564,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1759,7 +1759,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(result1ListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1822,7 +1822,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Center
             centerResultGrid(result2HorizontalScrollView, result2ListViewGridRows, adapter);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1953,7 +1953,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
             runExample(container);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void runExample(ViewGroup container) {
@@ -1993,7 +1993,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             buttonRunExampleToggle.setText(R.string.run_example_1);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void setExample2() {
@@ -2017,7 +2017,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             buttonRunExampleToggle.setText(R.string.run_example_2);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void setExample3() {
@@ -2041,7 +2041,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             buttonRunExampleToggle.setText(R.string.run_example_3);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void setExample4() {
@@ -2065,7 +2065,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             buttonRunExampleToggle.setText(R.string.run_example_4);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void setExample5() {
@@ -2089,7 +2089,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             buttonRunExampleToggle.setText(R.string.run_example_5);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -2224,7 +2224,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 progressManager.startWork(container, algorithmParameters);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -2300,7 +2300,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 progressManager.startWork(container, algorithmParameters);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -2369,7 +2369,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 progressManager.startWork(container, algorithmParameters);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -2487,7 +2487,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
             gridAdapter.refresh();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

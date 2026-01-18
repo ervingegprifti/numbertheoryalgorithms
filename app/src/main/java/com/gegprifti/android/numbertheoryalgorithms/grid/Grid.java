@@ -75,13 +75,14 @@ public class Grid {
         LinearLayout.LayoutParams layoutParamsStaticColumnHeader = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParamsStaticColumnHeader.setMargins(0, 0, 0, cellUI.getMargins().getMargin());
         staticColumnHeader.setLayoutParams(layoutParamsStaticColumnHeader);
-        List<Cell> columnHeaderRow = columnHeaders.get(0);
+        int rowIndex = 0;
+        List<Cell> columnHeaderRow = columnHeaders.get(rowIndex);
         int lastItemIndex = columnHeaderRow.size() - 1;
-        for (int i = 0; i < columnHeaderRow.size(); i++) {
-            Cell cell = columnHeaderRow.get(i);
+        for (int columnIndex = 0; columnIndex < columnHeaderRow.size(); columnIndex++) {
+            Cell cell = columnHeaderRow.get(columnIndex);
             if (cell.getIsHeader()) {
-                boolean isLastItem = lastItemIndex == i;
-                TextView textView = cellUI.createTextView(i, null, isLastItem);
+                boolean isLastItem = lastItemIndex == columnIndex;
+                TextView textView = cellUI.createTextView(columnIndex, rowIndex,null, isLastItem);
                 staticColumnHeader.addView(textView);
                 cellUI.refreshCell(cell, textView);
             }
