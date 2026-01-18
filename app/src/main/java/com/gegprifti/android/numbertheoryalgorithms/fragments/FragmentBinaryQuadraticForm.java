@@ -18,13 +18,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -203,6 +206,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     ListView result2ListViewGridRowHeaders;
     LinearLayout result2LinearLayoutGridColumnHeaders;
     ListView result2ListViewGridRows;
+    HorizontalScrollView result2HorizontalScrollView;
     // Menu
     MenuItem menuItemIncludeTrivialSolutions;
     MenuItem menuItemIncludeOnlyPositiveSolutions;
@@ -396,6 +400,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             result2ListViewGridRowHeaders = inflater.findViewById(R.id.Result2ListViewGridRowHeaders);
             result2LinearLayoutGridColumnHeaders = inflater.findViewById(R.id.Result2LinearLayoutGridColumnHeaders);
             result2ListViewGridRows = inflater.findViewById(R.id.Result2ListViewGridRows);
+            result2HorizontalScrollView = inflater.findViewById(R.id.Result2HorizontalScrollView);
             // Constrain expanded input
             editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -1813,10 +1818,88 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Create and set the adapter for grid row headers.
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(result2ListViewGridRowHeaders, gridAdapterRowHeaders);
+
+            // Center
+            centerResultGrid(result2HorizontalScrollView, result2ListViewGridRows, adapter);
         } catch (Exception ex) {
             Log.e(TAG, "" + ex);
         }
     }
+
+
+    private void centerResultGrid(HorizontalScrollView horizontalScrollView, ListView listView, GridAdapter adapter) {
+        // Center horizontally
+        centerHsvAfterLayout(result2HorizontalScrollView, result2ListViewGridRows);
+        // Center vertically
+        centerListViewAfterLayout(result2ListViewGridRows, adapter);
+    }
+    /**
+     * Center horizontal scroll view
+     * @param horizontalScrollView
+     * @param listView
+     */
+    private void centerHsvAfterLayout(HorizontalScrollView horizontalScrollView, ListView listView) {
+        listView.requestLayout();
+
+        horizontalScrollView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override public boolean onPreDraw() {
+                if (!horizontalScrollView.getViewTreeObserver().isAlive()) return true;
+                horizontalScrollView.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                View content = horizontalScrollView.getChildAt(0);
+                if (content == null) return true;
+
+                int contentW = content.getWidth();
+                int hsvW = horizontalScrollView.getWidth();
+
+                int scrollX = Math.max(0, (contentW - hsvW) / 2);
+                // horizontalScrollView.smoothScrollTo(scrollX, 0); // Animation is slow on too many cells 
+                horizontalScrollView.scrollTo(scrollX, 0);
+
+                return true;
+            }
+        });
+    }
+    private void centerListViewAfterLayout(ListView listView, ListAdapter adapter) {
+        if (adapter == null || adapter.getCount() == 0) return;
+
+        final int position = adapter.getCount() / 2;
+
+        listView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override public boolean onPreDraw() {
+                if (!listView.getViewTreeObserver().isAlive()) return true;
+                listView.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                int listH = listView.getHeight();
+                int itemH = getRowHeightEstimate(listView, adapter); // works even before row is visible
+
+                int offset = (listH / 2) - (itemH / 2);
+
+                // This works even if the row isn't visible yet
+                // listView.smoothScrollToPositionFromTop(position, offset, 300); // Animation is slow on too many cells
+                listView.setSelectionFromTop(position, offset);
+                return true;
+            }
+        });
+    }
+    private int getRowHeightEstimate(ListView listView, ListAdapter adapter) {
+        // Fast path: use an existing visible child if available
+        View c0 = listView.getChildAt(0);
+        if (c0 != null && c0.getHeight() > 0) return c0.getHeight();
+
+        // Otherwise measure one row from the adapter
+        View row = adapter.getView(0, null, listView);
+
+        int width = listView.getWidth();
+        if (width <= 0) width = listView.getResources().getDisplayMetrics().widthPixels;
+
+        int wSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
+        int hSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        row.measure(wSpec, hSpec);
+
+        return row.getMeasuredHeight();
+    }
+
 
     /**
      * Get the max column cell width within the list of column max length.
