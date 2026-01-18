@@ -40,12 +40,7 @@
     <string name="calculator_next_twin_prime_label_result1">next twin prime to a</string>
     <string name="calculator_next_twin_prime_label_result2">next twin prime to a</string>
     <!--Fragment tab calculator menu string items-->
-    <!--https://en.wikipedia.org/wiki/RSA_Factoring_Challenge-->
     <string name="menu_calculator_documentation">Documentation</string>
-    <string name="rsa_100" translatable="false">E₁ ● RSA-100</string>
-    <string name="rsa_576" translatable="false">E₂ ● RSA-576</string>
-    <string name="rsa_768" translatable="false">E₃ ● RSA-768</string>
-    <string name="rsa_1536" translatable="false">E₄ ● RSA-1536</string>
-    <string name="rsa_2048" translatable="false">E₅ ● RSA-2048</string>
+    <!--rsa_list.xml-->
     <string name="more_rsa">More RSA examples&#8230;</string>
 </resources>

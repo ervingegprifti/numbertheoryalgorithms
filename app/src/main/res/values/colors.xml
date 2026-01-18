@@ -63,7 +63,7 @@
     <color name="buttonRunTextColor">@color/colorGeneralBg</color>
 
 
-    <!-- Button example colors -->
+    <!-- Button examples colors -->
     <color name="buttonExampleBgPressedColor">#433f34</color>
     <color name="buttonExampleBgSelectedColor">@color/orange_dark</color>
     <color name="buttonExampleBgColor">#5c5748</color>

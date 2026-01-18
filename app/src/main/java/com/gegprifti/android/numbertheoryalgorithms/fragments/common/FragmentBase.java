@@ -163,7 +163,7 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
     /**
      * Assigns a view to handle a double-tap event.
      * <p>
-     * Usage example (call in onCreateView):
+     * Usage examples (call in onCreateView):
      * <pre>
      * <code>initDoubleTapDetector(editTextResult1);</code>
      * <code>initDoubleTapDetector(editTextResult2);</code>

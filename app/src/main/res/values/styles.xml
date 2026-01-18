@@ -446,6 +446,14 @@
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="TextViewFragmentTitle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
     <style name="InputToggleStyle">
         <item name="android:background">@drawable/input_toggle_bg</item>
         <item name="android:textColor">@color/colorGeneralBg</item>
@@ -456,18 +464,16 @@
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/fa_solid_900</item>
     </style>
-
-
-
-    <style name="TextViewFragmentTitle">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:layout_centerInParent">true</item>
+    <style name="InputToggleRSAStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/button_rsa_bg</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_alignParentRight">true</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
     </style>
-
 
 
     <!-- About tab styles -->

@@ -78,7 +78,7 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
                 //         }
                 //     }
                 // }
-                // String counterStringFormat = AlgorithmHelper.paddingCharacters(counter, bCharacters);
+                // String counterStringFormat = AlgorithmHelper.paddingCharacters(counter, bCharacters + 1);
                 // result.append(String.format(Locale.getDefault(), "de ≡ %s (mod %s) %s %s<br>", rStringFormat, bPrimStringFormat, RIGHT_ARROW_COLORED, counterStringFormat));
 
                 // Fast mod factors counter.
@@ -89,10 +89,10 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
                 } else {
                     counter = alg2NonCoprimeCase(bPrime, r);
                 }
-                String counterStringFormat = AlgorithmHelper.paddingCharacters(counter, bCharacters);
+                String counterStringFormat = AlgorithmHelper.paddingCharacters(counter, bCharacters + 1);
 
                 BigInteger percent = BigInteger.valueOf(counter).multiply(BigInteger.valueOf(100)).divide(bPrime);
-                String percentToDots = percentToDots(percent, 100);
+                String percentToDots = "<small><small>" + percentToDots(percent, 100) + "</small></small>";
 
                 result.append(String.format(Locale.getDefault(), "de ≡ %s (mod %s) %s %s %s<br>",
                         rStringFormat, bPrimStringFormat, RIGHT_ARROW_COLORED, counterStringFormat, percentToDots));

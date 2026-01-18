@@ -1,6 +1,7 @@
 package com.gegprifti.android.numbertheoryalgorithms.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -20,6 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.rsa.RSA;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.rsa.RSASet;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
@@ -43,6 +47,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     // Navigation controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
+    TextView textViewInputCycleRSA;
     // Cache view state
     boolean isCompactInputView = false;
     // Expanded input view
@@ -107,6 +112,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     AtomicBoolean isUpdatingEditTextB = new AtomicBoolean(false);
     AtomicBoolean isUpdatingEditTextCompactB = new AtomicBoolean(false);
 
+    private RSASet rsaSet;
 
     // Define the parent fragment
     private TabFragmentAlgorithms tabFragmentAlgorithms;
@@ -127,6 +133,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Navigation controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
+            textViewInputCycleRSA = inflater.findViewById(R.id.TextViewInputCycleRSA);
             // Expanded input view
             linearLayoutExpandedInputView = inflater.findViewById(R.id.LinearLayoutExpandedInputView);
             textViewLabelN = inflater.findViewById(R.id.TextViewLabelN);
@@ -198,6 +205,15 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     FragmentAlgorithms fragmentAlgorithms = (FragmentAlgorithms) tabFragmentAlgorithms.getSectionsPagerAdapter().getItemByName("FragmentAlgorithms");
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
+            });
+            this.textViewInputCycleRSA.setOnClickListener(view -> {
+                if (this.rsaSet == null) {
+                    this.rsaSet = new RSASet();
+                }
+                RSA rsa = rsaSet.getNextRSA();
+                this.textViewInputCycleRSA.setText(rsa.getName());
+                //noinspection SetTextI18n
+                this.editTextN.setText(rsa.getN().toString());
             });
 
             // Expanded input events
