@@ -182,7 +182,7 @@ public final class UIHelper {
             toast.setView(layout);
             toast.show();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     public static void showCustomToastLight(Context context, String message) {
@@ -201,7 +201,7 @@ public final class UIHelper {
             toast.setView(layout);
             toast.show();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     public static void showCustomToastDark(Context context, String message) {
@@ -220,7 +220,7 @@ public final class UIHelper {
             toast.setView(layout);
             toast.show();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Toasts
@@ -244,7 +244,7 @@ public final class UIHelper {
                 }
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -274,7 +274,7 @@ public final class UIHelper {
             clipboardManager.setPrimaryClip(clipData);
             editText.clearFocus();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -334,7 +334,7 @@ public final class UIHelper {
 
             clipboardManager.setPrimaryClip(clipData);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return true;
@@ -378,7 +378,7 @@ public final class UIHelper {
             }
             editText.clearFocus();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -394,7 +394,7 @@ public final class UIHelper {
             editText.setText("");
             editText.requestFocus();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Copy Paste Clear
@@ -431,7 +431,7 @@ public final class UIHelper {
                 return null;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
             return null;
         }
     }
@@ -450,7 +450,7 @@ public final class UIHelper {
             intent.setData(uri);
             context.startActivity(intent);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -484,7 +484,7 @@ public final class UIHelper {
                 showCustomToastLight(context, "There is no application to share this kind of information");
             }
         } catch(Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -496,7 +496,7 @@ public final class UIHelper {
                 vibrate(context);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -538,7 +538,7 @@ public final class UIHelper {
             }
             return result;
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
             return result;
         }
     }

@@ -645,7 +645,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -673,7 +673,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
         try {
             menuInflater.inflate(R.menu.menu_fragment_linear_congruence_in_two_variables, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -717,7 +717,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -750,7 +750,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -794,7 +794,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 textViewPlusCompactM.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -815,7 +815,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
                 this.buttonRunExample3.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -900,7 +900,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -911,7 +911,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Refresh UI
@@ -1017,7 +1017,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             algorithmParameters.setInput4(m);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1032,7 +1032,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             //
             onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample2(ViewGroup container) {
@@ -1045,7 +1045,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             //
             onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample3(ViewGroup container) {
@@ -1058,7 +1058,7 @@ public class FragmentLinearCongruenceInTwoVariables extends FragmentBase impleme
             //
             onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

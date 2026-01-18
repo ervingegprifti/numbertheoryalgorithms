@@ -70,7 +70,7 @@ public class AboutActivity extends AppCompatActivity {
             textViewPrivacyPolicy.setOnClickListener(view -> UIHelper.openWith(this, "https://ervingegprifti.github.io/numbertheoryalgorithms/privacy_policy/"));
             textViewTermsAndConditions.setOnClickListener(view -> UIHelper.openWith(this, "https://ervingegprifti.github.io/numbertheoryalgorithms/terms_and_conditions/"));
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 

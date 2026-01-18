@@ -160,7 +160,7 @@ public class FragmentPrimesList extends FragmentBase {
 
             resultListViewGridRows.setOnScrollListener(resultSyncScrollListener);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -200,7 +200,7 @@ public class FragmentPrimesList extends FragmentBase {
         try {
             menuInflater.inflate(R.menu.menu_fragment_primes_list, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -217,7 +217,7 @@ public class FragmentPrimesList extends FragmentBase {
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -250,7 +250,7 @@ public class FragmentPrimesList extends FragmentBase {
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Refresh UI
@@ -292,7 +292,7 @@ public class FragmentPrimesList extends FragmentBase {
             Grid grid = primesListCalculator.calculate();
             showResult(grid);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -348,7 +348,7 @@ public class FragmentPrimesList extends FragmentBase {
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(resultListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 

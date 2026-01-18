@@ -128,7 +128,7 @@ public final class PopupResult {
                 }
             });
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 }

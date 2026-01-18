@@ -40,7 +40,7 @@ public class TabFragmentAlgorithms extends Fragment {
             }
 
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
         return inflater;
     }
@@ -57,7 +57,7 @@ public class TabFragmentAlgorithms extends Fragment {
             // Commit the transaction
             fragmentTransaction.commit();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -107,7 +107,7 @@ public class TabFragmentAlgorithms extends Fragment {
             fragmentPrimesList.setFragmentTabAlgorithms(this); // Set the parent
             sectionsPagerAdapter.addFragment(fragmentPrimesList, "FragmentPrimesList"); // Primes List
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 

@@ -400,7 +400,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -428,7 +428,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
         try {
             menuInflater.inflate(R.menu.menu_fragment_euclidean_algorithm, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -473,7 +473,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -506,7 +506,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -534,7 +534,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                 textViewPlusCompactB.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -557,7 +557,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
                 this.buttonRunExample4.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -613,7 +613,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -624,7 +624,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Display
@@ -707,7 +707,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             algorithmParameters.setInput3(null);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -721,7 +721,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             //
             onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -734,7 +734,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             //
             onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -747,7 +747,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             //
             onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -760,7 +760,7 @@ public class FragmentEuclideanAlgorithm extends FragmentBase implements Callback
             //
             onButtonRun(container, buttonRunExample4, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

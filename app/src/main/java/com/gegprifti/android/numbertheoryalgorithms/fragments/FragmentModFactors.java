@@ -446,7 +446,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -476,7 +476,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         try {
             menuInflater.inflate(R.menu.menu_fragment_mod_factors, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -535,7 +535,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -568,7 +568,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -596,7 +596,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 textViewPlusCompactB.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -611,7 +611,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 this.linearLayoutExamplesContainer.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -672,7 +672,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -683,7 +683,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Display
@@ -782,7 +782,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             //
             onButtonRun1(container, buttonRunExample1, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample2(ViewGroup container) {
@@ -793,7 +793,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             //
             onButtonRun1(container, buttonRunExample2, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample3(ViewGroup container) {
@@ -804,7 +804,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             //
             onButtonRun1(container, buttonRunExample3, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample4(ViewGroup container) {
@@ -815,7 +815,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             //
             onButtonRun1(container, buttonRunExample4, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample5(ViewGroup container) {
@@ -826,7 +826,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             //
             onButtonRun1(container, buttonRunExample5, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample6(ViewGroup container) {
@@ -837,7 +837,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             //
             onButtonRun1(container, buttonRunExample6, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private InputGroup getInputGroupN() {
@@ -882,7 +882,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRun2(ViewGroup container, Button button, boolean skipLabelResult) {
@@ -913,7 +913,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRun3(ViewGroup container, Button button, boolean skipLabelResult) {
@@ -944,7 +944,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonCountRun(ViewGroup container) {
@@ -975,7 +975,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

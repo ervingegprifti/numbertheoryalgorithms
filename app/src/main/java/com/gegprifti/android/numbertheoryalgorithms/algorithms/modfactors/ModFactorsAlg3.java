@@ -48,7 +48,7 @@ public class ModFactorsAlg3 extends Algorithm implements ListStringCalculator {
             // Re-throw it so ProgressManager can handle it correctly.
             throw ex;
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
             throw ex;
         }
     }

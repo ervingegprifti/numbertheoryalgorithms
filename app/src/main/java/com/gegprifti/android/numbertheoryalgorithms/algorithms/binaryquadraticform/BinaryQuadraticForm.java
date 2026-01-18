@@ -176,7 +176,7 @@ public class BinaryQuadraticForm extends Algorithm implements StringCalculator {
             // Re-throw it so ProgressManager can handle it correctly.
             throw ex;
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
             return ex.toString();
         }
     }

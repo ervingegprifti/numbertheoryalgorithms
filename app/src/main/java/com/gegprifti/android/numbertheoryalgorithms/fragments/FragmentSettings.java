@@ -34,7 +34,7 @@ public class FragmentSettings extends PreferenceFragmentCompat implements MenuPr
             this.rootKey = rootKey;
             setPreferencesFromResource(R.xml.preferences, this.rootKey);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -44,7 +44,7 @@ public class FragmentSettings extends PreferenceFragmentCompat implements MenuPr
         try {
             menuInflater.inflate(R.menu.menu_fragment_settings, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -62,7 +62,7 @@ public class FragmentSettings extends PreferenceFragmentCompat implements MenuPr
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false

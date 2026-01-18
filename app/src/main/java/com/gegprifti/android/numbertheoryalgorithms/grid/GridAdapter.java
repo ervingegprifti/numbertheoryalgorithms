@@ -100,7 +100,7 @@ public class GridAdapter extends BaseAdapter {
 
             return convertView;
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
         return  null;
     }
