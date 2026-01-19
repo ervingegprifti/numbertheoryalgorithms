@@ -42,7 +42,7 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
             result.append("<br>");
 
             // Count possible de mod factors for each d,e = {0, ... , b'-1}, b' = {2, ... , b}
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>For each b' = {2, ..., b} </font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>For each b' = {2, ..., b}</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'>Compute n (mod b') = r</font><br>",COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'>For each d,e = {0, ..., b'-1} count</font><br>", COLOR));
             result.append(String.format(Locale.getDefault(), "<font color='%s'>de ≡ r (mod b') possible factors</font><br>", COLOR));
@@ -51,6 +51,9 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
 
             // Track execution time start
             long start = System.nanoTime();
+
+            BigInteger percentMin = BigInteger.valueOf(100);
+            String minimumModFactorsOutput = null;
 
             // b' = {2, ... , b}
             for(BigInteger bPrime = TWO; bPrime.compareTo(b) <= 0; bPrime = bPrime.add(ONE)) {
@@ -91,9 +94,19 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
                 BigInteger percent = BigInteger.valueOf(counter).multiply(BigInteger.valueOf(100)).divide(bPrime);
                 String percentToDots = "<small><small>" + percentToDots(percent, 100) + "</small></small>";
 
-                result.append(String.format(Locale.getDefault(), "de ≡ %s (mod %s) %s %s %s<br>",
-                        rStringFormat, bPrimStringFormat, RIGHT_ARROW_COLORED, counterStringFormat, percentToDots));
+                String modFactorsOutput = String.format(Locale.getDefault(), "de ≡ %s (mod %s) %s %s %s<br>",
+                        rStringFormat, bPrimStringFormat, RIGHT_ARROW_COLORED, counterStringFormat, percentToDots);
+                result.append(modFactorsOutput);
+
+                if (percent.compareTo(percentMin) <= 0) {
+                    percentMin = percent;
+                    minimumModFactorsOutput = modFactorsOutput;
+                }
             }
+            result.append("<br>");
+
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Minimum mod factors</font><br>", COLOR));
+            result.append(minimumModFactorsOutput);
 
             // Track execution time end
             long end = System.nanoTime();

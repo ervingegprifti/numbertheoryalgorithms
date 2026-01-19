@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="0dp"
     android:layout_margin="0dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
 
     <!--Navigation controls-->
 	<RelativeLayout
@@ -27,18 +27,15 @@
             android:text="@string/rsa" />
 	</RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <LinearLayout
+    <LinearLayout
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="0dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <!--Create this in order the clearFocus() on edittext to work-->
             <LinearLayout
@@ -211,6 +208,8 @@
                     android:labelFor="@+id/EditTextResult" />
                 <TextView style="@style/TextViewLabelElasticStyle"
                     android:id="@+id/TextViewLabelElasticResult"  />
+                <TextView style="@style/ClipboardButtonToggleUpDownResultStyle"
+                    android:id="@+id/TextViewToggleUpDownResult"  />
                 <TextView style="@style/ClipboardButtonExpandResultStyle"
                     android:id="@+id/TextViewExpandResult"  />
                 <TextView style="@style/ClipboardButtonCopyStyle"
@@ -220,32 +219,37 @@
             </LinearLayout>
             <LinearLayout style="@style/ResultContainer"
                 android:id="@+id/LinearLayoutResultContainer">
-                <HorizontalScrollView
+                <ScrollView
+                    android:id="@+id/ScrollViewResultContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <EditText style="@style/EditTextResult"
-                            android:id="@+id/EditTextResult"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:typeface="monospace"
-                            android:autofillHints="" />
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                         <LinearLayout
-                            android:id="@+id/LinearLayoutResultModFactors"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
-                            <!--<include layout="@layout/mod_factor" />-->
-                            <!--<include layout="@layout/mod_factor" />-->
+                            <EditText style="@style/EditTextResult"
+                                android:id="@+id/EditTextResult"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:typeface="monospace"
+                                android:autofillHints="" />
+                                <LinearLayout
+                                    android:id="@+id/LinearLayoutResultModFactors"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+                                    <!--<include layout="@layout/mod_factor" />-->
+                                    <!--<include layout="@layout/mod_factor" />-->
+                                </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-                </HorizontalScrollView>
+                    </HorizontalScrollView>
+                </ScrollView>
             </LinearLayout>
+
         </LinearLayout>
 
-    </ScrollView>
 
 </LinearLayout>

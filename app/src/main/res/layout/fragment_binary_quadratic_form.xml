@@ -478,7 +478,7 @@
                             android:listSelector="@android:color/transparent"
                             android:cacheColorHint="@android:color/transparent"
                             android:scrollbars="none" />
-                    </LinearLayout>
+                </LinearLayout>
                 </LinearLayout>
 
                 <HorizontalScrollView

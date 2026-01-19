@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.rsa.RSA;
@@ -100,10 +101,12 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     // Result controls
     TextView textViewLabelResult;
     TextView textViewLabelElasticResult;
+    TextView textViewToggleUpDownResult;
     TextView textViewExpandResult;
     TextView textViewCopyResult;
     TextView textViewClearResult;
     LinearLayout linearLayoutResultContainer;
+    ScrollView scrollViewResultContainer;
     LinearLayout linearLayoutResultModFactors;
     EditText editTextResult;
     // Flags to prevent recursive updates
@@ -184,10 +187,12 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Result controls
             textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
             textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
+            textViewToggleUpDownResult = inflater.findViewById(R.id.TextViewToggleUpDownResult);
             textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
             textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
             textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
+            scrollViewResultContainer = inflater.findViewById(R.id.ScrollViewResultContainer);
             linearLayoutResultModFactors = inflater.findViewById(R.id.LinearLayoutResultModFactors);
             editTextResult = inflater.findViewById(R.id.EditTextResult);
 
@@ -416,6 +421,9 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             buttonCountRun.setOnClickListener(v -> onButtonCountRun(container));
 
             // Result clipboard button events
+            textViewToggleUpDownResult.setOnClickListener(v -> {
+                toggleUpDownResult();
+            });
             textViewExpandResult.setOnClickListener(v -> {
                 expandResult();
             });
@@ -436,13 +444,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) { }
                 @Override
-                public void afterTextChanged(Editable s) {
-                    if (s == null || s.length() == 0) {
-                        textViewExpandResult.setVisibility(View.GONE);
-                    } else {
-                        textViewExpandResult.setVisibility(View.VISIBLE);
-                    }
-                }
+                public void afterTextChanged(Editable s) { }
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
@@ -456,7 +458,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
 
     @Override
     protected void fireOnDoubleTap(View view) {
-        if (view == editTextResult){
+        if (view == this.editTextResult){
             expandResult();
             resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
         }
@@ -464,9 +466,32 @@ public class FragmentModFactors extends FragmentBase implements Callback {
 
 
     private void expandResult() {
-        PopupResult popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutResultContainer);
+        PopupResult popupResult;
+        if (linearLayoutResultModFactors.getChildCount() == 0) {
+            popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), this.editTextResult.getText());
+        } else {
+            popupResult = new PopupResult(requireActivity(), requireContext(), textViewTitle.getText().toString(), linearLayoutResultContainer);
+        }
         popupResult.show();
         resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
+    }
+
+
+    private void toggleUpDownResult() {
+        scrollViewResultContainer.post(() -> {
+            CharSequence current = textViewToggleUpDownResult.getText();
+            boolean shouldScrollDown = current != null && current.toString().equals(getString(R.string.fa_chevron_down));
+            if (shouldScrollDown) {
+                // Scroll DOWN
+                scrollViewResultContainer.fullScroll(View.FOCUS_DOWN);
+                textViewToggleUpDownResult.setText(R.string.fa_chevron_up);
+            } else {
+                // Scroll UP
+                scrollViewResultContainer.fullScroll(View.FOCUS_UP);
+                textViewToggleUpDownResult.setText(R.string.fa_chevron_down);
+            }
+        });
+        resetAllAndSelectTheLastButtonClicked(textViewToggleUpDownResult);
     }
 
 
@@ -641,6 +666,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             ControlDisplay.setClipboardButtonFontSize(textViewPasteCompactB, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactB, biggerControls);
             // Clipboard output buttons
+            ControlDisplay.setClipboardButtonFontSize(textViewToggleUpDownResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
@@ -1033,6 +1059,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         buttonRun3.setSelected(false);
         buttonCountRun.setSelected(false);
         //
+        textViewToggleUpDownResult.setSelected(false);
         textViewExpandResult.setSelected(false);
         textViewCopyResult.setSelected(false);
         textViewClearResult.setSelected(false);

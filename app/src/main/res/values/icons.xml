@@ -32,4 +32,6 @@
     <string name="fa_4" translatable="false">&#x0034;</string>
     <string name="fa_5" translatable="false">&#x0035;</string>
     <string name="fa_6" translatable="false">&#x0036;</string>
+    <string name="fa_chevron_up" translatable="false">&#xf077;</string>
+    <string name="fa_chevron_down" translatable="false">&#xf078;</string>
 </resources>

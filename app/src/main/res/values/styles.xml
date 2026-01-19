@@ -37,11 +37,13 @@
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:paddingVertical">8dp</item>
     </style>
+    <style name="ClipboardButtonToggleUpDownResultStyle" parent="ClipboardButtonStyle">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:text">@string/fa_chevron_down</item>
+    </style>
     <style name="ClipboardButtonExpandResultStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
-        <!--<item name="android:text">@string/expand_result</item>-->
         <item name="android:text">@string/fa_expand</item>
-        <item name="android:visibility">gone</item>
     </style>
     <style name="ClipboardButtonMinusStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
@@ -424,7 +426,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@drawable/result_bg</item>
-        <item name="android:gravity">top|left</item>
+        <item name="android:gravity">top|start</item>
     </style>
 
 
