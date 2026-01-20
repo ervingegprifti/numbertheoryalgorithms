@@ -1,12 +1,15 @@
 package com.gegprifti.android.numbertheoryalgorithms.cyclesets.rsa;
 
+
 import java.math.BigInteger;
+
 
 public class RSA {
     private final String name;
     private final BigInteger n;
     private final BigInteger p;
     private final BigInteger q;
+
 
     public String getName() {
         return this.name;
@@ -23,6 +26,7 @@ public class RSA {
     public BigInteger getQ() {
         return this.q;
     }
+
 
     public RSA(String name, BigInteger n, BigInteger p, BigInteger q) {
         this.name = name;

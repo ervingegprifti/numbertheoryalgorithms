@@ -394,7 +394,7 @@
         <item name="android:layout_marginVertical">0dp</item>
     </style>
 
-    <!-- Button Example -->
+    <!-- Button CycleSet -->
     <style name="ButtonExampleStyle" parent="ButtonStyle">
         <item name="backgroundTint">@color/button_example_bg_selector</item>
         <item name="android:textColor">@color/buttonExampleTextColor</item>

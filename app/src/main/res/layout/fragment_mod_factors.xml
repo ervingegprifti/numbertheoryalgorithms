@@ -142,30 +142,6 @@
             </LinearLayout>
 
 
-            <!--Examples-->
-            <LinearLayout style="@style/RowContainerStyle"
-                android:id="@+id/LinearLayoutExamplesContainer">
-                <Button style="@style/ButtonExampleFirstStyle"
-                    android:id="@+id/ButtonRunExample1"
-                    android:text="@string/example_1" />
-                <Button style="@style/ButtonExampleStyle"
-                    android:id="@+id/ButtonRunExample2"
-                    android:text="@string/example_2" />
-                <Button style="@style/ButtonExampleStyle"
-                    android:id="@+id/ButtonRunExample3"
-                    android:text="@string/example_3" />
-                <Button style="@style/ButtonExampleStyle"
-                    android:id="@+id/ButtonRunExample4"
-                    android:text="@string/example_4" />
-                <Button style="@style/ButtonExampleStyle"
-                    android:id="@+id/ButtonRunExample5"
-                    android:text="@string/example_5" />
-                <Button style="@style/ButtonExampleLastStyle"
-                    android:id="@+id/ButtonRunExample6"
-                    android:text="@string/example_6" />
-            </LinearLayout>
-
-
             <!--Buttons run-->
             <LinearLayout style="@style/RowContainerStyle">
                 <Button style="@style/ButtonRunStyle"

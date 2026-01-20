@@ -592,7 +592,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
             // Run buttons
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
-            // Example run buttons
+            // CycleSet run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);

@@ -197,7 +197,7 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
      * <p>
      * Override this method in child fragments to handle double-tap actions.
      * <p>
-     * Example usage in a child fragment:
+     * CycleSet usage in a child fragment:
      * <pre>
      * {@code
      * @Override
