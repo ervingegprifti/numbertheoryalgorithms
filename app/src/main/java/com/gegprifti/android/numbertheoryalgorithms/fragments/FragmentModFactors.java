@@ -414,7 +414,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             buttonRun3.setOnClickListener(v -> onButtonRun3(container, buttonRun3, false));
             buttonCountRun.setOnClickListener(v -> onButtonCountRun(container));
 
-            // Result clipboard button events
+            // Result button events
             textViewToggleUpDownResult.setOnClickListener(v -> {
                 toggleUpDownResult();
             });

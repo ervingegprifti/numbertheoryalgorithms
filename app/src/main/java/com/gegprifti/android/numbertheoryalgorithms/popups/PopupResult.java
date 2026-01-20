@@ -22,6 +22,11 @@ import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 public final class PopupResult {
     private final static String TAG = PopupResult.class.getSimpleName();
 
+    // Title bar controls
+    TextView textViewToggleUpDown;
+    // Result controls
+    ScrollView scrollViewResultTextContained;
+    //
     final FragmentActivity fragmentActivity;
     final Context context;
     final String title;
@@ -64,8 +69,9 @@ public final class PopupResult {
             //TextView textViewBack = viewFragmentResult.findViewById(R.id.TextViewBack);
             ImageButton ImageButtonBack = viewFragmentResult.findViewById(R.id.ImageButtonBack);
             TextView textViewTitle = viewFragmentResult.findViewById(R.id.TextViewTitle);
+            this.textViewToggleUpDown = viewFragmentResult.findViewById(R.id.TextViewToggleUpDown);
             // Text result
-            ScrollView scrollViewResultTextContained = viewFragmentResult.findViewById(R.id.ScrollViewResultTextContained);
+            this.scrollViewResultTextContained = viewFragmentResult.findViewById(R.id.ScrollViewResultTextContained);
             TextView editTextResult = viewFragmentResult.findViewById(R.id.EditTextResult);
             // Grid result
             popupResultLinearLayoutGridContainer = viewFragmentResult.findViewById(R.id.PopupResultLinearLayoutGridContainer);
@@ -73,9 +79,9 @@ public final class PopupResult {
             textViewTitle.setText(title);
 
             if (editableResult == null) {
-                scrollViewResultTextContained.setVisibility(View.GONE);
+                this.scrollViewResultTextContained.setVisibility(View.GONE);
             } else {
-                scrollViewResultTextContained.setVisibility(View.VISIBLE);
+                this.scrollViewResultTextContained.setVisibility(View.VISIBLE);
                 editTextResult.setText(editableResult);
             }
 
@@ -116,6 +122,9 @@ public final class PopupResult {
                     popupWindow.dismiss();
                 }
             });
+            this.textViewToggleUpDown.setOnClickListener(v -> {
+                toggleUpDownResult();
+            });
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -130,5 +139,26 @@ public final class PopupResult {
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
         }
+    }
+
+
+    private void toggleUpDownResult() {
+        if (this.scrollViewResultTextContained == null) {
+            return;
+        }
+
+        this.scrollViewResultTextContained.post(() -> {
+            CharSequence current = textViewToggleUpDown.getText();
+            boolean shouldScrollDown = current != null && current.toString().equals(this.context.getString(R.string.fa_chevron_down));
+            if (shouldScrollDown) {
+                // Scroll DOWN
+                this.scrollViewResultTextContained.fullScroll(View.FOCUS_DOWN);
+                textViewToggleUpDown.setText(R.string.fa_chevron_up);
+            } else {
+                // Scroll UP
+                this.scrollViewResultTextContained.fullScroll(View.FOCUS_UP);
+                textViewToggleUpDown.setText(R.string.fa_chevron_down);
+            }
+        });
     }
 }
