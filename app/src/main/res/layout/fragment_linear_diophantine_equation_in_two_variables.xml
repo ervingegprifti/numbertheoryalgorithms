@@ -196,13 +196,13 @@
 					android:text="@string/linear_diophantine_equation_in_two_variables_run_short"  />
 				<Button style="@style/ButtonExampleAfterRunStyle"
 					android:id="@+id/ButtonRunExample1"
-					android:text="@string/run_example_1"  />
+					android:text="@string/example_1"  />
 				<Button style="@style/ButtonExampleAfterRunStyle"
 					android:id="@+id/ButtonRunExample2"
-					android:text="@string/run_example_2"  />
+					android:text="@string/example_2"  />
 				<Button style="@style/ButtonExampleAfterRunStyle"
 					android:id="@+id/ButtonRunExample3"
-					android:text="@string/run_example_3"  />
+					android:text="@string/example_3"  />
 			</LinearLayout>
 
 

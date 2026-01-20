@@ -203,7 +203,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             editTextCompactN.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextCompactB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Navigation vents
+            // Title bar events
             textViewBackToAlgorithms.setOnClickListener(view -> {
                 if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
@@ -216,10 +216,10 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     this.rsaSet = new RSASet();
                 }
                 RSA rsa = rsaSet.getNextRSA();
-                this.textViewInputCycleRSA.setText(rsa.getName());
+                resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleRSA);
                 //noinspection SetTextI18n
                 this.editTextN.setText(rsa.getN().toString());
-                resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleRSA);
+                this.textViewInputCycleRSA.setText(rsa.getName());
             });
 
             // Expanded input events
@@ -1024,6 +1024,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     }
     private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
         //
+        this.textViewInputCycleRSA.setText(requireContext().getString(R.string.rsa));
         this.textViewInputCycleRSA.setSelected(false);
         //
         textViewMinusN.setSelected(false);

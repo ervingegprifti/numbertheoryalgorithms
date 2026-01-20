@@ -8,24 +8,22 @@
     android:layout_height="match_parent">
 
 
-    <!--Navigation controls-->
-	<RelativeLayout
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-		<TextView style="@style/TextViewBack"
+    <!--Title Bar Controls-->
+    <LinearLayout style="@style/TitleBarLinearLayoutContainer">
+        <TextView style="@style/TitleBarTextViewBack"
             android:id="@+id/TextViewBackToAlgorithms" />
-		<TextView style="@style/TextViewFragmentTitle"
+        <TextView style="@style/TitleBarTextViewTitle"
             android:id="@+id/TextViewTitle"
             android:text="@string/mod_factors_title" />
-        <TextView style="@style/InputToggleRSAStyle"
+        <TextView style="@style/TitleBarTextViewEnd"
             android:id="@+id/TextViewInputCycleRSA"
-            android:text="@string/rsa" />
-	</RelativeLayout>
+            android:text="@string/rsa"
+            android:minWidth="80dp"
+            android:layout_marginEnd="10dp" />
+        <TextView style="@style/TitleBarTextViewEnd"
+            android:id="@+id/TextViewInputCycleExample"
+            android:text="@string/example" />
+    </LinearLayout>
 
 
     <LinearLayout
@@ -149,22 +147,22 @@
                 android:id="@+id/LinearLayoutExamplesContainer">
                 <Button style="@style/ButtonExampleFirstStyle"
                     android:id="@+id/ButtonRunExample1"
-                    android:text="@string/run_example_1" />
+                    android:text="@string/example_1" />
                 <Button style="@style/ButtonExampleStyle"
                     android:id="@+id/ButtonRunExample2"
-                    android:text="@string/run_example_2" />
+                    android:text="@string/example_2" />
                 <Button style="@style/ButtonExampleStyle"
                     android:id="@+id/ButtonRunExample3"
-                    android:text="@string/run_example_3" />
+                    android:text="@string/example_3" />
                 <Button style="@style/ButtonExampleStyle"
                     android:id="@+id/ButtonRunExample4"
-                    android:text="@string/run_example_4" />
+                    android:text="@string/example_4" />
                 <Button style="@style/ButtonExampleStyle"
                     android:id="@+id/ButtonRunExample5"
-                    android:text="@string/run_example_5" />
+                    android:text="@string/example_5" />
                 <Button style="@style/ButtonExampleLastStyle"
                     android:id="@+id/ButtonRunExample6"
-                    android:text="@string/run_example_6" />
+                    android:text="@string/example_6" />
             </LinearLayout>
 
 

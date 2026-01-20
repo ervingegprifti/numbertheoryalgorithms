@@ -18,13 +18,13 @@
     <string name="result">result</string>
     <string name="temp">temp</string>
     <string name="history">history</string>
-    <string name="run_example">E</string>
-    <string name="run_example_1">E₁</string>
-    <string name="run_example_2">E₂</string>
-    <string name="run_example_3">E₃</string>
-    <string name="run_example_4">E₄</string>
-    <string name="run_example_5">E₅</string>
-    <string name="run_example_6">E₆</string>
+    <string name="example">E</string>
+    <string name="example_1">E₁</string>
+    <string name="example_2">E₂</string>
+    <string name="example_3">E₃</string>
+    <string name="example_4">E₄</string>
+    <string name="example_5">E₅</string>
+    <string name="example_6">E₆</string>
     <string name="back">back</string>
     <string name="canceling">Canceling&#8230;</string>
     <string name="canceled">Canceled</string>
@@ -39,12 +39,12 @@
     <string name="label_n" translatable="false">n</string>
     <string name="label_k" translatable="false">k</string>
     <string name="value_0" translatable="false">0</string>
-    <string name="result_example_1">result example no 1</string>
-    <string name="result_example_2">result example no 2</string>
-    <string name="result_example_3">result example no 3</string>
-    <string name="result_example_4">result example no 4</string>
-    <string name="result_example_5">result example no 5</string>
-    <string name="result_example_6">result example no 6</string>
+    <string name="result_example_1">result E₁</string>
+    <string name="result_example_2">result E₂</string>
+    <string name="result_example_3">result E₃</string>
+    <string name="result_example_4">result E₄</string>
+    <string name="result_example_5">result E₅</string>
+    <string name="result_example_6">result E₆</string>
     <!-- Common -->
 
 

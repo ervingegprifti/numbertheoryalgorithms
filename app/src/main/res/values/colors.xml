@@ -48,6 +48,14 @@
     <color name="clipboardButtonText">@color/colorGeneralBg</color>
 
 
+    <!-- Popup title button colors -->
+    <color name="popupTitleButtonBg">#6c6758</color>
+    <!--<color name="popupTitleButtonStroke">@color/colorGeneralBg</color>-->
+    <color name="popupTitleButtonPressedBg">@color/colorPrimaryDark</color>
+    <color name="popupTitleButtonSelectedBg">@color/colorAccent</color>
+    <color name="popupTitleButtonText">@color/colorGeneralBg</color>
+
+
     <!-- Button colors -->
     <color name="buttonBg">#5c5748</color>
     <color name="buttonPressedBg">#433f34</color>

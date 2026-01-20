@@ -5,7 +5,6 @@
         <shape >
             <solid android:color="@color/clipboardButtonPressedBg"/>
             <corners android:radius="5dp"/>
-            <padding android:left="6dp" android:top="2dp" android:right="6dp" android:bottom="2dp"/>
         </shape>
     </item>
 
@@ -13,7 +12,6 @@
         <shape>
             <solid android:color="@color/clipboardButtonSelectedBg"/>
             <corners android:radius="5dp"/>
-            <padding android:left="6dp" android:top="2dp" android:right="6dp" android:bottom="2dp"/>
         </shape>
     </item>
 
@@ -21,7 +19,6 @@
         <shape>
             <solid android:color="@color/clipboardButtonBg"/>
             <corners android:radius="5dp"/>
-            <padding android:left="6dp" android:top="2dp" android:right="6dp" android:bottom="2dp"/>
         </shape>
     </item>
 

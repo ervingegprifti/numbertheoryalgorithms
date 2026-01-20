@@ -27,7 +27,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1938,15 +1937,15 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     private void onButtonRunExampleToggle(ViewGroup container) {
         try {
             String currentExample = buttonRunExampleToggle.getText().toString();
-            if (currentExample.equals(getString(R.string.run_example))) {
+            if (currentExample.equals(getString(R.string.example))) {
                 setExample1();
-            } else if (currentExample.equals(getString(R.string.run_example_1))) {
+            } else if (currentExample.equals(getString(R.string.example_1))) {
                 setExample2();
-            } else if (currentExample.equals(getString(R.string.run_example_2))) {
+            } else if (currentExample.equals(getString(R.string.example_2))) {
                 setExample3();
-            } else if (currentExample.equals(getString(R.string.run_example_3))) {
+            } else if (currentExample.equals(getString(R.string.example_3))) {
                 setExample4();
-            } else if (currentExample.equals(getString(R.string.run_example_4))) {
+            } else if (currentExample.equals(getString(R.string.example_4))) {
                 setExample5();
             } else {
                 setExample1();
@@ -1990,7 +1989,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             editTextF.setText(f);
             editTextM.setText(m);
             editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_1);
+            buttonRunExampleToggle.setText(R.string.example_1);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
@@ -2014,7 +2013,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             editTextF.setText(f);
             editTextM.setText(m);
             editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_2);
+            buttonRunExampleToggle.setText(R.string.example_2);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
@@ -2038,7 +2037,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             editTextF.setText(f);
             editTextM.setText(m);
             editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_3);
+            buttonRunExampleToggle.setText(R.string.example_3);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
@@ -2062,7 +2061,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             editTextF.setText(f);
             editTextM.setText(m);
             editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_4);
+            buttonRunExampleToggle.setText(R.string.example_4);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
@@ -2086,7 +2085,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             editTextF.setText(f);
             editTextM.setText(m);
             editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_5);
+            buttonRunExampleToggle.setText(R.string.example_5);
             textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
