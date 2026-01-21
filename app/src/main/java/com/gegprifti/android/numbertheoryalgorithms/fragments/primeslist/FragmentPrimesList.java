@@ -52,10 +52,10 @@ public class FragmentPrimesList extends FragmentBase {
     // Navigation controls
     private TextView textViewTitle;
     // Compact input view controls
-    private TextView textViewLabelCompactK;
-    private EditText editTextCompactK;
-    private TextView textViewMinusCompactK;
-    private TextView textViewPlusCompactK;
+    private TextView textViewLabelCompactA;
+    private EditText editTextCompactA;
+    private TextView textViewMinusCompactA;
+    private TextView textViewPlusCompactA;
     // Result controls
     private TextView textViewLabelResult;
     private TextView textViewLabelElasticResult;
@@ -90,10 +90,10 @@ public class FragmentPrimesList extends FragmentBase {
             TextView textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
             // Compact input view
-            textViewLabelCompactK = inflater.findViewById(R.id.TextViewLabelCompactK);
-            editTextCompactK = inflater.findViewById(R.id.EditTextCompactK);
-            textViewMinusCompactK = inflater.findViewById(R.id.TextViewMinusCompactK);
-            textViewPlusCompactK = inflater.findViewById(R.id.TextViewPlusCompactK);
+            textViewLabelCompactA = inflater.findViewById(R.id.TextViewLabelCompactA);
+            editTextCompactA = inflater.findViewById(R.id.EditTextCompactA);
+            textViewMinusCompactA = inflater.findViewById(R.id.TextViewMinusCompactA);
+            textViewPlusCompactA = inflater.findViewById(R.id.TextViewPlusCompactA);
             // Result controls
             this.textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
             this.textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
@@ -109,11 +109,11 @@ public class FragmentPrimesList extends FragmentBase {
             this.resultListViewGridRows = inflater.findViewById(R.id.ResultListViewGridRows);
 
             // Constrain compact input
-            editTextCompactK.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
+            editTextCompactA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
             // Initial values
-            if (editTextCompactK.getText() == null || editTextCompactK.getText().length() == 0) {
-                editTextCompactK.setText(String.valueOf(COLUMNS_DEFAULT_VALUE));
+            if (editTextCompactA.getText() == null || editTextCompactA.getText().length() == 0) {
+                editTextCompactA.setText(String.valueOf(COLUMNS_DEFAULT_VALUE));
             }
 
             // Navigation vents
@@ -126,8 +126,8 @@ public class FragmentPrimesList extends FragmentBase {
             });
 
             // Compact input events
-            initDoubleTapDetector(textViewLabelCompactK);
-            editTextCompactK.addTextChangedListener(new TextWatcher() {
+            initDoubleTapDetector(textViewLabelCompactA);
+            editTextCompactA.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
                 @Override
@@ -136,15 +136,15 @@ public class FragmentPrimesList extends FragmentBase {
                 public void afterTextChanged(Editable s) { }
             });
 
-            // Compact input k button events
-            textViewMinusCompactK.setOnClickListener(v -> {
-                decreaseByOne(editTextCompactK, BigInteger.valueOf(MIN_COLUMNS));
-                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactK);
+            // Compact input a button events
+            textViewMinusCompactA.setOnClickListener(v -> {
+                decreaseByOne(editTextCompactA, BigInteger.valueOf(MIN_COLUMNS));
+                resetAllAndSelectTheLastButtonClicked(textViewMinusCompactA);
                 run();
             });
-            textViewPlusCompactK.setOnClickListener(v -> {
-                increaseByOne(editTextCompactK, BigInteger.valueOf(MAX_COLUMNS));
-                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactK);
+            textViewPlusCompactA.setOnClickListener(v -> {
+                increaseByOne(editTextCompactA, BigInteger.valueOf(MAX_COLUMNS));
+                resetAllAndSelectTheLastButtonClicked(textViewPlusCompactA);
                 run();
             });
 
@@ -184,10 +184,10 @@ public class FragmentPrimesList extends FragmentBase {
 
     @Override
     protected void fireOnDoubleTap(View view) {
-        if (view == textViewLabelCompactK){
+        if (view == textViewLabelCompactA){
             // Toggle between enable disable
-            editTextCompactK.setEnabled(!editTextCompactK.isEnabled());
-            if(!editTextCompactK.isEnabled()){
+            editTextCompactA.setEnabled(!editTextCompactA.isEnabled());
+            if(!editTextCompactA.isEnabled()){
                 run();
             }
         }
@@ -240,10 +240,10 @@ public class FragmentPrimesList extends FragmentBase {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
             // Compact input controls
-            ControlDisplay.setInputLabelFontSize(textViewLabelCompactK, biggerControls);
-            ControlDisplay.setInputFontSize(editTextCompactK, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactK, biggerControls);
-            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactK, biggerControls);
+            ControlDisplay.setInputLabelFontSize(textViewLabelCompactA, biggerControls);
+            ControlDisplay.setInputFontSize(editTextCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewMinusCompactA, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewPlusCompactA, biggerControls);
             // Output controls
             ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
@@ -260,25 +260,25 @@ public class FragmentPrimesList extends FragmentBase {
     private void run() {
         try {
             // Check
-            String columnsString = editTextCompactK.getText().toString();
+            String columnsString = editTextCompactA.getText().toString();
             BigInteger columns;
             try {
                 if(columnsString.isEmpty()) {
-                    UIHelper.showCustomToastLight(requireContext(), "columns must not be empty");
+                    UIHelper.showCustomToastLight(requireContext(), "a must not be empty");
                     return;
                 } else {
                     columns =  new BigInteger(columnsString);
                 }
             } catch (Exception ex) {
-                UIHelper.showCustomToastLight(requireContext(), columnsString + " columns must be a number");
+                UIHelper.showCustomToastLight(requireContext(), "a must be a number");
                 return;
             }
             if (columns.compareTo(BigInteger.valueOf(MIN_COLUMNS)) < 0) {
-                UIHelper.showCustomToastLight(requireContext(), "columns must be greater than or equal to " + MIN_COLUMNS);
+                UIHelper.showCustomToastLight(requireContext(), "a must be greater than or equal to " + MIN_COLUMNS);
                 return;
             }
             if (columns.compareTo(BigInteger.valueOf(MAX_COLUMNS)) > 0) {
-                UIHelper.showCustomToastLight(requireContext(), "columns must be less than or equal to " + MAX_COLUMNS);
+                UIHelper.showCustomToastLight(requireContext(), "a must be less than or equal to " + MAX_COLUMNS);
                 return;
             }
 
@@ -394,15 +394,15 @@ public class FragmentPrimesList extends FragmentBase {
     //region RESULT
     private void beforeActionPerforming() {
         UIHelper.hideSoftKeyBoard(requireActivity());
-        editTextCompactK.clearFocus();
+        editTextCompactA.clearFocus();
     }
     private void resetAllAndSelectTheLastButtonClicked() {
         resetAllAndSelectTheLastButtonClicked(null);
     }
     private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
         // Input compact controls
-        textViewMinusCompactK.setSelected(false);
-        textViewPlusCompactK.setSelected(false);
+        textViewMinusCompactA.setSelected(false);
+        textViewPlusCompactA.setSelected(false);
         // Output controls
         textViewExpandResult.setSelected(false);
         textViewClearResult.setSelected(false);
