@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
 
-    <!--Title Bar Controls-->
+    <!--Title bar controls-->
     <LinearLayout style="@style/TitleBarLinearLayoutContainer">
         <TextView style="@style/TitleBarTextViewBack"
             android:id="@+id/TextViewBackToAlgorithms" />

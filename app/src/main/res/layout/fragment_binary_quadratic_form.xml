@@ -7,24 +7,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--Navigation controls-->
-	<RelativeLayout
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-		<TextView style="@style/TextViewBack"
+
+    <!--Title bar controls-->
+    <LinearLayout style="@style/TitleBarLinearLayoutContainer">
+        <TextView style="@style/TitleBarTextViewBack"
             android:id="@+id/TextViewBackToAlgorithms" />
-		<TextView style="@style/TextViewFragmentTitle"
+        <TextView style="@style/TitleBarTextViewTitle"
             android:id="@+id/TextViewTitle"
             android:text="@string/binary_quadratic_form_title" />
-        <TextView style="@style/InputToggleStyle"
+        <TextView style="@style/TitleBarTextViewEnd"
             android:id="@+id/TextViewInputToggle"
-            android:text="@string/fa_4"/>
-	</RelativeLayout>
+            android:text="@string/fa_4"
+            android:layout_marginEnd="10dp" />
+        <TextView style="@style/TitleBarTextViewEnd"
+            android:id="@+id/TextViewInputCycleExample"
+            android:text="@string/example" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:paddingLeft="20dp"

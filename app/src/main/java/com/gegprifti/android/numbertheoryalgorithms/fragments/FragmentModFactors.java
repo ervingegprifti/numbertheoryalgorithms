@@ -215,10 +215,13 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     this.exampleCycleSet = new ModFactorsCycleSet();
                 }
                 ModFactorsExample modFactorsExample = (ModFactorsExample)this.exampleCycleSet.next();
+
+                this.textViewInputCycleExample.setText(modFactorsExample.getName());
                 //noinspection SetTextI18n
                 this.editTextN.setText(modFactorsExample.getN().toString());
+                //noinspection SetTextI18n
                 this.editTextB.setText(modFactorsExample.getB().toString());
-                this.textViewInputCycleExample.setText(modFactorsExample.getName());
+                //noinspection SetTextI18n
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result) + " " + modFactorsExample.getName());
                 // resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleExample);
                 onButtonRun2(container, this.buttonRun2, true);
