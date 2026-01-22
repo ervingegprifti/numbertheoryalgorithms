@@ -17,28 +17,71 @@ public class BinaryQuadraticFormCycleSet implements CycleSet {
     public BinaryQuadraticFormCycleSet() {
         List<BinaryQuadraticFormExample> examples = new ArrayList<>();
 
-        String e1Name = "E₁";
-        BigInteger e1A = new BigInteger("0");
-        BigInteger e1B = new BigInteger("8");
-        BigInteger e1C = new BigInteger("0");
-        BigInteger e1D = new BigInteger("3");
-        BigInteger e1E = new BigInteger("3");
-        BigInteger e1F = new BigInteger("88");
-        BinaryQuadraticFormExample e1 = new BinaryQuadraticFormExample(e1Name, e1A, e1B, e1C, e1D, e1E, e1F);
+        BinaryQuadraticFormExample e1 = new BinaryQuadraticFormExample.Builder()
+                .name("E₁")
+                .a(new BigInteger("0"))
+                .b(new BigInteger("8"))
+                .c(new BigInteger("0"))
+                .d(new BigInteger("3"))
+                .e(new BigInteger("3"))
+                .f(new BigInteger("88"))
+                .m(new BigInteger("8"))
+                .r(new BigInteger("0"))
+                .build();
         examples.add(e1);
 
+        /*
+            String a = "0";
+            String b = "16";
+            String c = "0";
+            String d = "7";
+            String e = "3";
+            String f = "113";
+            String m = "16";
+            String r = "1";
+         */
         //String e2Name = "E₂";
         //BinaryQuadraticFormExample e2 = new BinaryQuadraticFormExample(e2Name, e2N, e2B);
         //examples.add(e2);
 
+        /*
+                    String a = "0";
+            String b = "8";
+            String c = "0";
+            String d = "7";
+            String e = "7";
+            String f = "83";
+            String m = "8";
+            String r = "3";
+         */
         //String e3Name = "E₃";
         //BinaryQuadraticFormExample e3 = new BinaryQuadraticFormExample(e3Name, e3N, e3B);
         //examples.add(e3);
 
+        /*
+                    String a = "0";
+            String b = "16";
+            String c = "0";
+            String d = "15";
+            String e = "11";
+            String f = "104";
+            String m = "16";
+            String r = "8";
+         */
         //String e4Name = "E₄";
         //BinaryQuadraticFormExample e4 = new BinaryQuadraticFormExample(e4Name, e4N, e4B);
         //examples.add(e4);
 
+        /*
+                    String a = "0";
+            String b = "8";
+            String c = "0";
+            String d = "3";
+            String e = "5";
+            String f = "14";
+            String m = "8";
+            String r = "6";
+         */
         //String e5Name = "E₅";
         //BinaryQuadraticFormExample e5 = new BinaryQuadraticFormExample(e5Name, e5N, e5B);
         //examples.add(e5);

@@ -177,7 +177,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     TextView textViewPasteCompactF;
     TextView textViewClearCompactF;
     // Run buttons
-    Button buttonRunExampleToggle;
     Button buttonRun;
     Button buttonRun1;
     Button buttonRun2;
@@ -372,7 +371,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewPasteCompactF = inflater.findViewById(R.id.TextViewPasteCompactF);
             textViewClearCompactF = inflater.findViewById(R.id.TextViewClearCompactF);
             // Run buttons
-            buttonRunExampleToggle = inflater.findViewById(R.id.ButtonRunExampleToggle);
             buttonRun = inflater.findViewById(R.id.ButtonRun);
             buttonRun1 = inflater.findViewById(R.id.ButtonRun1);
             buttonRun2 = inflater.findViewById(R.id.ButtonRun2);
@@ -474,9 +472,13 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 //noinspection SetTextI18n
                 this.editTextF.setText(binaryQuadraticFormExample.getF().toString());
                 //noinspection SetTextI18n
+                this.editTextM.setText(binaryQuadraticFormExample.getM().toString());
+                //noinspection SetTextI18n
+                this.editTextR.setText(binaryQuadraticFormExample.getR().toString());
+                //noinspection SetTextI18n
                 this.textViewLabelResult.setText(requireContext().getText(R.string.result) + " " + binaryQuadraticFormExample.getName());
                 // resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleExample);
-                onButtonRun1(container, true);
+                runExample(container);
             });
 
             // Expanded input events
@@ -1039,7 +1041,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Run button events
-            this.buttonRunExampleToggle.setOnClickListener(v -> onButtonRunExampleToggle(container));
             this.buttonRun.setOnClickListener(v -> onButtonRun(container, false, false));
             this.buttonRun1.setOnClickListener(v -> onButtonRun1(container, false));
             this.buttonRun2.setOnClickListener(v -> onButtonRun2(container, false));
@@ -1247,31 +1248,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetResult(false);
                 return true;
             }
-            if (id == R.id.quadratic_form_menu_example_1) {
-                setExample1();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_2) {
-                setExample2();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_3) {
-                setExample3();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_4) {
-                setExample4();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_5) {
-                setExample5();
-                runExample(null);
-                return true;
-            }
             if (id == R.id.menu_documentation) {
                 DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.BINARY_QUADRATIC_FORM_PDF).show(getParentFragmentManager(), "BINARY_QUADRATIC_FORM_PDF");
                 return true;
@@ -1295,7 +1271,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         refreshInputViewMode();
         refreshShowInputDecreaseIncreaseButtons();
         refreshControlsDisplay();
-        refreshHideExampleButtons();
         refreshResultDisplay();
         refreshRun();
     }
@@ -1455,18 +1430,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
 
 
-    private void refreshHideExampleButtons() {
-        if (!isAdded()) return; // Ensure Fragment is attached before accessing context or views.
-
-        try {
-            boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
-            buttonRunExampleToggle.setVisibility(hideExampleButtons ? View.GONE : View.VISIBLE);
-        } catch (Exception ex) {
-            Log.e(TAG, "", ex);
-        }
-    }
-
-
     private void refreshControlsDisplay() {
         try {
             boolean biggerControls = UserSettings.getBiggerControls(requireContext());
@@ -1569,7 +1532,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             ControlDisplay.setInputLabelFontSize(textViewLabelCompactF, biggerControls);
             ControlDisplay.setInputFontSize(editTextCompactF, biggerControls);
             // Run buttons
-            ControlDisplay.setButtonFontSize(buttonRunExampleToggle, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun2, biggerControls);
@@ -1966,27 +1928,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
 
     //region BUTTON ACTIONS
-    private void onButtonRunExampleToggle(ViewGroup container) {
-        try {
-            String currentExample = buttonRunExampleToggle.getText().toString();
-            if (currentExample.equals(getString(R.string.example))) {
-                setExample1();
-            } else if (currentExample.equals(getString(R.string.example_1))) {
-                setExample2();
-            } else if (currentExample.equals(getString(R.string.example_2))) {
-                setExample3();
-            } else if (currentExample.equals(getString(R.string.example_3))) {
-                setExample4();
-            } else if (currentExample.equals(getString(R.string.example_4))) {
-                setExample5();
-            } else {
-                setExample1();
-            }
-            runExample(container);
-        } catch (Exception ex) {
-            Log.e(TAG, "", ex);
-        }
-    }
     private void runExample(ViewGroup container) {
         switch (lastRun) {
             case RUN:
@@ -2001,126 +1942,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             default:
                 onButtonRun(container, true, true);
                 break;
-        }
-    }
-    private void setExample1() {
-        try {
-            String a = "0";
-            String b = "8";
-            String c = "0";
-            String d = "3";
-            String e = "3";
-            String f = "88";
-            String m = "8";
-            String r = "0";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.example_1);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
-        } catch (Exception ex) {
-            Log.e(TAG, "", ex);
-        }
-    }
-    private void setExample2() {
-        try {
-            String a = "0";
-            String b = "16";
-            String c = "0";
-            String d = "7";
-            String e = "3";
-            String f = "113";
-            String m = "16";
-            String r = "1";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.example_2);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
-        } catch (Exception ex) {
-            Log.e(TAG, "", ex);
-        }
-    }
-    private void setExample3() {
-        try {
-            String a = "0";
-            String b = "8";
-            String c = "0";
-            String d = "7";
-            String e = "7";
-            String f = "83";
-            String m = "8";
-            String r = "3";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.example_3);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
-        } catch (Exception ex) {
-            Log.e(TAG, "", ex);
-        }
-    }
-    private void setExample4() {
-        try {
-            String a = "0";
-            String b = "16";
-            String c = "0";
-            String d = "15";
-            String e = "11";
-            String f = "104";
-            String m = "16";
-            String r = "8";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.example_4);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
-        } catch (Exception ex) {
-            Log.e(TAG, "", ex);
-        }
-    }
-    private void setExample5() {
-        try {
-            String a = "0";
-            String b = "8";
-            String c = "0";
-            String d = "3";
-            String e = "5";
-            String f = "14";
-            String m = "8";
-            String r = "6";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.example_5);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
-        } catch (Exception ex) {
-            Log.e(TAG, "", ex);
         }
     }
 
@@ -2227,7 +2048,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(buttonRunExampleToggle);
+                beforeActionPerforming(textViewInputCycleExample);
             } else {
                 beforeActionPerforming(buttonRun);
             }
@@ -2310,7 +2131,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(buttonRunExampleToggle);
+                beforeActionPerforming(textViewInputCycleExample);
             } else {
                 beforeActionPerforming(buttonRun1);
             }
@@ -2379,7 +2200,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(buttonRunExampleToggle);
+                beforeActionPerforming(textViewInputCycleExample);
             } else {
                 beforeActionPerforming(buttonRun2);
             }
@@ -2525,7 +2346,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
 
     //region RESULT
-    private void beforeActionPerforming(Button button) {
+    private void beforeActionPerforming(View view) {
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
@@ -2542,7 +2363,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         editTextCompactE.clearFocus();
         editTextCompactF.clearFocus();
         // Select the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(button);
+        resetAllAndSelectTheLastButtonClicked(view);
     }
     private void resetAllAndSelectTheLastButtonClicked() {
         resetAllAndSelectTheLastButtonClicked(null);
@@ -2613,7 +2434,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         textViewPasteCompactF.setSelected(false);
         textViewClearCompactF.setSelected(false);
         //
-        buttonRunExampleToggle.setSelected(false);
         buttonRun.setSelected(false);
         buttonRun1.setSelected(false);
         buttonRun2.setSelected(false);
