@@ -338,6 +338,7 @@
 
         </LinearLayout>
 
+
         <!--Buttons run-->
         <LinearLayout style="@style/RowContainerStyle">
             <Button style="@style/ButtonRunStyle"
@@ -410,7 +411,10 @@
             <TextView style="@style/TextViewLabelElasticStyle"
                 android:id="@+id/TextViewLabelElasticResult"  />
             <TextView style="@style/ClipboardButtonExpandResultStyle"
-                android:id="@+id/TextViewExpandResult"  />
+                android:id="@+id/TextViewExpandResult" />
+            <TextView style="@style/ClipboardButtonCenterResultStyle"
+                android:id="@+id/TextViewCenterResult"
+                android:visibility="gone" />
             <TextView style="@style/ClipboardButtonCopyStyle"
                 android:id="@+id/TextViewCopyResult" />
             <TextView style="@style/ClipboardButtonClearStyle"

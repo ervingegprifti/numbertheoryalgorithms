@@ -149,6 +149,10 @@
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:text">@string/fa_expand</item>
     </style>
+    <style name="ClipboardButtonCenterResultStyle" parent="ClipboardButtonStyle">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:text">@string/fa_square_plus</item>
+    </style>
     <style name="ClipboardButtonMinusStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:text">@string/fa_minus</item>

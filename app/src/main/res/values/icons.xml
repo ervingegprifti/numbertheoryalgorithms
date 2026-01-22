@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- https://fontawesome.com/v6/search -->
-    <!-- https://fontawesome.com/v6/search?ic=free -->
+    <!-- https://fontawesome.com/v6/search?ic=free-collection -->
     <string name="fa_arrow_left" translatable="false">&#xf060;</string>
     <string name="fa_stars">&#xf005;&#xf005;&#xf005;&#xf005;&#xf005;</string>
     <string name="fa_share_alt" translatable="false">&#xf1e0;</string>
@@ -34,4 +34,5 @@
     <string name="fa_6" translatable="false">&#x0036;</string>
     <string name="fa_chevron_up" translatable="false">&#xf077;</string>
     <string name="fa_chevron_down" translatable="false">&#xf078;</string>
+    <string name="fa_square_plus" translatable="false">&#xf0fe;</string>
 </resources>

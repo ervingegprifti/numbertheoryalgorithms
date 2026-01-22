@@ -94,6 +94,7 @@
                     android:autofillHints="" />
             </LinearLayout>
 
+
             <!--Compact inputGroup view-->
             <LinearLayout style="@style/ColumnContainerStyle"
                 android:id="@+id/LinearLayoutCompactInputView"
@@ -181,10 +182,10 @@
                     android:labelFor="@+id/EditTextResult" />
                 <TextView style="@style/TextViewLabelElasticStyle"
                     android:id="@+id/TextViewLabelElasticResult"  />
-                <TextView style="@style/ClipboardButtonToggleUpDownResultStyle"
-                    android:id="@+id/TextViewToggleUpDownResult"  />
                 <TextView style="@style/ClipboardButtonExpandResultStyle"
                     android:id="@+id/TextViewExpandResult"  />
+                <TextView style="@style/ClipboardButtonToggleUpDownResultStyle"
+                    android:id="@+id/TextViewToggleUpDownResult"  />
                 <TextView style="@style/ClipboardButtonCopyStyle"
                     android:id="@+id/TextViewCopyResult" />
                 <TextView style="@style/ClipboardButtonClearStyle"

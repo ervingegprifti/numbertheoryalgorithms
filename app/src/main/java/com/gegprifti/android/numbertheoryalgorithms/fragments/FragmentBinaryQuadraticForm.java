@@ -189,6 +189,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     TextView textViewLabelResult;
     TextView textViewLabelElasticResult;
     TextView textViewExpandResult;
+    TextView textViewCenterResult;
     TextView textViewCopyResult;
     TextView textViewClearResult;
     LinearLayout linearLayoutResultContainer;
@@ -384,6 +385,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
             textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
             textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
+            textViewCenterResult = inflater.findViewById(R.id.TextViewCenterResult);
             textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
             textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
@@ -1096,6 +1098,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 expandResult();
                 resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
             });
+            this.textViewCenterResult.setOnClickListener(v -> {
+                // Center result 2 grid
+                centerResultGrid(this.result2HorizontalScrollView, this.result2ListViewGridRows);
+                resetAllAndSelectTheLastButtonClicked(this.textViewCenterResult);
+            });
             textViewCopyResult.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastButtonClicked(textViewCopyResult);
@@ -1485,6 +1492,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactF, biggerControls);
             // Clipboard output buttons
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCenterResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
             // Expanded input controls
@@ -1800,19 +1808,19 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(result2ListViewGridRowHeaders, gridAdapterRowHeaders);
 
-            // Center
-            centerResultGrid(result2HorizontalScrollView, result2ListViewGridRows, adapter);
+            // Center result 2 grid
+            centerResultGrid(result2HorizontalScrollView, result2ListViewGridRows);
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
         }
     }
 
 
-    private void centerResultGrid(HorizontalScrollView horizontalScrollView, ListView listView, GridAdapter adapter) {
+    private void centerResultGrid(HorizontalScrollView horizontalScrollView, ListView listView) {
         // Center horizontally
-        centerHsvAfterLayout(result2HorizontalScrollView, result2ListViewGridRows);
+        centerHsvAfterLayout(horizontalScrollView, listView);
         // Center vertically
-        centerListViewAfterLayout(result2ListViewGridRows, adapter);
+        centerListViewAfterLayout(listView);
     }
     /**
      * Center horizontal scroll view
@@ -1841,7 +1849,13 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
         });
     }
-    private void centerListViewAfterLayout(ListView listView, ListAdapter adapter) {
+    private void centerListViewAfterLayout(ListView listView) {
+        final GridAdapter adapter;
+        if (listView.getAdapter() != null && listView.getAdapter() instanceof GridAdapter) {
+            adapter = (GridAdapter)listView.getAdapter();
+        } else {
+            adapter = null;
+        }
         if (adapter == null || adapter.getCount() == 0) return;
 
         final int position = adapter.getCount() / 2;
@@ -2427,6 +2441,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         buttonRun2.setSelected(false);
         //
         textViewExpandResult.setSelected(false);
+        textViewCenterResult.setSelected(false);
         textViewCopyResult.setSelected(false);
         textViewClearResult.setSelected(false);
         // Select the last button clicked.
@@ -2459,6 +2474,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
         linearLayoutFModMContainer.setVisibility(View.GONE);
+        textViewCenterResult.setVisibility(View.GONE);
         textViewCopyResult.setVisibility(View.VISIBLE);
         textViewClearResult.setVisibility(View.VISIBLE);
         linearLayoutResultContainer.setVisibility(View.VISIBLE);
@@ -2468,6 +2484,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     private void setResultVisibilityFromButtonRun1() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy));
         linearLayoutFModMContainer.setVisibility(View.GONE);
+        textViewCenterResult.setVisibility(View.GONE);
         textViewCopyResult.setVisibility(View.GONE);
         textViewClearResult.setVisibility(View.VISIBLE);
         linearLayoutResultContainer.setVisibility(View.GONE);
@@ -2477,6 +2494,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     private void setResultVisibilityFromButtonRun2() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy_f_mod_m_r));
         linearLayoutFModMContainer.setVisibility(View.VISIBLE);
+        textViewCenterResult.setVisibility(View.VISIBLE);
         textViewCopyResult.setVisibility(View.GONE);
         textViewClearResult.setVisibility(View.VISIBLE);
         linearLayoutResultContainer.setVisibility(View.GONE);
