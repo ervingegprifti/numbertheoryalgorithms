@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:id="@+id/menu_group_calculator_input_rsas">
-        <!--Solved RSA-->
+        <!--Solved RSAExample-->
         <item
             android:id="@+id/menu_rsa_100"
             android:title="@string/rsa_100"
@@ -18,7 +18,7 @@
             android:id="@+id/menu_rsa_768"
             android:title="@string/rsa_768"
             app:showAsAction="never" />
-        <!--Unsolved RSA-->
+        <!--Unsolved RSAExample-->
         <item
             android:id="@+id/menu_rsa_1536"
             android:title="@string/rsa_1536"
@@ -27,7 +27,7 @@
             android:id="@+id/menu_rsa_2048"
             android:title="@string/rsa_2048"
             app:showAsAction="never" />
-        <!--More RSA-->
+        <!--More RSAExample-->
         <item
             android:id="@+id/menu_more_rsa"
             android:title="@string/more_rsa"

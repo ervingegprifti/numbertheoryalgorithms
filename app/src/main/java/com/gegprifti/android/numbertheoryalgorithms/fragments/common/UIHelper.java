@@ -51,6 +51,16 @@ public final class UIHelper {
     private final static String TAG = UIHelper.class.getSimpleName();
 
 
+    public static void setText(EditText editText, Object value) {
+        editText.setText(String.valueOf(value));
+    }
+
+
+    public static void setText(TextView textView, Object value) {
+        textView.setText(String.valueOf(value));
+    }
+
+
     //region Full Screen
     public static  void setFullScreenImmersive(@NonNull Activity activity) {
         Window window = activity.getWindow();

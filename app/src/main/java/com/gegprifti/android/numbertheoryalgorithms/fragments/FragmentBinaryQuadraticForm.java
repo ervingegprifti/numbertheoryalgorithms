@@ -32,10 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.CycleSet;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.BinaryQuadraticFormCycleSet;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.BinaryQuadraticFormExampleCycleSet;
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.BinaryQuadraticFormExample;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.ModFactorsCycleSet;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.ModFactorsExample;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.grid.CellUI;
@@ -65,7 +63,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
     TextView textViewInputToggle;
-    TextView textViewInputCycleExample;
+    TextView textViewInputExampleCycle;
     // Cache view state
     boolean isCompactInputView = false;
     // All inputs
@@ -261,7 +259,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             this.textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
             this.textViewInputToggle = inflater.findViewById(R.id.TextViewInputToggle);
-            textViewInputCycleExample = inflater.findViewById(R.id.TextViewInputCycleExample);
+            textViewInputExampleCycle = inflater.findViewById(R.id.TextViewInputExampleCycle);
             // All inputs
             linearLayoutInputInputView = inflater.findViewById(R.id.LinearLayoutInputInputView);
             // Expanded input view
@@ -453,31 +451,21 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 UserSettings.setBQFInputToggle(requireContext(), inputToggleValue);
                 refreshInputToggle();
             });
-            this.textViewInputCycleExample.setOnClickListener(view -> {
+            this.textViewInputExampleCycle.setOnClickListener(view -> {
                 if (this.exampleCycleSet == null) {
-                    this.exampleCycleSet = new BinaryQuadraticFormCycleSet();
+                    this.exampleCycleSet = new BinaryQuadraticFormExampleCycleSet();
                 }
-                BinaryQuadraticFormExample binaryQuadraticFormExample = (BinaryQuadraticFormExample)this.exampleCycleSet.next();
-                this.textViewInputCycleExample.setText(binaryQuadraticFormExample.getName());
-                //noinspection SetTextI18n
-                this.editTextA.setText(binaryQuadraticFormExample.getA().toString());
-                //noinspection SetTextI18n
-                this.editTextB.setText(binaryQuadraticFormExample.getB().toString());
-                //noinspection SetTextI18n
-                this.editTextC.setText(binaryQuadraticFormExample.getC().toString());
-                //noinspection SetTextI18n
-                this.editTextD.setText(binaryQuadraticFormExample.getD().toString());
-                //noinspection SetTextI18n
-                this.editTextE.setText(binaryQuadraticFormExample.getE().toString());
-                //noinspection SetTextI18n
-                this.editTextF.setText(binaryQuadraticFormExample.getF().toString());
-                //noinspection SetTextI18n
-                this.editTextM.setText(binaryQuadraticFormExample.getM().toString());
-                //noinspection SetTextI18n
-                this.editTextR.setText(binaryQuadraticFormExample.getR().toString());
-                //noinspection SetTextI18n
-                this.textViewLabelResult.setText(requireContext().getText(R.string.result) + " " + binaryQuadraticFormExample.getName());
-                // resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleExample);
+                BinaryQuadraticFormExample example = (BinaryQuadraticFormExample)this.exampleCycleSet.next();
+                UIHelper.setText(this.textViewInputExampleCycle, example.getName());
+                UIHelper.setText(this.editTextA, example.getA());
+                UIHelper.setText(this.editTextB, example.getB());
+                UIHelper.setText(this.editTextC, example.getC());
+                UIHelper.setText(this.editTextD, example.getD());
+                UIHelper.setText(this.editTextE, example.getE());
+                UIHelper.setText(this.editTextF, example.getF());
+                UIHelper.setText(this.editTextM, example.getM());
+                UIHelper.setText(this.editTextR, example.getR());
+                UIHelper.setText(this.textViewLabelResult, requireContext().getText(R.string.result) + " " + example.getName());
                 runExample(container);
             });
 
@@ -2048,7 +2036,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(textViewInputCycleExample);
+                beforeActionPerforming(textViewInputExampleCycle);
             } else {
                 beforeActionPerforming(buttonRun);
             }
@@ -2131,7 +2119,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(textViewInputCycleExample);
+                beforeActionPerforming(textViewInputExampleCycle);
             } else {
                 beforeActionPerforming(buttonRun1);
             }
@@ -2200,7 +2188,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(textViewInputCycleExample);
+                beforeActionPerforming(textViewInputExampleCycle);
             } else {
                 beforeActionPerforming(buttonRun2);
             }
@@ -2370,7 +2358,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     }
     private void resetAllAndSelectTheLastButtonClicked(View view) {
         //
-        this.textViewInputCycleExample.setSelected(false);
+        this.textViewInputExampleCycle.setSelected(false);
         //
         textViewMinusA.setSelected(false);
         textViewPlusA.setSelected(false);

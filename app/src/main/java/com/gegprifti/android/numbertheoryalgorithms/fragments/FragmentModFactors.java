@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ThemedSpinnerAdapter;
+
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
@@ -23,10 +25,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.CycleSet;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.ModFactorsCycleSet;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.ModFactorsExampleCycleSet;
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.ModFactorsExample;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.rsa.RSA;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.rsa.RSACycleSet;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.RSAExample;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.RSAExampleCycleSet;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
@@ -50,8 +52,8 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     // Title bar controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewInputCycleRSA;
-    TextView textViewInputCycleExample;
+    TextView textViewInputRSAExampleCycle;
+    TextView textViewInputExampleCycle;
     // Cache view state
     boolean isCompactInputView = false;
     // Expanded input view
@@ -110,7 +112,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
     AtomicBoolean isUpdatingEditTextB = new AtomicBoolean(false);
     AtomicBoolean isUpdatingEditTextCompactB = new AtomicBoolean(false);
 
-    private CycleSet rsaCycleSet;
+    private CycleSet rsaExampleCycleSet;
     private CycleSet exampleCycleSet;
 
     // Define the parent fragment
@@ -132,8 +134,8 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             // Title bar controls
             textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            textViewInputCycleRSA = inflater.findViewById(R.id.TextViewInputCycleRSA);
-            textViewInputCycleExample = inflater.findViewById(R.id.TextViewInputCycleExample);
+            textViewInputRSAExampleCycle = inflater.findViewById(R.id.TextViewInputRSAExampleCycle);
+            textViewInputExampleCycle = inflater.findViewById(R.id.TextViewInputExampleCycle);
             // Expanded input view
             linearLayoutExpandedInputView = inflater.findViewById(R.id.LinearLayoutExpandedInputView);
             textViewLabelN = inflater.findViewById(R.id.TextViewLabelN);
@@ -200,31 +202,25 @@ public class FragmentModFactors extends FragmentBase implements Callback {
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            this.textViewInputCycleRSA.setOnClickListener(view -> {
-                if (this.rsaCycleSet == null) {
-                    this.rsaCycleSet = new RSACycleSet();
+            this.textViewInputRSAExampleCycle.setOnClickListener(view -> {
+                if (this.rsaExampleCycleSet == null) {
+                    this.rsaExampleCycleSet = new RSAExampleCycleSet();
                 }
-                RSA rsa = (RSA)this.rsaCycleSet.next();
-                //noinspection SetTextI18n
-                this.editTextN.setText(rsa.getN().toString());
-                this.textViewInputCycleRSA.setText(rsa.getName());
-                resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleRSA);
+                RSAExample example = (RSAExample)this.rsaExampleCycleSet.next();
+                UIHelper.setText(this.textViewInputRSAExampleCycle, example.getName());
+                UIHelper.setText(this.editTextN, example.getN());
+                resetAllAndSelectTheLastButtonClicked(this.textViewInputRSAExampleCycle);
             });
-            this.textViewInputCycleExample.setOnClickListener(view -> {
+            this.textViewInputExampleCycle.setOnClickListener(view -> {
                 if (this.exampleCycleSet == null) {
-                    this.exampleCycleSet = new ModFactorsCycleSet();
+                    this.exampleCycleSet = new ModFactorsExampleCycleSet();
                 }
-                ModFactorsExample modFactorsExample = (ModFactorsExample)this.exampleCycleSet.next();
-
-                this.textViewInputCycleExample.setText(modFactorsExample.getName());
-                //noinspection SetTextI18n
-                this.editTextN.setText(modFactorsExample.getN().toString());
-                //noinspection SetTextI18n
-                this.editTextB.setText(modFactorsExample.getB().toString());
-                //noinspection SetTextI18n
-                this.textViewLabelResult.setText(requireContext().getText(R.string.result) + " " + modFactorsExample.getName());
-                // resetAllAndSelectTheLastButtonClicked(this.textViewInputCycleExample);
-                onButtonRun2(container, this.buttonRun2, true);
+                ModFactorsExample example = (ModFactorsExample)this.exampleCycleSet.next();
+                UIHelper.setText(this.textViewInputExampleCycle, example.getName());
+                UIHelper.setText(this.editTextN, example.getN());
+                UIHelper.setText(this.editTextB, example.getB());
+                UIHelper.setText(this.textViewLabelResult, requireContext().getText(R.string.result) + " " + example.getName());
+                onButtonRun2(container, this.textViewInputExampleCycle, true);
             });
 
             // Expanded input events
@@ -777,7 +773,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             Log.e(TAG, "", ex);
         }
     }
-    private void onButtonRun2(ViewGroup container, Button button, boolean skipLabelResult) {
+    private void onButtonRun2(ViewGroup container, View view, boolean skipLabelResult) {
         try {
             // Check.
             InputGroup inputGroupN = getInputGroupN();
@@ -797,7 +793,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             resetResult(skipLabelResult);
 
             // Before action performing.
-            beforeActionPerforming(button);
+            beforeActionPerforming(view);
 
             // Perform the mod factors
             AlgorithmParameters algorithmParameters = new AlgorithmParameters(AlgorithmName.MOD_FACTORS_ALG2, this);
@@ -874,7 +870,7 @@ public class FragmentModFactors extends FragmentBase implements Callback {
 
 
     //region RESULT
-    private void beforeActionPerforming(Button button) {
+    private void beforeActionPerforming(View view) {
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
@@ -883,15 +879,15 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         editTextCompactN.clearFocus();
         editTextCompactB.clearFocus();
         // Select the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(button);
+        resetAllAndSelectTheLastButtonClicked(view);
     }
     private void resetAllAndSelectTheLastButtonClicked() {
         resetAllAndSelectTheLastButtonClicked(null);
     }
-    private void resetAllAndSelectTheLastButtonClicked(TextView textView) {
+    private void resetAllAndSelectTheLastButtonClicked(View view) {
         //
-        this.textViewInputCycleRSA.setSelected(false);
-        this.textViewInputCycleExample.setSelected(false);
+        this.textViewInputRSAExampleCycle.setSelected(false);
+        this.textViewInputExampleCycle.setSelected(false);
         //
         textViewMinusN.setSelected(false);
         textViewPlusN.setSelected(false);
@@ -924,9 +920,9 @@ public class FragmentModFactors extends FragmentBase implements Callback {
         textViewCopyResult.setSelected(false);
         textViewClearResult.setSelected(false);
         // Select he last button clicked.
-        if (textView != null) {
+        if (view != null) {
             UIHelper.vibrateOnButtonTap(requireContext());
-            textView.setSelected(true);
+            view.setSelected(true);
         }
     }
     private void resetResult(boolean skipLabelResult) {

@@ -72,9 +72,9 @@
 
 
     <!-- Button examples colors -->
-    <color name="buttonExampleBgPressedColor">#433f34</color>
+    <color name="buttonExampleBgPressedColor">@color/colorAccent2</color>
     <color name="buttonExampleBgSelectedColor">@color/orange_dark</color>
-    <color name="buttonExampleBgColor">#5c5748</color>
+    <color name="buttonExampleBgColor">@color/colorGeneralBg2</color>
     <color name="buttonExampleTextColor">@color/colorGeneralBg</color>
 
 

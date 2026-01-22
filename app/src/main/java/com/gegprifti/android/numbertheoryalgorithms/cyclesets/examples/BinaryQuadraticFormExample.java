@@ -6,6 +6,7 @@ public class BinaryQuadraticFormExample {
     private final String name;
     private final BigInteger a, b, c, d, e, f, m, r;
 
+
     private BinaryQuadraticFormExample(Builder builder) {
         this.name = builder.name;
         this.a = builder.a;
@@ -17,6 +18,7 @@ public class BinaryQuadraticFormExample {
         this.m = builder.m;
         this.r = builder.r;
     }
+
 
     public static class Builder {
         private String name;
@@ -63,6 +65,7 @@ public class BinaryQuadraticFormExample {
             return new BinaryQuadraticFormExample(this);
         }
     }
+
 
     public String getName() {
         return this.name;

@@ -3,21 +3,21 @@
 
     <item android:state_pressed="true">
         <shape >
-            <solid android:color="@color/clipboardButtonPressedBg"/>
+            <solid android:color="@color/buttonExampleBgPressedColor"/>
             <corners android:radius="5dp"/>
         </shape>
     </item>
 
     <item android:state_selected="true">
         <shape>
-            <solid android:color="@color/clipboardButtonSelectedBg"/>
+            <solid android:color="@color/buttonExampleBgSelectedColor"/>
             <corners android:radius="5dp"/>
         </shape>
     </item>
 
     <item>
         <shape>
-            <solid android:color="@color/clipboardButtonBg"/>
+            <solid android:color="@color/buttonExampleBgColor"/>
             <corners android:radius="5dp"/>
         </shape>
     </item>

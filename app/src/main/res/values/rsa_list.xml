@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="rsa" translatable="false">RSA</string>
+    <string name="rsaExample" translatable="false">RSA</string>
 
     <!--₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉-->
     <!-- https://en.wikipedia.org/wiki/RSA_Factoring_Challenge -->
