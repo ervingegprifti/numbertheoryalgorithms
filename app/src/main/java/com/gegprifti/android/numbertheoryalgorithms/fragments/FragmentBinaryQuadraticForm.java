@@ -58,11 +58,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class FragmentBinaryQuadraticForm extends FragmentBase implements Callback {
+    public static final int INPUT_VISIBILITY_DEFAULT_VALUE = 4;
     private final static String TAG = FragmentBinaryQuadraticForm.class.getSimpleName();
     // Title bar controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewInputToggle;
     TextView textViewInputExampleCycle;
     // Cache view state
     boolean isCompactInputView = false;
@@ -259,7 +259,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Navigation controls
             this.textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            this.textViewInputToggle = inflater.findViewById(R.id.TextViewInputToggle);
             textViewInputExampleCycle = inflater.findViewById(R.id.TextViewInputExampleCycle);
             // All inputs
             linearLayoutInputInputView = inflater.findViewById(R.id.LinearLayoutInputInputView);
@@ -430,27 +429,23 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewInputToggle.setOnClickListener(view -> {
-                int inputToggleValue = UserSettings.getBQFInputToggle(requireContext());
-                switch (inputToggleValue) {
-                    case 0: // fa_0
-                        inputToggleValue = 4;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+            textViewTitle.setOnClickListener(view -> {
+                int inputVisibility = UserSettings.getBQFInputVisibility(requireContext(), INPUT_VISIBILITY_DEFAULT_VALUE);
+                switch (inputVisibility) {
+                    case 0:
+                        inputVisibility = 4;
                         break;
-                    case 4: // fa_4
-                        inputToggleValue = 6;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_6));
+                    case 4:
+                        inputVisibility = 6;
                         break;
-                    case 6: // fa_6
-                        inputToggleValue = 0;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_0));
+                    case 6:
+                        inputVisibility = 0;
                         break;
                     default:
-                        inputToggleValue = UserSettings.BQF_INPUT_TOGGLE_DEFAULT_VALUE;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                        inputVisibility = INPUT_VISIBILITY_DEFAULT_VALUE;
                         break;
                 }
-                UserSettings.setBQFInputToggle(requireContext(), inputToggleValue);
+                UserSettings.setBQFInputVisibility(requireContext(), inputVisibility);
                 refreshInputToggle();
             });
             this.textViewInputExampleCycle.setOnClickListener(view -> {
@@ -1274,10 +1269,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //region Refresh UI
     private void refreshInputToggle() {
         try {
-            int inputToggleValue = UserSettings.getBQFInputToggle(requireContext());
-            switch (inputToggleValue) {
+            int inputVisibility = UserSettings.getBQFInputVisibility(requireContext(), INPUT_VISIBILITY_DEFAULT_VALUE);
+            switch (inputVisibility) {
                 case 0:
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_0));
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_0));
                     linearLayoutInputInputView.setVisibility(View.GONE);
                     linearLayoutExpandedInputA.setVisibility(View.GONE);
                     linearLayoutExpandedInputB.setVisibility(View.GONE);
@@ -1293,7 +1288,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.GONE);
                     break;
                 case 4:
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_4));
                     linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputA.setVisibility(View.GONE);
                     linearLayoutExpandedInputB.setVisibility(View.VISIBLE);
@@ -1309,7 +1304,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
                 case 6:
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_6));
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_6));
                     linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputA.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputB.setVisibility(View.VISIBLE);
@@ -1325,9 +1320,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
                 default:
-                    inputToggleValue = UserSettings.BQF_INPUT_TOGGLE_DEFAULT_VALUE;
-                    UserSettings.setBQFInputToggle(requireContext(), inputToggleValue);
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                    inputVisibility = INPUT_VISIBILITY_DEFAULT_VALUE;
+                    UserSettings.setBQFInputVisibility(requireContext(), inputVisibility);
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_4));
                     linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputA.setVisibility(View.GONE);
                     linearLayoutExpandedInputB.setVisibility(View.VISIBLE);
@@ -1603,20 +1598,41 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 digitsWithin(e, 2) &&
                 digitsWithin(f, 3);
 
-        if (!ok) {
-            textViewTitle.setText(R.string.binary_quadratic_form_title);
-            return;
+        int inputVisibility = UserSettings.getBQFInputVisibility(requireContext(), INPUT_VISIBILITY_DEFAULT_VALUE);
+
+        if (ok) {
+            String updatedTitle = updatedTitle = requireContext().getString(R.string.binary_quadratic_form_input_visibility_4);;
+            switch (inputVisibility) {
+                case 0:
+                    updatedTitle = requireContext().getString(R.string.binary_quadratic_form_input_visibility_0);
+                    break;
+                case 4:
+                    updatedTitle = formatSigned(b) + "xy+" + formatSigned(d) + "x+" + formatSigned(e) + "y=" + formatSigned(f);
+                    break;
+                case 6:
+                    updatedTitle = formatSigned(a) + "x²+" + formatSigned(b) + "xy+" + formatSigned(c) + "y²+" + formatSigned(d) + "x+" + formatSigned(e) + "y=" + formatSigned(f);
+                    break;
+                default:
+                    updatedTitle = formatSigned(b) + "xy+" + formatSigned(d) + "x+" + formatSigned(e) + "y=" + formatSigned(f);
+                    break;
+            }
+            textViewTitle.setText(updatedTitle);
+        } else {
+            switch (inputVisibility) {
+                case 0:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_0);
+                    break;
+                case 4:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_4);
+                    break;
+                case 6:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_6);
+                    break;
+                default:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_4);
+                    break;
+            }
         }
-
-        String updatedTitle =
-                formatSigned(a) + "x²+" +
-                formatSigned(b) + "xy+" +
-                formatSigned(c) + "y²+" +
-                formatSigned(d) + "x+" +
-                formatSigned(e) + "y=" +
-                formatSigned(f);
-
-        textViewTitle.setText(updatedTitle);
     }
     //endregion Refresh UI
 

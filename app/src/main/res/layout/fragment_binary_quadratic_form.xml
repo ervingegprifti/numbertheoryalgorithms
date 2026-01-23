@@ -14,11 +14,7 @@
             android:id="@+id/TextViewBackToAlgorithms" />
         <TextView style="@style/TitleBarTextViewTitle"
             android:id="@+id/TextViewTitle"
-            android:text="@string/binary_quadratic_form_title" />
-        <TextView style="@style/TitleBarTextViewExample"
-            android:id="@+id/TextViewInputToggle"
-            android:text="@string/fa_4"
-            android:layout_marginEnd="10dp" />
+            android:text="@string/binary_quadratic_form_input_visibility_4" />
         <TextView style="@style/TitleBarTextViewExample"
             android:id="@+id/TextViewInputExampleCycle" />
     </LinearLayout>

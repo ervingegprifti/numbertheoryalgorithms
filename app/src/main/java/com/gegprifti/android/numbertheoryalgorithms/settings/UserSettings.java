@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm;
+import com.gegprifti.android.numbertheoryalgorithms.fragments.FragmentBinaryQuadraticForm;
+
 
 /**
  * A helper class to ease user preferences.
@@ -34,8 +37,7 @@ public class UserSettings {
     private static final String BQF_INCLUDE_TRIVIAL_SOLUTIONS = "BQF_INCLUDE_TRIVIAL_SOLUTIONS";
     private static final String BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS";
     private static final String BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS = "BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS";
-    private static final String BQF_INPUT_TOGGLE = "BQF_INPUT_TOGGLE";
-    public static final int BQF_INPUT_TOGGLE_DEFAULT_VALUE = 4;
+    private static final String BQF_INPUT_VISIBILITY = "BQF_INPUT_VISIBILITY";
 
 
     private static SharedPreferences getSharedPreferences(Context context) {
@@ -63,12 +65,12 @@ public class UserSettings {
     }
 
 
-    private static int getInt(Context context, String key) {
+    private static int getInt(Context context, String key, int defaultValue) {
         SharedPreferences sharedPreferences = UserSettings.getSharedPreferences(context);
         if (sharedPreferences == null) {
-            return -1;
+            return defaultValue;
         } else {
-            return sharedPreferences.getInt(key, -1);
+            return sharedPreferences.getInt(key, defaultValue);
         }
     }
 
@@ -187,14 +189,13 @@ public class UserSettings {
     }
 
 
-    public static int getBQFInputToggle(Context context) {
-        int value = getInt(context, BQF_INPUT_TOGGLE);
-        return value == -1 ? BQF_INPUT_TOGGLE_DEFAULT_VALUE : value;
+    public static int getBQFInputVisibility(Context context, int defaultValue) {
+        return getInt(context, BQF_INPUT_VISIBILITY, defaultValue);
     }
 
 
-    public static void setBQFInputToggle(Context context, int value) {
-        setInt(context, BQF_INPUT_TOGGLE, value);
+    public static void setBQFInputVisibility(Context context, int value) {
+        setInt(context, BQF_INPUT_VISIBILITY, value);
     }
 
 
@@ -220,6 +221,6 @@ public class UserSettings {
         setBoolean(context, BQF_INCLUDE_TRIVIAL_SOLUTIONS, false);
         setBoolean(context, BQF_INCLUDE_ONLY_POSITIVE_SOLUTIONS, false);
         setBoolean(context, BQF_INCLUDE_ONLY_NEGATIVE_SOLUTIONS, false);
-        setInt(context, BQF_INPUT_TOGGLE, BQF_INPUT_TOGGLE_DEFAULT_VALUE);
+        setInt(context, BQF_INPUT_VISIBILITY, FragmentBinaryQuadraticForm.INPUT_VISIBILITY_DEFAULT_VALUE);
     }
 }
