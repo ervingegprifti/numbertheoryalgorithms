@@ -18,16 +18,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.CycleSet;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.BinaryQuadraticFormExampleCycleSet;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.BinaryQuadraticFormExample;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.grid.CellUI;
@@ -52,11 +58,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class FragmentBinaryQuadraticForm extends FragmentBase implements Callback {
+    public static final int INPUT_VISIBILITY_DEFAULT_VALUE = 4;
     private final static String TAG = FragmentBinaryQuadraticForm.class.getSimpleName();
-    // Navigation controls
+    // Title bar controls
     TextView textViewBackToAlgorithms;
     TextView textViewTitle;
-    TextView textViewInputToggle;
+    TextView textViewInputExampleCycle;
     // Cache view state
     boolean isCompactInputView = false;
     // All inputs
@@ -168,7 +175,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     TextView textViewPasteCompactF;
     TextView textViewClearCompactF;
     // Run buttons
-    Button buttonRunExampleToggle;
     Button buttonRun;
     Button buttonRun1;
     Button buttonRun2;
@@ -183,6 +189,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     TextView textViewLabelResult;
     TextView textViewLabelElasticResult;
     TextView textViewExpandResult;
+    TextView textViewCenterResult;
     TextView textViewCopyResult;
     TextView textViewClearResult;
     LinearLayout linearLayoutResultContainer;
@@ -203,6 +210,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     ListView result2ListViewGridRowHeaders;
     LinearLayout result2LinearLayoutGridColumnHeaders;
     ListView result2ListViewGridRows;
+    HorizontalScrollView result2HorizontalScrollView;
     // Menu
     MenuItem menuItemIncludeTrivialSolutions;
     MenuItem menuItemIncludeOnlyPositiveSolutions;
@@ -221,6 +229,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     AtomicBoolean isUpdatingEditTextF = new AtomicBoolean(false);
     AtomicBoolean isUpdatingEditTextCompactF = new AtomicBoolean(false);
 
+    private CycleSet exampleCycleSet;
     private enum LastRun {
         RUN,
         RUN1,
@@ -250,7 +259,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Navigation controls
             this.textViewBackToAlgorithms = inflater.findViewById(R.id.TextViewBackToAlgorithms);
             this.textViewTitle = inflater.findViewById(R.id.TextViewTitle);
-            this.textViewInputToggle = inflater.findViewById(R.id.TextViewInputToggle);
+            textViewInputExampleCycle = inflater.findViewById(R.id.TextViewInputExampleCycle);
             // All inputs
             linearLayoutInputInputView = inflater.findViewById(R.id.LinearLayoutInputInputView);
             // Expanded input view
@@ -360,7 +369,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewPasteCompactF = inflater.findViewById(R.id.TextViewPasteCompactF);
             textViewClearCompactF = inflater.findViewById(R.id.TextViewClearCompactF);
             // Run buttons
-            buttonRunExampleToggle = inflater.findViewById(R.id.ButtonRunExampleToggle);
             buttonRun = inflater.findViewById(R.id.ButtonRun);
             buttonRun1 = inflater.findViewById(R.id.ButtonRun1);
             buttonRun2 = inflater.findViewById(R.id.ButtonRun2);
@@ -376,6 +384,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewLabelResult = inflater.findViewById(R.id.TextViewLabelResult);
             textViewLabelElasticResult = inflater.findViewById(R.id.TextViewLabelElasticResult);
             textViewExpandResult = inflater.findViewById(R.id.TextViewExpandResult);
+            textViewCenterResult = inflater.findViewById(R.id.TextViewCenterResult);
             textViewCopyResult = inflater.findViewById(R.id.TextViewCopyResult);
             textViewClearResult = inflater.findViewById(R.id.TextViewClearResult);
             linearLayoutResultContainer = inflater.findViewById(R.id.LinearLayoutResultContainer);
@@ -396,6 +405,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             result2ListViewGridRowHeaders = inflater.findViewById(R.id.Result2ListViewGridRowHeaders);
             result2LinearLayoutGridColumnHeaders = inflater.findViewById(R.id.Result2LinearLayoutGridColumnHeaders);
             result2ListViewGridRows = inflater.findViewById(R.id.Result2ListViewGridRows);
+            result2HorizontalScrollView = inflater.findViewById(R.id.Result2HorizontalScrollView);
             // Constrain expanded input
             editTextA.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextB.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
@@ -411,7 +421,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             editTextCompactE.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
             editTextCompactF.setFilters(new InputFilter[]{UIHelper.inputFilterIntegerOnly});
 
-            // Navigation vents
+            // Title bar control events
             textViewBackToAlgorithms.setOnClickListener(view -> {
                 if(tabFragmentAlgorithms != null) {
                     // Go back to the algorithms main menu
@@ -419,28 +429,41 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     tabFragmentAlgorithms.setFragment(fragmentAlgorithms);
                 }
             });
-            textViewInputToggle.setOnClickListener(view -> {
-                int inputToggleValue = UserSettings.getBQFInputToggle(requireContext());
-                switch (inputToggleValue) {
-                    case 0: // fa_0
-                        inputToggleValue = 4;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+            textViewTitle.setOnClickListener(view -> {
+                int inputVisibility = UserSettings.getBQFInputVisibility(requireContext(), INPUT_VISIBILITY_DEFAULT_VALUE);
+                switch (inputVisibility) {
+                    case 0:
+                        inputVisibility = 4;
                         break;
-                    case 4: // fa_4
-                        inputToggleValue = 6;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_6));
+                    case 4:
+                        inputVisibility = 6;
                         break;
-                    case 6: // fa_6
-                        inputToggleValue = 0;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_0));
+                    case 6:
+                        inputVisibility = 0;
                         break;
                     default:
-                        inputToggleValue = UserSettings.BQF_INPUT_TOGGLE_DEFAULT_VALUE;
-                        textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                        inputVisibility = INPUT_VISIBILITY_DEFAULT_VALUE;
                         break;
                 }
-                UserSettings.setBQFInputToggle(requireContext(), inputToggleValue);
+                UserSettings.setBQFInputVisibility(requireContext(), inputVisibility);
                 refreshInputToggle();
+            });
+            this.textViewInputExampleCycle.setOnClickListener(view -> {
+                if (this.exampleCycleSet == null) {
+                    this.exampleCycleSet = new BinaryQuadraticFormExampleCycleSet();
+                }
+                BinaryQuadraticFormExample example = (BinaryQuadraticFormExample)this.exampleCycleSet.next();
+                UIHelper.setText(this.textViewInputExampleCycle, example.getName());
+                UIHelper.setText(this.editTextA, example.getA());
+                UIHelper.setText(this.editTextB, example.getB());
+                UIHelper.setText(this.editTextC, example.getC());
+                UIHelper.setText(this.editTextD, example.getD());
+                UIHelper.setText(this.editTextE, example.getE());
+                UIHelper.setText(this.editTextF, example.getF());
+                UIHelper.setText(this.editTextM, example.getM());
+                UIHelper.setText(this.editTextR, example.getR());
+                UIHelper.setText(this.textViewLabelResult, requireContext().getText(R.string.result) + " " + example.getName());
+                runExample(container);
             });
 
             // Expanded input events
@@ -1003,7 +1026,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             });
 
             // Run button events
-            this.buttonRunExampleToggle.setOnClickListener(v -> onButtonRunExampleToggle(container));
             this.buttonRun.setOnClickListener(v -> onButtonRun(container, false, false));
             this.buttonRun1.setOnClickListener(v -> onButtonRun1(container, false));
             this.buttonRun2.setOnClickListener(v -> onButtonRun2(container, false));
@@ -1071,6 +1093,11 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 expandResult();
                 resetAllAndSelectTheLastButtonClicked(textViewExpandResult);
             });
+            this.textViewCenterResult.setOnClickListener(v -> {
+                // Center result 2 grid
+                centerResultGrid(this.result2HorizontalScrollView, this.result2ListViewGridRows);
+                resetAllAndSelectTheLastButtonClicked(this.textViewCenterResult);
+            });
             textViewCopyResult.setOnClickListener(v -> {
                 UIHelper.copyTextFromEditTextIntoClipboard(requireContext(), editTextResult);
                 resetAllAndSelectTheLastButtonClicked(textViewCopyResult);
@@ -1101,7 +1128,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             result1ListViewGridRows.setOnScrollListener(result1SyncScrollListener);
             result2ListViewGridRows.setOnScrollListener(result2SyncScrollListener);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -1165,7 +1192,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         try {
             menuInflater.inflate(R.menu.menu_fragment_binary_quadratic_form, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
         this.menuItemIncludeTrivialSolutions = menu.findItem(R.id.quadratic_form_menu_include_trivial_solutions);
         this.menuItemIncludeOnlyPositiveSolutions = menu.findItem(R.id.quadratic_form_menu_include_only_positive_solutions);
@@ -1211,37 +1238,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 resetResult(false);
                 return true;
             }
-            if (id == R.id.quadratic_form_menu_example_1) {
-                setExample1();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_2) {
-                setExample2();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_3) {
-                setExample3();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_4) {
-                setExample4();
-                runExample(null);
-                return true;
-            }
-            if (id == R.id.quadratic_form_menu_example_5) {
-                setExample5();
-                runExample(null);
-                return true;
-            }
             if (id == R.id.menu_documentation) {
                 DialogFragmentPdfViewer.newInstance(DialogFragmentPdfViewer.BINARY_QUADRATIC_FORM_PDF).show(getParentFragmentManager(), "BINARY_QUADRATIC_FORM_PDF");
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -1259,7 +1261,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         refreshInputViewMode();
         refreshShowInputDecreaseIncreaseButtons();
         refreshControlsDisplay();
-        refreshHideExampleButtons();
         refreshResultDisplay();
         refreshRun();
     }
@@ -1268,10 +1269,10 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     //region Refresh UI
     private void refreshInputToggle() {
         try {
-            int inputToggleValue = UserSettings.getBQFInputToggle(requireContext());
-            switch (inputToggleValue) {
+            int inputVisibility = UserSettings.getBQFInputVisibility(requireContext(), INPUT_VISIBILITY_DEFAULT_VALUE);
+            switch (inputVisibility) {
                 case 0:
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_0));
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_0));
                     linearLayoutInputInputView.setVisibility(View.GONE);
                     linearLayoutExpandedInputA.setVisibility(View.GONE);
                     linearLayoutExpandedInputB.setVisibility(View.GONE);
@@ -1287,7 +1288,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.GONE);
                     break;
                 case 4:
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_4));
                     linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputA.setVisibility(View.GONE);
                     linearLayoutExpandedInputB.setVisibility(View.VISIBLE);
@@ -1303,7 +1304,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
                 case 6:
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_6));
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_6));
                     linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputA.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputB.setVisibility(View.VISIBLE);
@@ -1319,9 +1320,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
                 default:
-                    inputToggleValue = UserSettings.BQF_INPUT_TOGGLE_DEFAULT_VALUE;
-                    UserSettings.setBQFInputToggle(requireContext(), inputToggleValue);
-                    textViewInputToggle.setText(requireContext().getText(R.string.fa_4));
+                    inputVisibility = INPUT_VISIBILITY_DEFAULT_VALUE;
+                    UserSettings.setBQFInputVisibility(requireContext(), inputVisibility);
+                    textViewTitle.setText(requireContext().getText(R.string.binary_quadratic_form_input_visibility_4));
                     linearLayoutInputInputView.setVisibility(View.VISIBLE);
                     linearLayoutExpandedInputA.setVisibility(View.GONE);
                     linearLayoutExpandedInputB.setVisibility(View.VISIBLE);
@@ -1337,8 +1338,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
             }
+            refreshTitle();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1354,7 +1356,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1414,19 +1416,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 textViewPlusCompactF.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-
-
-    private void refreshHideExampleButtons() {
-        if (!isAdded()) return; // Ensure Fragment is attached before accessing context or views.
-
-        try {
-            boolean hideExampleButtons = UserSettings.getHideExampleButtons(requireContext());
-            buttonRunExampleToggle.setVisibility(hideExampleButtons ? View.GONE : View.VISIBLE);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1498,6 +1488,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             ControlDisplay.setClipboardButtonFontSize(textViewClearCompactF, biggerControls);
             // Clipboard output buttons
             ControlDisplay.setClipboardButtonFontSize(textViewExpandResult, biggerControls);
+            ControlDisplay.setClipboardButtonFontSize(textViewCenterResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewCopyResult, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearResult, biggerControls);
             // Expanded input controls
@@ -1533,7 +1524,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             ControlDisplay.setInputLabelFontSize(textViewLabelCompactF, biggerControls);
             ControlDisplay.setInputFontSize(editTextCompactF, biggerControls);
             // Run buttons
-            ControlDisplay.setButtonFontSize(buttonRunExampleToggle, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRun2, biggerControls);
@@ -1548,7 +1538,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             ControlDisplay.setInputLabelFontSize(this.textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(this.textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1559,7 +1549,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1609,20 +1599,41 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 digitsWithin(e, 2) &&
                 digitsWithin(f, 3);
 
-        if (!ok) {
-            textViewTitle.setText(R.string.binary_quadratic_form_title);
-            return;
+        int inputVisibility = UserSettings.getBQFInputVisibility(requireContext(), INPUT_VISIBILITY_DEFAULT_VALUE);
+
+        if (ok) {
+            String updatedTitle = updatedTitle = requireContext().getString(R.string.binary_quadratic_form_input_visibility_4);;
+            switch (inputVisibility) {
+                case 0:
+                    updatedTitle = requireContext().getString(R.string.binary_quadratic_form_input_visibility_0);
+                    break;
+                case 4:
+                    updatedTitle = formatSigned(b) + "xy+" + formatSigned(d) + "x+" + formatSigned(e) + "y=" + formatSigned(f);
+                    break;
+                case 6:
+                    updatedTitle = formatSigned(a) + "x²+" + formatSigned(b) + "xy+" + formatSigned(c) + "y²+" + formatSigned(d) + "x+" + formatSigned(e) + "y=" + formatSigned(f);
+                    break;
+                default:
+                    updatedTitle = formatSigned(b) + "xy+" + formatSigned(d) + "x+" + formatSigned(e) + "y=" + formatSigned(f);
+                    break;
+            }
+            textViewTitle.setText(updatedTitle);
+        } else {
+            switch (inputVisibility) {
+                case 0:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_0);
+                    break;
+                case 4:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_4);
+                    break;
+                case 6:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_6);
+                    break;
+                default:
+                    textViewTitle.setText(R.string.binary_quadratic_form_input_visibility_4);
+                    break;
+            }
         }
-
-        String updatedTitle =
-                formatSigned(a) + "x²+" +
-                formatSigned(b) + "xy+" +
-                formatSigned(c) + "y²+" +
-                formatSigned(d) + "x+" +
-                formatSigned(e) + "y=" +
-                formatSigned(f);
-
-        textViewTitle.setText(updatedTitle);
     }
     //endregion Refresh UI
 
@@ -1754,7 +1765,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(result1ListViewGridRowHeaders, gridAdapterRowHeaders);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1813,10 +1824,94 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             // Create and set the adapter for grid row headers.
             GridAdapter gridAdapterRowHeaders = new GridAdapter(requireContext(), cellWidths, cellHeights, rowHeaders, biggerResultDisplay);
             setListViewAdapter(result2ListViewGridRowHeaders, gridAdapterRowHeaders);
+
+            // Center result 2 grid
+            centerResultGrid(result2HorizontalScrollView, result2ListViewGridRows);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
+
+
+    private void centerResultGrid(HorizontalScrollView horizontalScrollView, ListView listView) {
+        // Center horizontally
+        centerHsvAfterLayout(horizontalScrollView, listView);
+        // Center vertically
+        centerListViewAfterLayout(listView);
+    }
+    /**
+     * Center horizontal scroll view
+     * @param horizontalScrollView
+     * @param listView
+     */
+    private void centerHsvAfterLayout(HorizontalScrollView horizontalScrollView, ListView listView) {
+        listView.requestLayout();
+
+        horizontalScrollView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override public boolean onPreDraw() {
+                if (!horizontalScrollView.getViewTreeObserver().isAlive()) return true;
+                horizontalScrollView.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                View content = horizontalScrollView.getChildAt(0);
+                if (content == null) return true;
+
+                int contentW = content.getWidth();
+                int hsvW = horizontalScrollView.getWidth();
+
+                int scrollX = Math.max(0, (contentW - hsvW) / 2);
+                // horizontalScrollView.smoothScrollTo(scrollX, 0); // Animation is slow on too many cells 
+                horizontalScrollView.scrollTo(scrollX, 0);
+
+                return true;
+            }
+        });
+    }
+    private void centerListViewAfterLayout(ListView listView) {
+        final GridAdapter adapter;
+        if (listView.getAdapter() != null && listView.getAdapter() instanceof GridAdapter) {
+            adapter = (GridAdapter)listView.getAdapter();
+        } else {
+            adapter = null;
+        }
+        if (adapter == null || adapter.getCount() == 0) return;
+
+        final int position = adapter.getCount() / 2;
+
+        listView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override public boolean onPreDraw() {
+                if (!listView.getViewTreeObserver().isAlive()) return true;
+                listView.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                int listH = listView.getHeight();
+                int itemH = getRowHeightEstimate(listView, adapter); // works even before row is visible
+
+                int offset = (listH / 2) - (itemH / 2);
+
+                // This works even if the row isn't visible yet
+                // listView.smoothScrollToPositionFromTop(position, offset, 300); // Animation is slow on too many cells
+                listView.setSelectionFromTop(position, offset);
+                return true;
+            }
+        });
+    }
+    private int getRowHeightEstimate(ListView listView, ListAdapter adapter) {
+        // Fast path: use an existing visible child if available
+        View c0 = listView.getChildAt(0);
+        if (c0 != null && c0.getHeight() > 0) return c0.getHeight();
+
+        // Otherwise measure one row from the adapter
+        View row = adapter.getView(0, null, listView);
+
+        int width = listView.getWidth();
+        if (width <= 0) width = listView.getResources().getDisplayMetrics().widthPixels;
+
+        int wSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
+        int hSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        row.measure(wSpec, hSpec);
+
+        return row.getMeasuredHeight();
+    }
+
 
     /**
      * Get the max column cell width within the list of column max length.
@@ -1852,27 +1947,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
 
     //region BUTTON ACTIONS
-    private void onButtonRunExampleToggle(ViewGroup container) {
-        try {
-            String currentExample = buttonRunExampleToggle.getText().toString();
-            if (currentExample.equals(getString(R.string.run_example))) {
-                setExample1();
-            } else if (currentExample.equals(getString(R.string.run_example_1))) {
-                setExample2();
-            } else if (currentExample.equals(getString(R.string.run_example_2))) {
-                setExample3();
-            } else if (currentExample.equals(getString(R.string.run_example_3))) {
-                setExample4();
-            } else if (currentExample.equals(getString(R.string.run_example_4))) {
-                setExample5();
-            } else {
-                setExample1();
-            }
-            runExample(container);
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
     private void runExample(ViewGroup container) {
         switch (lastRun) {
             case RUN:
@@ -1887,126 +1961,6 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             default:
                 onButtonRun(container, true, true);
                 break;
-        }
-    }
-    private void setExample1() {
-        try {
-            String a = "0";
-            String b = "8";
-            String c = "0";
-            String d = "3";
-            String e = "3";
-            String f = "88";
-            String m = "8";
-            String r = "0";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_1);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_1));
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-    private void setExample2() {
-        try {
-            String a = "0";
-            String b = "16";
-            String c = "0";
-            String d = "7";
-            String e = "3";
-            String f = "113";
-            String m = "16";
-            String r = "1";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_2);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_2));
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-    private void setExample3() {
-        try {
-            String a = "0";
-            String b = "8";
-            String c = "0";
-            String d = "7";
-            String e = "7";
-            String f = "83";
-            String m = "8";
-            String r = "3";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_3);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_3));
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-    private void setExample4() {
-        try {
-            String a = "0";
-            String b = "16";
-            String c = "0";
-            String d = "15";
-            String e = "11";
-            String f = "104";
-            String m = "16";
-            String r = "8";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_4);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_4));
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
-        }
-    }
-    private void setExample5() {
-        try {
-            String a = "0";
-            String b = "8";
-            String c = "0";
-            String d = "3";
-            String e = "5";
-            String f = "14";
-            String m = "8";
-            String r = "6";
-            editTextA.setText(a);
-            editTextB.setText(b);
-            editTextC.setText(c);
-            editTextD.setText(d);
-            editTextE.setText(e);
-            editTextF.setText(f);
-            editTextM.setText(m);
-            editTextR.setText(r);
-            buttonRunExampleToggle.setText(R.string.run_example_5);
-            textViewLabelResult.setText(requireContext().getText(R.string.result_example_5));
-        } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
         }
     }
 
@@ -2113,7 +2067,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(buttonRunExampleToggle);
+                beforeActionPerforming(textViewInputExampleCycle);
             } else {
                 beforeActionPerforming(buttonRun);
             }
@@ -2141,7 +2095,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 progressManager.startWork(container, algorithmParameters);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -2196,7 +2150,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(buttonRunExampleToggle);
+                beforeActionPerforming(textViewInputExampleCycle);
             } else {
                 beforeActionPerforming(buttonRun1);
             }
@@ -2217,7 +2171,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 progressManager.startWork(container, algorithmParameters);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -2265,7 +2219,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
 
             // Before action performing.
             if(runFromExample) {
-                beforeActionPerforming(buttonRunExampleToggle);
+                beforeActionPerforming(textViewInputExampleCycle);
             } else {
                 beforeActionPerforming(buttonRun2);
             }
@@ -2286,7 +2240,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                 progressManager.startWork(container, algorithmParameters);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -2324,6 +2278,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     for(int iIndex = 0; iIndex < row.size(); iIndex++) {
                         Cell item = row.get(iIndex);
                         if (!item.getIsHeader()) {
+                            if (item.getIsInfinit()) {
+                                continue;
+                            }
                             String value1 = item.getValue1();
                             BigInteger f = new BigInteger(value1);
                             BigInteger fmodm1 = f.mod(m);
@@ -2346,6 +2303,9 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     for(int iIndex = 0; iIndex < row.size(); iIndex++) {
                         Cell item = row.get(iIndex);
                         if (!item.getIsHeader()) {
+                            if (item.getIsInfinit()) {
+                                continue;
+                            }
                             if (item.getValueToDisplay() != Cell.ValueToDisplay.VALUE_1) {
                                 item.setValueToDisplay(Cell.ValueToDisplay.VALUE_1);
                             }
@@ -2398,14 +2358,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             }
             gridAdapter.refresh();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS
 
 
     //region RESULT
-    private void beforeActionPerforming(Button button) {
+    private void beforeActionPerforming(View view) {
         // Hide the keyboard.
         UIHelper.hideSoftKeyBoard(requireActivity());
         // Clear the focus.
@@ -2422,12 +2382,14 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         editTextCompactE.clearFocus();
         editTextCompactF.clearFocus();
         // Select the last button clicked.
-        resetAllAndSelectTheLastButtonClicked(button);
+        resetAllAndSelectTheLastButtonClicked(view);
     }
     private void resetAllAndSelectTheLastButtonClicked() {
         resetAllAndSelectTheLastButtonClicked(null);
     }
     private void resetAllAndSelectTheLastButtonClicked(View view) {
+        //
+        this.textViewInputExampleCycle.setSelected(false);
         //
         textViewMinusA.setSelected(false);
         textViewPlusA.setSelected(false);
@@ -2491,12 +2453,12 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
         textViewPasteCompactF.setSelected(false);
         textViewClearCompactF.setSelected(false);
         //
-        buttonRunExampleToggle.setSelected(false);
         buttonRun.setSelected(false);
         buttonRun1.setSelected(false);
         buttonRun2.setSelected(false);
         //
         textViewExpandResult.setSelected(false);
+        textViewCenterResult.setSelected(false);
         textViewCopyResult.setSelected(false);
         textViewClearResult.setSelected(false);
         // Select the last button clicked.
@@ -2529,6 +2491,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
             textViewLabelResult.setText(requireContext().getText(R.string.result));
         }
         linearLayoutFModMContainer.setVisibility(View.GONE);
+        textViewCenterResult.setVisibility(View.GONE);
         textViewCopyResult.setVisibility(View.VISIBLE);
         textViewClearResult.setVisibility(View.VISIBLE);
         linearLayoutResultContainer.setVisibility(View.VISIBLE);
@@ -2538,6 +2501,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     private void setResultVisibilityFromButtonRun1() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy));
         linearLayoutFModMContainer.setVisibility(View.GONE);
+        textViewCenterResult.setVisibility(View.GONE);
         textViewCopyResult.setVisibility(View.GONE);
         textViewClearResult.setVisibility(View.VISIBLE);
         linearLayoutResultContainer.setVisibility(View.GONE);
@@ -2547,6 +2511,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
     private void setResultVisibilityFromButtonRun2() {
         textViewLabelResult.setText(requireContext().getText(R.string.binary_quadratic_form_result_fxy_f_mod_m_r));
         linearLayoutFModMContainer.setVisibility(View.VISIBLE);
+        textViewCenterResult.setVisibility(View.VISIBLE);
         textViewCopyResult.setVisibility(View.GONE);
         textViewClearResult.setVisibility(View.VISIBLE);
         linearLayoutResultContainer.setVisibility(View.GONE);

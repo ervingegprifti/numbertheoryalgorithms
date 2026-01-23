@@ -7,24 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--Navigation controls-->
-	<RelativeLayout
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-		<TextView style="@style/TextViewBack"
+
+    <!--Title bar controls-->
+    <LinearLayout style="@style/TitleBarLinearLayoutContainer">
+        <TextView style="@style/TitleBarTextViewBack"
             android:id="@+id/TextViewBackToAlgorithms" />
-		<TextView style="@style/TextViewFragmentTitle"
+        <TextView style="@style/TitleBarTextViewTitle"
             android:id="@+id/TextViewTitle"
-            android:text="@string/binary_quadratic_form_title" />
-        <TextView style="@style/InputToggleStyle"
-            android:id="@+id/TextViewInputToggle"
-            android:text="@string/fa_4"/>
-	</RelativeLayout>
+            android:text="@string/binary_quadratic_form_input_visibility_4" />
+        <TextView style="@style/TitleBarTextViewExample"
+            android:id="@+id/TextViewInputExampleCycle" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:paddingLeft="20dp"
@@ -340,12 +334,9 @@
 
         </LinearLayout>
 
+
         <!--Buttons run-->
         <LinearLayout style="@style/RowContainerStyle">
-            <Button style="@style/ButtonRunExampleToggleStyle"
-                android:id="@+id/ButtonRunExampleToggle"
-                android:text="@string/run_example"
-                android:layout_marginEnd="10dp" />
             <Button style="@style/ButtonRunStyle"
                 android:id="@+id/ButtonRun"
                 android:text="@string/binary_quadratic_form_run_short"
@@ -416,7 +407,10 @@
             <TextView style="@style/TextViewLabelElasticStyle"
                 android:id="@+id/TextViewLabelElasticResult"  />
             <TextView style="@style/ClipboardButtonExpandResultStyle"
-                android:id="@+id/TextViewExpandResult"  />
+                android:id="@+id/TextViewExpandResult" />
+            <TextView style="@style/ClipboardButtonCenterResultStyle"
+                android:id="@+id/TextViewCenterResult"
+                android:visibility="gone" />
             <TextView style="@style/ClipboardButtonCopyStyle"
                 android:id="@+id/TextViewCopyResult" />
             <TextView style="@style/ClipboardButtonClearStyle"
@@ -478,7 +472,7 @@
                             android:listSelector="@android:color/transparent"
                             android:cacheColorHint="@android:color/transparent"
                             android:scrollbars="none" />
-                    </LinearLayout>
+                </LinearLayout>
                 </LinearLayout>
 
                 <HorizontalScrollView
@@ -556,6 +550,7 @@
                 </LinearLayout>
 
                 <HorizontalScrollView
+                    android:id="@+id/Result2HorizontalScrollView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbarStyle="outsideInset"

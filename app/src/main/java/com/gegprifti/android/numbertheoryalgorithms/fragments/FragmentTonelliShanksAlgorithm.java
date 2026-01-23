@@ -405,7 +405,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -433,7 +433,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
         try {
             menuInflater.inflate(R.menu.menu_fragment_tonelli_shanks_algorithm, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -477,7 +477,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -510,7 +510,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -538,7 +538,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 textViewPlusCompactP.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -559,7 +559,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
                 this.buttonRunExample3.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -606,7 +606,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             ControlDisplay.setInputFontSize(editTextCompactP, biggerControls);
             // Run buttons
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
-            // Example run buttons
+            // CycleSet run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
@@ -614,7 +614,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -625,7 +625,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Display
@@ -701,7 +701,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             algorithmParameters.setInput2(p);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample1(ViewGroup container) {
@@ -712,7 +712,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             //
             onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample2(ViewGroup container) {
@@ -723,7 +723,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             //
             onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample3(ViewGroup container) {
@@ -734,7 +734,7 @@ public class FragmentTonelliShanksAlgorithm extends FragmentBase implements Call
             //
             onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

@@ -62,7 +62,7 @@ public class CellUI {
         //}
 
         if (!cell.getIsHeader() && cell.getValue() != null && !cell.getValue().isEmpty()) {
-            textView.setOnClickListener(view -> UIHelper.copyTextIntoClipboard(context, cell.getValue()));
+            textView.setOnClickListener(view -> UIHelper.copyTextIntoClipboardWithNotification(context, cell.getValue(), true));
         } else {
             textView.setOnClickListener(null);
         }
@@ -142,20 +142,20 @@ public class CellUI {
     }
 
 
-    public TextView createTextView(int i, ViewGroup parent, boolean isLastItem) {
+    public TextView createTextView(int columnIndex, int rowIndex, ViewGroup parent, boolean isLastItem) {
         int cellResource = this.biggerResultDisplay ? R.layout.cell_big : R.layout.cell_small;
         int cellId = this.biggerResultDisplay ? R.id.CellBig : R.id.CellSmall;
         View cellInflater = layoutInflater.inflate(cellResource, parent, false);
         TextView textView = cellInflater.findViewById(cellId);
-        LinearLayout.LayoutParams layoutParams = createLayoutParams(i, isLastItem);
+        LinearLayout.LayoutParams layoutParams = createLayoutParams(columnIndex, rowIndex, isLastItem);
         textView.setLayoutParams(layoutParams);
         return textView;
     }
 
 
-    private LinearLayout.LayoutParams createLayoutParams(int i, boolean isLastItem) {
-        int cellWidth = cellWidths.get(i);
-        int cellHeight = cellHeights.get(i);
+    private LinearLayout.LayoutParams createLayoutParams(int columnIndex, int rowIndex, boolean isLastItem) {
+        int cellWidth = cellWidths.get(columnIndex);
+        int cellHeight = cellHeights.get(rowIndex);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(cellWidth, cellHeight);
         layoutParams.setMargins(margins.getLeft(), margins.getTop(), isLastItem ? 0 : margins.getRight(), margins.getBottom());
         return layoutParams;

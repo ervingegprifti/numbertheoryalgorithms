@@ -43,20 +43,20 @@
 		<!--Compact inputGroup view-->
 		<LinearLayout style="@style/ColumnContainerStyle"
 			android:layout_marginBottom="20dp">
-			<!--InputGroup integer k-->
+			<!--InputGroup integer a-->
 			<LinearLayout style="@style/RowContainerStyle">
 				<TextView style="@style/TextViewLabelCompactStyle"
-					android:id="@+id/TextViewLabelCompactK"
-					android:labelFor="@+id/EditTextCompactK"
-					android:text="@string/label_k" />
+					android:id="@+id/TextViewLabelCompactA"
+					android:labelFor="@+id/EditTextCompactA"
+					android:text="@string/label_a" />
 				<EditText style="@style/EditTextNumberInputCompactStyle"
-					android:id="@+id/EditTextCompactK"
+					android:id="@+id/EditTextCompactA"
 					android:autofillHints=""
 					android:enabled="false"/>
 				<TextView style="@style/ClipboardButtonMinusMiddleCompactStyle"
-					android:id="@+id/TextViewMinusCompactK" />
+					android:id="@+id/TextViewMinusCompactA" />
 				<TextView style="@style/ClipboardButtonPlusRightCompactStyle"
-					android:id="@+id/TextViewPlusCompactK" />
+					android:id="@+id/TextViewPlusCompactA" />
 			</LinearLayout>
 		</LinearLayout>
 

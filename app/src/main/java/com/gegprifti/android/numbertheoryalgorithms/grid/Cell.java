@@ -111,6 +111,14 @@ public class Cell {
         this.quadrant = quadrant;
     }
 
+    private boolean isInfinit = false;
+    public boolean getIsInfinit() {
+        return this.isInfinit;
+    }
+    public void setIsInfinit(boolean isInfinit) {
+        this.isInfinit = isInfinit;
+    }
+
     public Cell(boolean isHeader, String value1) {
         this(isHeader, value1, false, HeaderStyle.DEFAULT, ValueStyle.DEFAULT);
     }

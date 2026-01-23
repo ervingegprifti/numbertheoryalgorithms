@@ -521,7 +521,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -549,7 +549,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
         try {
             menuInflater.inflate(R.menu.menu_fragment_linear_congruence_in_one_variable, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -590,7 +590,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -623,7 +623,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -659,7 +659,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 textViewPlusCompactM.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -680,7 +680,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
                 this.buttonRunExample3.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -742,7 +742,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             ControlDisplay.setInputFontSize(editTextCompactM, biggerControls);
             // Run buttons
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
-            // Example run buttons
+            // CycleSet run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
@@ -750,7 +750,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -761,7 +761,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Display
@@ -852,7 +852,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             algorithmParameters.setInput3(m);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -866,7 +866,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             //
             onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -880,7 +880,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             //
             onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -894,7 +894,7 @@ public class FragmentLinearCongruenceInOneVariable extends FragmentBase implemen
             //
             onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

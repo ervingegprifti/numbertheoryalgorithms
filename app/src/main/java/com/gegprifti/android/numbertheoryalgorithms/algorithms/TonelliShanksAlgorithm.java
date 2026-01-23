@@ -244,7 +244,7 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
             // Re-throw it so ProgressManager can handle it correctly.
             throw ex;
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
             return ex.toString();
         }
     }
@@ -270,7 +270,7 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
 
             return result.toString();
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
             return ex.toString();
         }
     }
@@ -331,7 +331,7 @@ public class TonelliShanksAlgorithm extends Algorithm implements StringCalculato
             ord.setResult(result.toString());
             return ord;
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
             return null;
         }
     }

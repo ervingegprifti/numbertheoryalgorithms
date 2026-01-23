@@ -521,7 +521,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -549,7 +549,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
         try {
             menuInflater.inflate(R.menu.menu_fragment_linear_diophantine_equation_in_two_variables, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -590,7 +590,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -623,7 +623,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -659,7 +659,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 textViewPlusCompactC.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -680,7 +680,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
                 this.buttonRunExample3.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -742,7 +742,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             ControlDisplay.setInputFontSize(editTextCompactC, biggerControls);
             // Run buttons
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
-            // Example run buttons
+            // CycleSet run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
@@ -750,7 +750,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -761,7 +761,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Display
@@ -852,7 +852,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             algorithmParameters.setInput3(c);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample1(ViewGroup container) {
@@ -864,7 +864,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             //
             onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample2(ViewGroup container) {
@@ -876,7 +876,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             //
             onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample3(ViewGroup container) {
@@ -888,7 +888,7 @@ public class FragmentLinearDiophantineEquationInTwoVariables extends FragmentBas
             //
             onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

@@ -6,6 +6,10 @@ import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticfo
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm1;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.binaryquadraticform.BinaryQuadraticForm2;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.calculator.*;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors.ModFactorsAlg1;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors.ModFactorsAlg2;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors.ModFactorsAlg3;
+import com.gegprifti.android.numbertheoryalgorithms.algorithms.modfactors.ModFactorsCount;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +45,9 @@ public class AlgorithmFactory {
         registry.put(AlgorithmName.LINEAR_CONGRUENCE_IN_TWO_VARIABLES, LinearCongruenceInTwoVariables::new);
         registry.put(AlgorithmName.LINEAR_DIOPHANTINE_EQUATION_IN_TWO_VARIABLES, LinearDiophantineEquation::new);
         registry.put(AlgorithmName.TONELLI_SHANKS_ALGORITHM, TonelliShanksAlgorithm::new);
-        registry.put(AlgorithmName.MOD_FACTORS, ModFactors::new);
+        registry.put(AlgorithmName.MOD_FACTORS_ALG1, ModFactorsAlg1::new);
+        registry.put(AlgorithmName.MOD_FACTORS_ALG2, ModFactorsAlg2::new);
+        registry.put(AlgorithmName.MOD_FACTORS_ALG3, ModFactorsAlg3::new);
         registry.put(AlgorithmName.MOD_FACTORS_COUNT, ModFactorsCount::new);
     }
 

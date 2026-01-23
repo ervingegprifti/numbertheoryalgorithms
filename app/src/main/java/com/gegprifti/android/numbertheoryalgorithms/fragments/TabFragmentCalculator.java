@@ -605,7 +605,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 resetAllAndSelectTheLastButtonClicked(textViewClearHistory);
             });
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -619,7 +619,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
         try {
             menuInflater.inflate(R.menu.menu_fragment_tab_calculator, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -731,7 +731,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -765,7 +765,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -801,7 +801,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 textViewPlusCompactC.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -894,7 +894,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             ControlDisplay.setClipboardButtonFontSize(textViewPasteTemp, biggerControls);
             ControlDisplay.setClipboardButtonFontSize(textViewClearTemp, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -907,7 +907,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             ControlDisplay.setOutputFontSize(editTextTemp, biggerControls);
             ControlDisplay.setOutputFontSize(editTextHistory, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -921,7 +921,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 linearLayoutTemporaryField.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -935,7 +935,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 linearLayoutHistory.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Refresh UI
@@ -1109,7 +1109,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
                 editTextHistory.setText(newResultHistory);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     @NonNull
@@ -1213,7 +1213,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1249,7 +1249,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1285,7 +1285,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1321,7 +1321,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1357,7 +1357,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1393,7 +1393,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1429,7 +1429,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1470,7 +1470,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1506,7 +1506,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1542,7 +1542,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1584,7 +1584,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput3(c);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1623,7 +1623,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1653,7 +1653,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput1(a);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1683,7 +1683,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput1(a);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1713,7 +1713,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput1(a);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -1752,7 +1752,7 @@ public class TabFragmentCalculator extends FragmentBase implements Callback {
             algorithmParameters.setInput1(a);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Run buttons

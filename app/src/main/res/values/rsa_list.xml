@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rsaExample" translatable="false">RSA</string>
+
+    <!--₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉-->
+    <!-- https://en.wikipedia.org/wiki/RSA_Factoring_Challenge -->
+
+    <!-- https://en.wikipedia.org/wiki/RSA_numbers#RSA-100 -->
+    <string name="rsa_100" translatable="false">RSA₁₀₀</string>
+
+    <string name="rsa_576" translatable="false">RSA-576</string>
+    <string name="rsa_768" translatable="false">RSA-768</string>
+    <string name="rsa_1536" translatable="false">RSA-1536</string>
+    <string name="rsa_2048" translatable="false">RSA-2048</string>
+</resources>

@@ -163,7 +163,7 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
     /**
      * Assigns a view to handle a double-tap event.
      * <p>
-     * Usage example (call in onCreateView):
+     * Usage examples (call in onCreateView):
      * <pre>
      * <code>initDoubleTapDetector(editTextResult1);</code>
      * <code>initDoubleTapDetector(editTextResult2);</code>
@@ -197,7 +197,7 @@ public abstract class FragmentBase extends Fragment implements MenuProvider {
      * <p>
      * Override this method in child fragments to handle double-tap actions.
      * <p>
-     * Example usage in a child fragment:
+     * CycleSet usage in a child fragment:
      * <pre>
      * {@code
      * @Override

@@ -397,7 +397,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             });
             initDoubleTapDetector(editTextResult);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return inflater;
@@ -425,7 +425,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
         try {
             menuInflater.inflate(R.menu.menu_fragment_extended_euclidean_algorithm, menu);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -463,7 +463,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         // If the menu item was not handled by this fragment, return false
@@ -496,7 +496,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 linearLayoutCompactInputView.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -524,7 +524,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 textViewPlusCompactB.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -545,7 +545,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
                 this.buttonRunExample3.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -592,7 +592,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             ControlDisplay.setInputFontSize(editTextCompactB, biggerControls);
             // Run buttons
             ControlDisplay.setButtonFontSize(buttonRun, biggerControls);
-            // Example run buttons
+            // CycleSet run buttons
             ControlDisplay.setButtonFontSize(buttonRunExample1, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample2, biggerControls);
             ControlDisplay.setButtonFontSize(buttonRunExample3, biggerControls);
@@ -600,7 +600,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             ControlDisplay.setInputLabelFontSize(textViewLabelResult, biggerControls);
             ControlDisplay.setInputLabelFontSize(textViewLabelElasticResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -611,7 +611,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             // Output result
             ControlDisplay.setOutputFontSize(editTextResult, biggerControls);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion Display
@@ -687,7 +687,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             algorithmParameters.setInput2(b);
             progressManager.startWork(container, algorithmParameters);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -701,7 +701,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             //
             onButtonRun(container, buttonRunExample1, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample2(ViewGroup container) {
@@ -712,7 +712,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             //
             onButtonRun(container, buttonRunExample2, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     private void onButtonRunExample3(ViewGroup container) {
@@ -723,7 +723,7 @@ public class FragmentExtendedEuclideanAlgorithm extends FragmentBase implements 
             //
             onButtonRun(container, buttonRunExample3, true);
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
     }
     //endregion BUTTON ACTIONS

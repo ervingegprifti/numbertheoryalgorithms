@@ -1,6 +1,110 @@
 <resources>
 
-<!--TODO remove unused-->
+
+    <!--Title bar styles-->
+    <style name="TitleBarLinearLayoutContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">10dp</item>
+    </style>
+    <style name="TitleBarTextViewBack">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/fa_solid_900</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:text">@string/fa_arrow_left</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="TitleBarTextViewTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="TitleBarTextViewExample">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/button_example_bg</item>
+        <item name="android:textColor">@color/buttonExampleTextColor</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:text">@string/example</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:minWidth">40dp</item>
+    </style>
+    <!--End Title Bar Styles-->
+
+
+    <!--Back TODO DELETE-->
+    <style name="TextViewBack">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/fa_solid_900</item>
+        <item name="android:text">@string/fa_arrow_left</item>
+    </style>
+    <style name="ImageButtonBack">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/ic_baseline_arrow_back_24</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="TextViewFragmentTitle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="InputToggleStyle">
+        <item name="android:background">@drawable/input_toggle_bg</item>
+        <item name="android:textColor">@color/colorGeneralBg</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_width">28sp</item>
+        <item name="android:layout_height">28sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/fa_solid_900</item>
+    </style>
+    <style name="InputCycleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_example_bg</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="PopupResultToggleUpDown">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_popup_title_bg</item>
+        <item name="android:textColor">@color/popupTitleButtonText</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/fa_solid_900</item>
+        <item name="android:paddingHorizontal">14dp</item>
+        <item name="android:paddingVertical">6dp</item>
+    </style>
+    <!--End Back TODO DELETE-->
 
 
 
@@ -37,11 +141,17 @@
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:paddingVertical">8dp</item>
     </style>
+    <style name="ClipboardButtonToggleUpDownResultStyle" parent="ClipboardButtonStyle">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:text">@string/fa_chevron_down</item>
+    </style>
     <style name="ClipboardButtonExpandResultStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
-        <!--<item name="android:text">@string/expand_result</item>-->
         <item name="android:text">@string/fa_expand</item>
-        <item name="android:visibility">gone</item>
+    </style>
+    <style name="ClipboardButtonCenterResultStyle" parent="ClipboardButtonStyle">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:text">@string/fa_square_plus</item>
     </style>
     <style name="ClipboardButtonMinusStyle" parent="ClipboardButtonStyle">
         <item name="android:layout_marginRight">5dp</item>
@@ -289,7 +399,7 @@
         <item name="android:layout_marginVertical">0dp</item>
     </style>
 
-    <!-- Button Example -->
+    <!-- Button CycleSet -->
     <style name="ButtonExampleStyle" parent="ButtonStyle">
         <item name="backgroundTint">@color/button_example_bg_selector</item>
         <item name="android:textColor">@color/buttonExampleTextColor</item>
@@ -424,50 +534,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@drawable/result_bg</item>
-        <item name="android:gravity">top|left</item>
+        <item name="android:gravity">top|start</item>
     </style>
-
-
-    <!--Back-->
-    <style name="TextViewBack">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:fontFamily">@font/fa_solid_900</item>
-        <item name="android:text">@string/fa_arrow_left</item>
-    </style>
-    <style name="ImageButtonBack">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/ic_baseline_arrow_back_24</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:gravity">center</item>
-    </style>
-    <style name="InputToggleStyle">
-        <item name="android:background">@drawable/input_toggle_bg</item>
-        <item name="android:textColor">@color/colorGeneralBg</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_width">28sp</item>
-        <item name="android:layout_height">28sp</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:fontFamily">@font/fa_solid_900</item>
-    </style>
-
-
-
-    <style name="TextViewFragmentTitle">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:layout_centerInParent">true</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:gravity">center</item>
-    </style>
-
 
 
     <!-- About tab styles -->

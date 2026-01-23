@@ -115,7 +115,7 @@ public class FragmentAlgorithms extends FragmentBase {
                 }
             });
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
         return inflater;
     }
@@ -126,7 +126,7 @@ public class FragmentAlgorithms extends FragmentBase {
         //try {
         //    menuInflater.inflate(R.menu.menu_to_inflate, menu);
         //} catch (Exception ex) {
-        //    Log.e(TAG, "" + ex);
+        //    Log.e(TAG, "", ex);
         //}
     }
 

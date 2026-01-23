@@ -57,17 +57,17 @@ public class GridAdapter extends BaseAdapter {
     }
 
     @Override
-    public List<Cell> getItem(int position)  {
-        return rows.get(position);
+    public List<Cell> getItem(int rowIndex)  {
+        return rows.get(rowIndex);
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
+    public long getItemId(int rowIndex) {
+        return rowIndex;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int rowIndex, View convertView, ViewGroup parent) {
         try {
             // We define here.
             RowHolder rowHolder;
@@ -76,10 +76,10 @@ public class GridAdapter extends BaseAdapter {
                 View rowInflater = layoutInflater.inflate(R.layout.grid_row, parent, false);
                 LinearLayout linearLayoutRow = (LinearLayout) rowInflater.findViewById(R.id.GridRow);
                 List<TextView> textViews = new ArrayList<>();
-                List<Cell> cells = getItem(position);
-                for(int i = 0; i < cells.size(); i++) {
-                    boolean isLastItem = this.lastItemIndex == i;
-                    TextView textView = cellUI.createTextView(i, parent, isLastItem);
+                List<Cell> row = getItem(rowIndex);
+                for(int columnIndex = 0; columnIndex < row.size(); columnIndex++) {
+                    boolean isLastItem = this.lastItemIndex == columnIndex;
+                    TextView textView = cellUI.createTextView(columnIndex, rowIndex, parent, isLastItem);
                     textViews.add(textView);
                     linearLayoutRow.addView(textView);
                 }
@@ -91,16 +91,16 @@ public class GridAdapter extends BaseAdapter {
             }
 
             // We set values here.
-            List<Cell> cells = getItem(position);
-            for(int i = 0; i < cells.size(); i++) {
-                final Cell cell = cells.get(i);
-                TextView textView = rowHolder.TextViewCells.get(i);
+            List<Cell> row = getItem(rowIndex);
+            for(int columnIndex = 0; columnIndex < row.size(); columnIndex++) {
+                final Cell cell = row.get(columnIndex);
+                TextView textView = rowHolder.TextViewCells.get(columnIndex);
                 cellUI.refreshCell(cell, textView);
             }
 
             return convertView;
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
         return  null;
     }

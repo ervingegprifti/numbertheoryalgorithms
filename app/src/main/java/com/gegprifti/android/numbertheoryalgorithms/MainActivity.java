@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         } catch (Exception ex) {
-            Log.e(TAG, "" + ex);
+            Log.e(TAG, "", ex);
         }
 
         return super.onOptionsItemSelected(item);
