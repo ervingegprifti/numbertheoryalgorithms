@@ -80,8 +80,10 @@ public final class PopupResult {
 
             if (editableResult == null) {
                 this.scrollViewResultTextContained.setVisibility(View.GONE);
+                this.textViewToggleUpDown.setVisibility(View.GONE); // We use it for the edittext controls.
             } else {
                 this.scrollViewResultTextContained.setVisibility(View.VISIBLE);
+                this.textViewToggleUpDown.setVisibility(View.VISIBLE); // We use it for the edittext controls.
                 editTextResult.setText(editableResult);
             }
 

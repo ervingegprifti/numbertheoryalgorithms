@@ -1338,6 +1338,7 @@ public class FragmentBinaryQuadraticForm extends FragmentBase implements Callbac
                     linearLayoutCompactInputF.setVisibility(View.VISIBLE);
                     break;
             }
+            refreshTitle();
         } catch (Exception ex) {
             Log.e(TAG, "", ex);
         }
