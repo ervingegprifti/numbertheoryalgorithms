@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.ThemedSpinnerAdapter;
 
 import android.text.Editable;
 import android.text.Html;
@@ -27,8 +26,8 @@ import android.widget.TextView;
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.CycleSet;
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.ModFactorsExampleCycleSet;
 import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.ModFactorsExample;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.RSAExample;
-import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.RSAExampleCycleSet;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.RSA;
+import com.gegprifti.android.numbertheoryalgorithms.cyclesets.examples.RSACycleSet;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.InputGroup;
 import com.gegprifti.android.numbertheoryalgorithms.fragments.common.UIHelper;
 import com.gegprifti.android.numbertheoryalgorithms.progress.ProgressStatus;
@@ -204,11 +203,11 @@ public class FragmentModFactors extends FragmentBase implements Callback {
             });
             this.textViewInputRSAExampleCycle.setOnClickListener(view -> {
                 if (this.rsaExampleCycleSet == null) {
-                    this.rsaExampleCycleSet = new RSAExampleCycleSet();
+                    this.rsaExampleCycleSet = new RSACycleSet();
                 }
-                RSAExample example = (RSAExample)this.rsaExampleCycleSet.next();
-                UIHelper.setText(this.textViewInputRSAExampleCycle, example.getName());
-                UIHelper.setText(this.editTextN, example.getN());
+                RSA example = (RSA)this.rsaExampleCycleSet.next();
+                UIHelper.setText(this.textViewInputRSAExampleCycle, example.name);
+                UIHelper.setText(this.editTextN, example.n);
                 resetAllAndSelectTheLastButtonClicked(this.textViewInputRSAExampleCycle);
             });
             this.textViewInputExampleCycle.setOnClickListener(view -> {
