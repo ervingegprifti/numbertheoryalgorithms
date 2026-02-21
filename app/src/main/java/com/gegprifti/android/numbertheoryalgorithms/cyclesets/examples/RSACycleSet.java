@@ -14,7 +14,7 @@ public class RSACycleSet implements CycleSet {
     private int index = 0;
 
 
-    // <!--₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉-->
+    // <!--₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉ ₍ ₎-->
     // https://en.wikipedia.org/wiki/RSA_Factoring_Challenge
     public RSACycleSet() {
         List<RSA> elements = new ArrayList<>();
@@ -81,6 +81,60 @@ public class RSACycleSet implements CycleSet {
                 .q(new BigInteger("445647744903640741533241125787086176005442536297766153493419724532460296199"))
                 .build();
         elements.add(rsa150);
+
+        RSA rsa155 = new RSA.Builder()
+                .name("RSA₁₅₅")
+                .reference("https://en.wikipedia.org/wiki/RSA_numbers#RSA-155")
+                .n(new BigInteger("10941738641570527421809707322040357612003732945449205990913842131476349984288934784717997257891267332497625752899781833797076537244027146743531593354333897"))
+                .p(new BigInteger("102639592829741105772054196573991675900716567808038066803341933521790711307779"))
+                .q(new BigInteger("106603488380168454820927220360012878679207958575989291522270608237193062808643"))
+                .build();
+        elements.add(rsa155);
+
+        RSA rsa160 = new RSA.Builder()
+                .name("RSA₁₆₀")
+                .reference("https://en.wikipedia.org/wiki/RSA_numbers#RSA-160")
+                .n(new BigInteger("2152741102718889701896015201312825429257773588845675980170497676778133145218859135673011059773491059602497907111585214302079314665202840140619946994927570407753"))
+                .p(new BigInteger("45427892858481394071686190649738831656137145778469793250959984709250004157335359"))
+                .q(new BigInteger("47388090603832016196633832303788951973268922921040957944741354648812028493909367"))
+                .build();
+        elements.add(rsa160);
+
+        RSA rsa170 = new RSA.Builder()
+                .name("RSA₁₇₀")
+                .reference("https://en.wikipedia.org/wiki/RSA_numbers#RSA-170")
+                .n(new BigInteger("26062623684139844921529879266674432197085925380486406416164785191859999628542069361450283931914514618683512198164805919882053057222974116478065095809832377336510711545759"))
+                .p(new BigInteger("3586420730428501486799804587268520423291459681059978161140231860633948450858040593963"))
+                .q(new BigInteger("7267029064107019078863797763923946264136137803856996670313708936002281582249587494493"))
+                .build();
+        elements.add(rsa170);
+
+        RSA rsa174 = new RSA.Builder()
+                .name("RSA₁₇₄")
+                .reference("https://en.wikipedia.org/wiki/RSA_numbers#RSA-576")
+                .n(new BigInteger("188198812920607963838697239461650439807163563379417382700763356422988859715234665485319060606504743045317388011303396716199692321205734031879550656996221305168759307650257059"))
+                .p(new BigInteger("398075086424064937397125500550386491199064362342526708406385189575946388957261768583317"))
+                .q(new BigInteger("472772146107435302536223071973048224632914695302097116459852171130520711256363590397527"))
+                .build();
+        elements.add(rsa174);
+
+        RSA rsa180 = new RSA.Builder()
+                .name("RSA₁₈₀")
+                .reference("https://en.wikipedia.org/wiki/RSA_numbers#RSA-180")
+                .n(new BigInteger("191147927718986609689229466631454649812986246276667354864188503638807260703436799058776201365135161278134258296128109200046702912984568752800330221777752773957404540495707851421041"))
+                .p(new BigInteger("400780082329750877952581339104100572526829317815807176564882178998497572771950624613470377"))
+                .q(new BigInteger("476939688738611836995535477357070857939902076027788232031989775824606225595773435668861833"))
+                .build();
+        elements.add(rsa180);
+
+//        RSA rsaXXX = new RSA.Builder()
+//                .name("RSA₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉ ₍ ₎")
+//                .reference("XXXXXX")
+//                .n(new BigInteger("XXXXXX"))
+//                .p(new BigInteger("XXXXXX"))
+//                .q(new BigInteger("XXXXXX"))
+//                .build();
+//        elements.add(rsaXXX);
 
         this.elements = Collections.unmodifiableList(elements);
     }
