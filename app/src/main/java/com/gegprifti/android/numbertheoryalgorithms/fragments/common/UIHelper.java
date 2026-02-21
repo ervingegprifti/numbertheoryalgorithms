@@ -236,8 +236,11 @@ public final class UIHelper {
     //endregion Toasts
 
 
+    /**
+     * This is to dismiss the keyboard
+     * @param fragmentActivity
+     */
     public static void hideSoftKeyBoard(FragmentActivity fragmentActivity) {
-        // This is to dismiss the keyboard
         try {
             InputMethodManager inputMethodManager = (InputMethodManager) fragmentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if(inputMethodManager == null) {
