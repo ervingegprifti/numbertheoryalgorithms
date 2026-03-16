@@ -7,6 +7,7 @@ import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmH
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.AlgorithmParameters;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.Algorithm;
 import com.gegprifti.android.numbertheoryalgorithms.algorithms.common.StringCalculator;
+import com.gegprifti.android.numbertheoryalgorithms.utils.MathUtils;
 
 import java.math.BigInteger;
 import java.util.Locale;
@@ -54,6 +55,7 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
 
             BigInteger percentMin = BigInteger.valueOf(100);
             String minimumModFactorsOutput = null;
+            BigInteger minimumMod = null;
 
             // b' = {2, ... , b}
             for(BigInteger bPrime = TWO; bPrime.compareTo(b) <= 0; bPrime = bPrime.add(ONE)) {
@@ -101,12 +103,23 @@ public class ModFactorsCount extends Algorithm implements StringCalculator {
                 if (percent.compareTo(percentMin) <= 0) {
                     percentMin = percent;
                     minimumModFactorsOutput = modFactorsOutput;
+                    minimumMod = bPrime;
                 }
             }
             result.append("<br>");
 
-            result.append(String.format(Locale.getDefault(), "<font color='%s'>Minimum mod factors</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Minimum mod factors often is for (mod primorial)</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Primorial: The product of all primes up to a certain prime</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Primorial example: 2·3=6</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Primorial example: 2·3·5=30</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Primorial example: 2·3·5·7=210</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Primorial example: 2·3·5·7·11=2310</font><br>", COLOR));
+            result.append(String.format(Locale.getDefault(), "<font color='%s'>Primorial example: 2·3·5·7·11·13=30030</font><br>", COLOR));
             result.append(minimumModFactorsOutput);
+            while (minimumMod != null && MathUtils.isEven(minimumMod)) {
+                minimumMod = minimumMod.divide(TWO);
+                result.append(String.format(Locale.getDefault(), "%d / %d = %d<br>", minimumMod.multiply(TWO), TWO, minimumMod));
+            }
 
             // Track execution time end
             long end = System.nanoTime();
